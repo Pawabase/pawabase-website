@@ -17,7 +17,7 @@ ${!live ? '<meta name="robots" content="noindex, nofollow" />' : ""}
 <meta property="og:image:alt" content="Pawabase — your backend, already connected" />
 <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="${title}" />
 <meta name="twitter:description" content="${description}" /><meta name="twitter:image" content="${escape(origin)}/media/social.png" />
-<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Pawabase", applicationCategory: "DeveloperApplication", operatingSystem: "Self-hosted", url: origin, description, codeRepository: "https://github.com/sillohq/pawabase" }).replaceAll("<", "\\u003c")}</script>`;
+<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Pawabase", applicationCategory: "DeveloperApplication", operatingSystem: "Self-hosted", url: origin, description, codeRepository: "https://github.com/Pawabase/pawabase" }).replaceAll("<", "\\u003c")}</script>`;
 const html = (await readFile("dist/index.html", "utf8"))
   .replace("<!--seo-->", meta)
   .replace("<!--app-->", await render());

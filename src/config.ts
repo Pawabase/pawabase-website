@@ -1,10 +1,10 @@
 /// <reference types="vite/client" />
-export const github = "https://github.com/sillohq/pawabase";
+export const github = "https://github.com/Pawabase/pawabase";
 // Source documentation is the safe default until a public docs host is configured.
 export const docs = (page = "quickstart") =>
   import.meta.env.VITE_DOCS_URL
     ? `${import.meta.env.VITE_DOCS_URL.replace(/\/$/, "")}/${page}`
-    : `${github}/blob/main/apps/docs/${page}.mdx`;
+    : `https://github.com/Pawabase/pawabase-docs/blob/main/${page}.mdx`;
 export const dashboard = import.meta.env.VITE_DASHBOARD_URL as
   | string
   | undefined;

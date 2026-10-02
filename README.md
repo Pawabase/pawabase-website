@@ -5,7 +5,7 @@ Phase 1 only. React, TypeScript and TanStack Router, with Vite and build-time Re
 ## Run
 
 ```sh
-cd pawabase/apps/website
+git clone https://github.com/Pawabase/pawabase-website && cd pawabase-website
 npm ci
 npm run dev
 ```
