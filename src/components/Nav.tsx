@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { dashboard, developerLinks, docs, products } from "../config";
-import { Chevron, MenuIcon, Moon, ProductIcon, Sun } from "./Icons";
+import { ArrowRight, Chevron, MenuIcon, Moon, ProductIcon, Sun } from "./Icons";
 
 const THEME_KEY = "pawabase.website.theme";
 
@@ -32,6 +32,36 @@ function useTheme() {
   };
   return { dark, toggle };
 }
+
+const Column = ({ heading, children }: { heading: string; children: ReactNode }) => (
+  <div className="drop-col">
+    <h3 className="drop-heading">{heading}</h3>
+    {children}
+  </div>
+);
+
+const RichItem = ({ to, icon, name, line }: { to: string; icon: ReactNode; name: string; line: string }) => (
+  <Link to={to} className="drop-rich">
+    <i className="drop-icon">{icon}</i>
+    <span className="drop-text">
+      <b>{name}</b>
+      <span>{line}</span>
+    </span>
+  </Link>
+);
+
+const Terminal = () => (
+  <div className="drop-term" aria-hidden="true">
+    <div className="drop-term-bar"><i /><i /><i /><span>Your first project</span></div>
+    <pre>
+      <span className="p">$</span> pip install pawabase{"\n"}
+      <span className="p">$</span> pawabase init{"\n"}
+      <span className="p">$</span> pawabase emulate{"\n"}
+      <span className="p">$</span> pawabase deploy{"\n"}
+      <span className="ok">✓ live in Lagos</span>
+    </pre>
+  </div>
+);
 
 type MenuKey = "products" | "developers" | null;
 
@@ -90,18 +120,28 @@ export function Nav() {
           </button>
           {menu === "products" && (
             <div className="drop" id="menu-products">
-              <div className="wrap drop-inner">
-                <div className="drop-grid">
-                  {products.map((p) => (
-                    <Link key={p.key} to={p.path} className={`drop-item tone-${p.key}`}>
-                      <i className="drop-icon"><ProductIcon name={p.key} /></i>
-                      <span className="drop-text">
-                        <b>{p.name}</b>
-                        <span>{p.line}</span>
-                      </span>
-                    </Link>
+              <div className="drop-panel">
+                <Column heading="Build">
+                  {products.slice(0, 3).map((p) => (
+                    <RichItem key={p.key} to={p.path} icon={<ProductIcon name={p.key} />} name={p.name} line={p.line} />
                   ))}
-                </div>
+                </Column>
+                <Column heading="Run">
+                  {products.slice(3).map((p) => (
+                    <RichItem key={p.key} to={p.path} icon={<ProductIcon name={p.key} />} name={p.name} line={p.line} />
+                  ))}
+                </Column>
+                <Column heading="Learn">
+                  {developerLinks.slice(0, 4).map((l) => (
+                    <a key={l.name} href={l.href} className="drop-link">
+                      {l.name}
+                    </a>
+                  ))}
+                  <a href={docs("index")} className="drop-more">
+                    View all <ArrowRight />
+                  </a>
+                </Column>
+                <Terminal />
               </div>
             </div>
           )}
@@ -113,17 +153,28 @@ export function Nav() {
           </button>
           {menu === "developers" && (
             <div className="drop" id="menu-developers">
-              <div className="wrap">
-                <div className="drop-grid two">
-                  {developerLinks.map((l) => (
-                    <a key={l.name} href={l.href} className="drop-item plain">
+              <div className="drop-panel">
+                <Column heading="Documentation">
+                  {developerLinks.slice(0, 3).map((l) => (
+                    <a key={l.name} href={l.href} className="drop-rich plain">
                       <span className="drop-text">
                         <b>{l.name}</b>
                         <span>{l.line}</span>
                       </span>
                     </a>
                   ))}
-                </div>
+                </Column>
+                <Column heading="Build with">
+                  {developerLinks.slice(3).map((l) => (
+                    <a key={l.name} href={l.href} className="drop-rich plain">
+                      <span className="drop-text">
+                        <b>{l.name}</b>
+                        <span>{l.line}</span>
+                      </span>
+                    </a>
+                  ))}
+                </Column>
+                <Terminal />
               </div>
             </div>
           )}
