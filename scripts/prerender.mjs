@@ -4,9 +4,9 @@ const origin = process.env.SITE_URL
   ? new URL(process.env.SITE_URL).origin
   : "http://localhost:4173";
 const live = !new URL(origin).hostname.match(/^(localhost|127\.0\.0\.1)$/);
-const title = "Pawabase — One backend, already connected.";
+const title = "Pawabase: The backend your product starts on.";
 const description =
-  "One backend for the data, identity, storage, realtime, automation and operations behind your application.";
+  "Pawabase is a self-hostable backend platform for teams building SaaS products, marketplaces, mobile apps and business software.";
 const escape = (s) =>
   s.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
 const meta = `<link rel="canonical" href="${escape(origin)}/" />
@@ -14,7 +14,7 @@ ${!live ? '<meta name="robots" content="noindex, nofollow" />' : ""}
 <meta property="og:type" content="website" /><meta property="og:site_name" content="Pawabase" />
 <meta property="og:title" content="${title}" /><meta property="og:description" content="${description}" />
 <meta property="og:url" content="${escape(origin)}/" /><meta property="og:image" content="${escape(origin)}/media/social.png" />
-<meta property="og:image:alt" content="Pawabase — your backend, already connected" />
+<meta property="og:image:alt" content="Pawabase: the backend your product starts on" />
 <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="${title}" />
 <meta name="twitter:description" content="${description}" /><meta name="twitter:image" content="${escape(origin)}/media/social.png" />
 <script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "Pawabase", applicationCategory: "DeveloperApplication", operatingSystem: "Self-hosted", url: origin, description, codeRepository: "https://github.com/Pawabase/pawabase" }).replaceAll("<", "\\u003c")}</script>`;

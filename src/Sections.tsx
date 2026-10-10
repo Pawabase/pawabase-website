@@ -9,7 +9,7 @@ function Heading({ title, children, action }: { title: string; children: string;
   </div>;
 }
 
-/* 1 — Architecture · framed */
+/* 1: Architecture · framed */
 const tiers = [
   { label: "Clients", note: "apikey + bearer token", nodes: ["Web app", "iOS", "Android", "Server / worker"] },
   { label: "Gateway", note: "one door, :8080", nodes: ["Resolve project:env", "Check API key", "CORS & rate limits"], hot: true },
@@ -32,7 +32,7 @@ function Architecture() {
   </section>;
 }
 
-/* 2 — SDK · full-bleed, no borders */
+/* 2: SDK · full-bleed, no borders */
 const snippets = [
   { id: "js", label: "JavaScript", code: `const res = await fetch(
   \`\${GW}/rest/v1/posts?filter[status]=published\`,
@@ -95,7 +95,7 @@ function Clients() {
   </section>;
 }
 
-/* 3 — Policies · framed */
+/* 3: Policies · framed */
 const matrix = [
   { op: "list", rule: "owner", arg: "owner_id", ok: "own rows only" },
   { op: "get", rule: "owner", arg: "owner_id", ok: "own rows only" },
@@ -130,7 +130,7 @@ function Policies() {
   </section>;
 }
 
-/* 4 — Flows · full-bleed, no borders */
+/* 4: Flows · full-bleed, no borders */
 function FlowCanvas() {
   return <div className="sx-canvas" aria-hidden="true">
     <svg viewBox="0 0 900 360" preserveAspectRatio="none" fill="none">
@@ -166,7 +166,7 @@ function Flows() {
   </section>;
 }
 
-/* 5 — Realtime protocol · framed */
+/* 5: Realtime protocol · framed */
 const frames = [
   { dir: "out", type: "subscribe", body: '{ "type": "subscribe", "channel": "store:7" }' },
   { dir: "in", type: "subscribed", body: '{ "type": "subscribed", "channel": "store:7", "status": "ok" }' },
@@ -196,7 +196,7 @@ function Realtime() {
   </section>;
 }
 
-/* 6 — Environments · full-bleed, no borders */
+/* 6: Environments · full-bleed, no borders */
 const envs = [
   { name: "development", version: "v249", keys: "pb_pk_… / pb_sk_…", note: "Where you build" },
   { name: "staging", version: "v247", keys: "own keys", note: "Rehearse the release" },
@@ -222,7 +222,7 @@ function Environments() {
   </section>;
 }
 
-/* 7 — Self-hosting · framed */
+/* 7: Self-hosting · framed */
 const services = [["gateway", ":8080", "public entry"], ["studio", ":8090", "dashboard"], ["api", "internal", "resources & flows"], ["akountz", "internal", "identity"], ["angula", "internal", "realtime"], ["worker", "internal", "jobs"], ["scheduler", "internal", "cron"], ["postgres", "internal", "platform state"], ["redis", "internal", "queues & pub/sub"]];
 
 function SelfHost() {
@@ -246,7 +246,7 @@ function SelfHost() {
   </section>;
 }
 
-/* 8 — Migrate + CTA · full-bleed, no borders */
+/* 8: Migrate + CTA · full-bleed, no borders */
 const concept = [
   ["anon key", "Firebase Auth SDK", "Publishable key"],
   ["service_role key", "Firebase Admin SDK", "Secret key"],
