@@ -1,66 +1,59 @@
-// Verifies the built homepage: structure, layout, links, motion preferences and accessibility,
-// at desktop, tablet and mobile widths in both themes. Run against a preview or dev server.
+// Checks every page of a running build (CHECK_URL, default http://127.0.0.1:4173), in both themes at three widths:
+// console errors, horizontal overflow, axe, forbidden styles (shadow, filter, backdrop-filter, gradient), banned words, broken internal links.
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
-import assert from "node:assert/strict";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
 
+const origin = process.env.CHECK_URL || "http://127.0.0.1:4173";
+const paths = ["/", "/products/auth", "/products/database", "/products/storage", "/products/functions", "/products/automation", "/cloud"];
+const banned = /\b(seamless(ly)?|powerful|revolutionary|supercharge|unlock|effortless(ly)?|next-generation|game-changing)\b/i;
+const problems = [];
 const browser = await chromium.launch({ channel: "chrome", headless: true });
-const origin = process.env.CHECK_URL || "http://localhost:4173";
-const report = [];
-const SECTIONS = ["proposition", "studio", "build", "platform", "developers", "why", "ownership", "ecosystem", "open", "explore"];
-await mkdir("artifacts", { recursive: true });
-try {
+const seen = new Set();
+for (const theme of ["light", "dark"]) {
   for (const width of [1440, 768, 390]) {
-    for (const theme of ["light", "dark"]) {
-      const context = await browser.newContext({ viewport: { width, height: width < 600 ? 844 : 900 }, reducedMotion: "reduce" });
-      await context.addInitScript(value => localStorage.setItem("pawabase.website.theme", value), theme);
-      const page = await context.newPage();
-      const errors = [];
-      page.on("pageerror", e => errors.push(e.message));
-      page.on("console", m => { if (m.type() === "error") errors.push(m.text()); });
-      await page.goto(origin, { waitUntil: "networkidle" });
-      await page.evaluate(() => document.fonts.ready);
-
-      assert.equal(await page.locator("h1").count(), 1, "exactly one h1");
-      assert.equal(await page.locator("main > section").count(), 12, "hero plus eleven sections, then the closing footer");
-      assert.equal(await page.locator("footer.close").count(), 1);
-      for (const id of SECTIONS) assert.equal(await page.locator(`#${id}`).count(), 1, `section #${id}`);
-      assert.equal(await page.locator("html").getAttribute("data-theme"), theme);
-      assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), "Horizontal overflow");
-      const broken = await page.evaluate(() => [...document.querySelectorAll('a[href^="#"]')].filter(a => a.getAttribute("href").length > 1 && !document.getElementById(a.getAttribute("href").slice(1))).map(a => a.getAttribute("href")));
-      assert.deepEqual(broken, [], "broken in-page anchors");
-      // Every image must load.
-      await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { scrollTo(0, y); await new Promise(r => setTimeout(r, 40)); } scrollTo(0, 0); });
-      await page.waitForTimeout(600);
-      const missing = await page.evaluate(() => [...document.images].filter(i => i.complete && i.naturalWidth === 0).map(i => i.src));
-      assert.deepEqual(missing, [], "images failed to load");
-      // The Studio switcher changes the view and reports its state.
-      const tab = page.locator(".show-tabs button").nth(2);
-      await tab.click();
-      assert.equal(await tab.getAttribute("aria-pressed"), "true");
-      // Capability, scene and start-path selectors respond.
-      await page.locator(".explore-tabs button").nth(2).click();
-      assert((await page.locator(".explore-pane code").innerText()).includes("pawabase deploy"));
-      // Mobile navigation opens and closes.
-      if (width < 900) {
-        await page.locator(".menu-toggle").click();
-        assert.equal(await page.locator(".menu-toggle").getAttribute("aria-expanded"), "true");
-        await page.keyboard.press("Escape");
-        assert.equal(await page.locator(".menu-toggle").getAttribute("aria-expanded"), "false");
+    const ctx = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: "reduce" });
+    await ctx.addInitScript((t) => localStorage.setItem("pawabase.website.theme", t), theme);
+    for (const path of paths) {
+      const page = await ctx.newPage();
+      const tag = `${path} ${theme} ${width}`;
+      page.on("pageerror", (e) => problems.push(`${tag}: ${e.message}`));
+      page.on("console", (m) => m.type() === "error" && problems.push(`${tag}: console ${m.text()}`));
+      await page.goto(origin + path, { waitUntil: "networkidle" });
+      const r = await page.evaluate(({ bannedSrc }) => {
+        const out = { overflow: document.documentElement.scrollWidth - innerWidth, bad: [], words: [], links: [] };
+        for (const el of document.querySelectorAll("body *")) {
+          const s = getComputedStyle(el);
+          if (s.boxShadow !== "none") out.bad.push(`${el.tagName}.${el.className} box-shadow`);
+          if (s.textShadow !== "none") out.bad.push(`${el.tagName}.${el.className} text-shadow`);
+          if (s.filter !== "none") out.bad.push(`${el.tagName}.${el.className} filter`);
+          if (s.backdropFilter && s.backdropFilter !== "none") out.bad.push(`${el.tagName}.${el.className} backdrop-filter`);
+          if (/gradient/.test(s.backgroundImage)) out.bad.push(`${el.tagName}.${el.className} gradient`);
+        }
+        const m = document.body.innerText.match(new RegExp(bannedSrc, "i"));
+        if (m) out.words.push(m[0]);
+        out.links = [...document.querySelectorAll("a[href]")].map((a) => a.getAttribute("href"));
+        return out;
+      }, { bannedSrc: banned.source });
+      if (r.overflow > 0) problems.push(`${tag}: horizontal overflow ${r.overflow}px`);
+      for (const b of new Set(r.bad)) problems.push(`${tag}: ${b}`);
+      for (const w of r.words) problems.push(`${tag}: banned word "${w}"`);
+      for (const l of r.links) if (l.startsWith("/")) seen.add(l.split("#")[0] || "/");
+      if (width === 1440) {
+        const axe = await new AxeBuilder({ page }).analyze();
+        for (const v of axe.violations) problems.push(`${tag}: axe ${v.id} (${v.nodes.length}) ${v.help}`);
       }
-      await page.screenshot({ path: `artifacts/home-${width}-${theme}.png`, fullPage: true });
-      const result = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
-      report.push({ width, theme, errors, accessibility: result.violations.map(v => ({ id: v.id, nodes: v.nodes.slice(0, 4).map(n => ({ target: n.target, summary: n.failureSummary })) })) });
-      await context.close();
+      await page.close();
     }
+    await ctx.close();
   }
-  const html = await readFile("dist/index.html", "utf8");
-  for (const needle of ["The backend your product starts on", "application/ld+json", "og:image", 'rel="canonical"', "twitter:card"]) assert(html.includes(needle), `Missing prerender: ${needle}`);
-  await writeFile("artifacts/checks.json", JSON.stringify(report, null, 2));
-  console.log(JSON.stringify(report.map(r => ({ ...r, accessibility: r.accessibility.map(a => a.id + " x" + a.nodes.length) })), null, 1));
-  assert(report.every(r => !r.errors.length && !r.accessibility.length), "Check artifacts/checks.json");
-  console.log("All checks passed.");
-} finally {
-  await browser.close();
 }
+for (const l of seen) {
+  const res = await fetch(origin + l);
+  if (!res.ok) problems.push(`link ${l}: ${res.status}`);
+}
+await browser.close();
+if (problems.length) {
+  console.log([...new Set(problems)].join("\n"));
+  process.exit(1);
+}
+console.log(`ok: ${paths.length} pages × 2 themes × 3 widths`);

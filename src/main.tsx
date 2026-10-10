@@ -3,9 +3,10 @@ import { createRoot, hydrateRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
 import { makeRouter } from "./router";
 import "./styles.css";
+import "./pages/pages.css";
+
 const router = makeRouter();
-// This static route has no loader data to dehydrate. Preserve TanStack's SSR
-// boundary shape when hydrating the build-time rendered document.
+// Static routes carry no loader data to dehydrate: keep TanStack's SSR boundary shape when hydrating the prerendered document.
 if (document.getElementById("root")?.querySelector("main")) {
   router.ssr = { manifest: undefined };
 }

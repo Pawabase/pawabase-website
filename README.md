@@ -1,72 +1,40 @@
-# Pawabase marketing — homepage preview
+# Pawabase website
 
-Phase 1 only. React, TypeScript and TanStack Router, with Vite and build-time React prerendering. The separate Sillo website and Pawabase Studio are untouched.
+The marketing site: a homepage and six product pages (`/products/auth`, `/products/database`, `/products/storage`, `/products/functions`, `/products/automation`, `/cloud`).
+React 19, TypeScript, TanStack Router, Vite, and a build-time prerender of every page. Plain CSS: the tokens are Pawabase Studio's design system
+(`studio/frontend/src/styles.css`): a tinted canvas, white cards, pill controls, ink as the primary action, pastels for decoration.
 
 ## Run
 
 ```sh
-git clone https://github.com/Pawabase/pawabase-website && cd pawabase-website
 npm ci
-npm run dev
+npm run dev            # http://127.0.0.1:4173
+npm run build          # typecheck, client build, server build, prerender every page into dist/
+npm run preview        # serve dist/ on the same port
+CHECK_URL=http://127.0.0.1:4173 node scripts/check.mjs
 ```
 
-Open **http://localhost:4173/**. For the prerendered production preview, stop the development server, then run `npm run build` and `npm run preview` on the same port.
+`scripts/check.mjs` opens every page in both themes at 1440, 768 and 390 px and fails on console errors, horizontal overflow, axe violations, any
+box-shadow, text-shadow, filter, backdrop-filter or gradient in computed styles, banned marketing words, and broken internal links.
+`scripts/shot.mjs <path> [--full --scroll --theme light|dark --w 1440]` takes a screenshot for review. `scripts/social.mjs` renders `public/social.png`.
 
-The review session also serves the production build at **http://localhost:4174/** using `npm run preview -- --port 4174`. Check that instance with `CHECK_URL=http://localhost:4174 node scripts/check.mjs`.
+## Illustrations
 
-## Deployment configuration
+Every illustration is a Hairline figure (the `@lucasmarkes/hairline` engine, vendored in `src/hairline/core`), drawn for Pawabase in `src/hairline/pawabase`:
+`session`, `records`, `bucket`, `rack` and `steps` are built on `picker.ts`, one plate with parts of which the pointer picks one; `foundation`,
+`schema`, `workers` and `regions` are drawn on their own. They load when they near the viewport, honour `prefers-reduced-motion`, and are described to
+assistive technology by a label. There are no screenshots or recordings on the site, and nothing in a figure is a word.
+`src/hairline/registry.ts` lists them. In development, `/__figures` shows each one large.
 
-The public marketing, documentation and hosted Studio domains have not been supplied. Defaults deliberately avoid inventing them:
+## Content rules
 
-- `SITE_URL=https://your-marketing-domain` at build time sets canonical, social metadata, structured data, robots and sitemap. Without it, the build is a localhost preview with `noindex` and `Disallow: /`.
-- `VITE_DOCS_URL=https://your-docs-domain` changes documentation links. By default they point to the existing MDX documentation in the public GitHub repository.
-- `VITE_DASHBOARD_URL=https://your-studio-domain` enables the Open Studio CTA. Without it the header links to self-hosting instructions, not an inaccessible dashboard.
+Only what the product documentation and code support is stated. Pawabase Cloud is described as pre-launch, in Nigeria, billed in naira through
+Paystack, with plans and prices unpublished. Function isolation is described as in review. Code samples are copied from the public documentation.
 
-Serve `dist` as static files. Only `/` is a marketing route; do not blanket-rewrite unknown paths to `/index.html` in production. Configure your static host to return HTTP 404 for unknown URLs. No production deployment was performed.
+## Configuration
 
-## Real product media
+- `SITE_URL` (build time) sets canonical URLs, social tags, structured data, `robots.txt` and the sitemap. Without it the build is a localhost preview marked `noindex`.
+- `VITE_DOCS_URL` points documentation links at a docs host; by default they point at the MDX in `Pawabase/pawabase-docs`.
+- `VITE_DASHBOARD_URL` adds a Sign in link; without it none is shown.
 
-Four silent H.264 clips and WebP posters were recorded from the running local Studio, in the existing Sell4Me Commerce development environment:
-
-- Overview: changing the analytics range and inspecting the traffic chart.
-- Resources: browsing the existing resource listing.
-- Flows: opening an existing Flow and inspecting blocks, without saving or running it.
-- Observability: filtering the existing request logs.
-
-Clips are approximately 6.5 seconds, muted and viewport-aware. Reduced-motion visitors see a poster unless they explicitly play a clip. No backend business data was changed. Login occurs before recording starts, authentication state remains in memory, and the operator identity area is hidden during capture. Request IDs and analytics in the clips are actual local development observations, not performance claims.
-
-The interactive Flow explainer is explicitly illustrative, uses verified block types, and does not pretend to execute against a backend. No AI-generated images, fabricated dashboards, customer logos, testimonials, pricing, benchmarks, or AI/marketplace availability claims were added. The social card is rendered from HTML, the existing brand mark and a real Studio capture.
-
-Capture tooling: `node scripts/capture.mjs` reads credentials from the local Pawabase `.env` without printing or persisting them. It requires local Studio, Google Chrome, ffmpeg, and `npx playwright install ffmpeg`. `CAPTURE_ONLY=flows` recaptures a single clip. Raw output is ignored under `artifacts/`. Review every captured frame before publishing against a different dataset.
-
-## Verification
-
-With the site running on port 4173:
-
-```sh
-node scripts/check.mjs
-```
-
-Checks desktop/tablet/mobile overflow, browser errors, WCAG A/AA automated rules, menu/Escape behavior, keyboard tabs, illustrative block selection, reduced-motion behavior, playback/pause, and prerendered metadata. Reports and screenshots go to ignored `artifacts/`. Automated accessibility checks are not a substitute for a full assistive-technology audit. No production traffic, Core Web Vitals or load benchmark is claimed.
-
-`node scripts/social.mjs` rebuilds the social card against the running local homepage. `npm run build` copies all public media and produces the crawlable HTML, robots.txt and homepage-only sitemap.xml.
-
-## Remaining 15 pages — awaiting homepage approval
-
-2. Database — resources, relations, filtering, policies, generated APIs.
-3. Authentication — accounts, sessions, OAuth, MFA, organizations and permissions.
-4. Storage — objects, uploads, signed access, infrastructure drivers.
-5. Realtime — broadcast, presence, channels and history.
-6. Flows — triggers, blocks, branching/loops, runs and errors.
-7. Queues & Background Jobs — dispatch, workers and job operations.
-8. APIs & Webhooks — routes, Explorer, inbound hooks and outbound delivery.
-9. Functions / Compute — Python extension points and execution boundaries.
-10. AI & Agents — audit implementation before choosing claims or availability language.
-11. Observability — request logs, Flow traces and user log blocks.
-12. Platform — environments, releases, schedules, secrets and infrastructure.
-13. Marketplace — audit availability; distinguish repository blueprints from a marketplace.
-14. Developers — docs, API conventions, examples and extension guides.
-15. Community — issues, contribution and verified community destinations.
-16. About / Open Source — project direction, Sillo foundation and verified support options.
-
-None of these pages has been implemented. Existing homepage links lead to real documentation or repository destinations. Sponsorship is omitted because no verified sponsorship destination was supplied.
+Serve `dist` as static files and return 404 for unknown paths.
