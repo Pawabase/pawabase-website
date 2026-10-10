@@ -324,3 +324,14 @@
 .frame .section.flush .trio { margin-bottom: 0; }
 .stack > .codecard { margin-top: var(--gap, 20px); }
 .stack > .actions { margin-top: calc(var(--gap, 20px) + 6px); }
+
+/* the hero's stage is a painted landscape: sky behind the headline, hills along its foot; the bento starts below it */
+.hero-stage { position: relative; min-height: clamp(460px, 48vw, 700px); display: flex; flex-direction: column; justify-content: flex-start; background: #a9cdfb url("/images/hero-landscape.jpg") center bottom / cover no-repeat; }
+.hero-stage::after { content: ""; position: absolute; inset: 0; background: transparent; pointer-events: none; }
+:root[data-theme="dark"] .hero-stage::after { background: rgba(14, 12, 24, 0.6); }
+.hero-stage .wrap { position: relative; z-index: 1; padding-bottom: clamp(160px, 22vw, 320px); }
+.hero-stage .lede { color: #2b2840; }
+:root[data-theme="dark"] .hero-stage .lede { color: inherit; }
+.frame .hero { padding-top: 0; }
+.hero-stage { padding-top: clamp(56px, 8vw, 112px); }
+.hero-stage .hero-side { padding-bottom: 8px; }

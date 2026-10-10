@@ -29,8 +29,8 @@ const cells = [
 function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
+      <div className="hero-stage">
       <div className="wrap">
-        <i className="fx dots soft fill" aria-hidden="true" />
         <div className="hero-top">
           <h1 id="hero-title" className="display">
             Everything your application needs, in one place.
@@ -47,6 +47,7 @@ function Hero() {
             </div>
           </div>
         </div>
+      </div>
       </div>
       <div className="bento">
         {cells.map((c) => (
