@@ -27,7 +27,7 @@ export default function Automation() {
     <>
       <PageHead
         title="Automation"
-        lede="Something happens. Pawabase publishes an event, and flows, functions and webhooks react with retries."
+        lede="Something happens in your app. Pawabase reacts: sends the email, calls your partner, updates the record, and tries again if it fails."
         figure="steps"
         figureLabel="A stair of five treads. The tread under the pointer lifts."
         primary={{ href: docs("flows/overview"), label: "Read about Flows" }}
@@ -35,10 +35,9 @@ export default function Automation() {
       />
 
       <section className="section" aria-labelledby="triggers">
-      <i className="fx dots patch tr" aria-hidden="true" />
         <div className="wrap">
           <h2 id="triggers" className="h1" style={{ marginBottom: 28, maxWidth: "18ch" }}>
-            Eight ways to start a run.
+            Start it however you like.
           </h2>
           <div className="sheet">
             <table className="spec">
@@ -53,23 +52,21 @@ export default function Automation() {
       </section>
 
       <section className="section deep" aria-labelledby="events">
-      <i className="fx rings big tr" aria-hidden="true" />
         <div className="wrap two">
           <div className="blurb">
-            <h2 id="events" className="h1">Add a reaction without touching the cause.</h2>
+            <h2 id="events" className="h1">Add new behavior without changing what already works.</h2>
           </div>
           <div className="blurb">
-            <p className="lede">One event reaches every matching subscriber: flows, functions, signed webhooks and realtime channels.</p>
-            <p className="small">Delivery is at least once, so consumers should be idempotent.</p>
+            <p className="lede">One thing happening can trigger everything that cares: automation, your functions, your partners and live screens.</p>
+            <p className="small">Every message is delivered at least once, so build reactions that are safe to repeat.</p>
           </div>
         </div>
       </section>
 
       <section className="section" aria-labelledby="queues">
-      <i className="fx ticks strip-h tl" aria-hidden="true" />
         <div className="wrap">
           <h2 id="queues" className="h1" style={{ marginBottom: 28, maxWidth: "18ch" }}>
-            One queue system for background work.
+            Background work that does not get lost.
           </h2>
           <div className="sheet">
             <table className="spec">

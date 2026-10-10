@@ -24,7 +24,7 @@ export default function Storage() {
     <>
       <PageHead
         title="Storage"
-        lede="Files live in buckets. Each bucket has a policy for who reads and who writes."
+        lede="Store files safely and decide who can see them, with the same rules as the rest of your app."
         figure="bucket"
         figureLabel="Three crates of different sizes on a plate and a dashed footprint for one that does not exist yet. The crate under the pointer lifts."
         primary={{ href: docs("storage/overview"), label: "Read about Storage" }}
@@ -32,10 +32,9 @@ export default function Storage() {
       />
 
       <section className="section" aria-labelledby="buckets">
-      <i className="fx dots patch tr" aria-hidden="true" />
         <div className="wrap">
           <h2 id="buckets" className="h1" style={{ marginBottom: 28, maxWidth: "18ch" }}>
-            A bucket is a container with rules.
+            Folders that know who may open them.
           </h2>
           <div className="sheet">
             <table className="spec">
@@ -50,14 +49,13 @@ export default function Storage() {
       </section>
 
       <section className="section ink" aria-labelledby="path">
-      <i className="fx iso big br" aria-hidden="true" />
         <div className="wrap split">
           <div className="c5 stack" style={{ ["--gap" as string]: "16px" }}>
             <h2 id="path" className="h1">
-              Checked before it reaches the disk.
+              Every upload and download is checked.
             </h2>
-            <p className="lede">The gateway resolves the key, checks who is calling, evaluates the bucket policy, then forwards to the driver.</p>
-            <p className="small">A secret key bypasses the policy. Keep it on a server.</p>
+            <p className="lede">Before a file is stored or served, Pawabase checks who is asking and what they are allowed to do.</p>
+            <p className="small">A secret key skips these checks, so keep it on your server.</p>
           </div>
           <div className="c7">
             <Code lang="bash" caption="An upload with a publishable key and a user token." source="pawabase-docs, Storage › Uploads">
@@ -68,15 +66,14 @@ export default function Storage() {
       </section>
 
       <section className="section" aria-labelledby="where">
-      <i className="fx ticks strip-h tl" aria-hidden="true" />
         <div className="wrap two">
           <div className="sheet blurb">
-            <h2 id="where" className="h2">Where files go.</h2>
-            <p className="body">One driver per environment: local disk, or any S3-compatible service such as AWS S3, MinIO, Tigris, Cloudflare R2 or DigitalOcean Spaces.</p>
+            <h2 id="where" className="h2">Keep files where you want.</h2>
+            <p className="body">Local disk, or any S3-compatible service such as AWS S3, MinIO, Tigris, Cloudflare R2 or DigitalOcean Spaces.</p>
           </div>
           <div className="sheet blurb">
             <h2 className="h2">Not included.</h2>
-            <p className="body">No Google Cloud Storage or Azure Blob driver. No multipart uploads. No per-bucket driver.</p>
+            <p className="body">Google Cloud Storage and Azure Blob are not supported yet. Neither are multipart uploads or a different storage service per folder.</p>
           </div>
         </div>
       </section>

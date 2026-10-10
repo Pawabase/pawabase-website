@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import GridMotion from "../components/GridMotion";
 import { Code } from "../components/Code";
+import { Diagram } from "../components/Diagrams";
 import { Figure } from "../components/Figure";
 import { ArrowRight } from "../components/Icons";
 import { docs, github } from "../config";
@@ -19,12 +20,12 @@ const Arrow = ({ to, href, children }: { to?: string; href?: string; children: s
 /* ────────────────────────────── 1 · hero ────────────────────────────── */
 
 const cells = [
-  { key: "auth", name: "Auth", figure: "session", text: "Sign-in, second factor, organizations and roles, read by every policy.", to: "/products/auth", span: 5, tone: "white" },
-  { key: "database", name: "Database", figure: "records", text: "Define a table once. Get validation, policies and a REST API.", to: "/products/database", span: 4, tone: "canvas" },
-  { key: "storage", name: "Storage", figure: "bucket", text: "Files behind the same policies as your records.", to: "/products/storage", span: 3, tone: "canvas" },
-  { key: "functions", name: "Functions", figure: "workers", text: "Python beside your data, deployed from your repository.", to: "/products/functions", span: 3, tone: "white" },
-  { key: "automation", name: "Automation", figure: "steps", text: "Flows, events and schedules, with retries and a record of every run.", to: "/products/automation", span: 5, tone: "white" },
-  { key: "cloud", name: "Cloud", figure: "rack", text: "Managed projects, each its own installation.", to: "/cloud", span: 4, tone: "lavender" },
+  { key: "auth", name: "Auth", figure: "auth", text: "Sign-in, teams and roles your customers expect, ready in minutes.", to: "/products/auth", span: 5, tone: "white" },
+  { key: "database", name: "Database", figure: "database", text: "Describe your data once and get a secure API for it.", to: "/products/database", span: 4, tone: "canvas" },
+  { key: "storage", name: "Storage", figure: "storage", text: "Upload and share files under the same rules as your data.", to: "/products/storage", span: 3, tone: "canvas" },
+  { key: "functions", name: "Functions", figure: "functions", text: "Write your own logic in Python and run it beside your data.", to: "/products/functions", span: 3, tone: "white" },
+  { key: "automation", name: "Automation", figure: "automation", text: "Send the email, charge the card, sync the stock: automatically, every time.", to: "/products/automation", span: 5, tone: "white" },
+  { key: "cloud", name: "Cloud", figure: "cloud", text: "Launch a project in a minute. We run it for you.", to: "/cloud", span: 4, tone: "lavender" },
 ] as const;
 
 const WALL_NAMES = ["Auth", "Database", "Storage", "Functions", "Flows", "Realtime", "Mail", "Queues", "Policies", "Webhooks", "Secrets", "Backups", "Schedules", "Events", "Gateway"];
@@ -47,7 +48,7 @@ function Hero() {
             Everything your application needs, in one place.
           </h1>
           <div className="hero-side">
-            <p className="lede">Identity, data, files, logic and automation in one runtime. Managed, or on your own servers.</p>
+            <p className="lede">Sign-in, database, files, background work and your own logic, ready from day one. Hosted by us, or run on your own servers.</p>
             <div className="actions">
               <a className="btn btn-primary" href={docs("quickstart")}>
                 Start building
@@ -69,7 +70,7 @@ function Hero() {
               <Arrow to={c.to}>{`Explore ${c.name}`}</Arrow>
             </header>
             <div className="cell-fig">
-              <Figure name={c.figure} names={(t) => t} label={`An illustration for ${c.name}.`} ratio="5 / 4" />
+              <Diagram name={c.figure} label={`${c.name}, as the product shows it.`} />
             </div>
           </article>
         ))}
@@ -83,17 +84,16 @@ function Hero() {
 function Connected() {
   return (
     <section id="platform" className="section" aria-labelledby="platform-title">
-      <i className="fx dots patch tl" aria-hidden="true" />
       <div className="wrap">
         <div className="center">
           <h2 id="platform-title" className="h1">
-            One platform, not a pile of services.
+            Build the product, not the plumbing.
           </h2>
-          <p className="lede">A request is authenticated once, authorized by one policy language and recorded once.</p>
+          <p className="lede">Sign-in, data, files and background work arrive already connected, so your team spends its time on what makes your product yours.</p>
         </div>
         <div className="stage wide">
           <Figure name="schema" names={(c) => c} label="Tiles joined by links. The tile under the pointer rises, and every tile that refers to it rises after it." ratio="5 / 4" />
-          <p className="small stage-note">Point at a tile. What depends on it rises with it.</p>
+          <p className="small stage-note">Point at a piece to see what it connects to.</p>
         </div>
       </div>
     </section>
@@ -107,21 +107,21 @@ function Lifecycle() {
     <section id="build" className="section alt flush" aria-labelledby="build-title">
       <div className="wrap">
         <h2 id="build-title" className="h1" style={{ maxWidth: "16ch" }}>
-          From the first definition to a running application.
+          From idea to launch, without the detours.
         </h2>
       </div>
       <div className="trio">
         <article>
-          <h3 className="h3">Describe it as data.</h3>
-          <p className="body">Resources, policies, flows and schedules are definitions you can export as a blueprint.</p>
+          <h3 className="h3">Start from a clear description.</h3>
+          <p className="body">Describe your product's data and rules in plain definitions, and Pawabase sets everything up.</p>
         </article>
         <article>
-          <h3 className="h3">Try it beside what is live.</h3>
-          <p className="body">Deploy to a branch next to main, and run locally against a real deployment.</p>
+          <h3 className="h3">Try changes safely.</h3>
+          <p className="body">Test on a separate branch beside your live app, then ship when you are happy.</p>
         </article>
         <article>
-          <h3 className="h3">Read back what happened.</h3>
-          <p className="body">Requests, runs, jobs and deliveries are recorded with their traces.</p>
+          <h3 className="h3">Always know what happened.</h3>
+          <p className="body">See every request, job and email that ran, and why, whenever something needs explaining.</p>
         </article>
       </div>
     </section>
@@ -133,23 +133,22 @@ function Lifecycle() {
 function Foundation() {
   return (
     <section id="foundation" className="section" aria-labelledby="foundation-title">
-      <i className="fx ticks strip-h tl" aria-hidden="true" />
       <div className="wrap split">
         <div className="c7">
           <div className="stage">
             <Figure name="foundation" names={(c) => c} label="Four layers a request meets: identity, policy, records and files. The pointer's height picks one and the layers above it lift away." ratio="5 / 4" />
-            <p className="small stage-note">Move down the stack to open a layer.</p>
+            <p className="small stage-note">Move down to open each layer.</p>
           </div>
         </div>
         <div className="c5 stack" style={{ ["--gap" as string]: "20px" }}>
           <h2 id="foundation-title" className="h1">
-            The foundation every request passes through.
+            Secure by default, from the first request.
           </h2>
           <dl className="kv">
-            <div><dt>Identity</dt><dd>Who is calling. <Link to="/products/auth">Auth</Link></dd></div>
-            <div><dt>Policy</dt><dd>What they may do, in one condition language.</dd></div>
-            <div><dt>Records</dt><dd>Typed tables and a generated API. <Link to="/products/database">Database</Link></dd></div>
-            <div><dt>Files</dt><dd>Buckets under the same rules. <Link to="/products/storage">Storage</Link></dd></div>
+            <div><dt>Sign-in</dt><dd>Know who is using your app. <Link to="/products/auth">Auth</Link></dd></div>
+            <div><dt>Permissions</dt><dd>Say who can see and change what, in plain conditions.</dd></div>
+            <div><dt>Data</dt><dd>Tables and an API, generated for you. <Link to="/products/database">Database</Link></dd></div>
+            <div><dt>Files</dt><dd>Stored and shared under the same rules. <Link to="/products/storage">Storage</Link></dd></div>
           </dl>
         </div>
       </div>
@@ -183,21 +182,20 @@ async def pay(ctx):
 function Logic() {
   return (
     <section id="logic" className="section deep" aria-labelledby="logic-title">
-      <i className="fx rings big tr" aria-hidden="true" />
       <div className="wrap">
         <div className="split">
           <div className="c5 stack" style={{ ["--gap" as string]: "18px" }}>
             <h2 id="logic-title" className="h1">
-              Application behavior without a second infrastructure.
+              Your business logic, without another server.
             </h2>
-            <p className="lede">An event happens. A flow, a function, a job or a webhook reacts, on a queue, with retries.</p>
+            <p className="lede">When something happens in your app, Pawabase reacts: send the receipt, update the record, tell your partner. Retried automatically if it fails.</p>
             <div className="actions">
               <Arrow to="/products/functions">Functions</Arrow>
               <Arrow to="/products/automation">Automation</Arrow>
             </div>
           </div>
           <div className="c7">
-            <Code lang="python" caption="A function: a transaction and an event." source="pawabase-docs, Code › Functions">
+            <Code lang="python" caption="A function that marks an order paid and announces it." source="pawabase-docs, Code › Functions">
               {ORDERS_PAY}
             </Code>
           </div>
@@ -210,22 +208,21 @@ function Logic() {
 /* ───────────────────────── 6 · built for real applications ───────────────────────── */
 
 const patterns = [
-  { title: "Products with customers and teams", text: "Organizations, roles and invitations, readable in every policy.", link: ["/products/auth", "Auth"] },
-  { title: "Marketplaces and commerce", text: "Orders, payments and verified payment webhooks. Sell4me, the reference backend, is 54 resources and 43 flows.", link: ["/products/database", "Database"] },
-  { title: "Internal business tools", text: "Every resource is editable in Studio the moment it exists.", link: ["/products/database", "Database"] },
-  { title: "Operational systems", text: "Reports, imports and reminders on queues and schedules.", link: ["/products/automation", "Automation"] },
+  { title: "Apps with customers and teams", text: "Accounts, organizations and roles, ready to use.", link: ["/products/auth", "Auth"] },
+  { title: "Marketplaces and shops", text: "Orders, payments and confirmations, handled. Sell4me, our reference store, is built on it.", link: ["/products/database", "Database"] },
+  { title: "Internal tools", text: "Manage your data in Studio the moment it exists.", link: ["/products/database", "Database"] },
+  { title: "Day-to-day operations", text: "Reports, imports and reminders that run on schedule.", link: ["/products/automation", "Automation"] },
 ] as const;
 
 function Applications() {
   return (
     <section id="applications" className="section" aria-labelledby="applications-title">
-      <i className="fx dots patch tr" aria-hidden="true" />
       <div className="wrap">
         <div className="center">
           <h2 id="applications-title" className="h1">
-            Built for real applications.
+            Made for the products you are building.
           </h2>
-          <p className="lede">Patterns Pawabase was designed around. Not customers.</p>
+          <p className="lede">From customer apps to internal tools.</p>
         </div>
         <div className="ledger card-list">
           {patterns.map((p) => (
@@ -250,9 +247,9 @@ function CloudSection() {
       <div className="wrap split">
         <div className="c5 stack" style={{ ["--gap" as string]: "18px" }}>
           <h2 id="cloud-title" className="h1">
-            Pawabase Cloud runs it for you.
+            Let us run it for you.
           </h2>
-          <p className="lede">Create a project by name. Each one is its own Pawabase installation with its own database.</p>
+          <p className="lede">Create a project and get your own complete backend with its own database. No servers to set up.</p>
           <p className="small">Pre-launch. Plans and regions are published as they open.</p>
           <div className="actions">
             <Link className="btn btn-primary" to="/cloud">
@@ -278,14 +275,14 @@ function Africa() {
         <div className="c7">
           <div className="stage">
             <Figure name="regions" names={{ open: "region open", "not published": "region not published" }} label="A control plate with six sites around it. The one that is open is a tile; the others are dashed footprints that are not published yet." ratio="5 / 4" />
-            <p className="small stage-note">One site is open. The dashed footprints are not published.</p>
+            <p className="small stage-note">Lagos is open. The dashed sites are not published yet.</p>
           </div>
         </div>
         <div className="c5 stack" style={{ ["--gap" as string]: "18px" }}>
           <h2 id="africa-title" className="h1">
-            Infrastructure for African markets.
+            Built for African businesses.
           </h2>
-          <p className="lede">Cloud runs in Nigeria and bills in naira through Paystack. Other regions are planned, not published, and no compliance claim is made.</p>
+          <p className="lede">Pawabase Cloud runs in Nigeria and bills in naira through Paystack. More regions are planned; none is promised until it opens.</p>
           <div className="actions">
             <Arrow to="/cloud">Regions and billing</Arrow>
           </div>
@@ -322,13 +319,12 @@ const page = await pawabase
 function Developers() {
   return (
     <section id="developers" className="section alt" aria-labelledby="developers-title">
-      <i className="fx ticks strip-h bl" aria-hidden="true" />
       <div className="wrap split top">
         <div className="c5 stack" style={{ ["--gap" as string]: "22px" }}>
           <h2 id="developers-title" className="h1">
-            Fits the way a team already works.
+            Fits how your team already works.
           </h2>
-          <p className="lede">Code in your repository, tests that run without a server, and the same software managed or self-hosted.</p>
+          <p className="lede">Keep your code in your repository, test without a server, and move between our cloud and your own servers when you choose.</p>
           <Code lang="bash" caption="The command line." source="pawabase-docs, Code › CLI">
             {CLI}
           </Code>
@@ -359,7 +355,6 @@ function Developers() {
 function Closing() {
   return (
     <section id="start" className="section peach" aria-labelledby="closing-title">
-      <i className="fx hatch patch br" aria-hidden="true" />
       <div className="wrap split">
         <div className="c7 stack" style={{ ["--gap" as string]: "28px" }}>
           <h2 id="closing-title" className="display">

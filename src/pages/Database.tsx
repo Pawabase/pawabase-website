@@ -34,7 +34,7 @@ export default function Database() {
     <>
       <PageHead
         title="Database"
-        lede="A resource is a table, its operations and a policy for each, written as data."
+        lede="Describe your data once. Pawabase creates the table, the API and the permissions for it."
         figure="records"
         figureLabel="The rows of a table as long strips on a plate. The row under the pointer slides out of the table."
         primary={{ href: docs("data/resources"), label: "Read about resources" }}
@@ -42,10 +42,9 @@ export default function Database() {
       />
 
       <section className="section" aria-labelledby="definition">
-      <i className="fx dots patch tr" aria-hidden="true" />
         <div className="wrap">
           <h2 id="definition" className="h1" style={{ marginBottom: 28, maxWidth: "18ch" }}>
-            One definition drives the rest.
+            Describe it once. Get the rest.
           </h2>
           <div className="sheet">
             <table className="spec">
@@ -60,13 +59,12 @@ export default function Database() {
       </section>
 
       <section className="section deep" aria-labelledby="policy">
-      <i className="fx rings big tr" aria-hidden="true" />
         <div className="wrap split">
           <div className="c5 stack" style={{ ["--gap" as string]: "16px" }}>
             <h2 id="policy" className="h1">
-              Policies decide. The database filters.
+              You set the rules. Pawabase enforces them.
             </h2>
-            <p className="lede">For a list, part of the policy becomes SQL, so pagination stays correct.</p>
+            <p className="lede">Lists only ever show what a person is allowed to see, and paging still works.</p>
           </div>
           <div className="c7 stack" style={{ ["--gap" as string]: "14px" }}>
             <Code lang="json" caption="Attached to list, each person sees their own rows." source="pawabase-docs, Policies">
@@ -80,7 +78,6 @@ export default function Database() {
       </section>
 
       <section className="section" aria-labelledby="engine">
-      <i className="fx ticks strip-h tl" aria-hidden="true" />
         <div className="wrap split">
           <div className="c7">
             <div className="stage">
@@ -90,9 +87,9 @@ export default function Database() {
           </div>
           <div className="c5 stack" style={{ ["--gap" as string]: "16px" }}>
             <h2 id="engine" className="h1">
-              Your database, your engine.
+              Bring the database you prefer.
             </h2>
-            <p className="lede">SQLite for development. PostgreSQL or MySQL in production. Fourteen field types.</p>
+            <p className="lede">SQLite while you build. PostgreSQL or MySQL when you launch.</p>
           </div>
         </div>
       </section>

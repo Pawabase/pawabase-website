@@ -38,11 +38,10 @@ export default function Functions() {
   return (
     <>
       <section className="pagehead">
-      <i className="fx dots soft fill" aria-hidden="true" />
         <div className="wrap split">
           <div className="c5" style={{ alignSelf: "center" }}>
             <h1 className="h1" style={{ fontSize: "clamp(34px, 4.4vw, 56px)" }}>Functions</h1>
-            <p className="lede" style={{ marginTop: 20 }}>Plain async Python for logic a flow cannot express. It lives in your repository and runs next to your data.</p>
+            <p className="lede" style={{ marginTop: 20 }}>Write your own business logic in plain Python. It lives in your repository and runs right beside your data.</p>
             <div className="actions" style={{ marginTop: 28 }}>
               <a className="btn btn-primary" href={docs("code/functions")}>Read about Functions</a>
               <a className="btn" href={docs("code/cli")}>Command line</a>
@@ -57,22 +56,20 @@ export default function Functions() {
       </section>
 
       <section className="section" aria-labelledby="three">
-      <i className="fx dots patch tr" aria-hidden="true" />
         <div className="wrap">
           <h2 id="three" className="h1" style={{ marginBottom: 28, maxWidth: "18ch" }}>
-            The same file runs in three places.
+            Write it once. Run it anywhere.
           </h2>
           <div className="two three">
-            <div className="sheet blurb"><h3 className="h3">On a deployment</h3><p className="body">Deploy with an API key. Branches deploy next to main, and rollback is one command.</p></div>
-            <div className="sheet blurb"><h3 className="h3">On your machine</h3><p className="body"><span className="mono">pawabase emulate</span> serves it locally against a real deployment.</p></div>
-            <div className="sheet blurb"><h3 className="h3">In a unit test</h3><p className="body">Tests use <span className="mono">pawabase.testing</span> and need no server.</p></div>
+            <div className="sheet blurb"><h3 className="h3">On a deployment</h3><p className="body">Deploy with one command. Try a branch beside your live app, and roll back in seconds.</p></div>
+            <div className="sheet blurb"><h3 className="h3">On your machine</h3><p className="body"><span className="mono">pawabase emulate</span> runs it on your machine against a real deployment.</p></div>
+            <div className="sheet blurb"><h3 className="h3">In a unit test</h3><p className="body">Test it with <span className="mono">pawabase.testing</span>, no server needed.</p></div>
           </div>
           <p className="notice" style={{ marginTop: 28 }}>Running functions in isolated worker processes by default is in review and is not part of a released version.</p>
         </div>
       </section>
 
       <section className="section deep" aria-labelledby="invoke">
-      <i className="fx rings big tr" aria-hidden="true" />
         <div className="wrap split top">
           <div className="c5">
             <div className="stage">
@@ -81,9 +78,9 @@ export default function Functions() {
           </div>
           <div className="c7 stack" style={{ ["--gap" as string]: "22px" }}>
             <h2 id="invoke" className="h1">
-              Called over HTTP, from a flow, or as a job.
+              Call it from your app, from automation, or on a schedule.
             </h2>
-            <p className="lede">Its policy decides who may call it. Inside, ctx.runtime reaches resources, events, storage, mail and secrets.</p>
+            <p className="lede">You decide who may call it. Inside, it can read your data, send events and email, and use your files and secrets.</p>
             <Code lang="bash" caption="From an empty folder to a followed log." source="pawabase-docs, Code › CLI">
               {CLI}
             </Code>

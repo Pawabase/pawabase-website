@@ -16,7 +16,7 @@ export default function Cloud() {
     <>
       <PageHead
         title="Pawabase Cloud"
-        lede="Create a project by name. It is deployed as its own Pawabase installation, with its own database."
+        lede="Create a project and get your own complete backend with its own database. We run it, so you do not have to."
         figure="rack"
         figureLabel="Four blades in a frame. The blade under the pointer slides out along its rails."
         primary={{ href: "#status", label: "Where Cloud stands" }}
@@ -24,7 +24,6 @@ export default function Cloud() {
       />
 
       <section id="status" className="section" aria-labelledby="status-title">
-      <i className="fx dots patch tr" aria-hidden="true" />
         <div className="wrap">
           <h2 id="status-title" className="h1" style={{ marginBottom: 12, maxWidth: "20ch" }}>
             Pawabase Cloud is being prepared for launch.
@@ -43,16 +42,14 @@ export default function Cloud() {
       </section>
 
       <section className="section ink" aria-labelledby="project">
-      <i className="fx iso big br" aria-hidden="true" />
         <div className="wrap two three">
-          <div className="blurb"><h2 id="project" className="h2">A full installation.</h2><p className="body">One Pawabase container with its own Postgres and Redis, behind an HTTPS address. Studio sits behind a gate.</p></div>
-          <div className="blurb"><h2 className="h2">Organizations.</h2><p className="body">Sign up, create an organization, invite a team and create projects. Roles come from the same model as Auth.</p></div>
-          <div className="blurb"><h2 className="h2">Plans and payments.</h2><p className="body">Plans set limits. Checkout is a Paystack subscription, confirmed by a signed webhook.</p></div>
+          <div className="blurb"><h2 id="project" className="h2">Your own complete backend.</h2><p className="body">Every project gets its own database and its own secure address, with Studio to manage it.</p></div>
+          <div className="blurb"><h2 className="h2">Teams.</h2><p className="body">Sign up, create a team, invite people and create projects. Roles work the same way as in Auth.</p></div>
+          <div className="blurb"><h2 className="h2">Plans and payments.</h2><p className="body">Plans set your limits. Pay by subscription through Paystack.</p></div>
         </div>
       </section>
 
       <section id="plans" className="section" aria-labelledby="regions">
-      <i className="fx ticks strip-h tl" aria-hidden="true" />
         <div className="wrap split">
           <div className="c7">
             <div className="stage">
@@ -62,9 +59,9 @@ export default function Cloud() {
           </div>
           <div className="c5 stack" style={{ ["--gap" as string]: "16px" }}>
             <h2 id="regions" className="h1">
-              Local region, local currency.
+              Close to your customers, in your currency.
             </h2>
-            <p className="lede">A project's data sits on servers in Nigeria and billing is in naira. Plan prices are not published yet.</p>
+            <p className="lede">Your project's data sits on servers in Nigeria and you are billed in naira. Plan prices are not published yet.</p>
           </div>
         </div>
       </section>

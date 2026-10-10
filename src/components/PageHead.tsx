@@ -27,7 +27,6 @@ const Btn = ({ b, primary }: { b: NonNullable<Props["secondary"]>; primary?: boo
 export function PageHead({ title, lede, figure, figureLabel, primary, secondary, children }: Props) {
   return (
     <section className="pagehead">
-      <i className="fx dots soft fill" aria-hidden="true" />
       <div className="wrap split">
         <div className="c6">
           <h1 className="h1">{title}</h1>

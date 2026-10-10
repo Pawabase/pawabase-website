@@ -29,7 +29,7 @@ export default function Auth() {
     <>
       <PageHead
         title="Auth"
-        lede="Accounts, sessions, organizations and a second factor, in the same runtime as your data."
+        lede="Sign-in your customers trust, with teams, roles and a second factor, built into the same platform as your data."
         figure="session"
         figureLabel="A card file of four cards of different heights: the person, the session, the organization and the second factor. The card under the pointer slides up."
         primary={{ href: docs("auth/overview"), label: "Read the guide" }}
@@ -37,7 +37,6 @@ export default function Auth() {
       />
 
       <section className="section" aria-labelledby="ways">
-      <i className="fx dots patch tr" aria-hidden="true" />
         <div className="wrap">
           <h2 id="ways" className="h1" style={{ marginBottom: 28 }}>
             Four ways in.
@@ -55,14 +54,13 @@ export default function Auth() {
       </section>
 
       <section className="section deep" aria-labelledby="session">
-      <i className="fx rings big tr" aria-hidden="true" />
         <div className="wrap split">
           <div className="c5 stack" style={{ ["--gap" as string]: "16px" }}>
             <h2 id="session" className="h1">
-              A session carries more than a user.
+              Know who is signed in, and what they can do.
             </h2>
-            <p className="lede">The person, the organization they act in and their assurance level, readable in every policy.</p>
-            <p className="small">Access tokens last 15 minutes and refresh tokens 30 days, by default. A replayed refresh token revokes its whole family.</p>
+            <p className="lede">Every request knows the person, the team they are acting for and how securely they signed in, so your rules stay simple.</p>
+            <p className="small">Sessions stay short and refresh quietly. If a stolen session is replayed, all of that person's sessions are signed out.</p>
           </div>
           <div className="c7">
             <Code lang="ts" caption="Password sign-in with the TypeScript client." source="pawabase-docs, Clients › JavaScript">
@@ -73,12 +71,11 @@ export default function Auth() {
       </section>
 
       <section className="section" aria-labelledby="orgs">
-      <i className="fx ticks strip-h tl" aria-hidden="true" />
         <div className="wrap two">
           <div className="sheet blurb">
-            <h2 id="orgs" className="h2">Organizations are built in.</h2>
-            <p className="body">Owner, admin, member and viewer roles. Teams, and invitations that are signed, single-use and revocable.</p>
-            <a className="arrow" href={docs("auth/organizations")}>Organizations in the docs</a>
+            <h2 id="orgs" className="h2">Teams are built in.</h2>
+            <p className="body">Owner, admin, member and viewer roles, teams, and invitations you can send and take back.</p>
+            <a className="arrow" href={docs("auth/organizations")}>Teams in the docs</a>
           </div>
           <div className="sheet blurb">
             <h2 className="h2">Not included.</h2>
