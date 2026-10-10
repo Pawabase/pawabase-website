@@ -327,10 +327,8 @@
 
 /* the hero's stage: a lavender field with fine line work (lattice, rings, dots), the bento starts below it */
 .hero-stage { position: relative; min-height: clamp(460px, 48vw, 700px); display: flex; flex-direction: column; justify-content: flex-start; background: var(--lavender); color: var(--pastel-ink); --ink-2: #3b3652; --ink-3: #4e4968; --line: rgba(31,27,46,0.14); --line-2: rgba(31,27,46,0.26); }
-.hero-stage .fx { background: rgba(31, 27, 46, 0.2); }
-.hero-stage .fx.iso { opacity: 0.45; }
-.hero-stage .fx.dots { opacity: 0.6; background: rgba(31, 27, 46, 0.45); }
-.hero-stage .fx.patch { width: 360px; height: 200px; }
+.hero-wall { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.wall-tile { width: 100%; height: 100%; display: grid; place-items: center; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; color: var(--pastel-ink); }
 .hero-stage .wrap { position: relative; z-index: 1; padding-bottom: clamp(160px, 22vw, 320px); }
 .hero-stage .display, .hero-stage .lede { color: var(--pastel-ink); }
 .hero-stage .btn-primary { background: var(--pastel-ink); color: #fff; border-color: var(--pastel-ink); }

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import GridMotion from "../components/GridMotion";
 import { Code } from "../components/Code";
 import { Figure } from "../components/Figure";
 import { ArrowRight } from "../components/Icons";
@@ -26,13 +27,24 @@ const cells = [
   { key: "cloud", name: "Cloud", figure: "rack", text: "Managed projects, each its own installation.", to: "/cloud", span: 4, tone: "lavender" },
 ] as const;
 
+const WALL_NAMES: [string, string][] = [
+  ["Auth", "--mint"], ["Database", "--lavender"], ["Storage", "--sky"], ["Functions", "--butter"], ["Flows", "--rose"],
+  ["Realtime", "--peach"], ["Mail", "--rose"], ["Queues", "--mint"], ["Policies", "--sky"], ["Webhooks", "--butter"],
+  ["Secrets", "--lavender"], ["Backups", "--peach"], ["Schedules", "--mint"], ["Events", "--sky"], ["Gateway", "--lavender"],
+];
+const WALL = WALL_NAMES.map(([name, tone]) => (
+  <div key={name} className="wall-tile" style={{ background: `var(${tone})` }}>
+    {name}
+  </div>
+));
+
 function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-stage">
-        <i className="fx iso fill" aria-hidden="true" />
-        <i className="fx rings" aria-hidden="true" style={{ width: 360, height: 360, top: 0, right: 0 }} />
-        <i className="fx dots patch bl" aria-hidden="true" />
+        <div className="hero-wall" aria-hidden="true">
+          <GridMotion items={WALL} rows={7} aspectRatio={2.6} gap={12} radius={14} angle={-8} speed={16} parallax={0.4} spotlight={0.5} dim={0.62} fade={0.7} theme="light" tileColor="rgba(255,255,255,0.4)" />
+        </div>
       <div className="wrap">
         <div className="hero-top">
           <h1 id="hero-title" className="display">
