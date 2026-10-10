@@ -27,13 +27,9 @@ const cells = [
   { key: "cloud", name: "Cloud", figure: "rack", text: "Managed projects, each its own installation.", to: "/cloud", span: 4, tone: "lavender" },
 ] as const;
 
-const WALL_NAMES: [string, string][] = [
-  ["Auth", "--mint"], ["Database", "--lavender"], ["Storage", "--sky"], ["Functions", "--butter"], ["Flows", "--rose"],
-  ["Realtime", "--peach"], ["Mail", "--rose"], ["Queues", "--mint"], ["Policies", "--sky"], ["Webhooks", "--butter"],
-  ["Secrets", "--lavender"], ["Backups", "--peach"], ["Schedules", "--mint"], ["Events", "--sky"], ["Gateway", "--lavender"],
-];
-const WALL = WALL_NAMES.map(([name, tone]) => (
-  <div key={name} className="wall-tile" style={{ background: `var(${tone})` }}>
+const WALL_NAMES = ["Auth", "Database", "Storage", "Functions", "Flows", "Realtime", "Mail", "Queues", "Policies", "Webhooks", "Secrets", "Backups", "Schedules", "Events", "Gateway"];
+const WALL = WALL_NAMES.map((name) => (
+  <div key={name} className="wall-tile">
     {name}
   </div>
 ));
@@ -43,7 +39,7 @@ function Hero() {
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-stage">
         <div className="hero-wall" aria-hidden="true">
-          <GridMotion items={WALL} rows={7} aspectRatio={2.6} gap={12} radius={14} angle={-8} speed={16} parallax={0.4} spotlight={0.5} dim={0.62} fade={0.7} theme="light" tileColor="rgba(255,255,255,0.4)" />
+          <GridMotion items={WALL} rows={7} aspectRatio={2.6} gap={12} radius={14} angle={-8} speed={16} parallax={0.4} spotlight={0.5} dim={0.45} fade={0.7} />
         </div>
       <div className="wrap">
         <div className="hero-top">

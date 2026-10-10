@@ -325,15 +325,12 @@
 .stack > .codecard { margin-top: var(--gap, 20px); }
 .stack > .actions { margin-top: calc(var(--gap, 20px) + 6px); }
 
-/* the hero's stage: a lavender field with fine line work (lattice, rings, dots), the bento starts below it */
-.hero-stage { position: relative; min-height: clamp(460px, 48vw, 700px); display: flex; flex-direction: column; justify-content: flex-start; background: var(--lavender); color: var(--pastel-ink); --ink-2: #3b3652; --ink-3: #4e4968; --line: rgba(31,27,46,0.14); --line-2: rgba(31,27,46,0.26); }
-.hero-wall { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-.wall-tile { width: 100%; height: 100%; display: grid; place-items: center; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; color: var(--pastel-ink); }
+/* the hero's stage sits on the page canvas; a wall of faint tiles drifts behind the text */
+.hero-stage { position: relative; min-height: clamp(460px, 48vw, 700px); display: flex; flex-direction: column; justify-content: flex-start; background: var(--bg); }
+.hero-wall { position: absolute; inset: 0; z-index: 0; pointer-events: none; --gm-border: var(--line); }
+.hero-wall .grid-motion__tile { background: var(--bg-deep); }
+.wall-tile { width: 100%; height: 100%; display: grid; place-items: center; font-weight: 600; font-size: 14px; letter-spacing: -0.01em; color: transparent; }
 .hero-stage .wrap { position: relative; z-index: 1; padding-bottom: clamp(160px, 22vw, 320px); }
-.hero-stage .display, .hero-stage .lede { color: var(--pastel-ink); }
-.hero-stage .btn-primary { background: var(--pastel-ink); color: #fff; border-color: var(--pastel-ink); }
-.hero-stage .btn { color: var(--pastel-ink); background: rgba(255, 255, 255, 0.7); border-color: transparent; }
-.hero-stage .btn-primary:hover { background: #000; }
 .frame .hero { padding-top: 0; }
 .hero-stage { padding-top: clamp(56px, 8vw, 112px); }
 .hero-stage .hero-side { padding-bottom: 8px; }
