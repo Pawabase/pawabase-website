@@ -83,7 +83,7 @@ function Hero() {
       <div className="worksWith">
         <span>Works with what you already use</span>
         <ul>
-          {["PostgreSQL", "MySQL", "SQLite", "S3-compatible storage", "Paystack", "Docker"].map((n) => (
+          {["PostgreSQL", "MySQL", "SQLite", "S3-compatible storage", "Docker"].map((n) => (
             <li key={n}>{n}</li>
           ))}
         </ul>
@@ -275,7 +275,7 @@ function CloudSection() {
           <p className="lede">Create a project and get your own complete backend with its own database. No servers to set up.</p>
           <ul className="facts">
             <li>Own database per project</li>
-            <li>Hosted in Nigeria</li>
+            <li>African data residency</li>
             <li>Billed in naira</li>
           </ul>
           <p className="small">Pre-launch. Plans and regions are published as they open.</p>
