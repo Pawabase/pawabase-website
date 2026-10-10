@@ -80,6 +80,14 @@ function Hero() {
           </article>
         ))}
       </div>
+      <div className="worksWith">
+        <span>Works with what you already use</span>
+        <ul>
+          {["PostgreSQL", "MySQL", "SQLite", "S3-compatible storage", "Paystack", "Docker"].map((n) => (
+            <li key={n}>{n}</li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
@@ -91,6 +99,7 @@ function Connected() {
     <section id="platform" className="section" aria-labelledby="platform-title">
       <div className="wrap">
         <div className="center">
+          <p className="kicker">Platform</p>
           <h2 id="platform-title" className="h1">
             Build the product, not the plumbing.
           </h2>
@@ -100,6 +109,11 @@ function Connected() {
           <Figure name="schema" names={(c) => c} label="Tiles joined by links. The tile under the pointer rises, and every tile that refers to it rises after it." ratio="5 / 4" />
           <p className="small stage-note">Point at a piece to see what it connects to.</p>
         </div>
+        <ol className="points">
+          <li><b>Sign in once</b><span>People sign in once and every part of your app recognises them.</span></li>
+          <li><b>One set of rules</b><span>Permissions you write once apply to your data, files and logic.</span></li>
+          <li><b>One place to look</b><span>Every request, job and email is recorded together.</span></li>
+        </ol>
       </div>
     </section>
   );
@@ -111,7 +125,8 @@ function Lifecycle() {
   return (
     <section id="build" className="section alt flush" aria-labelledby="build-title">
       <div className="wrap">
-        <h2 id="build-title" className="h1" style={{ maxWidth: "16ch" }}>
+        <p className="kicker">Workflow</p>
+          <h2 id="build-title" className="h1" style={{ maxWidth: "16ch" }}>
           From idea to launch, without the detours.
         </h2>
       </div>
@@ -146,6 +161,7 @@ function Foundation() {
           </div>
         </div>
         <div className="c5 stack" style={{ ["--gap" as string]: "20px" }}>
+          <p className="kicker">Security</p>
           <h2 id="foundation-title" className="h1">
             Secure by default, from the first request.
           </h2>
@@ -190,7 +206,8 @@ function Logic() {
       <div className="wrap">
         <div className="split">
           <div className="c5 stack" style={{ ["--gap" as string]: "18px" }}>
-            <h2 id="logic-title" className="h1">
+            <p className="kicker">Logic</p>
+          <h2 id="logic-title" className="h1">
               Your business logic, without another server.
             </h2>
             <p className="lede">When something happens in your app, Pawabase reacts: send the receipt, update the record, tell your partner. Retried automatically if it fails.</p>
@@ -224,18 +241,21 @@ function Applications() {
     <section id="applications" className="section" aria-labelledby="applications-title">
       <div className="wrap">
         <div className="center">
+          <p className="kicker">Use cases</p>
           <h2 id="applications-title" className="h1">
             Made for the products you are building.
           </h2>
           <p className="lede">From customer apps to internal tools.</p>
         </div>
-        <div className="ledger card-list">
+        <div className="use-grid">
           {patterns.map((p) => (
-            <article key={p.title} className="ledger-row">
+            <Link key={p.title} to={p.link[0]} className="use-card">
               <h3 className="h3">{p.title}</h3>
               <p className="body">{p.text}</p>
-              <Arrow to={p.link[0]}>{p.link[1]}</Arrow>
-            </article>
+              <span className="use-go">
+                {p.link[1]} <ArrowRight />
+              </span>
+            </Link>
           ))}
         </div>
       </div>
@@ -251,10 +271,16 @@ function CloudSection() {
       
       <div className="wrap split">
         <div className="c5 stack" style={{ ["--gap" as string]: "18px" }}>
+          <p className="kicker">Pawabase Cloud</p>
           <h2 id="cloud-title" className="h1">
             Let us run it for you.
           </h2>
           <p className="lede">Create a project and get your own complete backend with its own database. No servers to set up.</p>
+          <ul className="facts">
+            <li>Own database per project</li>
+            <li>Hosted in Nigeria</li>
+            <li>Billed in naira</li>
+          </ul>
           <p className="small">Pre-launch. Plans and regions are published as they open.</p>
           <div className="actions">
             <Link className="btn btn-primary" to="/cloud">
@@ -284,6 +310,7 @@ function Africa() {
           </div>
         </div>
         <div className="c5 stack" style={{ ["--gap" as string]: "18px" }}>
+          <p className="kicker">Regions</p>
           <h2 id="africa-title" className="h1">
             Built for African businesses.
           </h2>
@@ -326,6 +353,7 @@ function Developers() {
     <section id="developers" className="section alt" aria-labelledby="developers-title">
       <div className="wrap split top">
         <div className="c5 stack" style={{ ["--gap" as string]: "22px" }}>
+          <p className="kicker">Developers</p>
           <h2 id="developers-title" className="h1">
             Fits how your team already works.
           </h2>
