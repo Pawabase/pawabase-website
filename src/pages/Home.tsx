@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
+import { useRef, useState, type KeyboardEvent } from "react";
 import GridMotion from "../components/GridMotion";
 import { Code } from "../components/Code";
 import { Diagram } from "../components/Diagrams";
 import { Figure } from "../components/Figure";
-import { ArrowRight } from "../components/Icons";
+import { ArrowRight, Check } from "../components/Icons";
 import { docs, github } from "../config";
 
 const Arrow = ({ to, href, children }: { to?: string; href?: string; children: string }) =>
@@ -229,14 +230,58 @@ function Logic() {
 
 /* ───────────────────────── 6 · built for real applications ───────────────────────── */
 
-const patterns = [
-  { title: "Apps with customers and teams", text: "Accounts, organizations and roles, ready to use.", link: ["/products/auth", "Auth"] },
-  { title: "Marketplaces and shops", text: "Orders, payments and confirmations, handled. Sell4me, our reference store, is built on it.", link: ["/products/database", "Database"] },
-  { title: "Internal tools", text: "Manage your data in Studio the moment it exists.", link: ["/products/database", "Database"] },
-  { title: "Day-to-day operations", text: "Reports, imports and reminders that run on schedule.", link: ["/products/automation", "Automation"] },
+const cases = [
+  {
+    key: "teams",
+    title: "Apps with customers and teams",
+    short: "Accounts, teams and roles",
+    lead: "Give every customer a team, and every person the right access.",
+    points: ["Sign-in with email, social accounts and a second factor", "Teams, roles and invitations you can send and take back", "Permissions that follow the person across your whole app"],
+    built: [["Auth", "/products/auth"], ["Database", "/products/database"]],
+    cta: ["/products/auth", "See Auth"],
+  },
+  {
+    key: "shops",
+    title: "Marketplaces and shops",
+    short: "Orders, payments, receipts",
+    lead: "Take orders and payments, and let Pawabase handle what follows.",
+    points: ["Products, orders and customers in one place", "Payment confirmations checked before an order is marked paid", "Receipts and emails sent for you, retried if they fail"],
+    built: [["Database", "/products/database"], ["Functions", "/products/functions"], ["Automation", "/products/automation"]],
+    cta: ["/products/database", "See Database"],
+    note: "Sell4me, our reference store, is built this way.",
+  },
+  {
+    key: "tools",
+    title: "Internal tools",
+    short: "Admin and back-office",
+    lead: "A working back office the moment your data exists.",
+    points: ["Every table can be browsed and edited in Studio", "Roles decide who sees and changes what", "Import and export spreadsheets without writing code"],
+    built: [["Database", "/products/database"], ["Auth", "/products/auth"]],
+    cta: ["/products/database", "See Database"],
+  },
+  {
+    key: "ops",
+    title: "Day-to-day operations",
+    short: "Reports, imports, reminders",
+    lead: "The routine work of your business, running by itself.",
+    points: ["Reports and reminders on the schedule you choose", "Imports that try again when something fails", "A record of every run, so nothing is a mystery"],
+    built: [["Automation", "/products/automation"], ["Functions", "/products/functions"], ["Storage", "/products/storage"]],
+    cta: ["/products/automation", "See Automation"],
+  },
 ] as const;
 
 function Applications() {
+  const [active, setActive] = useState(0);
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const current = cases[active];
+  const onKey = (e: KeyboardEvent<HTMLButtonElement>) => {
+    const move = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : e.key === "ArrowUp" || e.key === "ArrowLeft" ? -1 : 0;
+    if (!move) return;
+    e.preventDefault();
+    const next = (active + move + cases.length) % cases.length;
+    setActive(next);
+    tabs.current[next]?.focus();
+  };
   return (
     <section id="applications" className="section" aria-labelledby="applications-title">
       <div className="wrap">
@@ -247,16 +292,55 @@ function Applications() {
           </h2>
           <p className="lede">From customer apps to internal tools.</p>
         </div>
-        <div className="use-grid">
-          {patterns.map((p) => (
-            <Link key={p.title} to={p.link[0]} className="use-card">
-              <h3 className="h3">{p.title}</h3>
-              <p className="body">{p.text}</p>
-              <span className="use-go">
-                {p.link[1]} <ArrowRight />
-              </span>
+        <div className="usecase">
+          <div className="usecase-list" role="tablist" aria-label="Use cases" aria-orientation="vertical">
+            {cases.map((c, i) => (
+              <button
+                key={c.key}
+                ref={(el) => {
+                  tabs.current[i] = el;
+                }}
+                role="tab"
+                id={`uc-tab-${c.key}`}
+                aria-selected={i === active}
+                aria-controls={`uc-panel-${c.key}`}
+                tabIndex={i === active ? 0 : -1}
+                className="usecase-tab"
+                onClick={() => setActive(i)}
+                onKeyDown={onKey}
+              >
+                <i aria-hidden="true">0{i + 1}</i>
+                <span>
+                  <b>{c.title}</b>
+                  <small>{c.short}</small>
+                </span>
+                <ArrowRight />
+              </button>
+            ))}
+          </div>
+          <div className="usecase-panel" role="tabpanel" id={`uc-panel-${current.key}`} aria-labelledby={`uc-tab-${current.key}`} key={current.key}>
+            <h3 className="h2">{current.lead}</h3>
+            <ul className="usecase-points">
+              {current.points.map((pt) => (
+                <li key={pt}>
+                  <Check />
+                  {pt}
+                </li>
+              ))}
+            </ul>
+            <div className="usecase-built">
+              <span>Built with</span>
+              {current.built.map(([name, to]) => (
+                <Link key={name} to={to}>
+                  {name}
+                </Link>
+              ))}
+            </div>
+            {"note" in current && <p className="small">{current.note}</p>}
+            <Link className="btn btn-primary" to={current.cta[0]}>
+              {current.cta[1]}
             </Link>
-          ))}
+          </div>
         </div>
       </div>
     </section>

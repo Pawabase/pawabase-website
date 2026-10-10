@@ -96,3 +96,9 @@ export const MenuIcon = ({ open, ...p }: { open: boolean } & P) => (
     {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 8h16M4 16h16" />}
   </svg>
 );
+
+export const Check = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="m5 12.5 4.5 4.5L19 7.5" />
+  </svg>
+);
