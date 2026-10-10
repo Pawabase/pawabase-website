@@ -472,3 +472,52 @@ html { overflow-x: clip; }
 .hero .display, .h1, .h2 { text-wrap: balance; }
 .lede, .body { text-wrap: pretty; }
 @media (max-width: 720px) { .hero .display { font-size: clamp(34px, 10vw, 44px); } }
+
+/* ═════════ Bento drawings, layered ═════════ */
+.cell { min-height: 440px; }
+.cell-fig { padding-top: 40px; }
+.dg { position: relative; background: transparent; border: 0; border-radius: 0; overflow: visible; }
+.dg > div[aria-hidden] { position: relative; }
+.dg-main { background: var(--dg-bg); border: 1px solid var(--dg-line); border-bottom: 0; border-radius: 18px 18px 0 0; overflow: hidden; }
+.dg-float { position: absolute; right: 14px; top: -34px; z-index: 2; display: grid; gap: 8px; min-width: 150px; max-width: 70%; padding: 12px 14px; background: var(--ink); color: var(--bg); border-radius: 14px; }
+.dg-float small { color: color-mix(in srgb, var(--bg) 62%, transparent); }
+.dg-float code { color: var(--bg); font-size: 12px; }
+.dg-float b { font-weight: 600; font-size: 12.5px; }
+.dg-float .dg-pill { background: color-mix(in srgb, var(--bg) 16%, transparent); color: var(--bg); }
+.dg-float .dg-meter { margin: 0; background: color-mix(in srgb, var(--bg) 22%, transparent); }
+.dg-float .dg-meter i { background: var(--lavender); }
+.dg-line { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
+.dg-otp { display: flex; gap: 4px; }
+.dg-otp i { width: 20px; height: 26px; display: grid; place-items: center; border-radius: 6px; font-style: normal; font-weight: 600; font-size: 13px; background: color-mix(in srgb, var(--bg) 16%, transparent); font-family: var(--mono); }
+.dg-bars { display: flex; align-items: end; gap: 4px; height: 44px; }
+.dg-bars i { flex: 1; border-radius: 3px; background: var(--lavender); }
+.dg-bars i:last-child { background: var(--mint); }
+.dg-table { grid-template-columns: 0.5fr 0.9fr 1fr 1fr; }
+.dg-table span { display: flex; align-items: center; }
+.dg-table span:nth-child(-n + 4) { background: var(--bg-deep); }
+.dg-files { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 14px; }
+.dg-fileCard { display: grid; gap: 2px; justify-items: start; padding: 10px; border: 1px solid var(--line-2); border-radius: 12px; }
+.dg-fileCard b { font-size: 12.5px; }
+.dg-thumb { width: 100%; height: 44px; margin-bottom: 6px; border-radius: 8px; display: grid; place-items: center; font-size: 11px; font-weight: 700; color: var(--pastel-ink); }
+.dg-thumb.sky { background: var(--sky); } .dg-thumb.mint { background: var(--mint); } .dg-thumb.peach { background: var(--peach); }
+.dg-code { padding: 14px 14px 16px 10px; }
+.dg-code i { display: inline-block; width: 22px; color: var(--faint); font-style: normal; text-align: right; margin-right: 12px; user-select: none; }
+.dg-canvas { position: relative; height: 150px; margin: 0 14px; }
+.dg-canvas svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 4 4; opacity: 0.55; }
+.dg-n { position: absolute; display: grid; grid-template-columns: auto 1fr; column-gap: 8px; align-items: center; padding: 8px 12px 8px 10px; background: var(--bg); border: 1px solid var(--dg-line); border-radius: 12px; min-width: 112px; }
+.dg-n i { grid-row: 1 / 3; width: 22px; height: 22px; border-radius: 7px; background: var(--lavender); }
+.dg-n i.b { background: var(--rose); } .dg-n i.c { background: var(--sky); } .dg-n i.d { background: var(--mint); } .dg-n i.a { background: var(--butter); }
+.dg-n b { font-size: 12.5px; line-height: 1.2; } .dg-n small { font-size: 11px; }
+.dg-automation .dg-row { padding: 9px 14px; }
+.cell.tone-lavender { --dg-bg: rgba(255, 255, 255, 0.78); }
+.dg-cloud .dg-float { top: -68px; }
+.dg-auth .dg-float { top: -38px; }
+.dg-files { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 12px; }
+.dg-fileCard { min-width: 0; padding: 8px; }
+.dg-fileCard b, .dg-fileCard small { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dg-n { min-width: 0; }
+.dg-n.end { left: 77% !important; }
+.cell { min-height: 410px; }
+.cell.tone-lavender .dg .dg-float small, .section.deep .dg .dg-float small { color: #cfc9e8; }
+.cell.tone-lavender .dg .dg-float, .section.deep .dg .dg-float { background: #1f1b2e; color: #fff; }
+.cell.tone-lavender .dg .dg-float .dg-pill { background: rgba(255,255,255,0.16); color: #fff; }
