@@ -415,18 +415,13 @@ html { overflow-x: clip; }
 .frame .nav .drop { position: absolute; left: 0; right: 0; top: 100%; background: var(--bg-alt); border: 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); padding: 0; }
 .frame .nav .drop > .wrap { max-width: none; background: transparent; border: 0; border-radius: 0; padding-block: 24px 28px; padding-inline: clamp(28px, 5vw, 72px); }
 .frame .nav .drop-inner { display: block; padding: 0; }
-.frame .nav .drop-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 0; }
+.frame .nav .drop-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 8px; padding: 0; }
 .frame .nav .drop-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; }
 .frame .nav .drop-item { display: flex; align-items: flex-start; gap: 14px; margin: 0; padding: 14px; border: 0; border-radius: 14px; background: transparent; text-decoration: none; color: var(--ink); }
 .frame .nav .drop-item:hover { background: var(--bg-deep); }
-.frame .nav .drop-icon { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: var(--pastel-ink); background: var(--lavender); }
-.frame .nav .drop-icon svg { width: 20px; height: 20px; }
-.frame .nav .tone-auth .drop-icon { background: var(--mint); }
-.frame .nav .tone-database .drop-icon { background: var(--lavender); }
-.frame .nav .tone-storage .drop-icon { background: var(--sky); }
-.frame .nav .tone-functions .drop-icon { background: var(--butter); }
-.frame .nav .tone-automation .drop-icon { background: var(--rose); }
-.frame .nav .tone-cloud .drop-icon { background: var(--peach); }
+.frame .nav .drop-icon { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; color: var(--ink-2); background: transparent; border: 1px solid var(--line-2); transition: color 160ms, border-color 160ms, background 160ms; }
+.frame .nav .drop-icon svg { width: 18px; height: 18px; stroke-width: 1.5; }
+.frame .nav .drop-item:hover .drop-icon { color: var(--accent); border-color: var(--accent); background: var(--bg-alt); }
 .frame .nav .drop-text { display: grid; gap: 2px; min-width: 0; }
 .frame .nav .drop-text b { font-size: 14.5px; font-weight: 600; letter-spacing: -0.01em; }
 .frame .nav .drop-text span { font-size: 13px; color: var(--ink-3); line-height: 1.4; }
@@ -463,3 +458,5 @@ html { overflow-x: clip; }
 .hero .display, .h1, .h2 { text-wrap: balance; }
 .lede, .body { text-wrap: pretty; }
 @media (max-width: 720px) { .hero .display { font-size: clamp(34px, 10vw, 44px); } }
+.frame .nav .drop-icon svg, .frame .nav .drop-icon svg * { stroke: currentColor; color: inherit; }
+.frame .nav .drop-text b { color: var(--ink); }
