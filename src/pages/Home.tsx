@@ -30,6 +30,9 @@ function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-stage">
+        <i className="fx iso fill" aria-hidden="true" />
+        <i className="fx rings" aria-hidden="true" style={{ width: 360, height: 360, top: 0, right: 0 }} />
+        <i className="fx dots patch bl" aria-hidden="true" />
       <div className="wrap">
         <div className="hero-top">
           <h1 id="hero-title" className="display">

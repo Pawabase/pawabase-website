@@ -81,6 +81,7 @@ export function Nav() {
 
   return (
     <header className="nav" ref={root}>
+      <i className="nav-rule" aria-hidden="true" />
       <div className="wrap nav-inner">
         <Brand />
         <nav id="site-nav" className={`nav-links ${mobile ? "open" : ""}`} aria-label="Main">
