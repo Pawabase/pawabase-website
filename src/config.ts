@@ -19,19 +19,19 @@ export type Product = {
 };
 
 export const products: Product[] = [
-  { key: "auth", name: "Auth", path: "/products/auth", line: "Users, sessions, organizations and permissions." },
-  { key: "database", name: "Database", path: "/products/database", line: "Resources, policies and a generated REST API." },
-  { key: "storage", name: "Storage", path: "/products/storage", line: "Buckets with access policies and signed URLs." },
-  { key: "functions", name: "Functions", path: "/products/functions", line: "Python logic, deployed from your repository." },
-  { key: "automation", name: "Automation", path: "/products/automation", line: "Flows, events, queues and schedules." },
-  { key: "cloud", name: "Cloud", path: "/cloud", line: "Managed Pawabase projects, run for you." },
+  { key: "auth", name: "Auth", path: "/products/auth", line: "Sign-in, teams and roles." },
+  { key: "database", name: "Database", path: "/products/database", line: "Your data, with a secure API." },
+  { key: "storage", name: "Storage", path: "/products/storage", line: "Files with the right access." },
+  { key: "functions", name: "Functions", path: "/products/functions", line: "Your own logic, in Python." },
+  { key: "automation", name: "Automation", path: "/products/automation", line: "Work that runs by itself." },
+  { key: "cloud", name: "Cloud", path: "/cloud", line: "We run it for you." },
 ];
 
 export const developerLinks = [
-  { name: "Documentation", line: "Concepts, guides and reference.", href: docs("index") },
-  { name: "Quickstart", line: "From an empty folder to a running API.", href: docs("quickstart") },
-  { name: "Command line", line: "Deploy, emulate, trigger and read logs.", href: docs("code/cli") },
-  { name: "TypeScript SDK", line: "@pawabase/client for apps that call Pawabase.", href: docs("clients/javascript") },
-  { name: "Python SDK", line: "The kit for functions, tests and scripts.", href: docs("clients/python") },
-  { name: "Self-hosting", line: "Run the whole platform with Docker Compose.", href: docs("self-hosting/docker-compose") },
+  { name: "Documentation", line: "Guides and reference.", href: docs("index") },
+  { name: "Quickstart", line: "From nothing to a running API.", href: docs("quickstart") },
+  { name: "Command line", line: "Deploy and read logs.", href: docs("code/cli") },
+  { name: "TypeScript SDK", line: "For apps that use Pawabase.", href: docs("clients/javascript") },
+  { name: "Python SDK", line: "For functions, tests and scripts.", href: docs("clients/python") },
+  { name: "Self-hosting", line: "Run it on your own servers.", href: docs("self-hosting/docker-compose") },
 ];

@@ -44,6 +44,11 @@ function Hero() {
         </div>
       <div className="wrap">
         <div className="hero-top">
+          <Link className="eyebrow" to="/cloud">
+            <i aria-hidden="true" />
+            Pawabase Cloud is in pre-launch
+            <ArrowRight />
+          </Link>
           <h1 id="hero-title" className="display">
             Everything your application needs, in one place.
           </h1>

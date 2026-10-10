@@ -91,19 +91,14 @@ export function Nav() {
           {menu === "products" && (
             <div className="drop" id="menu-products">
               <div className="wrap drop-inner">
-                <div className="drop-lead">
-                  <h2 className="h4">One platform</h2>
-                  <p>Identity, data, files, application logic and automation share one runtime, one policy language and one place to operate them.</p>
-                  <Link className="arrow" to="/" style={{ alignSelf: "flex-start" }}>
-                    How it fits together
-                  </Link>
-                </div>
                 <div className="drop-grid">
                   {products.map((p) => (
-                    <Link key={p.key} to={p.path} className="drop-item">
-                      <ProductIcon name={p.key} />
-                      <b>Pawabase {p.name}</b>
-                      <span>{p.line}</span>
+                    <Link key={p.key} to={p.path} className={`drop-item tone-${p.key}`}>
+                      <i className="drop-icon"><ProductIcon name={p.key} /></i>
+                      <span className="drop-text">
+                        <b>{p.name}</b>
+                        <span>{p.line}</span>
+                      </span>
                     </Link>
                   ))}
                 </div>
@@ -119,11 +114,13 @@ export function Nav() {
           {menu === "developers" && (
             <div className="drop" id="menu-developers">
               <div className="wrap">
-                <div className="drop-simple drop-wrap-narrow">
+                <div className="drop-grid two">
                   {developerLinks.map((l) => (
-                    <a key={l.name} href={l.href} className="drop-item" style={{ gridTemplateColumns: "1fr" }}>
-                      <b>{l.name}</b>
-                      <span>{l.line}</span>
+                    <a key={l.name} href={l.href} className="drop-item plain">
+                      <span className="drop-text">
+                        <b>{l.name}</b>
+                        <span>{l.line}</span>
+                      </span>
                     </a>
                   ))}
                 </div>
