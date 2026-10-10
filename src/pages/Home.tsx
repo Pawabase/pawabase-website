@@ -92,26 +92,25 @@ function Connected() {
 
 function Lifecycle() {
   return (
-    <section id="build" className="section alt" aria-labelledby="build-title">
-      <i className="fx hatch strip-v tr" aria-hidden="true" />
+    <section id="build" className="section alt flush" aria-labelledby="build-title">
       <div className="wrap">
         <h2 id="build-title" className="h1" style={{ maxWidth: "16ch" }}>
           From the first definition to a running application.
         </h2>
-        <div className="passages">
-          <article>
-            <h3 className="h3">Describe it as data.</h3>
-            <p className="body">Resources, policies, flows and schedules are definitions you can export as a blueprint.</p>
-          </article>
-          <article>
-            <h3 className="h3">Try it beside what is live.</h3>
-            <p className="body">Deploy to a branch, run locally against a real deployment.</p>
-          </article>
-          <article>
-            <h3 className="h3">Read back what happened.</h3>
-            <p className="body">Requests, runs, jobs and deliveries are recorded with their traces.</p>
-          </article>
-        </div>
+      </div>
+      <div className="trio">
+        <article>
+          <h3 className="h3">Describe it as data.</h3>
+          <p className="body">Resources, policies, flows and schedules are definitions you can export as a blueprint.</p>
+        </article>
+        <article>
+          <h3 className="h3">Try it beside what is live.</h3>
+          <p className="body">Deploy to a branch next to main, and run locally against a real deployment.</p>
+        </article>
+        <article>
+          <h3 className="h3">Read back what happened.</h3>
+          <p className="body">Requests, runs, jobs and deliveries are recorded with their traces.</p>
+        </article>
       </div>
     </section>
   );
@@ -155,11 +154,16 @@ from pawabase.functions import FunctionError, function
 async def pay(ctx):
     async with ctx.runtime.transaction() as db:
         moved = await db.execute(
-            "UPDATE orders SET status = 'paid' WHERE id = ? AND status = 'pending'",
+            "UPDATE orders SET status = 'paid' "
+            "WHERE id = ? AND status = 'pending'",
             [ctx.input["order_id"]],
         )
         if not moved:
-            raise FunctionError("That order is not waiting for payment.", status=409, code="not_pending")
+            raise FunctionError(
+                "That order is not waiting for payment.",
+                status=409,
+                code="not_pending",
+            )
     await ctx.runtime.emit("order.paid", {"id": ctx.input["order_id"]})
     return {"paid": True}
 `;
@@ -170,10 +174,7 @@ function Logic() {
       <i className="fx rings big tr" aria-hidden="true" />
       <div className="wrap">
         <div className="split">
-          <div className="c6">
-            <Figure name="workers" names={(c) => c} label="A plate with four worker tiles on dashed links. The tile under the pointer rises alone and its link turns solid." ratio="5 / 4" />
-          </div>
-          <div className="c6 stack" style={{ ["--gap" as string]: "18px" }}>
+          <div className="c5 stack" style={{ ["--gap" as string]: "18px" }}>
             <h2 id="logic-title" className="h1">
               Application behavior without a second infrastructure.
             </h2>
@@ -183,11 +184,11 @@ function Logic() {
               <Arrow to="/products/automation">Automation</Arrow>
             </div>
           </div>
-        </div>
-        <div className="code-row">
-          <Code lang="python" caption="A function: plain async Python, with a transaction and an event." source="pawabase-docs, Code › Functions">
-            {ORDERS_PAY}
-          </Code>
+          <div className="c7">
+            <Code lang="python" caption="A function: a transaction and an event." source="pawabase-docs, Code › Functions">
+              {ORDERS_PAY}
+            </Code>
+          </div>
         </div>
       </div>
     </section>
@@ -233,7 +234,7 @@ function Applications() {
 function CloudSection() {
   return (
     <section id="cloud" className="section ink" aria-labelledby="cloud-title">
-      <i className="fx iso big br" aria-hidden="true" />
+      
       <div className="wrap split">
         <div className="c5 stack" style={{ ["--gap" as string]: "18px" }}>
           <h2 id="cloud-title" className="h1">
@@ -260,7 +261,7 @@ function CloudSection() {
 function Africa() {
   return (
     <section id="africa" className="section" aria-labelledby="africa-title">
-      <i className="fx grid patch bl" aria-hidden="true" />
+      
       <div className="wrap split">
         <div className="c7">
           <div className="stage">
@@ -310,31 +311,31 @@ function Developers() {
   return (
     <section id="developers" className="section alt" aria-labelledby="developers-title">
       <i className="fx ticks strip-h bl" aria-hidden="true" />
-      <div className="wrap">
-        <div className="lead-row">
+      <div className="wrap split top">
+        <div className="c5 stack" style={{ ["--gap" as string]: "22px" }}>
           <h2 id="developers-title" className="h1">
             Fits the way a team already works.
           </h2>
           <p className="lede">Code in your repository, tests that run without a server, and the same software managed or self-hosted.</p>
-        </div>
-        <div className="codes">
           <Code lang="bash" caption="The command line." source="pawabase-docs, Code › CLI">
             {CLI}
           </Code>
+          <div className="actions">
+            <a className="btn btn-primary" href={docs("quickstart")}>
+              Read the quickstart
+            </a>
+            <a className="btn" href={docs("self-hosting/docker-compose")}>
+              Self-host
+            </a>
+            <a className="btn" href={github}>
+              GitHub
+            </a>
+          </div>
+        </div>
+        <div className="c7">
           <Code lang="ts" caption="The TypeScript client." source="pawabase-docs, Clients › TypeScript SDK">
             {TS}
           </Code>
-        </div>
-        <div className="actions" style={{ marginTop: 32 }}>
-          <a className="btn btn-primary" href={docs("quickstart")}>
-            Read the quickstart
-          </a>
-          <a className="btn" href={docs("self-hosting/docker-compose")}>
-            Self-host with Docker Compose
-          </a>
-          <a className="btn" href={github}>
-            GitHub
-          </a>
         </div>
       </div>
     </section>

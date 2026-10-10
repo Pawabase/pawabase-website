@@ -8,8 +8,8 @@ const THEME_KEY = "pawabase.website.theme";
 export function Brand() {
   return (
     <Link to="/" className="brand" aria-label="Pawabase home">
-      <img className="mark-light" src="/brand/mark.svg" alt="" width="30" height="27" />
-      <img className="mark-dark" src="/brand/mark-dark.svg" alt="" width="30" height="27" />
+      <img className="mark-light" src="/brand/mark.svg" alt="" width="34" height="31" />
+      <img className="mark-dark" src="/brand/mark-dark.svg" alt="" width="34" height="31" />
       pawabase
     </Link>
   );

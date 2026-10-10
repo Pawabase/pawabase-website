@@ -16,7 +16,7 @@ export function Code({ children, lang = "text", caption, source }: { children: s
   const text = children.replace(/^\n+|\s+$/g, "");
   const html = lang === "text" ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;") : hljs.highlight(text, { language: lang, ignoreIllegals: true }).value;
   return (
-    <div>
+    <figure className="codecard">
       <pre className="code" tabIndex={0}>
         <code className="hljs" dangerouslySetInnerHTML={{ __html: html }} />
       </pre>
@@ -26,6 +26,6 @@ export function Code({ children, lang = "text", caption, source }: { children: s
           {source && <span>{source}</span>}
         </div>
       )}
-    </div>
+    </figure>
   );
 }

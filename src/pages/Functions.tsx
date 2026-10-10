@@ -10,20 +10,25 @@ from pawabase.functions import FunctionError, function
 async def pay(ctx):
     async with ctx.runtime.transaction() as db:
         moved = await db.execute(
-            "UPDATE orders SET status = 'paid' WHERE id = ? AND status = 'pending'",
+            "UPDATE orders SET status = 'paid' "
+            "WHERE id = ? AND status = 'pending'",
             [ctx.input["order_id"]],
         )
         if not moved:
-            raise FunctionError("That order is not waiting for payment.", status=409, code="not_pending")
+            raise FunctionError(
+                "That order is not waiting for payment.",
+                status=409,
+                code="not_pending",
+            )
     await ctx.runtime.emit("order.paid", {"id": ctx.input["order_id"]})
     return {"paid": True}
 `;
 
 const CLI = `
 pip install pawabase
-pawabase init                 # functions/hello.py, a test, .env.example
-pawabase emulate --watch      # run it locally, against your deployment
-pawabase deploy               # put it on the deployment
+pawabase init
+pawabase emulate --watch
+pawabase deploy
 pawabase deploy --branch my-feature
 pawabase rollback
 pawabase logs -f
@@ -62,21 +67,23 @@ export default function Functions() {
             <div className="sheet blurb"><h3 className="h3">On your machine</h3><p className="body"><span className="mono">pawabase emulate</span> serves it locally against a real deployment.</p></div>
             <div className="sheet blurb"><h3 className="h3">In a unit test</h3><p className="body">Tests use <span className="mono">pawabase.testing</span> and need no server.</p></div>
           </div>
+          <p className="notice" style={{ marginTop: 28 }}>Running functions in isolated worker processes by default is in review and is not part of a released version.</p>
         </div>
       </section>
 
       <section className="section deep" aria-labelledby="invoke">
       <i className="fx rings big tr" aria-hidden="true" />
-        <div className="wrap split">
-          <div className="c6">
-            <Figure name="workers" names={(c) => c} label="A plate with four worker tiles on dashed links. The tile under the pointer rises alone." ratio="5 / 4" />
+        <div className="wrap split top">
+          <div className="c5">
+            <div className="stage">
+              <Figure name="workers" names={(c) => c} label="A plate with four worker tiles on dashed links. The tile under the pointer rises alone." ratio="5 / 4" />
+            </div>
           </div>
-          <div className="c6 stack" style={{ ["--gap" as string]: "16px" }}>
+          <div className="c7 stack" style={{ ["--gap" as string]: "22px" }}>
             <h2 id="invoke" className="h1">
               Called over HTTP, from a flow, or as a job.
             </h2>
             <p className="lede">Its policy decides who may call it. Inside, ctx.runtime reaches resources, events, storage, mail and secrets.</p>
-            <p className="small">Running functions in isolated worker processes by default is in review and is not part of a released version.</p>
             <Code lang="bash" caption="From an empty folder to a followed log." source="pawabase-docs, Code › CLI">
               {CLI}
             </Code>

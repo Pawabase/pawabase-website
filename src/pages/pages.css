@@ -305,3 +305,22 @@
 
 /* the hero's own line work: a quiet dot field, lighter than the rest */
 .fx.dots.soft { -webkit-mask: var(--p-dots) 0 0 / 28px 28px repeat; mask: var(--p-dots) 0 0 / 28px 28px repeat; background: var(--line-2); opacity: 0.55; }
+
+/* code and layout tidy-up */
+.frame .pagehead { padding-block: clamp(40px, 6vw, 72px); }
+.codecard { min-width: 0; }
+.codecard .code { min-width: 0; overflow: auto; }
+.frame .section.flush .wrap { padding-bottom: 0; }
+.trio { display: grid; grid-template-columns: 1fr; margin-top: clamp(32px, 5vw, 56px); border-top: 1px solid var(--line-2); position: relative; z-index: 1; }
+.trio article { display: grid; gap: 10px; align-content: start; padding: 28px clamp(28px, 5vw, 72px) 36px; border-bottom: 1px solid var(--line-2); }
+.trio article:last-child { border-bottom: 0; }
+@media (min-width: 981px) {
+  .trio { grid-template-columns: repeat(3, 1fr); }
+  .trio article { border-bottom: 0; padding: 32px 36px 44px; }
+  .trio article:first-child { padding-left: clamp(28px, 5vw, 72px); }
+  .trio article + article { border-left: 1px solid var(--line-2); }
+}
+.frame .section.flush { padding-bottom: 0; }
+.frame .section.flush .trio { margin-bottom: 0; }
+.stack > .codecard { margin-top: var(--gap, 20px); }
+.stack > .actions { margin-top: calc(var(--gap, 20px) + 6px); }
