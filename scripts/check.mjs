@@ -4,7 +4,7 @@ import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 
 const origin = process.env.CHECK_URL || "http://127.0.0.1:4173";
-const paths = ["/", "/products/auth", "/products/database", "/products/storage", "/products/functions", "/products/automation", "/cloud"];
+const paths = ["/"];
 const banned = /\b(seamless(ly)?|powerful|revolutionary|supercharge|unlock|effortless(ly)?|next-generation|game-changing)\b/i;
 const problems = [];
 const browser = await chromium.launch({ channel: "chrome", headless: true });

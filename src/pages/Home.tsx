@@ -1,31 +1,18 @@
-import { Link } from "@tanstack/react-router";
 import GridMotion from "../components/GridMotion";
 import { Code } from "../components/Code";
 import { Diagram } from "../components/Diagrams";
 import { Figure } from "../components/Figure";
-import { ArrowRight } from "../components/Icons";
-import { docs, github } from "../config";
-
-const Arrow = ({ to, href, children }: { to?: string; href?: string; children: string }) =>
-  to ? (
-    <Link className="arrow" to={to}>
-      {children} <ArrowRight />
-    </Link>
-  ) : (
-    <a className="arrow" href={href}>
-      {children} <ArrowRight />
-    </a>
-  );
+import { github } from "../config";
 
 /* ────────────────────────────── 1 · hero ────────────────────────────── */
 
 const cells = [
-  { key: "auth", name: "Auth", figure: "auth", text: "Sign-in, teams and roles your customers expect, ready in minutes.", to: "/products/auth", span: 5, tone: "white" },
-  { key: "database", name: "Database", figure: "database", text: "Describe your data once and get a secure API for it.", to: "/products/database", span: 4, tone: "canvas" },
-  { key: "storage", name: "Storage", figure: "storage", text: "Upload and share files under the same rules as your data.", to: "/products/storage", span: 3, tone: "canvas" },
-  { key: "functions", name: "Functions", figure: "functions", text: "Write your own logic in Python and run it beside your data.", to: "/products/functions", span: 3, tone: "white" },
-  { key: "automation", name: "Automation", figure: "automation", text: "Send the email, charge the card, sync the stock: automatically, every time.", to: "/products/automation", span: 5, tone: "white" },
-  { key: "cloud", name: "Cloud", figure: "cloud", text: "Launch a project in a minute. We run it for you.", to: "/cloud", span: 4, tone: "lavender" },
+  { key: "auth", name: "Auth", figure: "auth", text: "Sign-in, teams and roles. Use it on its own, or with the rest.", span: 5, tone: "white" },
+  { key: "database", name: "Data", figure: "database", text: "Describe your data once and get a secure API for it.", span: 4, tone: "canvas" },
+  { key: "storage", name: "Files", figure: "storage", text: "Uploads and downloads under the same rules as your data.", span: 3, tone: "canvas" },
+  { key: "functions", name: "Functions", figure: "functions", text: "Your own logic in Python, running beside your data.", span: 3, tone: "white" },
+  { key: "automation", name: "Queues and events", figure: "automation", text: "Background work that retries, and services that react to each other.", span: 5, tone: "white" },
+  { key: "cloud", name: "Cloud", figure: "cloud", text: "Managed projects are on the way. Pre-launch.", span: 4, tone: "lavender" },
 ] as const;
 
 const WALL_NAMES = ["Auth", "Database", "Storage", "Functions", "Flows", "Realtime", "Mail", "Queues", "Policies", "Webhooks", "Secrets", "Backups", "Schedules", "Events", "Gateway"];
@@ -44,23 +31,22 @@ function Hero() {
         </div>
       <div className="wrap">
         <div className="hero-top">
-          <Link className="eyebrow" to="/cloud">
+          <p className="eyebrow">
             <i aria-hidden="true" />
-            Pawabase Cloud is in pre-launch
-            <ArrowRight />
-          </Link>
+            Pawabase is in pre-launch
+          </p>
           <h1 id="hero-title" className="display">
-            Everything your application needs, in one place.
+            Build a whole backend from small, independent services.
           </h1>
           <div className="hero-side">
-            <p className="lede">Sign-in, database, files, background work and your own logic, ready from day one. Hosted by us, or run on your own servers.</p>
+            <p className="lede">Sign-in, data, functions, files, queues and monitoring. Use one on its own, or combine them: they share one account, one set of rules and one request trail.</p>
             <div className="actions">
-              <a className="btn btn-primary" href={docs("quickstart")}>
-                Start building
+              <a className="btn btn-primary" href={github}>
+                Follow on GitHub
               </a>
-              <Link className="btn" to="/cloud">
-                Explore Cloud
-              </Link>
+              <a className="btn" href="#platform">
+                See how it fits
+              </a>
             </div>
           </div>
         </div>
@@ -72,7 +58,6 @@ function Hero() {
             <header>
               <h2 className="h4">{c.name}</h2>
               <p className="small">{c.text}</p>
-              <Arrow to={c.to}>{`Explore ${c.name}`}</Arrow>
             </header>
             <div className="cell-fig">
               <Diagram name={c.figure} label={`${c.name}, as the product shows it.`} />
@@ -101,18 +86,18 @@ function Connected() {
         <div className="center">
           <p className="kicker">Platform</p>
           <h2 id="platform-title" className="h1">
-            Build the product, not the plumbing.
+            Independent services. One spine underneath.
           </h2>
-          <p className="lede">Sign-in, data, files and background work arrive already connected, so your team spends its time on what makes your product yours.</p>
+          <p className="lede">Each service stands on its own. What runs under all of them is shared, and that is the part you would otherwise wire by hand.</p>
         </div>
         <div className="stage wide">
           <Figure name="schema" names={(c) => c} label="Tiles joined by links. The tile under the pointer rises, and every tile that refers to it rises after it." ratio="5 / 4" />
           <p className="small stage-note">Point at a piece to see what it connects to.</p>
         </div>
         <ol className="points">
-          <li><b>Sign in once</b><span>People sign in once and every part of your app recognises them.</span></li>
-          <li><b>One set of rules</b><span>Permissions you write once apply to your data, files and logic.</span></li>
-          <li><b>One place to look</b><span>Every request, job and email is recorded together.</span></li>
+          <li><b>One account</b><span>People sign in once and every service knows who they are.</span></li>
+          <li><b>One set of rules</b><span>A permission you write once applies to data, files and logic.</span></li>
+          <li><b>One request trail</b><span>A single request ID follows a call through every service it touches.</span></li>
         </ol>
       </div>
     </section>
@@ -166,10 +151,10 @@ function Foundation() {
             Secure by default, from the first request.
           </h2>
           <dl className="kv">
-            <div><dt>Sign-in</dt><dd>Know who is using your app. <Link to="/products/auth">Auth</Link></dd></div>
+            <div><dt>Sign-in</dt><dd>Know who is using your app.</dd></div>
             <div><dt>Permissions</dt><dd>Say who can see and change what, in plain conditions.</dd></div>
-            <div><dt>Data</dt><dd>Tables and an API, generated for you. <Link to="/products/database">Database</Link></dd></div>
-            <div><dt>Files</dt><dd>Stored and shared under the same rules. <Link to="/products/storage">Storage</Link></dd></div>
+            <div><dt>Data</dt><dd>Tables and an API, generated for you.</dd></div>
+            <div><dt>Files</dt><dd>Stored and shared under the same rules.</dd></div>
           </dl>
         </div>
       </div>
@@ -211,10 +196,6 @@ function Logic() {
               Your business logic, without another server.
             </h2>
             <p className="lede">When something happens in your app, Pawabase reacts: send the receipt, update the record, tell your partner. Retried automatically if it fails.</p>
-            <div className="actions">
-              <Arrow to="/products/functions">Functions</Arrow>
-              <Arrow to="/products/automation">Automation</Arrow>
-            </div>
           </div>
           <div className="c7">
             <Code lang="python" caption="A function that marks an order paid and announces it." source="pawabase-docs, Code › Functions">
@@ -279,11 +260,6 @@ function CloudSection() {
             <li>Billed in naira</li>
           </ul>
           <p className="small">Pre-launch. Plans and regions are published as they open.</p>
-          <div className="actions">
-            <Link className="btn btn-primary" to="/cloud">
-              Explore Cloud
-            </Link>
-          </div>
         </div>
         <div className="c7">
           <Figure name="rack" names={(c) => c} label="Four blades in a frame. The blade under the pointer slides out along its rails." ratio="5 / 4" />
@@ -312,9 +288,6 @@ function Africa() {
             Built for African businesses.
           </h2>
           <p className="lede">Pawabase Cloud runs in Nigeria and bills in naira through Paystack. More regions are planned; none is promised until it opens.</p>
-          <div className="actions">
-            <Arrow to="/cloud">Regions and billing</Arrow>
-          </div>
         </div>
       </div>
     </section>
@@ -359,14 +332,8 @@ function Developers() {
             {CLI}
           </Code>
           <div className="actions">
-            <a className="btn btn-primary" href={docs("quickstart")}>
-              Read the quickstart
-            </a>
-            <a className="btn" href={docs("self-hosting/docker-compose")}>
-              Self-host
-            </a>
-            <a className="btn" href={github}>
-              GitHub
+            <a className="btn btn-primary" href={github}>
+              Follow on GitHub
             </a>
           </div>
         </div>
@@ -388,17 +355,11 @@ function Closing() {
       <div className="wrap split">
         <div className="c7 stack" style={{ ["--gap" as string]: "28px" }}>
           <h2 id="closing-title" className="display">
-            Start with one project. The rest is already in it.
+            Start with one service. Add the next when you need it.
           </h2>
           <div className="actions">
-            <a className="btn btn-primary" href={docs("quickstart")}>
-              Start building
-            </a>
-            <Link className="btn" to="/cloud">
-              Explore Cloud
-            </Link>
-            <a className="btn" href={docs("index")}>
-              Documentation
+            <a className="btn btn-primary" href={github}>
+              Follow on GitHub
             </a>
           </div>
         </div>
