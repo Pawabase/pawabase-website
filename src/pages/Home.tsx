@@ -12,7 +12,7 @@ const cells = [
   { key: "storage", name: "Storage", figure: "storage", text: "Buckets on local disk or any S3-compatible service, under the same policies.", span: 3, tone: "canvas" },
   { key: "functions", name: "Functions", figure: "functions", text: "Application logic in Python, deployed from your repository and run beside your data.", span: 3, tone: "white" },
   { key: "automation", name: "Flows and events", figure: "automation", text: "Workflows, queues and schedules that react when something happens in your application, and retry when it fails.", span: 5, tone: "white" },
-  { key: "cloud", name: "Cloud", figure: "cloud", text: "A managed way to run Pawabase. In pre-launch: regions and plans are not published yet.", span: 4, tone: "lavender" },
+  { key: "cloud", name: "Cloud", figure: "cloud", text: "The managed way to run Pawabase: each project gets its own database and its own address.", span: 4, tone: "lavender" },
 ] as const;
 
 const WALL_NAMES = ["Auth", "Database", "Storage", "Functions", "Flows", "Realtime", "Mail", "Queues", "Policies", "Webhooks", "Secrets", "Backups", "Schedules", "Events", "Gateway"];
@@ -33,7 +33,7 @@ function Hero() {
         <div className="hero-top">
           <p className="eyebrow">
             <i aria-hidden="true" />
-            Pawabase is in pre-launch
+            An application development platform
           </p>
           <h1 id="hero-title" className="display">
             Build applications. Not infrastructure.
@@ -41,11 +41,11 @@ function Hero() {
           <div className="hero-side">
             <p className="lede">Everything behind your application, working together: identity, data, files, functions, workflows and realtime, built to operate as one platform.</p>
             <div className="actions">
-              <a className="btn btn-primary" href={docs("index")}>
-                Read the documentation
+              <a className="btn btn-primary" href={docs("quickstart")}>
+                Get started
               </a>
-              <a className="btn" href="#platform">
-                See how it fits together
+              <a className="btn" href={docs("index")}>
+                Read the documentation
               </a>
             </div>
           </div>
@@ -259,7 +259,7 @@ function CloudSection() {
             <li>Regional hosting, starting in Nigeria</li>
             <li>Naira billing planned at launch</li>
           </ul>
-          <p className="small">Pre-launch. Plans and regions are published as they open.</p>
+          <p className="small">Plans and regions are announced as they open.</p>
         </div>
         <div className="c7">
           <Figure name="rack" names={(c) => c} label="Four blades in a frame. The blade under the pointer slides out along its rails." ratio="5 / 4" />

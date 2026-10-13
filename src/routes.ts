@@ -6,11 +6,11 @@ export const pages: PageMeta[] = [
     path: "/",
     title: "Pawabase: build applications, not infrastructure",
     description:
-      "Pawabase is an end-to-end application development platform: identity, data, storage, functions, workflows and realtime, designed to work together. Self-host it or use Pawabase Cloud. In pre-launch.",
+      "Pawabase is an end-to-end application development platform: identity, data, storage, functions, workflows and realtime, designed to work together. Self-host it or use Pawabase Cloud.",
   },
 ];
 
-/** Pages that exist and are not routed while the site is a one-page pre-launch. To bring one back, add it to `pages` and to the router's `components`. */
+/** Pages that exist and are not routed while the site is a single page. To bring one back, add it to `pages` and to the router's `components`. */
 export const heldBack: PageMeta[] = [
   {
     path: "/products/auth",
@@ -46,7 +46,7 @@ export const heldBack: PageMeta[] = [
     path: "/cloud",
     title: "Pawabase Cloud: the managed way to run Pawabase",
     description:
-      "Managed Pawabase projects, each with its own database. In pre-launch, starting in Nigeria and billed in naira through Paystack. Plans and prices are not published yet.",
+      "Managed Pawabase projects, each with its own database, starting in Nigeria and billed in naira through Paystack. Plans and prices are announced as they open.",
   },
 ];
 

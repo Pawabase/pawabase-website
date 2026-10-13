@@ -21,7 +21,7 @@ export function Footer() {
         </div>
         <div className="footer-base">
           <span>© {new Date().getFullYear()} Pawabase</span>
-          <span>In pre-launch. Source is public on GitHub.</span>
+          <span>Source and documentation are public on GitHub.</span>
         </div>
       </div>
     </footer>

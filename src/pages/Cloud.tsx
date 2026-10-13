@@ -4,7 +4,7 @@ import { PageHead } from "../components/PageHead";
 import { docs } from "../config";
 
 const status = [
-  ["Availability", "Pre-launch."],
+  ["Availability", "Opening soon."],
   ["Region", "Nigeria. Other African regions are planned and not published."],
   ["Billing", "Naira, through Paystack, per organization."],
   ["Plans and prices", "Not published."],
@@ -26,9 +26,9 @@ export default function Cloud() {
       <section id="status" className="section" aria-labelledby="status-title">
         <div className="wrap">
           <h2 id="status-title" className="h1" style={{ marginBottom: 12, maxWidth: "20ch" }}>
-            Pawabase Cloud is being prepared for launch.
+            Pawabase Cloud is on its way.
           </h2>
-          <p className="lede" style={{ marginBottom: 28 }}>This is what the current build does. It is not an offer of availability.</p>
+          <p className="lede" style={{ marginBottom: 28 }}>What follows describes the current build. Availability, plans and prices are announced as they open.</p>
           <div className="sheet">
             <table className="spec">
               <tbody>

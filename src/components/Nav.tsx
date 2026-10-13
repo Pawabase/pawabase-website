@@ -33,7 +33,7 @@ function useTheme() {
   return { dark, toggle };
 }
 
-/** Pre-launch: the brand, the theme, and one way to follow the project. Every other destination is off until it exists. */
+/** A one-page site: the brand, the theme, and one way to follow the project. */
 export function Nav() {
   const { dark, toggle } = useTheme();
   return (
