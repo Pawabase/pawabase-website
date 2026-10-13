@@ -41,7 +41,7 @@ export default function Functions() {
         <div className="wrap split">
           <div className="c5" style={{ alignSelf: "center" }}>
             <h1 className="h1" style={{ fontSize: "clamp(34px, 4.4vw, 56px)" }}>Functions</h1>
-            <p className="lede" style={{ marginTop: 20 }}>Write your own business logic in plain Python. It lives in your repository and runs right beside your data.</p>
+            <p className="lede" style={{ marginTop: 20 }}>Programmable application logic in Python. Functions live in your repository, run beside your data, and can be called from your app, from flows or on a schedule.</p>
             <div className="actions" style={{ marginTop: 28 }}>
               <a className="btn btn-primary" href={docs("code/functions")}>Read about Functions</a>
               <a className="btn" href={docs("code/cli")}>Command line</a>
@@ -58,7 +58,7 @@ export default function Functions() {
       <section className="section" aria-labelledby="three">
         <div className="wrap">
           <h2 id="three" className="h1" style={{ marginBottom: 28, maxWidth: "18ch" }}>
-            Write it once. Run it anywhere.
+            Develop locally. Deploy with one command.
           </h2>
           <div className="two three">
             <div className="sheet blurb"><h3 className="h3">On a deployment</h3><p className="body">Deploy with one command. Try a branch beside your live app, and roll back in seconds.</p></div>
@@ -78,9 +78,9 @@ export default function Functions() {
           </div>
           <div className="c7 stack" style={{ ["--gap" as string]: "22px" }}>
             <h2 id="invoke" className="h1">
-              Call it from your app, from automation, or on a schedule.
+              One function, called from wherever you need it.
             </h2>
-            <p className="lede">You decide who may call it. Inside, it can read your data, send events and email, and use your files and secrets.</p>
+            <p className="lede">You decide who may call it. Inside, it can read and write your data, emit events, send mail and use files and secrets.</p>
             <Code lang="bash" caption="From an empty folder to a followed log." source="pawabase-docs, Code › CLI">
               {CLI}
             </Code>

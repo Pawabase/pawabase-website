@@ -34,17 +34,17 @@ export default function Database() {
     <>
       <PageHead
         title="Database"
-        lede="Describe your data once. Pawabase creates the table, the API and the permissions for it."
+        lede="Describe a resource once. Pawabase creates the table, the REST API, the validation and the access rules around it."
         figure="records"
         figureLabel="The rows of a table as long strips on a plate. The row under the pointer slides out of the table."
         primary={{ href: docs("data/resources"), label: "Read about resources" }}
-        secondary={{ href: docs("quickstart"), label: "Quickstart" }}
+        secondary={{ href: docs("quickstart"), label: "Get started" }}
       />
 
       <section className="section" aria-labelledby="definition">
         <div className="wrap">
           <h2 id="definition" className="h1" style={{ marginBottom: 28, maxWidth: "18ch" }}>
-            Describe it once. Get the rest.
+            One definition. The whole data layer.
           </h2>
           <div className="sheet">
             <table className="spec">
@@ -62,9 +62,9 @@ export default function Database() {
         <div className="wrap split">
           <div className="c5 stack" style={{ ["--gap" as string]: "16px" }}>
             <h2 id="policy" className="h1">
-              You set the rules. Pawabase enforces them.
+              Access rules that run where the data lives.
             </h2>
-            <p className="lede">Lists only ever show what a person is allowed to see, and paging still works.</p>
+            <p className="lede">Lists return only what the caller may see, and paging, filtering and expansion keep working.</p>
           </div>
           <div className="c7 stack" style={{ ["--gap" as string]: "14px" }}>
             <Code lang="json" caption="Attached to list, each person sees their own rows." source="pawabase-docs, Policies">
@@ -87,9 +87,9 @@ export default function Database() {
           </div>
           <div className="c5 stack" style={{ ["--gap" as string]: "16px" }}>
             <h2 id="engine" className="h1">
-              Bring the database you prefer.
+              Use the database you already run.
             </h2>
-            <p className="lede">SQLite while you build. PostgreSQL or MySQL when you launch.</p>
+            <p className="lede">SQLite while you build. PostgreSQL or MySQL in production.</p>
           </div>
         </div>
       </section>

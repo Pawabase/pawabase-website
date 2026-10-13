@@ -16,7 +16,7 @@ export default function Cloud() {
     <>
       <PageHead
         title="Pawabase Cloud"
-        lede="Create a project and get your own complete backend with its own database. We run it, so you do not have to."
+        lede="The managed way to run Pawabase: a project with its own database and address, operated for you. The same platform can also be self-hosted."
         figure="rack"
         figureLabel="Four blades in a frame. The blade under the pointer slides out along its rails."
         primary={{ href: "#status", label: "Where Cloud stands" }}
@@ -59,9 +59,9 @@ export default function Cloud() {
           </div>
           <div className="c5 stack" style={{ ["--gap" as string]: "16px" }}>
             <h2 id="regions" className="h1">
-              Close to your customers, in your currency.
+              Modern application infrastructure, wherever you build.
             </h2>
-            <p className="lede">Your project's data sits on servers in Nigeria and you are billed in naira. Plan prices are not published yet.</p>
+            <p className="lede">Projects start in Nigeria and are billed in naira. More regions are planned and none is published yet. Plan prices are not published either.</p>
           </div>
         </div>
       </section>

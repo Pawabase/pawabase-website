@@ -27,7 +27,7 @@ export default function Automation() {
     <>
       <PageHead
         title="Automation"
-        lede="Something happens in your app. Pawabase reacts: sends the email, calls your partner, updates the record, and tries again if it fails."
+        lede="Orchestrate business processes: react to events, run on schedules, call external services and retry what fails, with flows, queues and workers working as one system."
         figure="steps"
         figureLabel="A stair of five treads. The tread under the pointer lifts."
         primary={{ href: docs("flows/overview"), label: "Read about Flows" }}
@@ -37,7 +37,7 @@ export default function Automation() {
       <section className="section" aria-labelledby="triggers">
         <div className="wrap">
           <h2 id="triggers" className="h1" style={{ marginBottom: 28, maxWidth: "18ch" }}>
-            Start it however you like.
+            Start a flow in the way that fits.
           </h2>
           <div className="sheet">
             <table className="spec">
@@ -54,10 +54,10 @@ export default function Automation() {
       <section className="section deep" aria-labelledby="events">
         <div className="wrap two">
           <div className="blurb">
-            <h2 id="events" className="h1">Add new behavior without changing what already works.</h2>
+            <h2 id="events" className="h1">Add behaviour without touching what already works.</h2>
           </div>
           <div className="blurb">
-            <p className="lede">One thing happening can trigger everything that cares: automation, your functions, your partners and live screens.</p>
+            <p className="lede">One event can start a flow, call your functions, notify partners and update live screens. Subscribers are independent of the code that raised the event.</p>
             <p className="small">Every message is delivered at least once, so build reactions that are safe to repeat.</p>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function Automation() {
       <section className="section" aria-labelledby="queues">
         <div className="wrap">
           <h2 id="queues" className="h1" style={{ marginBottom: 28, maxWidth: "18ch" }}>
-            Background work that does not get lost.
+            Background work that survives failures.
           </h2>
           <div className="sheet">
             <table className="spec">

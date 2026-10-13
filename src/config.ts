@@ -19,12 +19,12 @@ export type Product = {
 };
 
 export const products: Product[] = [
-  { key: "auth", name: "Auth", path: "/products/auth", line: "Sign-in, teams and roles." },
-  { key: "database", name: "Database", path: "/products/database", line: "Your data, with a secure API." },
-  { key: "storage", name: "Storage", path: "/products/storage", line: "Files with the right access." },
-  { key: "functions", name: "Functions", path: "/products/functions", line: "Your own logic, in Python." },
-  { key: "automation", name: "Automation", path: "/products/automation", line: "Work that runs by itself." },
-  { key: "cloud", name: "Cloud", path: "/cloud", line: "We run it for you." },
+  { key: "auth", name: "Auth", path: "/products/auth", line: "Identity, sessions and access policies." },
+  { key: "database", name: "Database", path: "/products/database", line: "Data, an API and access rules." },
+  { key: "storage", name: "Storage", path: "/products/storage", line: "Files under your policies." },
+  { key: "functions", name: "Functions", path: "/products/functions", line: "Application logic, in Python." },
+  { key: "automation", name: "Flows and events", path: "/products/automation", line: "Workflows, queues and schedules." },
+  { key: "cloud", name: "Cloud", path: "/cloud", line: "The managed way to run Pawabase." },
 ];
 
 export const developerLinks = [

@@ -24,7 +24,7 @@ export default function Storage() {
     <>
       <PageHead
         title="Storage"
-        lede="Store files safely and decide who can see them, with the same rules as the rest of your app."
+        lede="Object storage for application files: buckets with size and type limits, and access decided by the same policies as your data."
         figure="bucket"
         figureLabel="Three crates of different sizes on a plate and a dashed footprint for one that does not exist yet. The crate under the pointer lifts."
         primary={{ href: docs("storage/overview"), label: "Read about Storage" }}
@@ -34,7 +34,7 @@ export default function Storage() {
       <section className="section" aria-labelledby="buckets">
         <div className="wrap">
           <h2 id="buckets" className="h1" style={{ marginBottom: 28, maxWidth: "18ch" }}>
-            Folders that know who may open them.
+            Buckets with their own access rules.
           </h2>
           <div className="sheet">
             <table className="spec">
@@ -52,9 +52,9 @@ export default function Storage() {
         <div className="wrap split">
           <div className="c5 stack" style={{ ["--gap" as string]: "16px" }}>
             <h2 id="path" className="h1">
-              Every upload and download is checked.
+              Every upload and download is authorized.
             </h2>
-            <p className="lede">Before a file is stored or served, Pawabase checks who is asking and what they are allowed to do.</p>
+            <p className="lede">Before a file is stored or served, Pawabase checks who is asking and what they may do.</p>
             <p className="small">A secret key skips these checks, so keep it on your server.</p>
           </div>
           <div className="c7">
@@ -68,7 +68,7 @@ export default function Storage() {
       <section className="section" aria-labelledby="where">
         <div className="wrap two">
           <div className="sheet blurb">
-            <h2 id="where" className="h2">Keep files where you want.</h2>
+            <h2 id="where" className="h2">Choose where files live.</h2>
             <p className="body">Local disk, or any S3-compatible service such as AWS S3, MinIO, Tigris, Cloudflare R2 or DigitalOcean Spaces.</p>
           </div>
           <div className="sheet blurb">

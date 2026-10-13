@@ -4,9 +4,49 @@ export type PageMeta = { path: string; title: string; description: string };
 export const pages: PageMeta[] = [
   {
     path: "/",
-    title: "Pawabase: build a whole backend from small, independent services",
+    title: "Pawabase: build applications, not infrastructure",
     description:
-      "Pawabase is in pre-launch: sign-in, data, functions, files, queues and monitoring as independent services that combine on one shared account, one set of rules and one request trail.",
+      "Pawabase is an end-to-end application development platform: identity, data, storage, functions, workflows and realtime, designed to work together. Self-host it or use Pawabase Cloud. In pre-launch.",
+  },
+];
+
+/** Pages that exist and are not routed while the site is a one-page pre-launch. To bring one back, add it to `pages` and to the router's `components`. */
+export const heldBack: PageMeta[] = [
+  {
+    path: "/products/auth",
+    title: "Pawabase Auth: identity, sessions, organizations and permissions",
+    description:
+      "Email and password, magic links, social sign-in, TOTP multi-factor, rotating sessions with theft detection, organizations, teams and role-based access policies.",
+  },
+  {
+    path: "/products/database",
+    title: "Pawabase Database: resources, policies and a generated API",
+    description:
+      "Describe a resource once and get the table, a typed REST API, validation, relations and row-level access rules, over PostgreSQL, MySQL or SQLite.",
+  },
+  {
+    path: "/products/storage",
+    title: "Pawabase Storage: buckets, access policies and signed URLs",
+    description:
+      "Object storage with per-bucket access policies, size and type limits and signed URLs, on local disk or any S3-compatible service.",
+  },
+  {
+    path: "/products/functions",
+    title: "Pawabase Functions: application logic in Python",
+    description:
+      "Write async Python functions, test them without a server, emulate them against a real deployment and deploy them from your repository.",
+  },
+  {
+    path: "/products/automation",
+    title: "Pawabase Flows and events: workflows, queues and schedules",
+    description:
+      "Visual and programmable flows, platform events, background queues and workers, schedules and webhooks, working as one automation system.",
+  },
+  {
+    path: "/cloud",
+    title: "Pawabase Cloud: the managed way to run Pawabase",
+    description:
+      "Managed Pawabase projects, each with its own database. In pre-launch, starting in Nigeria and billed in naira through Paystack. Plans and prices are not published yet.",
   },
 ];
 

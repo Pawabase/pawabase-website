@@ -8,7 +8,7 @@ export function Footer() {
         <div className="footer-grid">
           <div>
             <Brand />
-            <p className="footer-note">A set of independent backend services (sign-in, data, functions, files, queues and monitoring) that combine on one shared account, one set of rules and one request trail.</p>
+            <p className="footer-note">An end-to-end application development platform: identity, data, files, functions, workflows and realtime, designed to work together. Self-host it, or use Pawabase Cloud.</p>
           </div>
           <div>
             <h2>Project</h2>

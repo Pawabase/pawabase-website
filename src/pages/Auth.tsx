@@ -29,17 +29,17 @@ export default function Auth() {
     <>
       <PageHead
         title="Auth"
-        lede="Sign-in your customers trust, with teams, roles and a second factor, built into the same platform as your data."
+        lede="Identity for your application: sign-in, sessions, organizations and permissions, built into the same platform as your data and files."
         figure="session"
         figureLabel="A card file of four cards of different heights: the person, the session, the organization and the second factor. The card under the pointer slides up."
-        primary={{ href: docs("auth/overview"), label: "Read the guide" }}
-        secondary={{ href: docs("quickstart"), label: "Quickstart" }}
+        primary={{ href: docs("auth/overview"), label: "Explore authentication" }}
+        secondary={{ href: docs("quickstart"), label: "Get started" }}
       />
 
       <section className="section" aria-labelledby="ways">
         <div className="wrap">
           <h2 id="ways" className="h1" style={{ marginBottom: 28 }}>
-            Four ways in.
+            Sign-in methods.
           </h2>
           <div className="sheet">
             <table className="spec">
@@ -57,9 +57,9 @@ export default function Auth() {
         <div className="wrap split">
           <div className="c5 stack" style={{ ["--gap" as string]: "16px" }}>
             <h2 id="session" className="h1">
-              Know who is signed in, and what they can do.
+              Every request knows who is acting.
             </h2>
-            <p className="lede">Every request knows the person, the team they are acting for and how securely they signed in, so your rules stay simple.</p>
+            <p className="lede">Each request carries the person, the organization they act for and how strongly they authenticated, so access policies stay short and precise.</p>
             <p className="small">Sessions stay short and refresh quietly. If a stolen session is replayed, all of that person's sessions are signed out.</p>
           </div>
           <div className="c7">
@@ -73,9 +73,9 @@ export default function Auth() {
       <section className="section" aria-labelledby="orgs">
         <div className="wrap two">
           <div className="sheet blurb">
-            <h2 id="orgs" className="h2">Teams are built in.</h2>
-            <p className="body">Owner, admin, member and viewer roles, teams, and invitations you can send and take back.</p>
-            <a className="arrow" href={docs("auth/organizations")}>Teams in the docs</a>
+            <h2 id="orgs" className="h2">Organizations and roles.</h2>
+            <p className="body">Owner, admin, member and viewer roles, teams and invitations, available to every access policy in the platform.</p>
+            <a className="arrow" href={docs("auth/organizations")}>Organizations in the docs</a>
           </div>
           <div className="sheet blurb">
             <h2 className="h2">Not included.</h2>
