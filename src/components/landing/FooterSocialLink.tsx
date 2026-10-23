@@ -45,7 +45,7 @@ export function FooterSocialLink({ link }: { link: FooterLink }) {
         aria-disabled="true"
         tabIndex={-1}
         title="Planned - this channel is not live yet"
-        className="group inline-flex items-center gap-2 text-[12px] leading-none text-faint"
+        className="group inline-flex items-center gap-2 text-[15px] leading-none text-faint"
       >
         {icon}
         {link.label}
@@ -59,7 +59,7 @@ export function FooterSocialLink({ link }: { link: FooterLink }) {
       href={link.href}
       target={link.external ? "_blank" : undefined}
       rel={link.external ? "noreferrer" : undefined}
-      className="group inline-flex items-center gap-2 text-[12px] leading-none text-muted no-underline transition-colors duration-150 hover:text-brand"
+      className="group inline-flex items-center gap-2 text-[15px] leading-none text-muted no-underline transition-colors duration-150 hover:text-brand"
     >
       {icon}
       {link.label}

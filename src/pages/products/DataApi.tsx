@@ -80,7 +80,7 @@ const PARTS = [
 function QueryAnatomy() {
   return (
     <div className="overflow-x-auto pb-2">
-      <div className="mx-auto flex w-max items-start gap-1 font-[Geist_Mono,ui-monospace,monospace] text-[clamp(13px,1.35vw,17px)]">
+      <div className="mx-auto flex w-max items-start gap-1 font-[PP_Neue_Montreal,sans-serif] text-[clamp(13px,1.35vw,17px)]">
         <span className="pt-0 text-[#6fd3a2]">GET&nbsp;</span>
         {PARTS.map((part, i) => (
           <span key={part.text} className="flex flex-col items-center gap-3">
@@ -121,7 +121,7 @@ function FanOut() {
   return (
     <Figure width={760} height={320} label="One table fans out into list, read, create, update and delete endpoints, plus generated documentation" className="h-auto w-full min-w-[560px]">
       <rect x={20} y={110} width={180} height={100} rx={12} style={{ stroke: "rgba(255,255,255,0.35)" }} />
-      <text x={110} y={156} textAnchor="middle" fontSize="15" fontFamily="Geist, sans-serif" fill="#ededed">orders</text>
+      <text x={110} y={156} textAnchor="middle" fontSize="15" fontFamily="PP Neue Montreal, sans-serif" fill="#ededed">orders</text>
       <text x={110} y={178} textAnchor="middle" fontSize="11" fill="#74767c">6 columns</text>
       {ys.map((y, i) => (
         <g key={y}>

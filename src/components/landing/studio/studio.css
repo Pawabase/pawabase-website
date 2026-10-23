@@ -7,22 +7,6 @@
  * pawabase/studio/frontend/src/app.css.
  */
 
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/geist.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/geist-mono.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 .sx {
   --sx-canvas: #08090a;
   --sx-surface: #16171a;
@@ -44,7 +28,7 @@
 
   position: relative;
   color: var(--sx-text);
-  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  font-family: "PP Neue Montreal", ui-sans-serif, system-ui, sans-serif;
   font-size: 13px;
   line-height: 1.5;
   letter-spacing: -0.006em;
@@ -54,7 +38,7 @@
 }
 
 .sx-mono {
-  font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: "PP Neue Montreal", ui-sans-serif, system-ui, sans-serif;
   font-size: 12px;
   letter-spacing: 0;
 }

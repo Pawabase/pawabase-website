@@ -56,7 +56,7 @@ function KeyCard({ title, where, keyText, lines, tone }: { title: string; where:
     <Card className="flex flex-col p-8">
       <span className="text-[13px] text-muted">{where}</span>
       <span className="mt-2 text-[22px] font-medium tracking-[-0.03em] text-text">{title}</span>
-      <span className="mt-6 font-[Geist_Mono,ui-monospace,monospace] text-[15px]" style={{ color: tone }}>{keyText}</span>
+      <span className="mt-6 font-[PP_Neue_Montreal,sans-serif] text-[15px]" style={{ color: tone }}>{keyText}</span>
       <ul className="mt-6 grid gap-2.5">
         {lines.map((line) => (
           <li key={line} className="flex items-start gap-2.5 text-[14px] leading-[1.5] text-muted">

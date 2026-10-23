@@ -43,7 +43,7 @@ export function ReleaseTrack() {
     >
       {LANES.map((lane) => (
         <g key={lane.name}>
-          <text x={0} y={lane.y + 4} fontSize="13" fontFamily="Geist, sans-serif" fill="#a1a3a8">
+          <text x={0} y={lane.y + 4} fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill="#a1a3a8">
             {lane.name}
           </text>
           <line x1={X0} x2={X1} y1={lane.y} y2={lane.y} style={{ stroke: "rgba(255,255,255,0.08)" }} />

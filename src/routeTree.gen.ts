@@ -10,6 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as CompanyIndexRouteImport } from './routes/company/index'
+import { Route as CompanyCareersRouteImport } from './routes/company/careers'
+import { Route as CompanyContactRouteImport } from './routes/company/contact'
 import { Route as ProductsApiSecurityRouteImport } from './routes/products/api-security'
 import { Route as ProductsAuthenticationRouteImport } from './routes/products/authentication'
 import { Route as ProductsDataApiRouteImport } from './routes/products/data-api'
@@ -27,6 +31,26 @@ import { Route as ProductsWebhooksRouteImport } from './routes/products/webhooks
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanyIndexRoute = CompanyIndexRouteImport.update({
+  id: '/company/',
+  path: '/company/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanyCareersRoute = CompanyCareersRouteImport.update({
+  id: '/company/careers',
+  path: '/company/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanyContactRoute = CompanyContactRouteImport.update({
+  id: '/company/contact',
+  path: '/company/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsApiSecurityRoute = ProductsApiSecurityRouteImport.update({
@@ -97,6 +121,9 @@ const ProductsWebhooksRoute = ProductsWebhooksRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/company/careers': typeof CompanyCareersRoute
+  '/company/contact': typeof CompanyContactRoute
   '/products/api-security': typeof ProductsApiSecurityRoute
   '/products/authentication': typeof ProductsAuthenticationRoute
   '/products/data-api': typeof ProductsDataApiRoute
@@ -110,9 +137,13 @@ export interface FileRoutesByFullPath {
   '/products/releases': typeof ProductsReleasesRoute
   '/products/storage': typeof ProductsStorageRoute
   '/products/webhooks': typeof ProductsWebhooksRoute
+  '/company/': typeof CompanyIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/company/careers': typeof CompanyCareersRoute
+  '/company/contact': typeof CompanyContactRoute
   '/products/api-security': typeof ProductsApiSecurityRoute
   '/products/authentication': typeof ProductsAuthenticationRoute
   '/products/data-api': typeof ProductsDataApiRoute
@@ -126,10 +157,14 @@ export interface FileRoutesByTo {
   '/products/releases': typeof ProductsReleasesRoute
   '/products/storage': typeof ProductsStorageRoute
   '/products/webhooks': typeof ProductsWebhooksRoute
+  '/company': typeof CompanyIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/blog': typeof BlogRoute
+  '/company/careers': typeof CompanyCareersRoute
+  '/company/contact': typeof CompanyContactRoute
   '/products/api-security': typeof ProductsApiSecurityRoute
   '/products/authentication': typeof ProductsAuthenticationRoute
   '/products/data-api': typeof ProductsDataApiRoute
@@ -143,11 +178,15 @@ export interface FileRoutesById {
   '/products/releases': typeof ProductsReleasesRoute
   '/products/storage': typeof ProductsStorageRoute
   '/products/webhooks': typeof ProductsWebhooksRoute
+  '/company/': typeof CompanyIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/blog'
+    | '/company/careers'
+    | '/company/contact'
     | '/products/api-security'
     | '/products/authentication'
     | '/products/data-api'
@@ -161,9 +200,13 @@ export interface FileRouteTypes {
     | '/products/releases'
     | '/products/storage'
     | '/products/webhooks'
+    | '/company/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/blog'
+    | '/company/careers'
+    | '/company/contact'
     | '/products/api-security'
     | '/products/authentication'
     | '/products/data-api'
@@ -177,9 +220,13 @@ export interface FileRouteTypes {
     | '/products/releases'
     | '/products/storage'
     | '/products/webhooks'
+    | '/company'
   id:
     | '__root__'
     | '/'
+    | '/blog'
+    | '/company/careers'
+    | '/company/contact'
     | '/products/api-security'
     | '/products/authentication'
     | '/products/data-api'
@@ -193,10 +240,14 @@ export interface FileRouteTypes {
     | '/products/releases'
     | '/products/storage'
     | '/products/webhooks'
+    | '/company/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BlogRoute: typeof BlogRoute
+  CompanyCareersRoute: typeof CompanyCareersRoute
+  CompanyContactRoute: typeof CompanyContactRoute
   ProductsApiSecurityRoute: typeof ProductsApiSecurityRoute
   ProductsAuthenticationRoute: typeof ProductsAuthenticationRoute
   ProductsDataApiRoute: typeof ProductsDataApiRoute
@@ -210,6 +261,7 @@ export interface RootRouteChildren {
   ProductsReleasesRoute: typeof ProductsReleasesRoute
   ProductsStorageRoute: typeof ProductsStorageRoute
   ProductsWebhooksRoute: typeof ProductsWebhooksRoute
+  CompanyIndexRoute: typeof CompanyIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -219,6 +271,34 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company/': {
+      id: '/company/'
+      path: '/company'
+      fullPath: '/company/'
+      preLoaderRoute: typeof CompanyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company/careers': {
+      id: '/company/careers'
+      path: '/company/careers'
+      fullPath: '/company/careers'
+      preLoaderRoute: typeof CompanyCareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company/contact': {
+      id: '/company/contact'
+      path: '/company/contact'
+      fullPath: '/company/contact'
+      preLoaderRoute: typeof CompanyContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products/api-security': {
@@ -317,6 +397,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BlogRoute: BlogRoute,
+  CompanyCareersRoute: CompanyCareersRoute,
+  CompanyContactRoute: CompanyContactRoute,
   ProductsApiSecurityRoute: ProductsApiSecurityRoute,
   ProductsAuthenticationRoute: ProductsAuthenticationRoute,
   ProductsDataApiRoute: ProductsDataApiRoute,
@@ -330,6 +413,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsReleasesRoute: ProductsReleasesRoute,
   ProductsStorageRoute: ProductsStorageRoute,
   ProductsWebhooksRoute: ProductsWebhooksRoute,
+  CompanyIndexRoute: CompanyIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

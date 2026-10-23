@@ -68,7 +68,7 @@ export function AccessFigure() {
               <text x={70} y={c.y + 4} textAnchor="middle" fontSize="10" fill={lit ? "#ededed" : "#74767c"}>
                 {c.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}
               </text>
-              <text x={96} y={c.y - 3} fontSize="13" fontFamily="Geist, sans-serif" fill={lit ? "#ededed" : "#a1a3a8"}>
+              <text x={96} y={c.y - 3} fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill={lit ? "#ededed" : "#a1a3a8"}>
                 {c.name}
               </text>
               <text x={96} y={c.y + 14} fontSize="10.5" fill="#74767c">
@@ -86,7 +86,7 @@ export function AccessFigure() {
         {/* the policy */}
         <rect x={GATE.x} y={GATE.y} width={GATE.w} height={GATE.h} rx={12} style={{ stroke: "var(--hl-edge)" }} />
         <line className="hl-line" x1={GATE.x} x2={GATE.x + GATE.w} y1={GATE.y + 44} y2={GATE.y + 44} />
-        <text x={GATE.x + 18} y={GATE.y + 27} fontSize="12" fontFamily="Geist, sans-serif" fill="#ededed">
+        <text x={GATE.x + 18} y={GATE.y + 27} fontSize="12" fontFamily="PP Neue Montreal, sans-serif" fill="#ededed">
           Owners manage their orders
         </text>
         <text x={GATE.x + 18} y={GATE.y + 76} fontSize="10.5" fill="#74767c">allow list, read, update when</text>
@@ -125,7 +125,7 @@ export function AccessFigure() {
               <text x={876} y={row.y + 4} fontSize="11" fill={lit ? "#ededed" : "#4a4c52"}>
                 {row.id}
               </text>
-              <text x={924} y={row.y + 4} fontSize="12" fontFamily="Geist, sans-serif" fill={lit ? "#a1a3a8" : "#4a4c52"}>
+              <text x={924} y={row.y + 4} fontSize="12" fontFamily="PP Neue Montreal, sans-serif" fill={lit ? "#a1a3a8" : "#4a4c52"}>
                 {row.owner}
               </text>
             </g>

@@ -23,16 +23,16 @@ export function Footer() {
                   aria-label="Pawabase home"
                 >
                   <BrandMark size={28} />
-                  <span className="text-[18px] font-bold tracking-[-0.045em]">
+                  <span className="text-[22px] font-medium tracking-[-0.045em]">
                     pawabase
                   </span>
                 </a>
 
-                <p className="mt-5 max-w-[24ch] text-[13px] font-medium leading-[1.5] tracking-[-0.02em] text-text">
+                <p className="mt-5 max-w-[24ch] text-[16px] font-medium leading-[1.5] tracking-[-0.02em] text-text">
                   The backend behind what's next.
                 </p>
 
-                <p className="mt-2 max-w-[32ch] text-[11px] leading-[1.7] tracking-[-0.01em] text-muted">
+                <p className="mt-2 max-w-[32ch] text-[15px] leading-[1.7] tracking-[-0.01em] text-muted">
                   Build ambitious applications without rebuilding the backend.
                 </p>
               </div>
@@ -43,7 +43,7 @@ export function Footer() {
               >
                 {FOOTER_LINK_GROUPS.map((group) => (
                   <div key={group.title}>
-                    <h2 className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/75">
+                    <h2 className="text-[13px] font-medium uppercase tracking-[0.14em] text-white/75">
                       {group.title}
                     </h2>
 
@@ -59,11 +59,11 @@ export function Footer() {
               </nav>
 
               <div className="min-[768px]:col-span-2 min-[1100px]:col-span-1">
-                <h2 className="text-[14px] font-semibold tracking-[-0.02em] text-text">
+                <h2 className="text-[18px] font-medium tracking-[-0.02em] text-text">
                   Good things are being built.
                 </h2>
 
-                <p className="mt-2.5 max-w-[38ch] text-[11.5px] leading-[1.7] tracking-[-0.01em] text-muted">
+                <p className="mt-2.5 max-w-[38ch] text-[15px] leading-[1.7] tracking-[-0.01em] text-muted">
                   Product updates, engineering stories, and ideas worth sharing.
                   Straight to your inbox.
                 </p>
@@ -71,7 +71,7 @@ export function Footer() {
                 <FooterNewsletter />
 
                 <div className="mt-7">
-                  <h2 className="font-mono text-[8px] uppercase tracking-[0.14em] text-faint">
+                  <h2 className="text-[12px] uppercase tracking-[0.14em] text-faint">
                     Follow
                   </h2>
 
@@ -83,7 +83,7 @@ export function Footer() {
                     ))}
                   </ul>
 
-                  <p className="mt-3 text-[9px] leading-[1.6] text-faint/75">
+                  <p className="mt-3 text-[13px] leading-[1.6] text-faint/75">
                     More channels are being set up.
                   </p>
                 </div>
@@ -94,7 +94,7 @@ export function Footer() {
               aria-hidden="true"
               className="mt-[clamp(56px,7vw,96px)] text-center"
             >
-              <p className="select-none whitespace-nowrap text-[clamp(56px,14vw,200px)] font-extrabold leading-[0.8] tracking-[-0.075em] text-brand/20">
+              <p className="select-none whitespace-nowrap text-[clamp(56px,14vw,200px)] font-normal leading-[0.8] tracking-[-0.075em] text-brand/20">
                 PAWABASE
               </p>
             </div>

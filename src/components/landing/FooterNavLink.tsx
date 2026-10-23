@@ -8,7 +8,7 @@ export function FooterNavLink({
   className?: string;
 }) {
   const base =
-    "inline-block max-w-full break-words text-[12px] leading-[1.55] no-underline";
+    "inline-block max-w-full break-words text-[15px] leading-[1.55] no-underline";
 
   if (link.status === "planned") {
     return (

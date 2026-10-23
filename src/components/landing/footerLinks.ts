@@ -49,7 +49,12 @@ export const FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
   },
   {
     title: "Company",
-    links: [planned("About"), planned("Blog"), planned("Contact")],
+    links: [
+      live("About", "/company"),
+      live("Blog", "/blog"),
+      live("Careers", "/company/careers"),
+      live("Contact", "/company/contact"),
+    ],
   },
 ];
 

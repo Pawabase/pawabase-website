@@ -67,8 +67,8 @@ function JobList() {
 function TwoLanes() {
   return (
     <Figure width={820} height={250} label="The user's request returns in a moment, while the slow work finishes on its own a few seconds later" className="h-auto w-full min-w-[640px]">
-      <text x="0" y="74" fontSize="13" fontFamily="Geist, sans-serif" fill="#a1a3a8">Your user</text>
-      <text x="0" y="174" fontSize="13" fontFamily="Geist, sans-serif" fill="#a1a3a8">In the background</text>
+      <text x="0" y="74" fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill="#a1a3a8">Your user</text>
+      <text x="0" y="174" fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill="#a1a3a8">In the background</text>
       <line x1="150" x2="800" y1="70" y2="70" style={{ stroke: "rgba(255,255,255,0.1)" }} />
       <line x1="150" x2="800" y1="170" y2="170" style={{ stroke: "rgba(255,255,255,0.1)" }} />
       <rect x="160" y="56" width="70" height="28" rx="8" style={{ stroke: "#6fd3a2" }} />

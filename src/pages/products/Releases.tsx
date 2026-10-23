@@ -174,7 +174,7 @@ export default function ReleasesPage() {
 
       <Band labelledBy="rel-domain" className="py-[clamp(88px,10vw,140px)]" backdrop={backdrop.hatch("50%", "50%")}>
         <h2 id="rel-domain" className="text-center text-[15px] text-faint">Your API, on your domain</h2>
-        <p className="mt-6 text-center font-[Geist_Mono,ui-monospace,monospace] text-[clamp(24px,3.6vw,48px)] tracking-[-0.03em] text-text">
+        <p className="mt-6 text-center font-[PP_Neue_Montreal,sans-serif] text-[clamp(24px,3.6vw,48px)] tracking-[-0.03em] text-text">
           api.northwind.com <span className="text-muted">→ production</span>
         </p>
       </Band>

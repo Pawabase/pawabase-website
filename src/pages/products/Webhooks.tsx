@@ -24,19 +24,19 @@ function BothWays() {
       {["Payments", "Code host", "Chat"].map((name, i) => (
         <g key={name}>
           <rect x={10} y={ins[i] - 20} width={130} height={40} rx={20} style={{ stroke: "rgba(255,255,255,0.28)" }} />
-          <text x={75} y={ins[i] + 4} textAnchor="middle" fontSize="12" fontFamily="Geist, sans-serif" fill="#a1a3a8">{name}</text>
+          <text x={75} y={ins[i] + 4} textAnchor="middle" fontSize="12" fontFamily="PP Neue Montreal, sans-serif" fill="#a1a3a8">{name}</text>
           <path className="hl-line" d={`M140 ${ins[i]} C200 ${ins[i]} 220 160 280 160`} style={{ stroke: "rgba(255,255,255,0.16)" }} />
           <circle r="3" className="hl-travel" style={{ fill: "#ededed", stroke: "none", "--path": `path("M140 ${ins[i]} C200 ${ins[i]} 220 160 280 160")`, "--dur": "2.4s", "--delay": `${i * 0.6}s` } as CSSProperties} />
         </g>
       ))}
       <rect x={280} y={110} width={160} height={100} rx={14} style={{ stroke: "#ff7049" }} />
-      <text x={360} y={156} textAnchor="middle" fontSize="14" fontFamily="Geist, sans-serif" fill="#ededed">Your project</text>
+      <text x={360} y={156} textAnchor="middle" fontSize="14" fontFamily="PP Neue Montreal, sans-serif" fill="#ededed">Your project</text>
       <text x={360} y={176} textAnchor="middle" fontSize="10.5" fill="#74767c">flows</text>
       {["Warehouse", "Accounting"].map((name, i) => (
         <g key={name}>
           <path className="hl-line" d={`M440 160 C500 160 520 ${outs[i]} 580 ${outs[i]}`} style={{ stroke: "rgba(255,112,73,0.6)" }} />
           <rect x={580} y={outs[i] - 20} width={130} height={40} rx={20} style={{ stroke: "rgba(255,112,73,0.6)" }} />
-          <text x={645} y={outs[i] + 4} textAnchor="middle" fontSize="12" fontFamily="Geist, sans-serif" fill="#ededed">{name}</text>
+          <text x={645} y={outs[i] + 4} textAnchor="middle" fontSize="12" fontFamily="PP Neue Montreal, sans-serif" fill="#ededed">{name}</text>
           <circle r="3" className="hl-travel" style={{ fill: "#ff7049", stroke: "none", "--path": `path("M440 160 C500 160 520 ${outs[i]} 580 ${outs[i]}")`, "--dur": "2s", "--delay": `${1 + i * 0.7}s` } as CSSProperties} />
         </g>
       ))}

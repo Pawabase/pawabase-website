@@ -59,12 +59,12 @@ export function FooterNewsletter() {
           maxLength={254}
           aria-invalid={status === "invalid"}
           aria-describedby={messageId}
-          className="min-w-0 flex-1 bg-transparent px-0 text-[12px] tracking-[-0.01em] text-text outline-none placeholder:text-faint"
+          className="min-w-0 flex-1 bg-transparent px-0 text-[15px] tracking-[-0.01em] text-text outline-none placeholder:text-faint"
         />
 
         <button
           type="submit"
-          className="inline-flex h-full shrink-0 items-center justify-center gap-1.5 rounded-lg border border-white/[0.78] bg-[#F5F5F6] px-3.5 text-[10px] font-bold tracking-[-0.01em] text-[#111315] shadow-[inset_0_-2px_0_rgba(255,112,73,0.45)] transition-colors duration-150 hover:bg-white"
+          className="inline-flex h-full shrink-0 items-center justify-center gap-1.5 rounded-lg border border-white/[0.78] bg-[#F5F5F6] px-3.5 text-[14px] font-medium tracking-[-0.01em] text-[#111315] shadow-[inset_0_-2px_0_rgba(255,112,73,0.45)] transition-colors duration-150 hover:bg-white"
         >
           Subscribe
           <Icon name="arrowRight" size={13} />
@@ -74,7 +74,7 @@ export function FooterNewsletter() {
       <p
         id={messageId}
         aria-live="polite"
-        className={`mt-2 min-h-[16px] text-[9.5px] leading-[1.5] ${
+        className={`mt-2 min-h-[16px] text-[13px] leading-[1.5] ${
           status === "invalid" ? "text-brand" : "text-faint"
         }`}
       >

@@ -112,7 +112,7 @@ function HistoryMark() {
       {[30, 60, 90, 120, 150, 180].map((x, i) => (
         <circle key={x} cx={x} cy="55" r="5" fill={i > 2 ? "#ff7049" : "none"} stroke={i > 2 ? "none" : "rgba(255,255,255,0.4)"} />
       ))}
-      <text x="165" y="85" textAnchor="middle" fontSize="10" fill="#74767c" fontFamily="Geist Mono, monospace">replayed</text>
+      <text x="165" y="85" textAnchor="middle" fontSize="10" fill="#74767c" fontFamily="PP Neue Montreal, sans-serif">replayed</text>
     </svg>
   );
 }

@@ -37,7 +37,7 @@ function Transforms() {
           <Mug size={v.size} />
           <figcaption className="text-center">
             <span className="block text-[14px] text-text">{v.label}</span>
-            <span className="block font-[Geist_Mono,ui-monospace,monospace] text-[12px] text-faint">{v.meta}</span>
+            <span className="block font-[PP_Neue_Montreal,sans-serif] text-[12px] text-faint">{v.meta}</span>
           </figcaption>
         </figure>
       ))}
@@ -57,7 +57,7 @@ function DirectUpload() {
       {steps.map((s, i) => (
         <g key={s.title}>
           <rect x={s.x} y={80} width={160} height={80} rx={12} style={{ stroke: i === 2 ? "rgba(255,112,73,0.8)" : "rgba(255,255,255,0.3)" }} />
-          <text x={s.x + 80} y={116} textAnchor="middle" fontSize="14" fontFamily="Geist, sans-serif" fill="#ededed">{s.title}</text>
+          <text x={s.x + 80} y={116} textAnchor="middle" fontSize="14" fontFamily="PP Neue Montreal, sans-serif" fill="#ededed">{s.title}</text>
           <text x={s.x + 80} y={138} textAnchor="middle" fontSize="10.5" fill="#74767c">{s.note}</text>
         </g>
       ))}
