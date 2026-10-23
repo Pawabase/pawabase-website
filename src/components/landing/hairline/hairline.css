@@ -1,0 +1,223 @@
+/*
+ * Hairline palette, dark. Plates take the section's background through
+ * --hl-plate so a solid always reads as cut from the page it sits on.
+ */
+.hairline {
+  --hl-plate: var(--color-shell);
+  --hl-hi: #d0d6e0;
+  --hl-edge: #5b5d64;
+  --hl-mid: #3e3e44;
+  --hl-lo: #29292d;
+  --hl-brand: #ff7049;
+
+  display: block;
+  overflow: visible;
+  font-family: "Geist Mono", ui-monospace, monospace;
+}
+
+.card .hairline {
+  --hl-plate: var(--color-card);
+}
+
+.hairline :where(polygon, polyline, path, circle, line, rect) {
+  fill: var(--hl-plate);
+  stroke: var(--hl-mid);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  transition:
+    stroke 400ms ease-out,
+    fill 400ms ease-out;
+}
+
+.hairline :where(polyline, .hl-line) {
+  fill: none;
+}
+
+.hairline .hl-lo polygon {
+  stroke: var(--hl-lo);
+}
+
+.hairline .hl-mid polygon {
+  stroke: var(--hl-mid);
+}
+
+.hairline .hl-edge polygon {
+  stroke: var(--hl-edge);
+}
+
+.hairline .hl-hi polygon {
+  stroke: var(--hl-hi);
+}
+
+.hairline .hl-crease {
+  stroke: var(--hl-mid);
+}
+
+.hairline .hl-hi .hl-crease {
+  stroke: var(--hl-brand);
+}
+
+.hairline .hl-dash {
+  fill: none;
+  stroke: var(--hl-edge);
+  stroke-dasharray: 3 4;
+}
+
+.hairline .hl-callout polyline {
+  stroke: var(--hl-lo);
+}
+
+.hairline .hl-callout circle {
+  fill: var(--hl-edge);
+  stroke: none;
+}
+
+.hairline .hl-callout text {
+  fill: #74767c;
+  stroke: none;
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
+.hairline .hl-callout-lit circle {
+  fill: var(--hl-brand);
+}
+
+.hairline .hl-callout-lit text {
+  fill: #a1a3a8;
+}
+
+.hairline text {
+  stroke: none;
+}
+
+/* Motion: slow and few. A solid lifts, a light moves along a line. */
+.hl-lift {
+  animation: hl-lift 5.6s cubic-bezier(0.5, 0, 0.1, 1) infinite;
+}
+
+@keyframes hl-lift {
+  0%,
+  12% {
+    transform: translateY(0);
+  }
+  40%,
+  78% {
+    transform: translateY(-16px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.hl-rise {
+  animation: hl-rise 5.6s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+
+@keyframes hl-rise {
+  0%,
+  30% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  50%,
+  72% {
+    opacity: 1;
+    transform: translateY(-6px);
+  }
+  92%,
+  100% {
+    opacity: 0;
+    transform: translateY(-22px);
+  }
+}
+
+.hl-travel {
+  offset-path: var(--path);
+  offset-rotate: 0deg;
+  animation: hl-travel var(--dur, 3.2s) cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+
+@keyframes hl-travel {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+.hl-flow {
+  stroke-dasharray: 2 6;
+  animation: hl-flow 1.6s linear infinite;
+}
+
+@keyframes hl-flow {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+/* A release moving from one environment to the next, then settling in. */
+.hl-promote {
+  animation: hl-promote 6.4s cubic-bezier(0.5, 0, 0.1, 1) infinite;
+}
+
+@keyframes hl-promote {
+  0%,
+  18% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  32% {
+    transform: translate(0, -14px);
+  }
+  58% {
+    transform: translate(var(--dx), calc(var(--dy) - 14px));
+  }
+  70%,
+  88% {
+    transform: translate(var(--dx), var(--dy));
+    opacity: 1;
+  }
+  96% {
+    transform: translate(var(--dx), var(--dy));
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hl-promote,
+  .hl-lift,
+  .hl-flow {
+    animation: none;
+  }
+
+  .hl-rise {
+    animation: none;
+    opacity: 1;
+  }
+
+  .hl-travel {
+    animation: none;
+    opacity: 0;
+  }
+}

@@ -1,22 +1,31 @@
-import React from "react";
-import { createRoot, hydrateRoot } from "react-dom/client";
-import { RouterProvider } from "@tanstack/react-router";
-import { makeRouter } from "./router";
-import "./styles.css";
-import "./pages/pages.css";
+import "@/styles.css";
 
-const router = makeRouter();
-// Static routes carry no loader data to dehydrate: keep TanStack's SSR boundary shape when hydrating the prerendered document.
-if (document.getElementById("root")?.querySelector("main")) {
-  router.ssr = { manifest: undefined };
-}
-router.load().then(() => {
-  const root = document.getElementById("root")!;
-  const app = (
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
-  );
-  if (root.querySelector("main")) hydrateRoot(root, app);
-  else createRoot(root).render(app);
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
+import { routeTree } from "@/routeTree.gen";
+
+const router = createRouter({
+  routeTree,
+  defaultPreload: "intent",
+  scrollRestoration: true,
 });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
+
+const container = document.getElementById("root");
+
+if (!container) {
+  throw new Error("#root is missing from index.html");
+}
+
+createRoot(container).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>,
+);

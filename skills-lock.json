@@ -1,11 +1,11 @@
 {
   "version": 1,
   "skills": {
-    "hairline-create": {
-      "source": "lucasmarkes/hairline",
+    "brag": {
+      "source": "latent-spaces/brag",
       "sourceType": "github",
-      "skillPath": "skills/hairline-create/SKILL.md",
-      "computedHash": "836906905802fe12e344719545b8ff4d99e3741af044454309b1f8dfe793a948"
+      "skillPath": "skills/brag/SKILL.md",
+      "computedHash": "3928ea1b54c4a83fc854060bd07ed26958e09f15c7e10538f93cf721e7f58740"
     }
   }
 }
