@@ -557,7 +557,7 @@ export function TopBar() {
             })}
 
             <a
-              href="/#start"
+              href="/pricing"
               onClick={closeAll}
               className="rounded-lg px-3.5 py-2 text-[15px] font-medium tracking-[-0.01em] text-muted no-underline transition-colors duration-150 hover:bg-white/[0.07] hover:text-text"
             >
@@ -656,7 +656,7 @@ export function TopBar() {
               })}
 
               <a
-                href="/#start"
+                href="/pricing"
                 onClick={closeAll}
                 className="flex items-center justify-between border-b border-white/[0.07] py-3.5 text-[15.5px] font-semibold tracking-[-0.02em] text-text no-underline"
               >
