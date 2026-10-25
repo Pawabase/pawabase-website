@@ -63,11 +63,11 @@ export default function ContactPage() {
           ))}
         </div>
         <p className="mt-8 text-[14px] leading-[1.65] text-faint">
-          For bugs and feature requests, opening an issue on GitHub keeps the
-          conversation visible to the community.
+          For bugs and feature requests, send the team a short note with what
+          happened and the project you were working in.
           {" "}
-          <a className="text-muted underline decoration-line underline-offset-4 hover:text-text" href="https://github.com/Pawabase/pawabase/issues" target="_blank" rel="noreferrer">
-            Open an issue
+          <a className="text-muted underline decoration-line underline-offset-4 hover:text-text" href={`mailto:${COMPANY_EMAIL}?subject=${encodeURIComponent("Pawabase product feedback")}`}>
+            Send feedback
           </a>
           .
         </p>

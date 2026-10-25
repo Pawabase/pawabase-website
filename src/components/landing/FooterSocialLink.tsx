@@ -1,6 +1,5 @@
 import {
   SiDiscord,
-  SiGithub,
   SiX,
 } from "@icons-pack/react-simple-icons";
 import type { ReactNode } from "react";
@@ -22,7 +21,6 @@ function LinkedInGlyph({ size = 14 }: { size?: number }) {
 }
 
 const ICONS: Record<string, ReactNode> = {
-  GitHub: <SiGithub size={14} color="currentColor" aria-hidden="true" />,
   X: <SiX size={14} color="currentColor" aria-hidden="true" />,
   LinkedIn: <LinkedInGlyph size={14} />,
   Discord: <SiDiscord size={14} color="currentColor" aria-hidden="true" />,

@@ -10,7 +10,6 @@ import { Icon, type IconName } from "@/components/Icon";
 import { Wordmark } from "./Brand";
 
 const DOCS_URL = "https://docs.sillo.build";
-const GITHUB_URL = "https://github.com/Pawabase/pawabase";
 const APP_URL = "https://app.pawabase.com";
 
 type NavLink = {
@@ -119,7 +118,7 @@ const NAV_GROUPS: NavGroup[] = [
     intro: {
       title: "Read it. Ship it.",
       description:
-        "Documentation, API reference, and the source. Everything you need to build against Pawabase.",
+        "Documentation, API reference, and practical guidance for building against Pawabase.",
       ctaLabel: "Open documentation",
       ctaHref: DOCS_URL,
       external: true,
@@ -152,27 +151,26 @@ const NAV_GROUPS: NavGroup[] = [
         ],
       },
       {
-        heading: "Open source",
+        heading: "Build with Pawabase",
         links: [
           {
-            label: "GitHub",
-            href: GITHUB_URL,
-            description: "Read the source",
-            icon: "code",
-            external: true,
-          },
-          {
-            label: "Repository",
-            href: GITHUB_URL,
-            description: "Browse the repo",
-            icon: "webhooks",
-            external: true,
-          },
-          {
-            label: "Contributing",
+            label: "Quickstart",
             href: DOCS_URL,
-            description: "Build it with us",
-            icon: "users",
+            description: "Your first project",
+            icon: "play",
+            external: true,
+          },
+          {
+            label: "Security",
+            href: "/products/api-security",
+            description: "Keys, policies and firewall",
+            icon: "apiSecurity",
+          },
+          {
+            label: "Cloud",
+            href: APP_URL,
+            description: "Start a managed project",
+            icon: "sparkle",
             external: true,
           },
         ],
@@ -182,7 +180,7 @@ const NAV_GROUPS: NavGroup[] = [
       eyebrow: "Developer first",
       title: "No black boxes.",
       description:
-        "The docs are the product. Read the API, inspect the source, and ship.",
+        "The docs are the product. Learn the API, understand each primitive, and ship.",
       ctaLabel: "Read the docs",
       href: DOCS_URL,
       glyph: "</>",
@@ -237,14 +235,14 @@ const NAV_GROUPS: NavGroup[] = [
       },
     ],
     featured: {
-      eyebrow: "Open source",
-      title: "Built in the open.",
+      eyebrow: "Pawabase Cloud",
+      title: "Start with a complete backend.",
       description:
-        "Read the code, follow the work, or contribute an improvement on GitHub.",
-      ctaLabel: "Explore the repository",
-      href: GITHUB_URL,
-      glyph: "{ }",
-      tint: "154,140,255",
+        "Build your product with data, identity, automation and operations already connected.",
+      ctaLabel: "Create a project",
+      href: APP_URL,
+      glyph: "PB",
+      tint: "255,112,73",
       external: true,
     },
   },
