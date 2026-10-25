@@ -10,10 +10,10 @@ const CLOUD = [
   "Environments, releases and alarms managed",
 ];
 
-const SELF = [
-  "Docker Compose with every service included",
-  "Your own PostgreSQL database",
-  "Open source under the BSD-3-Clause licence",
+const OPERATIONS = [
+  "Isolated projects with their own database",
+  "Environments, releases and rollback built in",
+  "Observability and support as you grow",
 ];
 
 function Checks({ items }: { items: string[] }) {
@@ -43,13 +43,12 @@ export function CloudSection() {
       }
     >
       <div className="mx-auto flex max-w-[680px] flex-col items-center gap-5 text-center">
-        <Title id="deploy-title" quiet="Your choice of where it runs.">
+        <Title id="deploy-title" quiet="A clear path from first build to production.">
           Deploy and scale.
         </Title>
         <Lead className="max-w-[48ch]">
-          Use Pawabase Cloud, or self-host on infrastructure you control and
-          keep your data where you want it. The platform is the same either
-          way.
+          Start with a complete backend, then move from an idea to a reliable
+          production system without assembling the platform around it.
         </Lead>
       </div>
 
@@ -75,13 +74,14 @@ export function CloudSection() {
         <Card className="flex flex-col gap-6 p-8 min-[900px]:p-10">
           <div className="flex items-center gap-3">
             <Icon name="database" size={26} variant="Bulk" className="text-brand" />
-            <h3 className="text-[24px] font-medium tracking-[-0.03em] text-text">Self-hosted</h3>
+            <h3 className="text-[24px] font-medium tracking-[-0.03em] text-text">Built for production</h3>
           </div>
           <p className="max-w-[40ch] text-[16.5px] leading-[1.55] tracking-[-0.01em] text-muted">
-            One Compose file brings up the API, Studio, workers and storage.
+            The work of operating software is visible: environments, releases,
+            alarms and the controls to keep every project moving safely.
           </p>
-          <Checks items={SELF} />
-          <TextLink href="https://docs.sillo.build" className="pt-1">Read the deployment guide</TextLink>
+          <Checks items={OPERATIONS} />
+          <TextLink href="/products/observability" className="pt-1">Explore operations</TextLink>
         </Card>
       </div>
     </Band>

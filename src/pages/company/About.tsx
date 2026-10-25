@@ -17,7 +17,7 @@ const PRINCIPLES = [
   {
     number: "02",
     title: "Start complete, stay composable.",
-    copy: "The essentials should work together on day one, while every layer remains open enough to replace, extend, or operate yourself.",
+    copy: "The essentials should work together on day one, while each layer stays clear enough to extend as your product grows.",
   },
   {
     number: "03",
@@ -30,7 +30,7 @@ export default function AboutPage() {
   return (
     <CompanyShell
       title="About"
-      description="Pawabase is building a complete, open backend so small teams can move from idea to launch without assembling the same infrastructure again."
+      description="Pawabase is building a complete backend so small teams can move from idea to launch without assembling the same infrastructure again."
     >
       <CompanyHero
         label="About Pawabase"
@@ -38,8 +38,8 @@ export default function AboutPage() {
         quiet="Not the plumbing."
         description="Pawabase brings the backend pieces every product needs into one coherent system—so builders can spend their attention on what makes their product different."
       >
-        <ArrowLink href="https://github.com/Pawabase/pawabase" external>
-          See what we are building
+        <ArrowLink href="/products/database">
+          Explore the platform
         </ArrowLink>
       </CompanyHero>
 
@@ -56,8 +56,8 @@ export default function AboutPage() {
             <p>
               Pawabase is our answer: a product-first backend where those
               systems arrive connected, understandable, and ready to shape.
-              Run it yourself or use Pawabase Cloud. Either way, the code and
-              the data stay yours.
+              Pawabase Cloud gives each project the systems it needs to launch,
+              operate and evolve without stitching services together.
             </p>
           </div>
         </div>
@@ -87,26 +87,26 @@ export default function AboutPage() {
         </ol>
       </CompanySection>
 
-      <CompanySection labelledBy="company-open">
+      <CompanySection labelledBy="company-platform">
         <div className="rounded-[24px] bg-card p-6 ring-1 ring-white/[0.05] min-[700px]:p-10 min-[980px]:p-14">
           <div className="grid gap-10 min-[860px]:grid-cols-[minmax(0,1fr)_minmax(300px,0.65fr)] min-[860px]:items-end">
             <div>
               <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand/10 text-brand">
                 <Icon name="code" size={23} variant="Bulk" />
               </span>
-              <h2 id="company-open" className="mt-8 text-[clamp(34px,4vw,54px)] font-normal leading-[1.06] tracking-[-0.05em] text-text text-balance">
-                Open source is not a side project.
+              <h2 id="company-platform" className="mt-8 text-[clamp(34px,4vw,54px)] font-normal leading-[1.06] tracking-[-0.05em] text-text text-balance">
+                A backend that keeps its bearings.
               </h2>
             </div>
             <div>
               <p className="text-[17px] leading-[1.7] text-muted">
-                It is how Pawabase stays inspectable and portable. Read the
-                implementation, report what feels rough, or help make the next
-                release better.
+                Pawabase gives builders a coherent place to shape data,
+                identity, automation and operations—without losing sight of
+                what is running or why.
               </p>
               <div className="mt-7">
-                <ArrowLink href="https://github.com/Pawabase/pawabase" external>
-                  Explore Pawabase on GitHub
+                <ArrowLink href="/products/observability">
+                  See how operations work
                 </ArrowLink>
               </div>
             </div>

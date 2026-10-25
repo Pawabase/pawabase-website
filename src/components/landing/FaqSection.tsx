@@ -10,12 +10,12 @@ const QUESTIONS = [
     a: "PostgreSQL. Tables you create become REST endpoints with filtering, sorting, relations and pagination.",
   },
   {
-    q: "Can I host it myself?",
-    a: "Yes. Pawabase is open source under the BSD-3-Clause licence and ships with a Docker Compose setup that includes the API, Studio, worker, scheduler, database, Redis and S3-compatible storage.",
+    q: "How do I get started?",
+    a: "Create a Pawabase Cloud project, then use Studio to define your data, access rules, storage and automation. Every project starts with a dedicated database and the core platform already connected.",
   },
   {
     q: "Is there a hosted version?",
-    a: "Pawabase Cloud runs the platform for you, with projects that have their own database. The platform is the same one you can self-host.",
+    a: "Yes. Pawabase Cloud runs the platform for you, with projects that have their own database, environments, release controls and operational visibility.",
   },
   {
     q: "How does access control work?",

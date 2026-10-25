@@ -11,15 +11,15 @@ const CHANNELS = [
     label: "Product",
     title: "What we ship, and why.",
     copy: "Release notes with the decisions behind them—not just a list of changes.",
-    href: "https://github.com/Pawabase/pawabase/releases",
-    action: "Follow releases",
+    href: "https://app.pawabase.com",
+    action: "Create a project",
   },
   {
     label: "Engineering",
     title: "Systems made understandable.",
     copy: "Notes on the architecture, tradeoffs, and small details behind a complete backend.",
-    href: "https://github.com/Pawabase/pawabase",
-    action: "Read the source",
+    href: "/products/observability",
+    action: "Explore operations",
   },
   {
     label: "Guides",
@@ -50,7 +50,7 @@ export default function BlogPage() {
             id="blog-start"
             label="The journal"
             title="The first stories are being written."
-            description="Until they land here, the most current view of Pawabase lives in the code, releases, and documentation."
+            description="Until they land here, the clearest way to explore Pawabase is through the product and documentation."
           />
           <div className="divide-y divide-line border-y border-line">
             {CHANNELS.map((channel) => (
