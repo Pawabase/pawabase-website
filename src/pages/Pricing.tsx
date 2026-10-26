@@ -3,11 +3,15 @@ import { PrimaryButton } from "@/components/landing/PrimaryButton";
 import { TextLink } from "@/components/landing/Section";
 import { TopBar } from "@/components/landing/TopBar";
 import { PricingCards } from "@/components/pricing/PricingCards";
-import { PLANS, PRICING_METRICS } from "@/components/pricing/plans";
+import { CurrencyPicker } from "@/components/pricing/CurrencyPicker";
+import { usePlans } from "@/hooks/usePlans";
+import { useCurrency } from "@/lib/currency";
 import { Icon } from "@/components/Icon";
 import { usePageMeta } from "@/hooks/usePageMeta";
 
 function CompareTable() {
+  const { plans: PLANS, metrics: PRICING_METRICS } = usePlans();
+  const { show } = useCurrency();
   return (
     <div className="relative overflow-hidden rounded-[24px] bg-card ring-1 ring-white/[0.05]">
       <div aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-px bg-white/[0.12]" />
@@ -22,7 +26,7 @@ function CompareTable() {
             {PLANS.map((plan, index) => (
               <th key={plan.name} scope="col" className={`border-b border-white/[0.08] px-5 py-6 text-[15px] font-medium tracking-[-0.02em] ${index > 0 ? "border-l border-white/[0.055]" : ""} ${plan.featured ? "bg-brand/[0.075] text-brand" : "bg-white/[0.025] text-text"}`}>
                 <span className="block">{plan.name}</span>
-                <span className={`mt-1 block text-[12px] font-normal ${plan.featured ? "text-brand/70" : "text-faint"}`}>${plan.price}/mo</span>
+                <span className={`mt-1 block text-[12px] font-normal ${plan.featured ? "text-brand/70" : "text-faint"}`}>{show(Number(plan.price))}/mo</span>
               </th>
             ))}
           </tr>
@@ -98,7 +102,8 @@ export default function PricingPage() {
                   Everything stays connected at every level.
                 </h2>
               </div>
-              <div className="mt-12">
+              <div className="mt-8"><CurrencyPicker /></div>
+              <div className="mt-6">
                 <PricingCards />
               </div>
             </div>

@@ -62,4 +62,8 @@ export const PRICING_METRICS: PricingMetric[] = [
   { label: "User API keys / user", values: ["5", "10", "25", "50", "100"] },
   { label: "Realtime concurrent connections", values: ["100", "500", "2,500", "10,000", "50,000"] },
   { label: "Realtime messages / month", values: ["250K", "2M", "10M", "50M", "250M"] },
+  { label: "Request log history", values: ["1 day", "3 days", "7 days", "30 days", "90 days"] },
+  { label: "Flow run history", values: ["3 days", "7 days", "30 days", "90 days", "180 days"] },
+  { label: "Sign-in history", values: ["7 days", "30 days", "90 days", "180 days", "365 days"] },
+  { label: "Audit log history", values: ["7 days", "30 days", "90 days", "365 days", "730 days"] },
 ];

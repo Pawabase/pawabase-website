@@ -1,14 +1,17 @@
 import { Icon } from "@/components/Icon";
 import { PrimaryButton } from "@/components/landing/PrimaryButton";
 
-import { PLANS } from "./plans";
+import { useCurrency } from "@/lib/currency";
+import { usePlans } from "@/hooks/usePlans";
 
 const APP_URL = "https://app.pawabase.com";
 
 export function PricingCards({ compact = false }: { compact?: boolean }) {
+  const { plans } = usePlans();
+  const { show } = useCurrency();
   return (
     <div className={`grid gap-4 ${compact ? "min-[760px]:grid-cols-2 min-[1160px]:grid-cols-5" : "min-[680px]:grid-cols-2 min-[1100px]:grid-cols-5"}`}>
-      {PLANS.map((plan) => (
+      {plans.map((plan) => (
         <article
           key={plan.name}
           className={`relative flex min-w-0 flex-col overflow-hidden rounded-[24px] p-6 ring-1 min-[768px]:p-7 ${
@@ -33,8 +36,8 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
             {plan.description}
           </p>
           <div className="mt-7 flex items-end gap-1 border-b border-white/[0.08] pb-6">
-            <span className="text-[50px] font-medium leading-none tracking-[-0.065em] text-text">
-              ${plan.price}
+            <span className={`font-medium leading-none tracking-[-0.065em] text-text ${show(Number(plan.price)).length > 8 ? "text-[34px]" : "text-[50px]"}`}>
+              {show(Number(plan.price))}
             </span>
             <span className="mb-1.5 text-[13px] text-muted">/ month</span>
           </div>
