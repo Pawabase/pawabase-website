@@ -85,7 +85,7 @@ export function CodeSnippet({
       ) : null}
 
       <pre
-        className={`overflow-x-auto px-4 py-3.5 font-mono text-[10.5px] leading-[1.9] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${codeClassName}`}
+        className={`overflow-x-auto px-4 py-3.5 font-mono text-[10.5px] font-semibold leading-[1.9] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${codeClassName}`}
         aria-label={label}
       >
         <code>

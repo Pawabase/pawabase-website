@@ -1,5 +1,5 @@
-import { BuildFlowSection } from "@/components/landing/BuildFlowSection";
 import { CloudSection } from "@/components/landing/CloudSection";
+import { ConnectSection } from "@/components/landing/ConnectSection";
 import { FaqSection } from "@/components/landing/FaqSection";
 import { FeatureBento } from "@/components/landing/FeatureBento";
 import { FinalCta } from "@/components/landing/FinalCta";
@@ -24,7 +24,7 @@ export default function Landing() {
         <main>
           <Hero />
           <FeatureBento />
-          <BuildFlowSection />
+          <ConnectSection />
           <FrontendsSection />
           <CloudSection />
           <PricingSection />
