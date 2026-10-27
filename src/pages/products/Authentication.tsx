@@ -186,7 +186,7 @@ function Sessions() {
 
 export default function AuthenticationPage() {
   return (
-    <ProductShell title="Authentication" description="Sign-in, teams and two-step verification, ready on launch day.">
+    <ProductShell title="Authentication" description="Users, organizations, sessions and two-step verification, ready on launch day.">
       <Band className="pb-[clamp(72px,9vw,120px)] pt-[clamp(56px,7vw,96px)]" backdrop={<>{backdrop.dots("25%", "50%")}{backdrop.glow("25%", "30%", "760px", "560px")}</>}>
         <Split
           flip

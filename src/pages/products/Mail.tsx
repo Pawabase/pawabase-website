@@ -123,7 +123,7 @@ function Log() {
 
 export default function MailPage() {
   return (
-    <ProductShell title="Mail" description="Transactional email from templates you control, sent from flows.">
+    <ProductShell title="Mail" description="Transactional email from reusable templates, sent directly or from workflows.">
       <Band className="pb-[clamp(72px,9vw,120px)] pt-[clamp(64px,8vw,112px)]" backdrop={<>{backdrop.glow("50%", "65%", "1000px", "600px")}{backdrop.dots("50%", "70%")}</>}>
         <div className="mx-auto flex max-w-[720px] flex-col items-center gap-6 text-center">
           <ProductName icon="mail" name="Mail" />

@@ -7,6 +7,7 @@ import { Footer } from "@/components/landing/Footer";
 import { FrontendsSection } from "@/components/landing/FrontendsSection";
 import { Hero } from "@/components/landing/Hero";
 import { PricingSection } from "@/components/landing/PricingSection";
+import { ScrollMotion } from "@/components/landing/ScrollMotion";
 import { TopBar } from "@/components/landing/TopBar";
 import {
   DEFAULT_DESCRIPTION,
@@ -20,6 +21,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-shell">
       <div className="relative min-h-screen overflow-clip bg-shell">
+        <ScrollMotion />
         <TopBar />
         <main>
           <Hero />

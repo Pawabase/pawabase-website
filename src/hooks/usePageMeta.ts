@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 export const DEFAULT_TITLE = "Pawabase — the backend platform";
 export const DEFAULT_DESCRIPTION =
-  "Pawabase is a backend platform: a database API, identity, policies, realtime, storage and automation in one connected system.";
+  "Pawabase unifies data APIs, authentication, storage, email, realtime, workflows and background jobs in one backend platform.";
 
 function getDescriptionTag() {
   return document.querySelector<HTMLMetaElement>('meta[name="description"]');

@@ -29,11 +29,11 @@ export function Footer() {
                 </a>
 
                 <p className="mt-5 max-w-[24ch] text-[16px] font-medium leading-[1.5] tracking-[-0.02em] text-text">
-                  The backend behind what's next.
+                  One backend for apps and operations.
                 </p>
 
                 <p className="mt-2 max-w-[32ch] text-[15px] leading-[1.7] tracking-[-0.01em] text-muted">
-                  Build ambitious applications without rebuilding the backend.
+                  Manage data, users, files, email and workflows in one platform.
                 </p>
               </div>
 

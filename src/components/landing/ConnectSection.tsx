@@ -156,7 +156,12 @@ export function ConnectSection() {
       wide
       className="bg-[#0b0b0c] py-[clamp(80px,10vw,140px)]"
     >
-      <div className="border-b border-white/[0.08]" role="tablist" aria-label="Connection method">
+      <div
+        data-reveal="up"
+        className="border-b border-white/[0.08]"
+        role="tablist"
+        aria-label="Connection method"
+      >
         <div className="flex gap-1 overflow-x-auto">
           {EXAMPLES.map((example) => {
             const selected = example.id === active.id;
@@ -182,7 +187,7 @@ export function ConnectSection() {
         role="tabpanel"
         className="grid items-center gap-14 pt-[clamp(48px,6vw,80px)] min-[980px]:grid-cols-[minmax(320px,0.86fr)_minmax(0,1.14fr)] min-[980px]:gap-[clamp(64px,8vw,120px)]"
       >
-        <div className="max-w-[560px]">
+        <div data-reveal="left" className="max-w-[560px]">
           <p className="text-[13px] font-medium uppercase tracking-[0.12em] text-faint">Ways to connect</p>
           <h2
             id="connect-title"
@@ -209,8 +214,8 @@ export function ConnectSection() {
           </PrimaryButton>
         </div>
 
-        <div className="min-w-0">
-          <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#0b0b0c]">
+        <div data-reveal="right" className="min-w-0">
+          <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#0b0b0c] transition-colors duration-300 hover:border-white/20">
             <div className="flex h-14 items-center gap-2.5 border-b border-white/10 bg-[#111214] px-5 text-[12px] text-muted">
               <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
               <span className="h-2 w-2 rounded-full bg-[#febc2e]" />

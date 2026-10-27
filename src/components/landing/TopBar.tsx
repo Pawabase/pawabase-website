@@ -59,9 +59,9 @@ const NAV_GROUPS: NavGroup[] = [
     id: "products",
     label: "Products",
     intro: {
-      title: "The pieces, already connected.",
+      title: "One backend, already connected.",
       description:
-        "Every product below is part of the same backend. Add one, and the rest already know how to talk to it.",
+        "Data, auth, storage, realtime, email, workflows and jobs—built to work together.",
       ctaLabel: "See the whole platform",
       ctaHref: "/#features",
     },
@@ -78,7 +78,7 @@ const NAV_GROUPS: NavGroup[] = [
       {
         heading: "Identity & security",
         links: [
-          { label: "Authentication", href: "/products/authentication", description: "Sign-in, teams and two-step codes", icon: "users" },
+          { label: "Authentication", href: "/products/authentication", description: "Users, organizations and sessions", icon: "users" },
           { label: "Access policies", href: "/products/policies", description: "Who can see and change what", icon: "policies" },
           { label: "API security", href: "/products/api-security", description: "Keys, firewall and rate limits", icon: "apiSecurity" },
         ],
@@ -86,7 +86,7 @@ const NAV_GROUPS: NavGroup[] = [
       {
         heading: "Logic",
         links: [
-          { label: "Flows", href: "/products/flows", description: "Visual workflows and schedules", icon: "automation" },
+          { label: "Flows", href: "/products/flows", description: "Visual backend workflows", icon: "automation" },
           { label: "Queues", href: "/products/queues", description: "Background jobs with retries", icon: "queues" },
           { label: "Mail", href: "/products/mail", description: "Transactional email from templates", icon: "mail" },
           { label: "Webhooks", href: "/products/webhooks", description: "Events in and out", icon: "webhooks" },
@@ -104,7 +104,7 @@ const NAV_GROUPS: NavGroup[] = [
       eyebrow: "Pawabase Cloud",
       title: "Rather we run it?",
       description:
-        "A project with its own database in about a minute. No servers to set up.",
+        "A complete managed backend in about a minute. No servers to set up.",
       ctaLabel: "Create a project",
       href: APP_URL,
       glyph: "PB",

@@ -152,7 +152,7 @@ function Retries() {
 
 export default function FlowsPage() {
   return (
-    <ProductShell title="Flows" description="Visual workflows that run on events, schedules and webhooks, with retries and a trace for every run.">
+    <ProductShell title="Flows" description="Visual workflows for APIs, events, schedules and webhooks, with retries and a trace for every run.">
       <Band className="pb-[clamp(72px,9vw,120px)] pt-[clamp(64px,8vw,112px)]" backdrop={<>{backdrop.dots("50%", "70%")}{backdrop.glow("50%", "80%", "1100px", "520px")}</>}>
         <div className="mx-auto flex max-w-[760px] flex-col items-center gap-6 text-center">
           <ProductName icon="automation" name="Flows" />
