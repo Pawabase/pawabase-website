@@ -106,8 +106,8 @@ function Snapshots() {
             aria-pressed={picked === i}
             className="aspect-square cursor-pointer rounded-[6px] transition-colors duration-200 hover:bg-white/20 disabled:cursor-default disabled:hover:bg-transparent"
             style={{
-              background: picked === i ? "#ff7049" : i > 21 ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.09)",
-              outline: i > 21 ? "1px dashed rgba(255,255,255,0.12)" : "none",
+              background: picked === i ? "#F5F3EE" : i > 21 ? "rgba(245,243,238,0.03)" : "rgba(245,243,238,0.09)",
+              outline: i > 21 ? "1px dashed rgba(245,243,238,0.12)" : "none",
             }}
             disabled={i > 21}
           />

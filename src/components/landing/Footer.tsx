@@ -1,4 +1,4 @@
-import { BrandMark } from "./Brand";
+import { Wordmark } from "./Brand";
 import { FooterNavLink } from "./FooterNavLink";
 import { FooterNewsletter } from "./FooterNewsletter";
 import { FooterSocialLink } from "./FooterSocialLink";
@@ -22,10 +22,7 @@ export function Footer() {
                   className="inline-flex items-center gap-2.5 text-text no-underline"
                   aria-label="Pawabase home"
                 >
-                  <BrandMark size={28} />
-                  <span className="text-[22px] font-medium tracking-[-0.045em]">
-                    pawabase
-                  </span>
+                  <Wordmark />
                 </a>
 
                 <p className="mt-5 max-w-[24ch] text-[16px] font-medium leading-[1.5] tracking-[-0.02em] text-text">

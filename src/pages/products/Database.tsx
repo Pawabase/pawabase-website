@@ -75,8 +75,8 @@ function SchemaFigure() {
       <Box P={P} x={12} y={14} z={2} w={36} d={30} h={18} lid />
       <Box P={P} x={70} y={30} z={2} w={44} d={36} h={28} tone="hi" lid />
       <Box P={P} x={20} y={66} z={2} w={36} d={30} h={14} lid />
-      <polyline className="hl-line hl-flow" points={`${top(30, 29, 20).join(",")} ${top(92, 48, 30).join(",")}`} style={{ stroke: "rgba(255,112,73,0.8)" }} />
-      <polyline className="hl-line hl-flow" points={`${top(38, 81, 16).join(",")} ${top(92, 48, 30).join(",")}`} style={{ stroke: "rgba(255,112,73,0.8)" }} />
+      <polyline className="hl-line hl-flow" points={`${top(30, 29, 20).join(",")} ${top(92, 48, 30).join(",")}`} style={{ stroke: "rgba(245,243,238,0.8)" }} />
+      <polyline className="hl-line hl-flow" points={`${top(38, 81, 16).join(",")} ${top(92, 48, 30).join(",")}`} style={{ stroke: "rgba(245,243,238,0.8)" }} />
       <Callout at={top(30, 29, 20)} to={[top(30, 29, 20)[0] - 80, top(30, 29, 20)[1] - 40]} align="end">customers · 906 rows</Callout>
       <Callout at={top(92, 48, 30)} to={[top(92, 48, 30)[0] + 40, top(92, 48, 30)[1] - 60]} lit>orders · customer_id, product_id</Callout>
       <Callout at={top(38, 81, 16)} to={[top(38, 81, 16)[0] - 60, top(38, 81, 16)[1] + 70]} align="end">products · 214 rows</Callout>
@@ -93,10 +93,10 @@ function SqlEditor() {
           <span className="sx-btn sx-btn-primary">Run</span>
         </div>
         <pre className="sx-mono border-b border-[var(--sx-line)] px-5 py-4 text-[12.5px] leading-[1.8] text-[var(--sx-muted)]">
-          <span className="text-[#ff9a7c]">select</span> c.name, <span className="text-[#ff9a7c]">count</span>(*) <span className="text-[#ff9a7c]">as</span> orders, <span className="text-[#ff9a7c]">sum</span>(o.total){"\n"}
-          <span className="text-[#ff9a7c]">from</span> orders o <span className="text-[#ff9a7c]">join</span> customers c <span className="text-[#ff9a7c]">on</span> c.id = o.customer_id{"\n"}
-          <span className="text-[#ff9a7c]">where</span> o.status = <span className="text-[#c9bfff]">'paid'</span>{"\n"}
-          <span className="text-[#ff9a7c]">group by</span> c.name <span className="text-[#ff9a7c]">order by</span> 3 <span className="text-[#ff9a7c]">desc limit</span> 4;
+          <span className="text-[#F5F3EE]">select</span> c.name, <span className="text-[#F5F3EE]">count</span>(*) <span className="text-[#F5F3EE]">as</span> orders, <span className="text-[#F5F3EE]">sum</span>(o.total){"\n"}
+          <span className="text-[#F5F3EE]">from</span> orders o <span className="text-[#F5F3EE]">join</span> customers c <span className="text-[#F5F3EE]">on</span> c.id = o.customer_id{"\n"}
+          <span className="text-[#F5F3EE]">where</span> o.status = <span className="text-[#F5F3EE]">'paid'</span>{"\n"}
+          <span className="text-[#F5F3EE]">group by</span> c.name <span className="text-[#F5F3EE]">order by</span> 3 <span className="text-[#F5F3EE]">desc limit</span> 4;
         </pre>
         {[
           ["Priya Raman", "14", "4,920.00"],

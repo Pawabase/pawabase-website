@@ -34,7 +34,7 @@ export const FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
     title: "Product",
     links: [
       live("Platform", "/#platform"),
-      live("Capabilities", "/#features"),
+      live("Capabilities", "/#F5F3EEtures"),
       live("Pricing", "/pricing"),
     ],
   },

@@ -18,9 +18,9 @@ import {
 function Mug({ size }: { size: number }) {
   return (
     <svg viewBox="0 0 104 84" width={size} height={(size * 84) / 104} className="rounded-[10px]" style={{ background: PASTELS.peach }} aria-hidden="true">
-      <rect x="36" y="24" width="30" height="34" rx="4" fill="#211f2c" opacity="0.86" />
-      <path d="M66 32h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#211f2c" strokeOpacity="0.86" strokeWidth="4" />
-      <ellipse cx="51" cy="64" rx="22" ry="2.5" fill="#211f2c" opacity="0.12" />
+      <rect x="36" y="24" width="30" height="34" rx="4" fill="#101315" opacity="0.86" />
+      <path d="M66 32h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#101315" strokeOpacity="0.86" strokeWidth="4" />
+      <ellipse cx="51" cy="64" rx="22" ry="2.5" fill="#101315" opacity="0.12" />
     </svg>
   );
 }
@@ -56,15 +56,15 @@ function DirectUpload() {
     <Figure width={800} height={240} label="Your app asks Pawabase for a signed upload link, then sends the file straight to the bucket without passing through your server" className="h-auto w-full min-w-[620px]">
       {steps.map((s, i) => (
         <g key={s.title}>
-          <rect x={s.x} y={80} width={160} height={80} rx={12} style={{ stroke: i === 2 ? "rgba(255,112,73,0.8)" : "rgba(255,255,255,0.3)" }} />
-          <text x={s.x + 80} y={116} textAnchor="middle" fontSize="14" fontFamily="PP Neue Montreal, sans-serif" fill="#ededed">{s.title}</text>
-          <text x={s.x + 80} y={138} textAnchor="middle" fontSize="10.5" fill="#74767c">{s.note}</text>
+          <rect x={s.x} y={80} width={160} height={80} rx={12} style={{ stroke: i === 2 ? "rgba(245,243,238,0.8)" : "rgba(245,243,238,0.3)" }} />
+          <text x={s.x + 80} y={116} textAnchor="middle" fontSize="14" fontFamily="PP Neue Montreal, sans-serif" fill="#F5F3EE">{s.title}</text>
+          <text x={s.x + 80} y={138} textAnchor="middle" fontSize="10.5" fill="#70757D">{s.note}</text>
         </g>
       ))}
-      <path className="hl-line" d={path} style={{ stroke: "rgba(255,255,255,0.2)" }} />
-      <path className="hl-line hl-flow" d="M120 160 C120 220 700 220 700 160" style={{ stroke: "rgba(255,112,73,0.75)" }} />
-      <text x={410} y={214} textAnchor="middle" fontSize="11" fill="#a1a3a8">the file goes straight to storage</text>
-      <circle r={3.5} className="hl-travel" style={{ fill: "#ff7049", stroke: "none", "--path": 'path("M120 160 C120 220 700 220 700 160")', "--dur": "3s" } as CSSProperties} />
+      <path className="hl-line" d={path} style={{ stroke: "rgba(245,243,238,0.2)" }} />
+      <path className="hl-line hl-flow" d="M120 160 C120 220 700 220 700 160" style={{ stroke: "rgba(245,243,238,0.75)" }} />
+      <text x={410} y={214} textAnchor="middle" fontSize="11" fill="#70757D">the file goes straight to storage</text>
+      <circle r={3.5} className="hl-travel" style={{ fill: "#F5F3EE", stroke: "none", "--path": 'path("M120 160 C120 220 700 220 700 160")', "--dur": "3s" } as CSSProperties} />
     </Figure>
   );
 }

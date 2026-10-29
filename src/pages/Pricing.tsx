@@ -67,7 +67,7 @@ export default function PricingPage() {
         <TopBar />
         <main id="pricing-content">
           <section data-plain className="relative overflow-hidden border-b border-line-subtle">
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_65%_20%,black,transparent_68%)]" />
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(245,243,238,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(245,243,238,0.035)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_65%_20%,black,transparent_68%)]" />
             <div className="relative mx-auto grid w-full max-w-[1240px] gap-10 px-5 pb-[clamp(72px,10vw,132px)] pt-[clamp(76px,10vw,132px)] min-[768px]:px-10 min-[980px]:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.7fr)] min-[980px]:items-end">
               <div>
                 <p className="flex items-center gap-2 text-[15px] font-medium tracking-[-0.01em] text-muted">

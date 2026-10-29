@@ -64,7 +64,7 @@ export function FooterNewsletter() {
 
         <button
           type="submit"
-          className="inline-flex h-full shrink-0 items-center justify-center gap-1.5 rounded-lg border border-white/[0.78] bg-[#F5F5F6] px-3.5 text-[14px] font-medium tracking-[-0.01em] text-[#111315] shadow-[inset_0_-2px_0_rgba(255,112,73,0.45)] transition-colors duration-150 hover:bg-white"
+          className="inline-flex h-full shrink-0 items-center justify-center gap-1.5 rounded-lg border border-white/[0.78] bg-[#F5F3EE] px-3.5 text-[14px] font-medium tracking-[-0.01em] text-[#101315] shadow-[inset_0_-2px_0_rgba(245,243,238,0.45)] transition-colors duration-150 hover:bg-white"
         >
           Subscribe
           <Icon name="arrowRight" size={13} />

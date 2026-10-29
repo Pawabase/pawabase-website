@@ -111,7 +111,7 @@ function CodeEditor({ code, language }: Pick<Example, "code" | "language">) {
           style={{
             ...style,
             margin: 0,
-            background: "#0b0b0c",
+            background: "#101315",
             fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace',
             fontVariantLigatures: "none",
           }}
@@ -154,7 +154,7 @@ export function ConnectSection() {
       id="connect"
       labelledBy="connect-title"
       wide
-      className="bg-[#0b0b0c] py-[clamp(80px,10vw,140px)]"
+      className="bg-[#101315] py-[clamp(80px,10vw,140px)]"
     >
       <div
         data-reveal="up"
@@ -173,7 +173,7 @@ export function ConnectSection() {
                 aria-selected={selected}
                 aria-controls="connect-example"
                 onClick={() => setActiveId(example.id)}
-                className={`min-w-[112px] cursor-pointer rounded-t-[12px] px-6 py-4 text-[15px] font-medium transition-colors ${selected ? "bg-white text-[#111315]" : "text-muted hover:bg-white/[0.04] hover:text-text"}`}
+                className={`min-w-[112px] cursor-pointer rounded-t-[12px] px-6 py-4 text-[15px] font-medium transition-colors ${selected ? "bg-white text-[#101315]" : "text-muted hover:bg-white/[0.04] hover:text-text"}`}
               >
                 {example.tab}
               </button>
@@ -215,18 +215,18 @@ export function ConnectSection() {
         </div>
 
         <div data-reveal="right" className="min-w-0">
-          <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#0b0b0c] transition-colors duration-300 hover:border-white/20">
-            <div className="flex h-14 items-center gap-2.5 border-b border-white/10 bg-[#111214] px-5 text-[12px] text-muted">
-              <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
-              <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
-              <span className="h-2 w-2 rounded-full bg-[#28c840]" />
-              <Icon name="document" size={15} className="ml-2 text-[#777981]" />
+          <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#101315] transition-colors duration-300 hover:border-white/20">
+            <div className="flex h-14 items-center gap-2.5 border-b border-white/10 bg-[#101315] px-5 text-[12px] text-muted">
+              <span className="h-2 w-2 rounded-full bg-[#F5F3EE]" />
+              <span className="h-2 w-2 rounded-full bg-[#F5F3EE]" />
+              <span className="h-2 w-2 rounded-full bg-[#F5F3EE]" />
+              <Icon name="document" size={15} className="ml-2 text-[#70757D]" />
               <span>{active.file}</span>
               <button
                 type="button"
                 onClick={copy}
                 aria-label={`Copy ${active.file}`}
-                className="ml-auto inline-grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-[#777981] transition-colors hover:bg-black/[0.06] hover:text-[#111315]"
+                className="ml-auto inline-grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-[#70757D] transition-colors hover:bg-black/[0.06] hover:text-[#101315]"
               >
                 <Icon name="copy" size={15} />
               </button>

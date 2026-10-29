@@ -63,7 +63,7 @@ const NAV_GROUPS: NavGroup[] = [
       description:
         "Data, auth, storage, realtime, email, workflows and jobs—built to work together.",
       ctaLabel: "See the whole platform",
-      ctaHref: "/#features",
+      ctaHref: "/#F5F3EEtures",
     },
     columns: [
       {
@@ -108,7 +108,7 @@ const NAV_GROUPS: NavGroup[] = [
       ctaLabel: "Create a project",
       href: APP_URL,
       glyph: "PB",
-      tint: "255,112,73",
+      tint: "245,243,238",
       external: true,
     },
   },
@@ -184,7 +184,7 @@ const NAV_GROUPS: NavGroup[] = [
       ctaLabel: "Read the docs",
       href: DOCS_URL,
       glyph: "</>",
-      tint: "255,112,73",
+      tint: "245,243,238",
       external: true,
     },
   },
@@ -242,7 +242,7 @@ const NAV_GROUPS: NavGroup[] = [
       ctaLabel: "Create a project",
       href: APP_URL,
       glyph: "PB",
-      tint: "255,112,73",
+      tint: "245,243,238",
       external: true,
     },
   },
@@ -327,7 +327,7 @@ function NavFeaturedCard({ featured, onNavigate }: { featured: NavFeatured; onNa
       <div
         className="flex h-full flex-col rounded-2xl border border-white/[0.08] p-4"
         style={{
-          background: `radial-gradient(120% 100% at 20% 0%, rgba(${featured.tint}, 0.16), transparent 62%), rgba(255, 255, 255, 0.022)`,
+          background: `radial-gradient(120% 100% at 20% 0%, rgba(${featured.tint}, 0.16), transparent 62%), rgba(245,243,238,0.022)`,
         }}
       >
         <div className="flex items-start justify-between gap-4">
@@ -382,7 +382,7 @@ function DesktopPanel({
       id="desktop-nav-panel"
       aria-hidden={!group}
       aria-labelledby={activeId ? `nav-trigger-${activeId}` : undefined}
-      className={`absolute inset-x-0 top-[calc(100%+10px)] z-40 hidden overflow-hidden rounded-[24px] border border-white/[0.12] bg-[#111112]/95 p-3 shadow-[0_30px_90px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-[opacity,transform,visibility] duration-200 ease-out min-[900px]:block ${
+      className={`absolute inset-x-0 top-[calc(100%+10px)] z-40 hidden overflow-hidden rounded-[24px] border border-white/[0.12] bg-[#101315]/95 p-3 shadow-[0_30px_90px_rgba(16,19,21,0.5)] backdrop-blur-xl transition-[opacity,transform,visibility] duration-200 ease-out min-[900px]:block ${
         group
           ? "visible translate-y-0 opacity-100"
           : "pointer-events-none invisible -translate-y-2 opacity-0"
@@ -514,7 +514,7 @@ export function TopBar() {
     >
       <div className="relative mx-auto w-full max-w-[1160px]">
         <nav
-          className="flex h-[56px] items-center justify-between gap-3 rounded-2xl border border-white/[0.12] bg-[#111112]/84 px-2 pl-4 shadow-[0_18px_70px_rgba(0,0,0,0.34)] backdrop-blur-xl min-[768px]:h-[60px]"
+          className="flex h-[56px] items-center justify-between gap-3 rounded-2xl border border-white/[0.12] bg-[#101315]/84 px-2 pl-4 shadow-[0_18px_70px_rgba(16,19,21,0.34)] backdrop-blur-xl min-[768px]:h-[60px]"
           aria-label="Primary navigation"
         >
           <a
@@ -578,7 +578,7 @@ export function TopBar() {
             href={APP_URL}
             target="_blank"
             rel="noreferrer"
-            className="hidden h-10 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-white/[0.78] bg-[#F5F5F6] px-4 text-[15px] font-bold tracking-[-0.02em] text-[#111315] no-underline shadow-[inset_0_-2px_0_rgba(255,112,73,0.45)] transition-colors duration-200 hover:bg-white min-[900px]:inline-flex"
+            className="hidden h-10 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-white/[0.78] bg-[#F5F3EE] px-4 text-[15px] font-bold tracking-[-0.02em] text-[#101315] no-underline shadow-[inset_0_-2px_0_rgba(245,243,238,0.45)] transition-colors duration-200 hover:bg-white min-[900px]:inline-flex"
           >
             Start building
             <Icon name="arrowRight" size={15} />
@@ -605,7 +605,7 @@ export function TopBar() {
         {mobileOpen ? (
           <div
             id="mobile-navigation"
-            className="absolute inset-x-0 top-[calc(100%+8px)] z-40 max-h-[calc(100svh-84px)] overflow-y-auto overscroll-contain rounded-[24px] border border-white/[0.12] bg-[#111112]/98 p-3 shadow-[0_30px_90px_rgba(0,0,0,0.5)] backdrop-blur-xl min-[900px]:hidden"
+            className="absolute inset-x-0 top-[calc(100%+8px)] z-40 max-h-[calc(100svh-84px)] overflow-y-auto overscroll-contain rounded-[24px] border border-white/[0.12] bg-[#101315]/98 p-3 shadow-[0_30px_90px_rgba(16,19,21,0.5)] backdrop-blur-xl min-[900px]:hidden"
           >
             <nav aria-label="Mobile navigation">
               {NAV_GROUPS.map((group) => {
@@ -680,7 +680,7 @@ export function TopBar() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={closeAll}
-                className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/[0.78] bg-[#F5F5F6] text-[15px] font-bold tracking-[-0.02em] text-[#111315] no-underline shadow-[inset_0_-2px_0_rgba(255,112,73,0.45)]"
+                className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/[0.78] bg-[#F5F3EE] text-[15px] font-bold tracking-[-0.02em] text-[#101315] no-underline shadow-[inset_0_-2px_0_rgba(245,243,238,0.45)]"
               >
                 Start building
                 <Icon name="arrowRight" size={15} />

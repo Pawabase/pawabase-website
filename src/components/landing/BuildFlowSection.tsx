@@ -61,7 +61,7 @@ function QuickstartTerminal() {
       className="relative w-full overflow-hidden rounded-[24px] bg-card"
     >
       <WindowBar title="Terminal" icon="code" value={QUICKSTART} />
-      <div className="mx-3 mb-3 rounded-[16px] bg-[#090a0b] px-5 py-5 sx-mono text-[13px] leading-[1.9] min-[560px]:mx-4 min-[560px]:mb-4 min-[560px]:px-6">
+      <div className="mx-3 mb-3 rounded-[16px] bg-[#101315] px-5 py-5 sx-mono text-[13px] leading-[1.9] min-[560px]:mx-4 min-[560px]:mb-4 min-[560px]:px-6">
         <p className="text-[var(--sx-muted)]">
           <span className="mr-2 text-[var(--sx-faint)]">$</span>
           npx pawabase@latest init
@@ -81,14 +81,14 @@ function ClientCode() {
       className="relative w-full overflow-hidden rounded-[24px] bg-card"
     >
       <WindowBar title="app.ts" icon="document" value={CLIENT_CODE} />
-      <div className="mx-3 mb-3 min-w-0 overflow-hidden rounded-[16px] bg-[#090a0b] px-5 py-5 sx-mono text-[12px] leading-[1.95] min-[560px]:mx-4 min-[560px]:mb-4 min-[560px]:px-6 min-[560px]:text-[13px]">
-          <p className="text-[#c9bfff]">import <span className="text-[var(--sx-text)]">&#123; createClient &#125;</span> from <span className="text-[var(--sx-ok)]">'@pawabase/js'</span>;</p>
+      <div className="mx-3 mb-3 min-w-0 overflow-hidden rounded-[16px] bg-[#101315] px-5 py-5 sx-mono text-[12px] leading-[1.95] min-[560px]:mx-4 min-[560px]:mb-4 min-[560px]:px-6 min-[560px]:text-[13px]">
+          <p className="text-[#F5F3EE]">import <span className="text-[var(--sx-text)]">&#123; createClient &#125;</span> from <span className="text-[var(--sx-ok)]">'@pawabase/js'</span>;</p>
           <p>&nbsp;</p>
-          <p><span className="text-[#c9bfff]">const</span> pawabase = createClient&#40;</p>
+          <p><span className="text-[#F5F3EE]">const</span> pawabase = createClient&#40;</p>
           <p className="pl-5 text-[var(--sx-ok)]">'https://northwind.pawabase.app'</p>
           <p>&#41;;</p>
           <p>&nbsp;</p>
-          <p><span className="text-[#c9bfff]">const</span> orders = <span className="text-[#c9bfff]">await</span> pawabase</p>
+          <p><span className="text-[#F5F3EE]">const</span> orders = <span className="text-[#F5F3EE]">await</span> pawabase</p>
           <p className="bg-white/[0.045] pl-5 text-[var(--sx-text)]">.from&#40;<span className="text-[var(--sx-ok)]">'orders'</span>&#41;.select&#40;&#41;;</p>
       </div>
     </Mockup>

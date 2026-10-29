@@ -8,23 +8,23 @@
  */
 
 .sx {
-  --sx-canvas: #08090a;
-  --sx-surface: #16171a;
-  --sx-head: color-mix(in srgb, #16171a 70%, #08090a);
-  --sx-line: #292a2d;
-  --sx-line-soft: #1f2023;
-  --sx-text: #ededed;
-  --sx-muted: #aaa8b8;
-  --sx-faint: #747180;
-  --sx-brand: #ff7049;
-  --sx-brand-soft: color-mix(in srgb, #ff7049 12%, transparent);
-  --sx-accent: #9a8cff;
-  --sx-hover: color-mix(in srgb, #ededed 5%, transparent);
-  --sx-press: color-mix(in srgb, #ededed 8%, transparent);
-  --sx-ok: #6fd3a2;
-  --sx-warn: #efc463;
-  --sx-danger: #f39a93;
-  --sx-info: #8fb8f2;
+  --sx-canvas: #101315;
+  --sx-surface: color-mix(in srgb, #F5F3EE 3%, #101315);
+  --sx-head: color-mix(in srgb, #101315 70%, #101315);
+  --sx-line: #34383F;
+  --sx-line-soft: #101315;
+  --sx-text: #F5F3EE;
+  --sx-muted: color-mix(in srgb, #F5F3EE 68%, #101315);
+  --sx-faint: color-mix(in srgb, #F5F3EE 51%, #101315);
+  --sx-brand: #F5F3EE;
+  --sx-brand-soft: color-mix(in srgb, #F5F3EE 9%, #101315);
+  --sx-accent: #F5F3EE;
+  --sx-hover: color-mix(in srgb, #F5F3EE 5%, transparent);
+  --sx-press: color-mix(in srgb, #F5F3EE 8%, transparent);
+  --sx-ok: #F5F3EE;
+  --sx-warn: color-mix(in srgb, #F5F3EE 80%, #101315);
+  --sx-danger: color-mix(in srgb, #F5F3EE 92%, #101315);
+  --sx-info: color-mix(in srgb, #F5F3EE 65%, #101315);
 
   position: relative;
   color: var(--sx-text);
@@ -231,10 +231,10 @@
 }
 
 .sx-btn-primary {
-  background: #f5f5f6;
-  border-color: rgba(255, 255, 255, 0.78);
-  color: #111315;
-  box-shadow: inset 0 -2px 0 rgba(255, 112, 73, 0.45);
+  background: #F5F3EE;
+  border-color: rgba(245,243,238,0.78);
+  color: #101315;
+  box-shadow: inset 0 -2px 0 rgba(245,243,238,0.45);
 }
 
 .sx-input {
@@ -351,24 +351,24 @@
 
 /* ── edge fades: a crop that dissolves into the section it lives in ─────── */
 .fade-b {
-  -webkit-mask-image: linear-gradient(to bottom, #000 var(--fade-at, 62%), transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 var(--fade-at, 62%), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #101315 var(--fade-at, 62%), transparent 100%);
+  mask-image: linear-gradient(to bottom, #101315 var(--fade-at, 62%), transparent 100%);
 }
 
 .fade-br {
   -webkit-mask-image:
-    linear-gradient(to bottom, #000 var(--fade-at, 60%), transparent 100%),
-    linear-gradient(to right, #000 var(--fade-x, 78%), transparent 100%);
+    linear-gradient(to bottom, #101315 var(--fade-at, 60%), transparent 100%),
+    linear-gradient(to right, #101315 var(--fade-x, 78%), transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(to bottom, #000 var(--fade-at, 60%), transparent 100%),
-    linear-gradient(to right, #000 var(--fade-x, 78%), transparent 100%);
+    linear-gradient(to bottom, #101315 var(--fade-at, 60%), transparent 100%),
+    linear-gradient(to right, #101315 var(--fade-x, 78%), transparent 100%);
   mask-composite: intersect;
 }
 
 .fade-r {
-  -webkit-mask-image: linear-gradient(to right, #000 var(--fade-x, 80%), transparent 100%);
-  mask-image: linear-gradient(to right, #000 var(--fade-x, 80%), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #101315 var(--fade-x, 80%), transparent 100%);
+  mask-image: linear-gradient(to right, #101315 var(--fade-x, 80%), transparent 100%);
 }
 
 /* ── entrance: one quiet rise when a mockup first comes into view ───────── */
@@ -412,7 +412,7 @@
   opacity: 0;
   background: radial-gradient(
     420px circle at var(--mx, 50%) var(--my, 0%),
-    rgba(255, 255, 255, 0.045),
+    rgba(245,243,238,0.045),
     transparent 60%
   );
   transition: opacity 400ms ease-out;
@@ -428,22 +428,22 @@
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(245,243,238,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245,243,238,0.04) 1px, transparent 1px);
   background-size: 56px 56px;
   background-position: center top;
-  -webkit-mask-image: radial-gradient(ellipse 65% 70% at var(--fx-x, 50%) var(--fx-y, 0%), #000, transparent 72%);
-  mask-image: radial-gradient(ellipse 65% 70% at var(--fx-x, 50%) var(--fx-y, 0%), #000, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 70% at var(--fx-x, 50%) var(--fx-y, 0%), #101315, transparent 72%);
+  mask-image: radial-gradient(ellipse 65% 70% at var(--fx-x, 50%) var(--fx-y, 0%), #101315, transparent 72%);
 }
 
 .fx-dots {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.09) 0.7px, transparent 0.8px);
+  background-image: radial-gradient(rgba(245,243,238,0.09) 0.7px, transparent 0.8px);
   background-size: 14px 14px;
-  -webkit-mask-image: radial-gradient(ellipse 60% 65% at var(--fx-x, 50%) var(--fx-y, 50%), #000, transparent 75%);
-  mask-image: radial-gradient(ellipse 60% 65% at var(--fx-x, 50%) var(--fx-y, 50%), #000, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 65% at var(--fx-x, 50%) var(--fx-y, 50%), #101315, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 65% at var(--fx-x, 50%) var(--fx-y, 50%), #101315, transparent 75%);
 }
 
 /* Soft brand light, as if the product were lit from above. */
@@ -458,8 +458,8 @@
   transform: translate(-50%, -50%);
   background: radial-gradient(
     closest-side,
-    rgba(255, 112, 73, 0.15),
-    rgba(154, 140, 255, 0.05) 55%,
+    rgba(245,243,238,0.15),
+    rgba(245,243,238,0.05) 55%,
     transparent
   );
 }
@@ -479,7 +479,7 @@
   position: absolute;
   inset: 0 auto 0 0;
   width: 26%;
-  background: linear-gradient(90deg, transparent, rgba(255, 112, 73, 0.9), transparent);
+  background: linear-gradient(90deg, transparent, rgba(245,243,238,0.9), transparent);
   animation: fx-beam 7s cubic-bezier(0.45, 0, 0.25, 1) infinite;
 }
 
@@ -506,11 +506,11 @@
   pointer-events: none;
   background: repeating-radial-gradient(
     circle at var(--fx-x, 50%) var(--fx-y, 50%),
-    rgba(255, 255, 255, 0.05) 0 1px,
+    rgba(245,243,238,0.05) 0 1px,
     transparent 1px 72px
   );
-  -webkit-mask-image: radial-gradient(circle at var(--fx-x, 50%) var(--fx-y, 50%), #000 0, transparent 60%);
-  mask-image: radial-gradient(circle at var(--fx-x, 50%) var(--fx-y, 50%), #000 0, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle at var(--fx-x, 50%) var(--fx-y, 50%), #101315 0, transparent 60%);
+  mask-image: radial-gradient(circle at var(--fx-x, 50%) var(--fx-y, 50%), #101315 0, transparent 60%);
 }
 
 /* Ruled lines, like a ledger page, fading to the edges. */
@@ -520,11 +520,11 @@
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(255, 255, 255, 0.035) 0 1px,
+    rgba(245,243,238,0.035) 0 1px,
     transparent 1px 44px
   );
-  -webkit-mask-image: radial-gradient(ellipse 60% 70% at var(--fx-x, 50%) var(--fx-y, 50%), #000, transparent 75%);
-  mask-image: radial-gradient(ellipse 60% 70% at var(--fx-x, 50%) var(--fx-y, 50%), #000, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 70% at var(--fx-x, 50%) var(--fx-y, 50%), #101315, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 70% at var(--fx-x, 50%) var(--fx-y, 50%), #101315, transparent 75%);
 }
 
 /* Fine diagonal hatching. */
@@ -534,11 +534,11 @@
   pointer-events: none;
   background: repeating-linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.03) 0 1px,
+    rgba(245,243,238,0.03) 0 1px,
     transparent 1px 16px
   );
-  -webkit-mask-image: radial-gradient(ellipse 55% 60% at var(--fx-x, 50%) var(--fx-y, 50%), #000, transparent 75%);
-  mask-image: radial-gradient(ellipse 55% 60% at var(--fx-x, 50%) var(--fx-y, 50%), #000, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 55% 60% at var(--fx-x, 50%) var(--fx-y, 50%), #101315, transparent 75%);
+  mask-image: radial-gradient(ellipse 55% 60% at var(--fx-x, 50%) var(--fx-y, 50%), #101315, transparent 75%);
 }
 
 /* A panel's content changing: it settles into place. */

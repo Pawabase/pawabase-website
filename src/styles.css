@@ -37,21 +37,21 @@
 }
 
 @theme {
-  --color-page: #08090A;
-  --color-shell: #08090A;
-  --color-deep: #08090A;
-  --color-elevated: #16171A;
-  --color-text: #EDEDED;
-  --color-muted: #A1A3A8;
-  --color-faint: #74767C;
-  --color-brand: #ff7049;
-  --color-lavender: #9a8cff;
-  --color-line: #292A2D;
-  --color-line-subtle: #1F2023;
-  --color-surface: #0B0C0D;
-  --color-card: #0F1012;
-  --color-tint: #0E0B14;
-  --color-warm: #120D0B;
+  --color-page: #101315;
+  --color-shell: #101315;
+  --color-deep: #101315;
+  --color-elevated: color-mix(in srgb, #F5F3EE 7%, #101315);
+  --color-text: #F5F3EE;
+  --color-muted: color-mix(in srgb, #F5F3EE 68%, #101315);
+  --color-faint: color-mix(in srgb, #F5F3EE 51%, #101315);
+  --color-brand: #F5F3EE;
+  --color-lavender: #F5F3EE;
+  --color-line: #34383F;
+  --color-line-subtle: color-mix(in srgb, #F5F3EE 10%, #101315);
+  --color-surface: color-mix(in srgb, #F5F3EE 3%, #101315);
+  --color-card: color-mix(in srgb, #F5F3EE 4%, #101315);
+  --color-tint: color-mix(in srgb, #F5F3EE 2%, #101315);
+  --color-warm: color-mix(in srgb, #F5F3EE 2%, #101315);
   --font-sans: "PP Neue Montreal", sans-serif;
   --font-mono: "PP Neue Montreal", sans-serif;
   --animate-marquee: marquee 52s linear infinite;
@@ -147,8 +147,8 @@
   }
 
   ::selection {
-    background: rgba(255, 112, 73, 0.42);
-    color: #fff;
+    background: rgba(245,243,238,0.42);
+    color: #F5F3EE;
   }
 
   :focus-visible {
@@ -226,7 +226,7 @@
 
   .texture-dots {
     background-image: radial-gradient(
-      rgba(255, 255, 255, 0.065) 0.65px,
+      rgba(245,243,238,0.065) 0.65px,
       transparent 0.65px
     );
     background-size: 12px 12px;
@@ -241,4 +241,10 @@
       transition: none;
     }
   }
+}
+
+/* Core palette: utility colors are tonal aliases, never additional brand inks. */
+@theme {
+  --color-white: #F5F3EE;
+  --color-black: #101315;
 }

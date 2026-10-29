@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { Icon } from "@/components/Icon";
 
 import { PrimaryButton } from "./PrimaryButton";
+import { StudioPreview } from "./StudioPreview";
 
 const contours = Array.from({ length: 25 }, (_, i) => {
   const offset = i * 25;
@@ -135,7 +136,7 @@ export function Hero() {
           </PrimaryButton>
 
           <a
-            href="#features"
+            href="#F5F3EEtures"
             className="inline-flex h-[50px] items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-white/[0.14] bg-white/[0.045] px-[25px] text-[13.5px] font-bold tracking-[-0.02em] text-text no-underline transition-colors duration-200 hover:border-white/[0.24] hover:bg-white/[0.08]"
           >
             Explore Features
@@ -151,19 +152,11 @@ export function Hero() {
         <div className="sticky top-0 flex h-svh items-center justify-center overflow-hidden">
           <div
             ref={dashboardRef}
-            className="w-[min(94vw,1320px)] origin-center will-change-[transform,opacity,filter] [mask-image:linear-gradient(to_bottom,#000_0%,#000_70%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_0%,#000_70%,transparent_100%)]"
+            className="w-[min(94vw,1320px)] origin-center will-change-[transform,opacity,filter] [mask-image:linear-gradient(to_bottom,#101315_0%,#101315_70%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,#101315_0%,#101315_70%,transparent_100%)]"
             style={{ transform: "scale(0.9)" }}
           >
-            <div className="box-border w-full overflow-hidden rounded-[18px] border border-white/20 bg-[linear-gradient(145deg,#29292e_0%,#17171b_45%,#101013_100%)] p-[clamp(12px,2.5vw,38px)] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] min-[768px]:rounded-[38px]">
-              <img
-                src="/studio-overview.png"
-                width={3258}
-                height={1726}
-                alt="Pawabase Studio dashboard"
-                className="box-border block h-auto w-full max-w-none rounded-[15px] border border-white/[0.08]"
-                fetchPriority="high"
-                decoding="async"
-              />
+            <div className="box-border w-full overflow-hidden rounded-[18px] border border-white/20 bg-[linear-gradient(145deg,#34383F_0%,#101315_45%,#101315_100%)] p-[clamp(12px,2.5vw,38px)] shadow-[inset_0_1px_0_rgba(245,243,238,0.12)] min-[768px]:rounded-[38px]">
+              <StudioPreview />
             </div>
           </div>
 

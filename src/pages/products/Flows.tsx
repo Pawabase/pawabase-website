@@ -35,7 +35,7 @@ function Canvas() {
   const { ref, inView } = useInView<HTMLDivElement>();
   const tick = useLiveTick(inView, 1100);
   const stage = tick % 6;
-  const edge = (n: number) => (stage > n ? "#ff7049" : "rgba(255,255,255,0.14)");
+  const edge = (n: number) => (stage > n ? "#F5F3EE" : "rgba(245,243,238,0.14)");
 
   return (
     <div ref={ref}>
@@ -129,20 +129,20 @@ function Retries() {
   const xs = [80, 180, 340, 600];
   return (
     <Figure width={760} height={200} label="A step that fails is retried, waiting longer before each attempt, and succeeds on the fourth" className="h-auto w-full min-w-[600px]">
-      <line x1="40" x2="720" y1="100" y2="100" style={{ stroke: "rgba(255,255,255,0.18)" }} />
+      <line x1="40" x2="720" y1="100" y2="100" style={{ stroke: "rgba(245,243,238,0.18)" }} />
       {xs.slice(0, -1).map((x, i) => (
         <g key={x}>
-          <path className="hl-line" d={`M${x} 100 C${x + 20} 50 ${xs[i + 1] - 20} 50 ${xs[i + 1]} 100`} style={{ stroke: "rgba(255,255,255,0.2)", strokeDasharray: "3 5" }} />
-          <text x={(x + xs[i + 1]) / 2} y="52" textAnchor="middle" fontSize="10.5" fill="#74767c">waits {[2, 8, 30][i]}s</text>
+          <path className="hl-line" d={`M${x} 100 C${x + 20} 50 ${xs[i + 1] - 20} 50 ${xs[i + 1]} 100`} style={{ stroke: "rgba(245,243,238,0.2)", strokeDasharray: "3 5" }} />
+          <text x={(x + xs[i + 1]) / 2} y="52" textAnchor="middle" fontSize="10.5" fill="#70757D">waits {[2, 8, 30][i]}s</text>
         </g>
       ))}
       {xs.map((x, i) => {
         const ok = i === xs.length - 1;
         return (
           <g key={x}>
-            <circle cx={x} cy="100" r="7" style={{ fill: "var(--hl-plate)", stroke: ok ? "#6fd3a2" : "#f39a93" }} />
-            <text x={x} y="134" textAnchor="middle" fontSize="11" fill={ok ? "#ededed" : "#74767c"}>attempt {i + 1}</text>
-            <text x={x} y="152" textAnchor="middle" fontSize="10.5" fill={ok ? "#6fd3a2" : "#74767c"}>{ok ? "succeeded" : "failed"}</text>
+            <circle cx={x} cy="100" r="7" style={{ fill: "var(--hl-plate)", stroke: ok ? "#F5F3EE" : "#F5F3EE" }} />
+            <text x={x} y="134" textAnchor="middle" fontSize="11" fill={ok ? "#F5F3EE" : "#70757D"}>attempt {i + 1}</text>
+            <text x={x} y="152" textAnchor="middle" fontSize="10.5" fill={ok ? "#F5F3EE" : "#70757D"}>{ok ? "succeeded" : "failed"}</text>
           </g>
         );
       })}

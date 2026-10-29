@@ -1,4 +1,4 @@
-export function BrandMark({ size = 22 }: { size?: number }) {
+export function BrandMark({ size = 24 }: { size?: number }) {
   return (
     <img
       src="/brand/mark.svg"
@@ -13,9 +13,6 @@ export function BrandMark({ size = 22 }: { size?: number }) {
 
 export function Wordmark() {
   return (
-    <span className="inline-flex items-center gap-2.5 text-[15px] font-bold tracking-[-0.035em]">
-      <BrandMark size={27} />
-      <span>pawabase</span>
-    </span>
+    <img src="/brand/horizontal-dark.svg" width={156} height={38} alt="Pawabase" className="block h-auto w-[156px] shrink-0" />
   );
 }

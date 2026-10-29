@@ -188,7 +188,7 @@ function RealtimePreview() {
             ["Kwame Mensah", PASTELS.mint],
             ["Ines Laurent", PASTELS.rose],
           ].map(([name, tone]) => (
-            <span key={name} className="rounded-full ring-2 ring-[#08090a]">
+            <span key={name} className="rounded-full ring-2 ring-[#101315]">
               <Initials name={name} tone={tone} size={18} />
             </span>
           ))}
@@ -218,8 +218,8 @@ function StoragePreview() {
   return (
     <div className="grid h-full grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4 p-4">
       <svg viewBox="0 0 104 84" className="h-[150px] w-full rounded-[8px]" style={{ background: PASTELS.peach }} aria-hidden="true">
-        <rect x="36" y="24" width="30" height="34" rx="4" fill="#211f2c" opacity="0.86" />
-        <path d="M66 32h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#211f2c" strokeOpacity="0.86" strokeWidth="4" />
+        <rect x="36" y="24" width="30" height="34" rx="4" fill="#101315" opacity="0.86" />
+        <path d="M66 32h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#101315" strokeOpacity="0.86" strokeWidth="4" />
       </svg>
       <div className="grid content-start gap-3 text-[12px]">
         <div className="truncate font-medium">mug.jpg</div>
@@ -313,9 +313,9 @@ function RulesPreview() {
   return (
     <div className="grid gap-2 p-4">
       <div className="text-[12px] text-[var(--sx-faint)]">orders · read, update when</div>
-      <div className="sx-input h-[32px] text-[12px]">Owns the record · <span className="sx-mono text-[#c9bfff]">owner_id</span></div>
+      <div className="sx-input h-[32px] text-[12px]">Owns the record · <span className="sx-mono text-[#F5F3EE]">owner_id</span></div>
       <div className="pl-1 text-[11.5px] text-[var(--sx-faint)]">or</div>
-      <div className="sx-input h-[32px] text-[12px]">Has role · <span className="sx-mono text-[#c9bfff]">admin</span></div>
+      <div className="sx-input h-[32px] text-[12px]">Has role · <span className="sx-mono text-[#F5F3EE]">admin</span></div>
     </div>
   );
 }

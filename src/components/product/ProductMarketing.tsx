@@ -98,7 +98,7 @@ export function ProductHero({
           <p className="pm-lead">{description}</p>
 
           <ProductActions
-            secondaryHref="/#features"
+            secondaryHref="/#F5F3EEtures"
             secondaryLabel="See all products"
           />
         </div>
@@ -316,7 +316,7 @@ export function CenterScene({
 export function CodePanel({
   title,
   lines,
-  accent = "255,112,73",
+  accent = "245,243,238",
 }: {
   title: string;
   lines: string[];

@@ -50,7 +50,7 @@ function LiveChannel() {
             <span className="flex items-center gap-3">
               <span className="flex -space-x-1.5">
                 {PEOPLE.map(([name, tone]) => (
-                  <span key={name} className="rounded-full ring-2 ring-[#08090a]">
+                  <span key={name} className="rounded-full ring-2 ring-[#101315]">
                     <Initials name={name} tone={tone} size={22} />
                   </span>
                 ))}
@@ -94,11 +94,11 @@ function Primitive({ title, copy, children }: { title: string; copy: string; chi
 function BroadcastMark() {
   return (
     <svg viewBox="0 0 200 110" className="h-full w-[200px]" aria-hidden="true">
-      <circle cx="40" cy="55" r="9" fill="none" stroke="#ff7049" />
+      <circle cx="40" cy="55" r="9" fill="none" stroke="#F5F3EE" />
       {[20, 55, 90].map((y) => (
         <g key={y}>
-          <path d={`M49 55 C 100 55 110 ${y} 160 ${y}`} fill="none" stroke="rgba(255,255,255,0.18)" />
-          <circle cx="166" cy={y} r="6" fill="none" stroke="rgba(255,255,255,0.4)" />
+          <path d={`M49 55 C 100 55 110 ${y} 160 ${y}`} fill="none" stroke="rgba(245,243,238,0.18)" />
+          <circle cx="166" cy={y} r="6" fill="none" stroke="rgba(245,243,238,0.4)" />
         </g>
       ))}
     </svg>
@@ -108,11 +108,11 @@ function BroadcastMark() {
 function HistoryMark() {
   return (
     <svg viewBox="0 0 220 110" className="h-full w-[220px]" aria-hidden="true">
-      <line x1="10" x2="210" y1="55" y2="55" stroke="rgba(255,255,255,0.15)" />
+      <line x1="10" x2="210" y1="55" y2="55" stroke="rgba(245,243,238,0.15)" />
       {[30, 60, 90, 120, 150, 180].map((x, i) => (
-        <circle key={x} cx={x} cy="55" r="5" fill={i > 2 ? "#ff7049" : "none"} stroke={i > 2 ? "none" : "rgba(255,255,255,0.4)"} />
+        <circle key={x} cx={x} cy="55" r="5" fill={i > 2 ? "#F5F3EE" : "none"} stroke={i > 2 ? "none" : "rgba(245,243,238,0.4)"} />
       ))}
-      <text x="165" y="85" textAnchor="middle" fontSize="10" fill="#74767c" fontFamily="PP Neue Montreal, sans-serif">replayed</text>
+      <text x="165" y="85" textAnchor="middle" fontSize="10" fill="#70757D" fontFamily="PP Neue Montreal, sans-serif">replayed</text>
     </svg>
   );
 }
@@ -122,18 +122,18 @@ function CatchUp() {
   const missed = (x: number) => x > 290 && x < 580;
   return (
     <Figure width={820} height={220} label="A connection drops for a moment; messages sent meanwhile are kept and delivered once when it reconnects" className="h-auto w-full min-w-[640px]">
-      <line x1="40" x2="290" y1="90" y2="90" style={{ stroke: "rgba(255,255,255,0.3)" }} />
-      <line x1="290" x2="580" y1="90" y2="90" style={{ stroke: "rgba(255,255,255,0.25)", strokeDasharray: "3 6" }} />
-      <line x1="580" x2="780" y1="90" y2="90" style={{ stroke: "rgba(255,255,255,0.3)" }} />
-      <text x="290" y="66" textAnchor="middle" fontSize="11" fill="#74767c">connection drops</text>
-      <text x="580" y="66" textAnchor="middle" fontSize="11" fill="#a1a3a8">back online</text>
+      <line x1="40" x2="290" y1="90" y2="90" style={{ stroke: "rgba(245,243,238,0.3)" }} />
+      <line x1="290" x2="580" y1="90" y2="90" style={{ stroke: "rgba(245,243,238,0.25)", strokeDasharray: "3 6" }} />
+      <line x1="580" x2="780" y1="90" y2="90" style={{ stroke: "rgba(245,243,238,0.3)" }} />
+      <text x="290" y="66" textAnchor="middle" fontSize="11" fill="#70757D">connection drops</text>
+      <text x="580" y="66" textAnchor="middle" fontSize="11" fill="#70757D">back online</text>
       {dots.map((x) => (
-        <circle key={x} cx={x} cy={90} r={5.5} style={{ fill: "var(--hl-plate)", stroke: missed(x) ? "#ff7049" : "rgba(255,255,255,0.4)" }} />
+        <circle key={x} cx={x} cy={90} r={5.5} style={{ fill: "var(--hl-plate)", stroke: missed(x) ? "#F5F3EE" : "rgba(245,243,238,0.4)" }} />
       ))}
       {dots.filter(missed).map((x, i) => (
-        <path key={x} className="hl-line" d={`M${x} 98 C${x} 160 ${600 + i * 14} 160 ${600 + i * 14} 104`} style={{ stroke: "rgba(255,112,73,0.55)" }} />
+        <path key={x} className="hl-line" d={`M${x} 98 C${x} 160 ${600 + i * 14} 160 ${600 + i * 14} 104`} style={{ stroke: "rgba(245,243,238,0.55)" }} />
       ))}
-      <text x="440" y="190" textAnchor="middle" fontSize="11" fill="#a1a3a8">missed messages arrive once, in order</text>
+      <text x="440" y="190" textAnchor="middle" fontSize="11" fill="#70757D">missed messages arrive once, in order</text>
     </Figure>
   );
 }
@@ -196,7 +196,7 @@ export default function RealtimePage() {
           <Primitive title="Presence" copy="Know who's here, who just left and who's typing.">
             <span className="flex -space-x-2">
               {PEOPLE.map(([name, tone]) => (
-                <span key={name} className="rounded-full ring-4 ring-[#0F1012]">
+                <span key={name} className="rounded-full ring-4 ring-[#101315]">
                   <Initials name={name} tone={tone} size={44} />
                 </span>
               ))}

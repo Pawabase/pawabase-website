@@ -58,7 +58,7 @@ export function ChannelsSection() {
           </p>
         </div>
 
-        <div className="order-2 flex min-h-[440px] flex-col justify-center border-t border-line bg-[#0C0B0A] px-6 py-12 min-[768px]:px-10 min-[980px]:min-h-[560px] min-[980px]:border-t-0 min-[980px]:border-l min-[981px]:px-12 min-[1241px]:px-14">
+        <div className="order-2 flex min-h-[440px] flex-col justify-center border-t border-line bg-[#101315] px-6 py-12 min-[768px]:px-10 min-[980px]:min-h-[560px] min-[980px]:border-t-0 min-[980px]:border-l min-[981px]:px-12 min-[1241px]:px-14">
           <div className="grid grid-cols-2 gap-x-6 gap-y-9 min-[768px]:gap-x-10 min-[768px]:gap-y-10">
             {CHANNELS.map((channel) => (
               <div key={channel.title} className="group min-w-0">
