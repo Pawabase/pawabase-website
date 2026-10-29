@@ -113,7 +113,7 @@ function JsonView() {
           <span data-on="">JSON</span>
         </div>
         <pre className="sx-mono overflow-x-auto px-5 py-5 text-[12.5px] leading-[1.8] text-[var(--sx-muted)]">
-          {'{\n  "any": [\n    { "owner": '}<span className="text-[#c9bfff]">"owner_id"</span>{' },\n    { "role": '}<span className="text-[#c9bfff]">"admin"</span>{' }\n  ]\n}'}
+          {'{\n  "any": [\n    { "owner": '}<span className="text-[#F5F3EE]">"owner_id"</span>{' },\n    { "role": '}<span className="text-[#F5F3EE]">"admin"</span>{' }\n  ]\n}'}
         </pre>
       </Mockup>
     </Card>

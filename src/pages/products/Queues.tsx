@@ -67,17 +67,17 @@ function JobList() {
 function TwoLanes() {
   return (
     <Figure width={820} height={250} label="The user's request returns in a moment, while the slow work finishes on its own a few seconds later" className="h-auto w-full min-w-[640px]">
-      <text x="0" y="74" fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill="#a1a3a8">Your user</text>
-      <text x="0" y="174" fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill="#a1a3a8">In the background</text>
-      <line x1="150" x2="800" y1="70" y2="70" style={{ stroke: "rgba(255,255,255,0.1)" }} />
-      <line x1="150" x2="800" y1="170" y2="170" style={{ stroke: "rgba(255,255,255,0.1)" }} />
-      <rect x="160" y="56" width="70" height="28" rx="8" style={{ stroke: "#6fd3a2" }} />
-      <text x="195" y="74" textAnchor="middle" fontSize="11" fill="#ededed">40 ms</text>
-      <text x="250" y="74" fontSize="11" fill="#74767c">"We're on it." · back to shopping</text>
-      <path className="hl-line hl-flow" d="M195 84 C195 130 250 170 290 170" style={{ stroke: "rgba(255,112,73,0.7)" }} />
-      <rect x="290" y="156" width="460" height="28" rx="8" style={{ stroke: "rgba(255,112,73,0.7)" }} />
-      <text x="520" y="174" textAnchor="middle" fontSize="11" fill="#a1a3a8">report built, saved and emailed · 4.2 s</text>
-      <circle r="3.5" className="hl-travel" style={{ fill: "#ff7049", stroke: "none", "--path": 'path("M290 170 L750 170")', "--dur": "4s" } as CSSProperties} />
+      <text x="0" y="74" fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill="#70757D">Your user</text>
+      <text x="0" y="174" fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill="#70757D">In the background</text>
+      <line x1="150" x2="800" y1="70" y2="70" style={{ stroke: "rgba(245,243,238,0.1)" }} />
+      <line x1="150" x2="800" y1="170" y2="170" style={{ stroke: "rgba(245,243,238,0.1)" }} />
+      <rect x="160" y="56" width="70" height="28" rx="8" style={{ stroke: "#F5F3EE" }} />
+      <text x="195" y="74" textAnchor="middle" fontSize="11" fill="#F5F3EE">40 ms</text>
+      <text x="250" y="74" fontSize="11" fill="#70757D">"We're on it." · back to shopping</text>
+      <path className="hl-line hl-flow" d="M195 84 C195 130 250 170 290 170" style={{ stroke: "rgba(245,243,238,0.7)" }} />
+      <rect x="290" y="156" width="460" height="28" rx="8" style={{ stroke: "rgba(245,243,238,0.7)" }} />
+      <text x="520" y="174" textAnchor="middle" fontSize="11" fill="#70757D">report built, saved and emailed · 4.2 s</text>
+      <circle r="3.5" className="hl-travel" style={{ fill: "#F5F3EE", stroke: "none", "--path": 'path("M290 170 L750 170")', "--dur": "4s" } as CSSProperties} />
     </Figure>
   );
 }

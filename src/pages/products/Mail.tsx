@@ -15,18 +15,18 @@ import {
 
 function Email({ name = "Kwame" }: { name?: string }) {
   return (
-    <div className="rounded-[10px] bg-[#fbfaf8] px-8 py-8 text-left text-[#1b1a1f]">
+    <div className="rounded-[10px] bg-[#2dd4bf] px-8 py-8 text-left text-[#03201c]">
       <div className="text-[15px] font-bold tracking-[-0.03em]">Northwind</div>
       <div className="mt-8 text-[22px] font-semibold leading-[1.2] tracking-[-0.025em]">Your order is packed</div>
-      <p className="mt-3 text-[14px] leading-[1.65] text-[#55535e]">
+      <p className="mt-3 text-[14px] leading-[1.65] text-[#34383F]">
         Hi {name}, order 1281 is packed and leaves our warehouse today. We'll
         send the tracking link the moment it's on its way.
       </p>
-      <div className="mt-6 grid gap-2 border-y border-[#ebe9e4] py-4 text-[13px]">
+      <div className="mt-6 grid gap-2 border-y border-[#F5F3EE] py-4 text-[13px]">
         <span className="flex justify-between"><span>Stoneware mug × 2</span><span>$48.00</span></span>
         <span className="flex justify-between"><span>Linen tote</span><span>$41.99</span></span>
       </div>
-      <span className="mt-6 inline-flex h-10 items-center rounded-[8px] bg-[#1b1a1f] px-5 text-[13px] font-semibold text-white">View order</span>
+      <span className="mt-6 inline-flex h-10 items-center rounded-[8px] bg-[#06080b] px-5 text-[13px] font-semibold text-white">View order</span>
     </div>
   );
 }
@@ -72,19 +72,19 @@ function TemplateSource() {
         </div>
         <pre className="sx-mono overflow-x-auto px-5 py-5 text-[12.5px] leading-[1.85] text-[var(--sx-muted)]">
           {"<h1>Your order is packed</h1>\n<p>Hi "}
-          <span className="text-[#c9bfff]">{"{{ name }}"}</span>
+          <span className="text-[#F5F3EE]">{"{{ name }}"}</span>
           {", order "}
-          <span className="text-[#c9bfff]">{"{{ order.id }}"}</span>
+          <span className="text-[#F5F3EE]">{"{{ order.id }}"}</span>
           {" is packed.</p>\n\n"}
-          <span className="text-[#ff9a7c]">{"{% for item in order.items %}"}</span>
+          <span className="text-[#F5F3EE]">{"{% for item in order.items %}"}</span>
           {"\n  <p>"}
-          <span className="text-[#c9bfff]">{"{{ item.name }}"}</span>
+          <span className="text-[#F5F3EE]">{"{{ item.name }}"}</span>
           {" × "}
-          <span className="text-[#c9bfff]">{"{{ item.qty }}"}</span>
+          <span className="text-[#F5F3EE]">{"{{ item.qty }}"}</span>
           {"</p>\n"}
-          <span className="text-[#ff9a7c]">{"{% endfor %}"}</span>
+          <span className="text-[#F5F3EE]">{"{% endfor %}"}</span>
           {"\n\n<a href=\""}
-          <span className="text-[#c9bfff]">{"{{ tracking_url }}"}</span>
+          <span className="text-[#F5F3EE]">{"{{ tracking_url }}"}</span>
           {"\">View order</a>"}
         </pre>
       </Mockup>
@@ -123,7 +123,7 @@ function Log() {
 
 export default function MailPage() {
   return (
-    <ProductShell title="Mail" description="Transactional email from templates you control, sent from flows.">
+    <ProductShell title="Mail" description="Transactional email from reusable templates, sent directly or from workflows.">
       <Band className="pb-[clamp(72px,9vw,120px)] pt-[clamp(64px,8vw,112px)]" backdrop={<>{backdrop.glow("50%", "65%", "1000px", "600px")}{backdrop.dots("50%", "70%")}</>}>
         <div className="mx-auto flex max-w-[720px] flex-col items-center gap-6 text-center">
           <ProductName icon="mail" name="Mail" />

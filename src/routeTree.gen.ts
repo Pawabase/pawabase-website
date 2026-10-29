@@ -11,9 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as CompanyIndexRouteImport } from './routes/company/index'
 import { Route as CompanyCareersRouteImport } from './routes/company/careers'
 import { Route as CompanyContactRouteImport } from './routes/company/contact'
+import { Route as LegalAcceptableUseRouteImport } from './routes/legal/acceptable-use'
+import { Route as LegalCookiesRouteImport } from './routes/legal/cookies'
+import { Route as LegalDpaRouteImport } from './routes/legal/dpa'
+import { Route as LegalPrivacyRouteImport } from './routes/legal/privacy'
+import { Route as LegalRefundRouteImport } from './routes/legal/refund'
+import { Route as LegalTermsRouteImport } from './routes/legal/terms'
 import { Route as ProductsApiSecurityRouteImport } from './routes/products/api-security'
 import { Route as ProductsAuthenticationRouteImport } from './routes/products/authentication'
 import { Route as ProductsDataApiRouteImport } from './routes/products/data-api'
@@ -38,6 +45,11 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompanyIndexRoute = CompanyIndexRouteImport.update({
   id: '/company/',
   path: '/company/',
@@ -51,6 +63,36 @@ const CompanyCareersRoute = CompanyCareersRouteImport.update({
 const CompanyContactRoute = CompanyContactRouteImport.update({
   id: '/company/contact',
   path: '/company/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalAcceptableUseRoute = LegalAcceptableUseRouteImport.update({
+  id: '/legal/acceptable-use',
+  path: '/legal/acceptable-use',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalCookiesRoute = LegalCookiesRouteImport.update({
+  id: '/legal/cookies',
+  path: '/legal/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalDpaRoute = LegalDpaRouteImport.update({
+  id: '/legal/dpa',
+  path: '/legal/dpa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/legal/privacy',
+  path: '/legal/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalRefundRoute = LegalRefundRouteImport.update({
+  id: '/legal/refund',
+  path: '/legal/refund',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsApiSecurityRoute = ProductsApiSecurityRouteImport.update({
@@ -122,8 +164,15 @@ const ProductsWebhooksRoute = ProductsWebhooksRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/pricing': typeof PricingRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
+  '/legal/acceptable-use': typeof LegalAcceptableUseRoute
+  '/legal/cookies': typeof LegalCookiesRoute
+  '/legal/dpa': typeof LegalDpaRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/refund': typeof LegalRefundRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/products/api-security': typeof ProductsApiSecurityRoute
   '/products/authentication': typeof ProductsAuthenticationRoute
   '/products/data-api': typeof ProductsDataApiRoute
@@ -142,8 +191,15 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/pricing': typeof PricingRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
+  '/legal/acceptable-use': typeof LegalAcceptableUseRoute
+  '/legal/cookies': typeof LegalCookiesRoute
+  '/legal/dpa': typeof LegalDpaRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/refund': typeof LegalRefundRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/products/api-security': typeof ProductsApiSecurityRoute
   '/products/authentication': typeof ProductsAuthenticationRoute
   '/products/data-api': typeof ProductsDataApiRoute
@@ -163,8 +219,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
+  '/pricing': typeof PricingRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
+  '/legal/acceptable-use': typeof LegalAcceptableUseRoute
+  '/legal/cookies': typeof LegalCookiesRoute
+  '/legal/dpa': typeof LegalDpaRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/refund': typeof LegalRefundRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/products/api-security': typeof ProductsApiSecurityRoute
   '/products/authentication': typeof ProductsAuthenticationRoute
   '/products/data-api': typeof ProductsDataApiRoute
@@ -185,8 +248,15 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/blog'
+    | '/pricing'
     | '/company/careers'
     | '/company/contact'
+    | '/legal/acceptable-use'
+    | '/legal/cookies'
+    | '/legal/dpa'
+    | '/legal/privacy'
+    | '/legal/refund'
+    | '/legal/terms'
     | '/products/api-security'
     | '/products/authentication'
     | '/products/data-api'
@@ -205,8 +275,15 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/blog'
+    | '/pricing'
     | '/company/careers'
     | '/company/contact'
+    | '/legal/acceptable-use'
+    | '/legal/cookies'
+    | '/legal/dpa'
+    | '/legal/privacy'
+    | '/legal/refund'
+    | '/legal/terms'
     | '/products/api-security'
     | '/products/authentication'
     | '/products/data-api'
@@ -225,8 +302,15 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/blog'
+    | '/pricing'
     | '/company/careers'
     | '/company/contact'
+    | '/legal/acceptable-use'
+    | '/legal/cookies'
+    | '/legal/dpa'
+    | '/legal/privacy'
+    | '/legal/refund'
+    | '/legal/terms'
     | '/products/api-security'
     | '/products/authentication'
     | '/products/data-api'
@@ -246,8 +330,15 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRoute
+  PricingRoute: typeof PricingRoute
   CompanyCareersRoute: typeof CompanyCareersRoute
   CompanyContactRoute: typeof CompanyContactRoute
+  LegalAcceptableUseRoute: typeof LegalAcceptableUseRoute
+  LegalCookiesRoute: typeof LegalCookiesRoute
+  LegalDpaRoute: typeof LegalDpaRoute
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalRefundRoute: typeof LegalRefundRoute
+  LegalTermsRoute: typeof LegalTermsRoute
   ProductsApiSecurityRoute: typeof ProductsApiSecurityRoute
   ProductsAuthenticationRoute: typeof ProductsAuthenticationRoute
   ProductsDataApiRoute: typeof ProductsDataApiRoute
@@ -280,6 +371,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/company/': {
       id: '/company/'
       path: '/company'
@@ -299,6 +397,48 @@ declare module '@tanstack/react-router' {
       path: '/company/contact'
       fullPath: '/company/contact'
       preLoaderRoute: typeof CompanyContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/acceptable-use': {
+      id: '/legal/acceptable-use'
+      path: '/legal/acceptable-use'
+      fullPath: '/legal/acceptable-use'
+      preLoaderRoute: typeof LegalAcceptableUseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/cookies': {
+      id: '/legal/cookies'
+      path: '/legal/cookies'
+      fullPath: '/legal/cookies'
+      preLoaderRoute: typeof LegalCookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/dpa': {
+      id: '/legal/dpa'
+      path: '/legal/dpa'
+      fullPath: '/legal/dpa'
+      preLoaderRoute: typeof LegalDpaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/legal/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/refund': {
+      id: '/legal/refund'
+      path: '/legal/refund'
+      fullPath: '/legal/refund'
+      preLoaderRoute: typeof LegalRefundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products/api-security': {
@@ -398,8 +538,15 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRoute,
+  PricingRoute: PricingRoute,
   CompanyCareersRoute: CompanyCareersRoute,
   CompanyContactRoute: CompanyContactRoute,
+  LegalAcceptableUseRoute: LegalAcceptableUseRoute,
+  LegalCookiesRoute: LegalCookiesRoute,
+  LegalDpaRoute: LegalDpaRoute,
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalRefundRoute: LegalRefundRoute,
+  LegalTermsRoute: LegalTermsRoute,
   ProductsApiSecurityRoute: ProductsApiSecurityRoute,
   ProductsAuthenticationRoute: ProductsAuthenticationRoute,
   ProductsDataApiRoute: ProductsDataApiRoute,

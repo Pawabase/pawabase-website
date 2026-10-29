@@ -53,14 +53,14 @@ function RequestResponse() {
             {"{\n"}
             {'  "data": [\n'}
             {"    {\n"}
-            {'      "id": '}<span className="text-[#c9bfff]">"01JD7…4c1"</span>{",\n"}
-            {'      "total": '}<span className="text-[#ffb19b]">248.00</span>{",\n"}
-            {'      "status": '}<span className="text-[#c9bfff]">"paid"</span>{",\n"}
-            {'      "customer": { "name": '}<span className="text-[#c9bfff]">"Amara Okafor"</span>{" }\n"}
+            {'      "id": '}<span className="text-[#F5F3EE]">"01JD7…4c1"</span>{",\n"}
+            {'      "total": '}<span className="text-[#F5F3EE]">248.00</span>{",\n"}
+            {'      "status": '}<span className="text-[#F5F3EE]">"paid"</span>{",\n"}
+            {'      "customer": { "name": '}<span className="text-[#F5F3EE]">"Amara Okafor"</span>{" }\n"}
             {"    },\n"}
             {"    …\n"}
             {"  ],\n"}
-            {'  "page": '}<span className="text-[#ffb19b]">1</span>{', "per_page": '}<span className="text-[#ffb19b]">20</span>{', "total": '}<span className="text-[#ffb19b]">931</span>{"\n"}
+            {'  "page": '}<span className="text-[#F5F3EE]">1</span>{', "per_page": '}<span className="text-[#F5F3EE]">20</span>{', "total": '}<span className="text-[#F5F3EE]">931</span>{"\n"}
             {"}"}
           </pre>
         </Mockup>
@@ -81,7 +81,7 @@ function QueryAnatomy() {
   return (
     <div className="overflow-x-auto pb-2">
       <div className="mx-auto flex w-max items-start gap-1 font-[PP_Neue_Montreal,sans-serif] text-[clamp(13px,1.35vw,17px)]">
-        <span className="pt-0 text-[#6fd3a2]">GET&nbsp;</span>
+        <span className="pt-0 text-[#F5F3EE]">GET&nbsp;</span>
         {PARTS.map((part, i) => (
           <span key={part.text} className="flex flex-col items-center gap-3">
             <span className={i === 0 ? "text-text" : "text-muted"}>{part.text}</span>
@@ -120,17 +120,17 @@ function FanOut() {
   const ys = [40, 100, 160, 220, 280];
   return (
     <Figure width={760} height={320} label="One table fans out into list, read, create, update and delete endpoints, plus generated documentation" className="h-auto w-full min-w-[560px]">
-      <rect x={20} y={110} width={180} height={100} rx={12} style={{ stroke: "rgba(255,255,255,0.35)" }} />
-      <text x={110} y={156} textAnchor="middle" fontSize="15" fontFamily="PP Neue Montreal, sans-serif" fill="#ededed">orders</text>
-      <text x={110} y={178} textAnchor="middle" fontSize="11" fill="#74767c">6 columns</text>
+      <rect x={20} y={110} width={180} height={100} rx={12} style={{ stroke: "rgba(245,243,238,0.35)" }} />
+      <text x={110} y={156} textAnchor="middle" fontSize="15" fontFamily="PP Neue Montreal, sans-serif" fill="#F5F3EE">orders</text>
+      <text x={110} y={178} textAnchor="middle" fontSize="11" fill="#70757D">6 columns</text>
       {ys.map((y, i) => (
         <g key={y}>
-          <path className="hl-line" d={`M200 160 C300 160 300 ${y} 420 ${y}`} style={{ stroke: i === 0 ? "rgba(255,112,73,0.8)" : "rgba(255,255,255,0.14)" }} />
-          <rect x={420} y={y - 18} width={300} height={36} rx={8} style={{ stroke: "rgba(255,255,255,0.14)" }} />
-          <text x={436} y={y + 4} fontSize="12" fill={i === 0 ? "#ededed" : "#a1a3a8"}>
+          <path className="hl-line" d={`M200 160 C300 160 300 ${y} 420 ${y}`} style={{ stroke: i === 0 ? "rgba(245,243,238,0.8)" : "rgba(245,243,238,0.14)" }} />
+          <rect x={420} y={y - 18} width={300} height={36} rx={8} style={{ stroke: "rgba(245,243,238,0.14)" }} />
+          <text x={436} y={y + 4} fontSize="12" fill={i === 0 ? "#F5F3EE" : "#70757D"}>
             {["list", "read", "create", "update", "delete"][i]}
           </text>
-          <text x={704} y={y + 4} textAnchor="end" fontSize="11" fill="#74767c">
+          <text x={704} y={y + 4} textAnchor="end" fontSize="11" fill="#70757D">
             {["GET", "GET", "POST", "PATCH", "DELETE"][i]}
           </text>
         </g>

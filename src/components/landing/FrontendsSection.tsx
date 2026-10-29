@@ -35,7 +35,7 @@ export function FrontendsSection() {
       className="py-[clamp(72px,9vw,128px)]"
       backdrop={<div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_240px,black_calc(100%-240px),transparent)] [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_240px,black_calc(100%-240px),transparent)]"><Orbits /></div>}
     >
-      <div className="flex flex-col items-center gap-5 text-center">
+      <div data-reveal="up" className="flex flex-col items-center gap-5 text-center">
         <Title id="stack-title" quiet="On infrastructure you choose." className="max-w-[16ch]">
           Any frontend.
         </Title>
@@ -45,13 +45,16 @@ export function FrontendsSection() {
         </Lead>
       </div>
 
-      <ul className="mx-auto mt-14 grid max-w-[920px] grid-cols-5 gap-y-10 max-[559px]:grid-cols-3">
+      <ul
+        data-reveal="stagger"
+        className="mx-auto mt-14 grid max-w-[920px] grid-cols-5 gap-y-10 max-[559px]:grid-cols-3"
+      >
         {FRAMEWORKS.map(({ name, Mark }) => (
-          <li key={name} className="group flex flex-col items-center gap-3">
+          <li key={name} className="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1">
             <Mark
               size={28}
               aria-hidden="true"
-              className="text-white/35 transition-colors duration-200 group-hover:text-text"
+              className="text-white/35 transition-all duration-300 group-hover:scale-110 group-hover:text-text"
             />
             <span className="text-[15px] font-medium tracking-[-0.01em] text-faint transition-colors duration-200 group-hover:text-muted">
               {name}

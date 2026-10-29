@@ -29,18 +29,18 @@ const TOKEN_PATTERN =
   /(\/\/.*|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`|\b[a-zA-Z_$][\w$]*\b|\b\d+\b)/g;
 
 function tokenColor(token: string) {
-  if (token.startsWith("//")) return "#5F6167";
+  if (token.startsWith("//")) return "#70757D";
   if (
     token.startsWith('"') ||
     token.startsWith("'") ||
     token.startsWith("`")
   ) {
-    return "#B9AEFF";
+    return "#F5F3EE";
   }
-  if (KEYWORDS.has(token)) return "#FF9A7C";
-  if (FUNCTIONS.has(token)) return "#EDEDED";
-  if (/^\d+$/.test(token)) return "#FFB19B";
-  return "#C3C5CA";
+  if (KEYWORDS.has(token)) return "#F5F3EE";
+  if (FUNCTIONS.has(token)) return "#F5F3EE";
+  if (/^\d+$/.test(token)) return "#F5F3EE";
+  return "#F5F3EE";
 }
 
 function HighlightedLine({ line }: { line: string }) {
@@ -72,7 +72,7 @@ export function CodeSnippet({
 }) {
   return (
     <div
-      className={`overflow-hidden rounded-lg border border-line bg-[#0D0E10] ${className}`}
+      className={`overflow-hidden rounded-lg border border-line bg-[#06080b] ${className}`}
     >
       {label ? (
         <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-2.5 font-mono text-[8px] uppercase tracking-[0.14em] text-faint">
@@ -85,7 +85,7 @@ export function CodeSnippet({
       ) : null}
 
       <pre
-        className={`overflow-x-auto px-4 py-3.5 font-mono text-[10.5px] leading-[1.9] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${codeClassName}`}
+        className={`overflow-x-auto px-4 py-3.5 font-mono text-[10.5px] font-semibold leading-[1.9] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${codeClassName}`}
         aria-label={label}
       >
         <code>

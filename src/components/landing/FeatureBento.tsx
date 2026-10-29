@@ -188,7 +188,7 @@ function RealtimePreview() {
             ["Kwame Mensah", PASTELS.mint],
             ["Ines Laurent", PASTELS.rose],
           ].map(([name, tone]) => (
-            <span key={name} className="rounded-full ring-2 ring-[#08090a]">
+            <span key={name} className="rounded-full ring-2 ring-[#06080b]">
               <Initials name={name} tone={tone} size={18} />
             </span>
           ))}
@@ -218,8 +218,8 @@ function StoragePreview() {
   return (
     <div className="grid h-full grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4 p-4">
       <svg viewBox="0 0 104 84" className="h-[150px] w-full rounded-[8px]" style={{ background: PASTELS.peach }} aria-hidden="true">
-        <rect x="36" y="24" width="30" height="34" rx="4" fill="#211f2c" opacity="0.86" />
-        <path d="M66 32h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#211f2c" strokeOpacity="0.86" strokeWidth="4" />
+        <rect x="36" y="24" width="30" height="34" rx="4" fill="#06080b" opacity="0.86" />
+        <path d="M66 32h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#06080b" strokeOpacity="0.86" strokeWidth="4" />
       </svg>
       <div className="grid content-start gap-3 text-[12px]">
         <div className="truncate font-medium">mug.jpg</div>
@@ -313,9 +313,9 @@ function RulesPreview() {
   return (
     <div className="grid gap-2 p-4">
       <div className="text-[12px] text-[var(--sx-faint)]">orders · read, update when</div>
-      <div className="sx-input h-[32px] text-[12px]">Owns the record · <span className="sx-mono text-[#c9bfff]">owner_id</span></div>
+      <div className="sx-input h-[32px] text-[12px]">Owns the record · <span className="sx-mono text-[#F5F3EE]">owner_id</span></div>
       <div className="pl-1 text-[11.5px] text-[var(--sx-faint)]">or</div>
-      <div className="sx-input h-[32px] text-[12px]">Has role · <span className="sx-mono text-[#c9bfff]">admin</span></div>
+      <div className="sx-input h-[32px] text-[12px]">Has role · <span className="sx-mono text-[#F5F3EE]">admin</span></div>
     </div>
   );
 }
@@ -372,24 +372,30 @@ export function FeatureBento() {
         </div>
       }
     >
-      <div className="mx-auto mb-12 flex max-w-[720px] flex-col items-center gap-4 text-center">
+      <div
+        data-reveal="up"
+        className="mx-auto mb-12 flex max-w-[720px] flex-col items-center gap-4 text-center"
+      >
         <h2
           id="features-title"
           className="text-[clamp(40px,4.7vw,66px)] font-medium leading-[1.05] tracking-[-0.045em] text-text text-balance"
         >
-          Every layer of the backend.
+          One platform. Every backend layer.
         </h2>
         <Lead className="max-w-[48ch]">
-          Start with a table. Sign-in, files, live updates and automation
-          are already part of the same system when the product needs them.
+          Data, auth, storage, email, realtime, workflows and background jobs—
+          connected from the start.
         </Lead>
       </div>
 
-      <div className="grid gap-4 min-[760px]:grid-cols-2 min-[1100px]:grid-cols-12">
+      <div
+        data-reveal="stagger"
+        className="grid gap-4 min-[760px]:grid-cols-2 min-[1100px]:grid-cols-12"
+      >
         <Tile
           icon="database"
-          title="Database"
-          line="Every table comes with a secure REST API, with filters, sorting and relations built in. Postgres underneath."
+          title="Data & APIs"
+          line="Model data and relationships. Every table gets a secure REST API."
           label="An orders table with new rows arriving, and the request that reads it"
           className="min-[760px]:col-span-2 min-[1100px]:col-span-7"
           preview={ROW_1}
@@ -399,7 +405,7 @@ export function FeatureBento() {
         <Tile
           icon="users"
           title="Auth"
-          line="Social sign-in, two-step codes, teams, invites and user API keys."
+          line="Users, organizations, sessions, roles and permissions."
           label="A sign-in screen with Google, GitHub and Apple and a two-step code being entered"
           className="min-[760px]:col-span-2 min-[1100px]:col-span-5"
           preview={ROW_1}
@@ -438,8 +444,8 @@ export function FeatureBento() {
         </Tile>
         <Tile
           icon="automation"
-          title="Automation"
-          line="Visual flows, on a schedule, an event or a webhook. Emails included."
+          title="Workflows"
+          line="Visual backend logic for APIs, schedules, database events and webhooks. Email included."
           label="Automations for a nightly digest, a payment webhook, new orders and welcome emails"
           className="min-[760px]:col-span-2 min-[1100px]:col-span-6"
           preview={ROW}

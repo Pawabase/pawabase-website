@@ -3,7 +3,7 @@ import { Band, TextLink, Title } from "./Section";
 const QUESTIONS = [
   {
     q: "What is Pawabase?",
-    a: "A backend platform. It combines a database API, sign-in, access policies, realtime channels, file storage, automation flows and release tooling in one system, with Studio as its visual interface.",
+    a: "A unified backend platform for data APIs, authentication, storage, email, realtime, visual workflows and background jobs.",
   },
   {
     q: "Which databases does it use?",
@@ -27,7 +27,7 @@ const QUESTIONS = [
   },
   {
     q: "How do I add my own logic?",
-    a: "Flows react to events, schedules and webhooks, can send mail and can call any HTTP service. For custom endpoints, a route is a flow behind a policy.",
+    a: "Build visual workflows triggered by APIs, schedules, database events or webhooks. Slow work runs as background jobs with retries.",
   },
   {
     q: "How are changes released?",
@@ -39,14 +39,14 @@ export function FaqSection() {
   return (
     <Band id="faq" labelledBy="faq-title" className="py-[clamp(72px,9vw,128px)]">
       <div className="grid gap-10 min-[1000px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] min-[1000px]:gap-20">
-        <div className="flex h-fit flex-col gap-6 min-[1000px]:sticky min-[1000px]:top-28">
+        <div data-reveal="left" className="flex h-fit flex-col gap-6 min-[1000px]:sticky min-[1000px]:top-28">
           <Title id="faq-title" quiet="Answered plainly.">
             Questions.
           </Title>
           <TextLink href="https://docs.sillo.build">Browse the documentation</TextLink>
         </div>
 
-        <div className="border-t border-white/[0.08]">
+        <div data-reveal="stagger" className="border-t border-white/[0.08]">
           {QUESTIONS.map((item) => (
             <details key={item.q} className="group border-b border-white/[0.08]">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-[19px] font-medium tracking-[-0.025em] text-text transition-colors duration-150 hover:text-brand [&::-webkit-details-marker]:hidden">

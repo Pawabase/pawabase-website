@@ -43,10 +43,10 @@ export function ReleaseTrack() {
     >
       {LANES.map((lane) => (
         <g key={lane.name}>
-          <text x={0} y={lane.y + 4} fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill="#a1a3a8">
+          <text x={0} y={lane.y + 4} fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill="#70757D">
             {lane.name}
           </text>
-          <line x1={X0} x2={X1} y1={lane.y} y2={lane.y} style={{ stroke: "rgba(255,255,255,0.08)" }} />
+          <line x1={X0} x2={X1} y1={lane.y} y2={lane.y} style={{ stroke: "rgba(245,243,238,0.08)" }} />
         </g>
       ))}
 
@@ -56,7 +56,7 @@ export function ReleaseTrack() {
             key={r.n}
             className="hl-line"
             d={drop(r.x)}
-            style={{ stroke: r === live ? "rgba(255,112,73,0.7)" : "rgba(255,255,255,0.16)" }}
+            style={{ stroke: r === live ? "rgba(245,243,238,0.7)" : "rgba(245,243,238,0.16)" }}
           />
         ),
       )}
@@ -65,17 +65,17 @@ export function ReleaseTrack() {
       <path
         className="hl-line"
         d={`M${liveX} 262 C${liveX - 40} 300 ${prevX + 40} 300 ${prevX} 262`}
-        style={{ stroke: "rgba(255,255,255,0.28)", strokeDasharray: "3 5" }}
+        style={{ stroke: "rgba(245,243,238,0.28)", strokeDasharray: "3 5" }}
       />
-      <text x={(liveX + prevX) / 2} y={312} textAnchor="middle" fontSize="11" fill="#74767c">
+      <text x={(liveX + prevX) / 2} y={312} textAnchor="middle" fontSize="11" fill="#70757D">
         roll back in one click
       </text>
 
       {/* nightly snapshots under production */}
       {Array.from({ length: 13 }, (_, i) => X0 + 30 + i * 66).map((x) => (
-        <line key={x} x1={x} x2={x} y1={276} y2={284} style={{ stroke: "rgba(255,255,255,0.12)" }} />
+        <line key={x} x1={x} x2={x} y1={276} y2={284} style={{ stroke: "rgba(245,243,238,0.12)" }} />
       ))}
-      <text x={X1} y={300} textAnchor="end" fontSize="11" fill="#74767c">
+      <text x={X1} y={300} textAnchor="end" fontSize="11" fill="#70757D">
         nightly snapshots
       </text>
 
@@ -92,11 +92,11 @@ export function ReleaseTrack() {
                 r={lit ? 7 : 5.5}
                 style={{
                   fill: "var(--hl-plate)",
-                  stroke: lit ? "#ff7049" : isLive ? "rgba(255,112,73,0.7)" : "rgba(255,255,255,0.35)",
+                  stroke: lit ? "#F5F3EE" : isLive ? "rgba(245,243,238,0.7)" : "rgba(245,243,238,0.35)",
                 }}
               />
-              {lit ? <circle cx={x} cy={y} r={2.5} style={{ fill: "#ff7049", stroke: "none" }} /> : null}
-              <text x={x} y={y - 14} textAnchor="middle" fontSize="11" fill={isLive ? "#ededed" : "#74767c"}>
+              {lit ? <circle cx={x} cy={y} r={2.5} style={{ fill: "#F5F3EE", stroke: "none" }} /> : null}
+              <text x={x} y={y - 14} textAnchor="middle" fontSize="11" fill={isLive ? "#F5F3EE" : "#70757D"}>
                 #{r.n}
               </text>
             </g>
@@ -104,10 +104,10 @@ export function ReleaseTrack() {
         });
       })}
 
-      <text x={liveX + 16} y={254} fontSize="11" fill="#ff7049">
+      <text x={liveX + 16} y={254} fontSize="11" fill="#F5F3EE">
         live
       </text>
-      <text x={prevX - 16} y={254} textAnchor="end" fontSize="11" fill="#74767c">
+      <text x={prevX - 16} y={254} textAnchor="end" fontSize="11" fill="#70757D">
         previous
       </text>
 
@@ -117,7 +117,7 @@ export function ReleaseTrack() {
         className="hl-travel"
         style={
           {
-            fill: "#ff7049",
+            fill: "#F5F3EE",
             stroke: "none",
             "--path": `path("${drop(live.x)}")`,
             "--dur": "3.6s",

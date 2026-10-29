@@ -74,20 +74,20 @@ function RateChart() {
   const cap = 10;
   return (
     <Figure width={620} height={260} label="Requests per minute from one address: anything above the limit of ten gets a polite 429" className="h-auto w-full">
-      <line x1="30" x2="600" y1={220 - cap * 14} y2={220 - cap * 14} style={{ stroke: "#ff7049", strokeDasharray: "4 5" }} />
-      <text x="600" y={220 - cap * 14 - 8} textAnchor="end" fontSize="11" fill="#ff7049">limit · 10 per minute</text>
+      <line x1="30" x2="600" y1={220 - cap * 14} y2={220 - cap * 14} style={{ stroke: "#F5F3EE", strokeDasharray: "4 5" }} />
+      <text x="600" y={220 - cap * 14 - 8} textAnchor="end" fontSize="11" fill="#F5F3EE">limit · 10 per minute</text>
       {bars.map((v, i) => {
         const x = 40 + i * 46;
         const within = Math.min(v, cap);
         return (
           <g key={i}>
-            <rect x={x} y={220 - within * 14} width="26" height={within * 14} rx="4" style={{ fill: "rgba(255,255,255,0.12)", stroke: "none" }} />
-            {v > cap ? <rect x={x} y={220 - v * 14} width="26" height={(v - cap) * 14} rx="4" style={{ fill: "none", stroke: "#f39a93", strokeDasharray: "3 3" }} /> : null}
+            <rect x={x} y={220 - within * 14} width="26" height={within * 14} rx="4" style={{ fill: "rgba(245,243,238,0.12)", stroke: "none" }} />
+            {v > cap ? <rect x={x} y={220 - v * 14} width="26" height={(v - cap) * 14} rx="4" style={{ fill: "none", stroke: "#F5F3EE", strokeDasharray: "3 3" }} /> : null}
           </g>
         );
       })}
-      <line x1="30" x2="600" y1="220" y2="220" style={{ stroke: "rgba(255,255,255,0.15)" }} />
-      <text x="370" y="244" textAnchor="middle" fontSize="11" fill="#74767c">extra requests get 429 · try again shortly</text>
+      <line x1="30" x2="600" y1="220" y2="220" style={{ stroke: "rgba(245,243,238,0.15)" }} />
+      <text x="370" y="244" textAnchor="middle" fontSize="11" fill="#70757D">extra requests get 429 · try again shortly</text>
     </Figure>
   );
 }
@@ -192,14 +192,14 @@ export default function ApiSecurityPage() {
             where="In browsers and mobile apps"
             title="Publishable key"
             keyText="pb_pk_7Hq2vN4c…"
-            tone="#6fd3a2"
+            tone="#F5F3EE"
             lines={["Safe to ship in your frontend", "Every request follows your access rules", "Limit it to certain routes and roles"]}
           />
           <KeyCard
             where="On your servers only"
             title="Secret key"
             keyText="pb_sk_••••••••••••"
-            tone="#ff7049"
+            tone="#F5F3EE"
             lines={["Full access for trusted back-end code", "Refused if it ever shows up in a browser", "Rotate it in a click"]}
           />
         </div>

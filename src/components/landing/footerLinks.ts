@@ -34,8 +34,8 @@ export const FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
     title: "Product",
     links: [
       live("Platform", "/#platform"),
-      live("Capabilities", "/#features"),
-      live("Pricing", "/#start"),
+      live("Capabilities", "/#F5F3EEtures"),
+      live("Pricing", "/pricing"),
     ],
   },
   {
@@ -53,6 +53,17 @@ export const FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
       live("Blog", "/blog"),
       live("Careers", "/company/careers"),
       live("Contact", "/company/contact"),
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      live("Privacy Policy", "/legal/privacy"),
+      live("Terms of Service", "/legal/terms"),
+      live("Cookie Policy", "/legal/cookies"),
+      live("Refund Policy", "/legal/refund"),
+      live("Data Processing Addendum", "/legal/dpa"),
+      live("Acceptable Use Policy", "/legal/acceptable-use"),
     ],
   },
 ];

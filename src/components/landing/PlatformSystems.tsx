@@ -4,13 +4,13 @@ import type { CSSProperties, ReactNode } from "react";
 import { Icon, type IconName } from "@/components/Icon";
 
 const C = {
-  shell: "var(--color-shell, #090909)",
-  elevated: "var(--color-elevated, #141416)",
-  text: "var(--color-text, #f5f5f5)",
-  muted: "var(--color-muted, #929296)",
-  faint: "var(--color-faint, #626269)",
-  line: "var(--color-line, #29292d)",
-  brand: "var(--color-brand, #ff7049)",
+  shell: "var(--color-shell, #06080b)",
+  elevated: "var(--color-elevated, #06080b)",
+  text: "var(--color-text, #F5F3EE)",
+  muted: "var(--color-muted, #70757D)",
+  faint: "var(--color-faint, #70757D)",
+  line: "var(--color-line, #34383F)",
+  brand: "var(--color-brand, #F5F3EE)",
 };
 
 const border = `1px solid ${C.line}`;
@@ -79,7 +79,7 @@ function Window({
         border,
         borderRadius: 16,
         background: C.elevated,
-        boxShadow: "0 22px 64px rgba(0,0,0,0.38)",
+        boxShadow: "0 22px 64px rgba(16,19,21,0.38)",
         ...style,
       }}
     >

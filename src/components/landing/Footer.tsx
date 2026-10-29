@@ -1,4 +1,4 @@
-import { BrandMark } from "./Brand";
+import { Wordmark } from "./Brand";
 import { FooterNavLink } from "./FooterNavLink";
 import { FooterNewsletter } from "./FooterNewsletter";
 import { FooterSocialLink } from "./FooterSocialLink";
@@ -13,7 +13,7 @@ export function Footer() {
     >
       <div className={RAIL_GRID}>
         <div className="col-start-2 row-start-1 min-w-0">
-          <div className="px-6 pb-[clamp(44px,5vw,72px)] pt-[clamp(56px,6vw,88px)] min-[768px]:px-10 min-[981px]:px-14 min-[1241px]:px-16">
+          <div className="px-6 pb-0 pt-[clamp(56px,6vw,88px)] min-[768px]:px-10 min-[981px]:px-14 min-[1241px]:px-16">
 
             <div className="grid grid-cols-1 gap-x-10 gap-y-14 min-[768px]:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] min-[1100px]:grid-cols-[minmax(0,0.95fr)_minmax(0,1.55fr)_minmax(0,1.05fr)] min-[1100px]:gap-16">
               <div>
@@ -22,18 +22,15 @@ export function Footer() {
                   className="inline-flex items-center gap-2.5 text-text no-underline"
                   aria-label="Pawabase home"
                 >
-                  <BrandMark size={28} />
-                  <span className="text-[22px] font-medium tracking-[-0.045em]">
-                    pawabase
-                  </span>
+                  <Wordmark />
                 </a>
 
                 <p className="mt-5 max-w-[24ch] text-[16px] font-medium leading-[1.5] tracking-[-0.02em] text-text">
-                  The backend behind what's next.
+                  One backend for apps and operations.
                 </p>
 
                 <p className="mt-2 max-w-[32ch] text-[15px] leading-[1.7] tracking-[-0.01em] text-muted">
-                  Build ambitious applications without rebuilding the backend.
+                  Manage data, users, files, email and workflows in one platform.
                 </p>
               </div>
 
@@ -92,9 +89,9 @@ export function Footer() {
 
             <div
               aria-hidden="true"
-              className="mt-[clamp(56px,7vw,96px)] text-center"
+              className="relative mt-[clamp(64px,8vw,112px)] -mx-6 -mb-px overflow-hidden pt-3 min-[768px]:-mx-10 min-[981px]:-mx-14 min-[1241px]:-mx-16"
             >
-              <p className="select-none whitespace-nowrap text-[clamp(56px,14vw,200px)] font-normal leading-[0.8] tracking-[-0.075em] text-brand/20">
+              <p className="pointer-events-none select-none whitespace-nowrap text-center text-[clamp(72px,18vw,270px)] font-medium leading-[0.67] tracking-[-0.09em] text-brand/20 [mask-image:linear-gradient(to_bottom,black_0%,black_58%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_58%,transparent_100%)]">
                 PAWABASE
               </p>
             </div>

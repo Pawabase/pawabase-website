@@ -37,10 +37,10 @@ function Overview() {
             </div>
             <svg viewBox="0 0 400 170" className="mt-5 h-[190px] w-full" aria-hidden="true">
               {[40, 85, 130].map((y) => (
-                <line key={y} x1="0" x2="400" y1={y} y2={y} stroke="#1f2023" strokeDasharray="2 4" />
+                <line key={y} x1="0" x2="400" y1={y} y2={y} stroke="#06080b" strokeDasharray="2 4" />
               ))}
-              <path d="M0 140 C30 136 50 120 70 124 S110 90 130 96 S170 130 190 118 S230 40 250 50 S290 110 310 100 S360 70 400 76" fill="none" stroke="#ff7049" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
-              <path d="M0 160 C40 160 80 156 120 158 S200 150 240 154 S320 156 400 152" fill="none" stroke="#efc463" strokeWidth="1" strokeDasharray="3 4" vectorEffect="non-scaling-stroke" />
+              <path d="M0 140 C30 136 50 120 70 124 S110 90 130 96 S170 130 190 118 S230 40 250 50 S290 110 310 100 S360 70 400 76" fill="none" stroke="#F5F3EE" strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
+              <path d="M0 160 C40 160 80 156 120 158 S200 150 240 154 S320 156 400 152" fill="none" stroke="#F5F3EE" strokeWidth="1" strokeDasharray="3 4" vectorEffect="non-scaling-stroke" />
             </svg>
             <div className="mt-2 flex gap-5 text-[11.5px] text-[var(--sx-faint)]">
               <span className="flex items-center gap-1.5"><span className="sx-dot bg-[var(--sx-brand)]" />Requests</span>
@@ -137,7 +137,7 @@ function StatusPage() {
           <span className="text-[15px] font-semibold">Northwind status</span>
           <span className="sx-mono text-[12px] text-[var(--sx-faint)]">status.northwind.com</span>
         </div>
-        <div className="mt-5 flex items-center gap-2 rounded-[10px] bg-[color-mix(in_srgb,#6fd3a2_12%,transparent)] px-4 py-3 text-[13px] text-[var(--sx-ok)]">
+        <div className="mt-5 flex items-center gap-2 rounded-[10px] bg-[color-mix(in_srgb,#F5F3EE_12%,transparent)] px-4 py-3 text-[13px] text-[var(--sx-ok)]">
           <span className="sx-dot bg-[var(--sx-ok)]" />
           All systems normal
         </div>
