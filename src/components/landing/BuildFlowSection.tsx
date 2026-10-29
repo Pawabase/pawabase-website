@@ -61,7 +61,7 @@ function QuickstartTerminal() {
       className="relative w-full overflow-hidden rounded-[24px] bg-card"
     >
       <WindowBar title="Terminal" icon="code" value={QUICKSTART} />
-      <div className="mx-3 mb-3 rounded-[16px] bg-[#101315] px-5 py-5 sx-mono text-[13px] leading-[1.9] min-[560px]:mx-4 min-[560px]:mb-4 min-[560px]:px-6">
+      <div className="mx-3 mb-3 rounded-[16px] bg-[#06080b] px-5 py-5 sx-mono text-[13px] leading-[1.9] min-[560px]:mx-4 min-[560px]:mb-4 min-[560px]:px-6">
         <p className="text-[var(--sx-muted)]">
           <span className="mr-2 text-[var(--sx-faint)]">$</span>
           npx pawabase@latest init
@@ -81,7 +81,7 @@ function ClientCode() {
       className="relative w-full overflow-hidden rounded-[24px] bg-card"
     >
       <WindowBar title="app.ts" icon="document" value={CLIENT_CODE} />
-      <div className="mx-3 mb-3 min-w-0 overflow-hidden rounded-[16px] bg-[#101315] px-5 py-5 sx-mono text-[12px] leading-[1.95] min-[560px]:mx-4 min-[560px]:mb-4 min-[560px]:px-6 min-[560px]:text-[13px]">
+      <div className="mx-3 mb-3 min-w-0 overflow-hidden rounded-[16px] bg-[#06080b] px-5 py-5 sx-mono text-[12px] leading-[1.95] min-[560px]:mx-4 min-[560px]:mb-4 min-[560px]:px-6 min-[560px]:text-[13px]">
           <p className="text-[#F5F3EE]">import <span className="text-[var(--sx-text)]">&#123; createClient &#125;</span> from <span className="text-[var(--sx-ok)]">'@pawabase/js'</span>;</p>
           <p>&nbsp;</p>
           <p><span className="text-[#F5F3EE]">const</span> pawabase = createClient&#40;</p>

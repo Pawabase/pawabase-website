@@ -197,7 +197,7 @@ function UiPanel({
 }) {
   return (
     <div
-      className={`flex flex-col overflow-hidden border-t border-line bg-[#101315] ${className}`}
+      className={`flex flex-col overflow-hidden border-t border-line bg-[#06080b] ${className}`}
     >
       {children}
     </div>
@@ -214,7 +214,7 @@ function IdentityUi() {
             Search users
           </span>
         </span>
-        <span className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-md bg-brand px-3 text-[12px] font-semibold text-[#101315]">
+        <span className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-md bg-brand px-3 text-[12px] font-semibold text-[#06080b]">
           <Icon name="add" size={12} />
           Invite
         </span>

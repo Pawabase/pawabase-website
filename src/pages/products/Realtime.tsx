@@ -50,7 +50,7 @@ function LiveChannel() {
             <span className="flex items-center gap-3">
               <span className="flex -space-x-1.5">
                 {PEOPLE.map(([name, tone]) => (
-                  <span key={name} className="rounded-full ring-2 ring-[#101315]">
+                  <span key={name} className="rounded-full ring-2 ring-[#06080b]">
                     <Initials name={name} tone={tone} size={22} />
                   </span>
                 ))}
@@ -196,7 +196,7 @@ export default function RealtimePage() {
           <Primitive title="Presence" copy="Know who's here, who just left and who's typing.">
             <span className="flex -space-x-2">
               {PEOPLE.map(([name, tone]) => (
-                <span key={name} className="rounded-full ring-4 ring-[#101315]">
+                <span key={name} className="rounded-full ring-4 ring-[#06080b]">
                   <Initials name={name} tone={tone} size={44} />
                 </span>
               ))}

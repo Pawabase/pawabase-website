@@ -194,7 +194,7 @@ export function Initials({
         width: size,
         height: size,
         background: tone,
-        color: "#101315",
+        color: "#06080b",
         fontSize: size * 0.4,
       }}
     >

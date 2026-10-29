@@ -18,9 +18,9 @@ import {
 function Mug({ size }: { size: number }) {
   return (
     <svg viewBox="0 0 104 84" width={size} height={(size * 84) / 104} className="rounded-[10px]" style={{ background: PASTELS.peach }} aria-hidden="true">
-      <rect x="36" y="24" width="30" height="34" rx="4" fill="#101315" opacity="0.86" />
-      <path d="M66 32h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#101315" strokeOpacity="0.86" strokeWidth="4" />
-      <ellipse cx="51" cy="64" rx="22" ry="2.5" fill="#101315" opacity="0.12" />
+      <rect x="36" y="24" width="30" height="34" rx="4" fill="#06080b" opacity="0.86" />
+      <path d="M66 32h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#06080b" strokeOpacity="0.86" strokeWidth="4" />
+      <ellipse cx="51" cy="64" rx="22" ry="2.5" fill="#06080b" opacity="0.12" />
     </svg>
   );
 }

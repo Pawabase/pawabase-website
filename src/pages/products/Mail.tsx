@@ -15,7 +15,7 @@ import {
 
 function Email({ name = "Kwame" }: { name?: string }) {
   return (
-    <div className="rounded-[10px] bg-[#F5F3EE] px-8 py-8 text-left text-[#101315]">
+    <div className="rounded-[10px] bg-[#2dd4bf] px-8 py-8 text-left text-[#03201c]">
       <div className="text-[15px] font-bold tracking-[-0.03em]">Northwind</div>
       <div className="mt-8 text-[22px] font-semibold leading-[1.2] tracking-[-0.025em]">Your order is packed</div>
       <p className="mt-3 text-[14px] leading-[1.65] text-[#34383F]">
@@ -26,7 +26,7 @@ function Email({ name = "Kwame" }: { name?: string }) {
         <span className="flex justify-between"><span>Stoneware mug × 2</span><span>$48.00</span></span>
         <span className="flex justify-between"><span>Linen tote</span><span>$41.99</span></span>
       </div>
-      <span className="mt-6 inline-flex h-10 items-center rounded-[8px] bg-[#101315] px-5 text-[13px] font-semibold text-white">View order</span>
+      <span className="mt-6 inline-flex h-10 items-center rounded-[8px] bg-[#06080b] px-5 text-[13px] font-semibold text-white">View order</span>
     </div>
   );
 }

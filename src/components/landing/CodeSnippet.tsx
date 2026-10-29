@@ -72,7 +72,7 @@ export function CodeSnippet({
 }) {
   return (
     <div
-      className={`overflow-hidden rounded-lg border border-line bg-[#101315] ${className}`}
+      className={`overflow-hidden rounded-lg border border-line bg-[#06080b] ${className}`}
     >
       {label ? (
         <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-2.5 font-mono text-[8px] uppercase tracking-[0.14em] text-faint">

@@ -63,7 +63,7 @@ function Endpoint() {
             <span key={event as string} className="flex items-center gap-3 text-[13px]">
               <span className="grid h-[16px] w-[16px] place-items-center rounded-[4px] border" style={{ borderColor: on ? "var(--sx-brand)" : "var(--sx-line)", background: on ? "var(--sx-brand)" : "transparent" }}>
                 {on ? (
-                  <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5.2 4.1 7.3 8 3" stroke="#101315" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5.2 4.1 7.3 8 3" stroke="#06080b" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 ) : null}
               </span>
               <span className="sx-mono" style={{ color: on ? "var(--sx-text)" : "var(--sx-faint)" }}>{event as string}</span>

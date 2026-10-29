@@ -37,21 +37,21 @@
 }
 
 @theme {
-  --color-page: #101315;
-  --color-shell: #101315;
-  --color-deep: #101315;
-  --color-elevated: color-mix(in srgb, #F5F3EE 7%, #101315);
+  --color-page: #06080b;
+  --color-shell: #06080b;
+  --color-deep: #06080b;
+  --color-elevated: color-mix(in srgb, #F5F3EE 7%, #06080b);
   --color-text: #F5F3EE;
-  --color-muted: color-mix(in srgb, #F5F3EE 68%, #101315);
-  --color-faint: color-mix(in srgb, #F5F3EE 51%, #101315);
-  --color-brand: #F5F3EE;
+  --color-muted: color-mix(in srgb, #F5F3EE 68%, #06080b);
+  --color-faint: color-mix(in srgb, #F5F3EE 51%, #06080b);
+  --color-brand: #2dd4bf;
   --color-lavender: #F5F3EE;
-  --color-line: #34383F;
-  --color-line-subtle: color-mix(in srgb, #F5F3EE 10%, #101315);
-  --color-surface: color-mix(in srgb, #F5F3EE 3%, #101315);
-  --color-card: color-mix(in srgb, #F5F3EE 4%, #101315);
-  --color-tint: color-mix(in srgb, #F5F3EE 2%, #101315);
-  --color-warm: color-mix(in srgb, #F5F3EE 2%, #101315);
+  --color-line: #1f252e;
+  --color-line-subtle: color-mix(in srgb, #F5F3EE 10%, #06080b);
+  --color-surface: color-mix(in srgb, #F5F3EE 3%, #06080b);
+  --color-card: color-mix(in srgb, #F5F3EE 4%, #06080b);
+  --color-tint: color-mix(in srgb, #F5F3EE 2%, #06080b);
+  --color-warm: color-mix(in srgb, #F5F3EE 2%, #06080b);
   --font-sans: "PP Neue Montreal", sans-serif;
   --font-mono: "PP Neue Montreal", sans-serif;
   --animate-marquee: marquee 52s linear infinite;
@@ -246,5 +246,5 @@
 /* Core palette: utility colors are tonal aliases, never additional brand inks. */
 @theme {
   --color-white: #F5F3EE;
-  --color-black: #101315;
+  --color-black: #06080b;
 }

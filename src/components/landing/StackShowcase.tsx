@@ -335,7 +335,7 @@ export function StackShowcase() {
               id="framework-code"
               role="tabpanel"
               aria-labelledby={`framework-tab-${activeIndex}`}
-              className="relative z-[1] ml-auto w-[94%] max-w-[620px] overflow-hidden rounded-tl-xl border-l border-t border-[#34383F] bg-[#101315]"
+              className="relative z-[1] ml-auto w-[94%] max-w-[620px] overflow-hidden rounded-tl-xl border-l border-t border-[#34383F] bg-[#06080b]"
             >
               <div className="relative h-[300px] overflow-hidden min-[768px]:h-[340px]">
 
@@ -363,7 +363,7 @@ export function StackShowcase() {
                 {/* Subtle bottom fade */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[125px] bg-gradient-to-b from-transparent via-[#101315]/70 to-[#101315]"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[125px] bg-gradient-to-b from-transparent via-[#06080b]/70 to-[#06080b]"
                 />
               </div>
             </div>

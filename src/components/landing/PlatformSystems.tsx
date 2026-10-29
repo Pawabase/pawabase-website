@@ -4,8 +4,8 @@ import type { CSSProperties, ReactNode } from "react";
 import { Icon, type IconName } from "@/components/Icon";
 
 const C = {
-  shell: "var(--color-shell, #101315)",
-  elevated: "var(--color-elevated, #101315)",
+  shell: "var(--color-shell, #06080b)",
+  elevated: "var(--color-elevated, #06080b)",
   text: "var(--color-text, #F5F3EE)",
   muted: "var(--color-muted, #70757D)",
   faint: "var(--color-faint, #70757D)",

@@ -52,8 +52,8 @@ export function Orbits({ className = "" }: { className?: string }) {
       preserveAspectRatio="xMidYMid slice"
       className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}
       style={{
-        maskImage: "radial-gradient(ellipse 55% 70% at 50% 60%, #101315, transparent 80%)",
-        WebkitMaskImage: "radial-gradient(ellipse 55% 70% at 50% 60%, #101315, transparent 80%)",
+        maskImage: "radial-gradient(ellipse 55% 70% at 50% 60%, #06080b, transparent 80%)",
+        WebkitMaskImage: "radial-gradient(ellipse 55% 70% at 50% 60%, #06080b, transparent 80%)",
       }}
     >
       {[120, 200, 290, 390].map((r, i) => (
