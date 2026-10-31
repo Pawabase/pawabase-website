@@ -46,7 +46,7 @@ export function DataFreedom() {
               <Icon
                 name="database"
                 size={18}
-                variant="Bulk"
+                variant="TwoTone"
                 className="text-brand"
               />
               <span className="text-[13px] font-semibold text-white/80">
@@ -107,7 +107,7 @@ export function DataFreedom() {
                         <Icon
                           name={row.icon}
                           size={16}
-                          variant="Bulk"
+                          variant="TwoTone"
                           className={
                             row.emphasis ? "text-brand" : "text-white/30"
                           }
@@ -136,7 +136,7 @@ export function DataFreedom() {
           <div className="mt-auto grid grid-cols-1 border-t border-line min-[640px]:grid-cols-2">
             <div className="border-b border-line p-5 min-[640px]:border-b-0 min-[640px]:border-r min-[768px]:p-7">
               <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand">
-                <Icon name="apiSecurity" size={16} variant="Bulk" />
+                <Icon name="apiSecurity" size={16} variant="TwoTone" />
                 API
               </div>
               <p className="mt-3 break-words text-[14px] leading-[1.8] text-white/85">
@@ -149,7 +149,7 @@ export function DataFreedom() {
 
             <div className="p-5 min-[768px]:p-7">
               <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand">
-                <Icon name="code" size={16} variant="Bulk" />
+                <Icon name="code" size={16} variant="TwoTone" />
                 SQL
               </div>
               <pre className="mt-3 overflow-x-auto text-[13px] leading-[1.85] text-white/80 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

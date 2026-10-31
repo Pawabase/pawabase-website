@@ -74,12 +74,12 @@ function SignIn() {
 }
 
 const METHODS = [
-  { name: "Email and password", node: <Icon name="mail" size={30} variant="Bulk" /> },
-  { name: "Magic links", node: <Icon name="sparkle" size={30} variant="Bulk" /> },
+  { name: "Email and password", node: <Icon name="mail" size={30} variant="TwoTone" /> },
+  { name: "Magic links", node: <Icon name="sparkle" size={30} variant="TwoTone" /> },
   { name: "Google", node: <SiGoogle size={28} /> },
   { name: "GitHub", node: <SiGithub size={28} /> },
   { name: "Apple", node: <SiApple size={28} /> },
-  { name: "Single sign-on", node: <Icon name="apiSecurity" size={30} variant="Bulk" /> },
+  { name: "Single sign-on", node: <Icon name="apiSecurity" size={30} variant="TwoTone" /> },
 ];
 
 const MEMBERS = [
@@ -173,7 +173,7 @@ function Sessions() {
           ["Windows · Chrome", "3 days ago", false],
         ].map(([device, seen, current]) => (
           <div key={device as string} className="flex h-[54px] items-center gap-3 border-b border-[var(--sx-line-soft)] px-5 text-[13px] last:border-b-0">
-            <Icon name={current ? "activity" : "realtime"} size={16} variant="Bulk" className="text-[var(--sx-muted)]" />
+            <Icon name={current ? "activity" : "realtime"} size={16} variant="TwoTone" className="text-[var(--sx-muted)]" />
             <span className="flex-1">{device as string}</span>
             <span className="text-[12px] text-[var(--sx-faint)]">{seen as string}</span>
             {current ? <span className="w-[64px] text-right text-[12px] text-[var(--sx-ok)]">This one</span> : <span className="w-[64px] text-right text-[12px] text-[var(--sx-muted)]">Sign out</span>}

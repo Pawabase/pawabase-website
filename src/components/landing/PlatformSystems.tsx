@@ -106,7 +106,7 @@ function Window({
               background: C.shell,
             }}
           >
-            <Icon name={icon} size={14} variant="Bulk" />
+            <Icon name={icon} size={14} variant="TwoTone" />
           </span>
           <span
             style={{

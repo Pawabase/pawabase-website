@@ -306,7 +306,7 @@ function NavLinkRow({
       className="group -mx-2 flex gap-2.5 rounded-xl p-2 transition-colors duration-150 hover:bg-white/[0.05] focus-visible:bg-white/[0.05]"
     >
       <span className="mt-0.5 shrink-0 text-brand/85 transition-colors duration-150 group-hover:text-brand">
-        <Icon name={link.icon} size={18} variant="Bulk" />
+        <Icon name={link.icon} size={18} variant="TwoTone" />
       </span>
 
       <span className="min-w-0">
@@ -578,7 +578,7 @@ export function TopBar() {
             href={APP_URL}
             target="_blank"
             rel="noreferrer"
-            className="hidden h-10 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-[#2dd4bf] bg-[#2dd4bf] px-4 text-[15px] font-bold tracking-[-0.02em] text-[#03201c] no-underline shadow-none transition-colors duration-200 hover:bg-[#5eead4] min-[900px]:inline-flex"
+            className="hidden h-10 shrink-0 items-center justify-center gap-1.5 rounded-lg px-4 text-[15px] font-bold tracking-[-0.02em] no-underline min-[900px]:inline-flex btn-clay"
           >
             Start building
             <Icon name="arrowRight" size={15} />
@@ -680,7 +680,7 @@ export function TopBar() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={closeAll}
-                className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-[#2dd4bf] bg-[#2dd4bf] text-[15px] font-bold tracking-[-0.02em] text-[#03201c] no-underline shadow-none"
+                className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-lg text-[15px] font-bold tracking-[-0.02em] no-underline btn-clay"
               >
                 Start building
                 <Icon name="arrowRight" size={15} />

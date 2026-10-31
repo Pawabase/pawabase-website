@@ -59,7 +59,7 @@ export function CompanyHero({
       <div className="relative mx-auto grid w-full max-w-[1240px] gap-12 px-5 pb-[clamp(80px,11vw,152px)] pt-[clamp(76px,10vw,132px)] min-[768px]:px-10 min-[980px]:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] min-[980px]:items-end">
         <div>
           <p className="flex items-center gap-2 text-[15px] font-medium tracking-[-0.01em] text-muted">
-            <Icon name={icon} size={20} variant="Bulk" className="text-brand" />
+            <Icon name={icon} size={20} variant="TwoTone" className="text-brand" />
             {label}
           </p>
           <h1 className="mt-7 max-w-[880px] text-[clamp(48px,7vw,92px)] font-normal leading-[0.98] tracking-[-0.062em] text-text text-balance">

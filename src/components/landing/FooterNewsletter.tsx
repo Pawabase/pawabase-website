@@ -64,7 +64,7 @@ export function FooterNewsletter() {
 
         <button
           type="submit"
-          className="inline-flex h-full shrink-0 items-center justify-center gap-1.5 rounded-lg border border-[#2dd4bf] bg-[#2dd4bf] px-3.5 text-[14px] font-medium tracking-[-0.01em] text-[#03201c] shadow-none transition-colors duration-150 hover:bg-[#5eead4]"
+          className="inline-flex h-full shrink-0 items-center justify-center gap-1.5 rounded-lg px-3.5 text-[14px] font-medium tracking-[-0.01em] btn-clay"
         >
           Subscribe
           <Icon name="arrowRight" size={13} />

@@ -61,7 +61,7 @@ export function CloudSection() {
       >
         <Card className="flex flex-col gap-6 p-8 min-[900px]:p-10">
           <div className="flex items-center gap-3">
-            <Icon name="sparkle" size={26} variant="Bulk" className="text-brand" />
+            <Icon name="sparkle" size={26} variant="TwoTone" className="text-brand" />
             <h3 className="text-[24px] font-medium tracking-[-0.03em] text-text">Pawabase Cloud</h3>
           </div>
           <p className="max-w-[40ch] text-[16.5px] leading-[1.55] tracking-[-0.01em] text-muted">
@@ -79,7 +79,7 @@ export function CloudSection() {
 
         <Card className="flex flex-col gap-6 p-8 min-[900px]:p-10">
           <div className="flex items-center gap-3">
-            <Icon name="database" size={26} variant="Bulk" className="text-brand" />
+            <Icon name="database" size={26} variant="TwoTone" className="text-brand" />
             <h3 className="text-[24px] font-medium tracking-[-0.03em] text-text">Built for production</h3>
           </div>
           <p className="max-w-[40ch] text-[16.5px] leading-[1.55] tracking-[-0.01em] text-muted">

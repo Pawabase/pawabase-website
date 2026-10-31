@@ -66,7 +66,7 @@ export function ChannelsSection() {
                   <Icon
                     name={channel.icon}
                     size={26}
-                    variant="Bulk"
+                    variant="TwoTone"
                     className="block"
                   />
                 </span>

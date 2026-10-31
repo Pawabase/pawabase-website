@@ -92,7 +92,7 @@ export default function AboutPage() {
           <div className="grid gap-10 min-[860px]:grid-cols-[minmax(0,1fr)_minmax(300px,0.65fr)] min-[860px]:items-end">
             <div>
               <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand/10 text-brand">
-                <Icon name="code" size={23} variant="Bulk" />
+                <Icon name="code" size={23} variant="TwoTone" />
               </span>
               <h2 id="company-platform" className="mt-8 text-[clamp(34px,4vw,54px)] font-normal leading-[1.06] tracking-[-0.05em] text-text text-balance">
                 A backend that keeps its bearings.

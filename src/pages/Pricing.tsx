@@ -71,7 +71,7 @@ export default function PricingPage() {
             <div className="relative mx-auto grid w-full max-w-[1240px] gap-10 px-5 pb-[clamp(72px,10vw,132px)] pt-[clamp(76px,10vw,132px)] min-[768px]:px-10 min-[980px]:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.7fr)] min-[980px]:items-end">
               <div>
                 <p className="flex items-center gap-2 text-[15px] font-medium tracking-[-0.01em] text-muted">
-                  <Icon name="sparkle" size={20} variant="Bulk" className="text-brand" />
+                  <Icon name="sparkle" size={20} variant="TwoTone" className="text-brand" />
                   Pawabase Cloud pricing
                 </p>
                 <h1 className="mt-7 max-w-[920px] text-[clamp(50px,7vw,94px)] font-normal leading-[0.98] tracking-[-0.062em] text-text text-balance">

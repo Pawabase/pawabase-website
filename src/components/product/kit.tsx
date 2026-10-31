@@ -50,7 +50,7 @@ export function ProductShell({
 export function ProductName({ icon, name }: { icon: IconName; name: string }) {
   return (
     <span className="inline-flex items-center gap-2 text-[15px] font-medium tracking-[-0.01em] text-muted">
-      <Icon name={icon} size={20} variant="Bulk" className="text-brand" />
+      <Icon name={icon} size={20} variant="TwoTone" className="text-brand" />
       {name}
     </span>
   );
@@ -108,7 +108,7 @@ export function Points({
     <ul className={`grid gap-x-10 gap-y-9 ${grid} ${className}`}>
       {items.map((item) => (
         <li key={item.title} className="flex flex-col gap-2">
-          <Icon name={item.icon} size={24} variant="Bulk" className="text-brand" />
+          <Icon name={item.icon} size={24} variant="TwoTone" className="text-brand" />
           <span className="mt-1 text-[18px] font-medium tracking-[-0.02em] text-text">
             {item.title}
           </span>
@@ -137,7 +137,7 @@ export function CodeCard({
     <Card className={className}>
       <Mockup label={label} className="block">
         <div className="flex items-center gap-2 px-5 pt-4 text-[12.5px] text-[var(--sx-muted)]">
-          <Icon name="code" size={14} variant="Bulk" className="text-[var(--sx-brand)]" />
+          <Icon name="code" size={14} variant="TwoTone" className="text-[var(--sx-brand)]" />
           {file}
         </div>
         <div className="overflow-x-auto pb-3">

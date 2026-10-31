@@ -37,7 +37,7 @@ function Tile({
   return (
     <Card className={`flex flex-col p-6 min-[768px]:p-7 ${className}`}>
       <h3 className="flex items-center gap-2.5 text-[19px] font-medium tracking-[-0.025em] text-text">
-        <Icon name={icon} size={22} variant="Bulk" className="text-brand" />
+        <Icon name={icon} size={22} variant="TwoTone" className="text-brand" />
         {title}
       </h3>
       <p className="mt-2.5 max-w-[46ch] text-[16.5px] leading-[1.5] tracking-[-0.01em] text-muted">
@@ -298,7 +298,7 @@ function AutomationPreview() {
           className="flex items-center gap-3 rounded-[10px] border px-3 py-3 transition-colors duration-500"
           style={{ borderColor: i === running && tick ? "var(--sx-brand)" : "var(--sx-line)" }}
         >
-          <Icon name={icon} size={18} variant="Bulk" className="flex-none text-[var(--sx-muted)]" />
+          <Icon name={icon} size={18} variant="TwoTone" className="flex-none text-[var(--sx-muted)]" />
           <span className="min-w-0 leading-[1.35]">
             <span className="block truncate text-[12.5px] font-medium">{name}</span>
             <span className="block truncate text-[11.5px] text-[var(--sx-faint)]">{detail}</span>
@@ -329,7 +329,7 @@ function ReleasePreview() {
   return (
     <div ref={ref} className="grid gap-3 p-4">
       <div className="flex items-center gap-3">
-        <Icon name="queues" size={18} variant="Bulk" className="flex-none text-[var(--sx-muted)]" />
+        <Icon name="queues" size={18} variant="TwoTone" className="flex-none text-[var(--sx-muted)]" />
         <span className="min-w-0 flex-1 leading-[1.35]">
           <span className="block truncate text-[12.5px] font-medium">Release 14</span>
           <span className="block truncate text-[11.5px] text-[var(--sx-faint)]">staging → production</span>

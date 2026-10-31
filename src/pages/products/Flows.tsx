@@ -186,7 +186,7 @@ export default function FlowsPage() {
         <ul className="mx-auto mt-12 grid max-w-[1080px] gap-3 min-[560px]:grid-cols-2 min-[1000px]:grid-cols-4">
           {BLOCKS.map((block, i) => (
             <li key={block.name + i} className="flex items-start gap-3 rounded-[14px] bg-card px-4 py-4 ring-1 ring-white/[0.04] transition-colors duration-200 hover:ring-brand/30">
-              <Icon name={block.icon} size={20} variant="Bulk" className="mt-0.5 flex-none text-brand" />
+              <Icon name={block.icon} size={20} variant="TwoTone" className="mt-0.5 flex-none text-brand" />
               <span className="leading-[1.4]">
                 <span className="block text-[14px] font-medium text-text">{block.name}</span>
                 <span className="block text-[12.5px] text-muted">{block.copy}</span>

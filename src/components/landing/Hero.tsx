@@ -137,7 +137,7 @@ export function Hero() {
 
           <a
             href="#F5F3EEtures"
-            className="inline-flex h-[50px] items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-white/[0.14] bg-white/[0.045] px-[25px] text-[13.5px] font-bold tracking-[-0.02em] text-text no-underline transition-colors duration-200 hover:border-white/[0.24] hover:bg-white/[0.08]"
+            className="inline-flex h-[50px] items-center justify-center gap-2 whitespace-nowrap rounded-lg px-[25px] text-[13.5px] font-bold tracking-[-0.02em] text-text no-underline btn-clay-dark"
           >
             Explore Features
             <Icon name="sparkle" size={16} />
@@ -184,7 +184,7 @@ export function Hero() {
                     aria-label={feature.label}
                     className="flex size-12 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.045] text-white/75 min-[768px]:size-14"
                   >
-                    <Icon name={feature.name} size={21} variant="Linear" />
+                    <Icon name={feature.name} size={21} variant="TwoTone" />
                   </span>
                 ))}
               </div>

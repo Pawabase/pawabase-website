@@ -163,7 +163,7 @@ export default function MailPage() {
                 <div className="rounded-[10px] border border-[var(--sx-line)] px-4 py-3 text-[12.5px]"><span className="text-[var(--sx-faint)]">When </span>an order is packed</div>
                 <div className="ml-6 h-5 w-px bg-[var(--sx-brand)]" />
                 <div className="flex items-center gap-3 rounded-[10px] border border-[var(--sx-brand)] px-4 py-3 text-[12.5px]">
-                  <Icon name="mail" size={16} variant="Bulk" className="text-[var(--sx-brand)]" />
+                  <Icon name="mail" size={16} variant="TwoTone" className="text-[var(--sx-brand)]" />
                   Send email · <span className="sx-mono text-[var(--sx-muted)]">order-packed</span>
                 </div>
               </div>

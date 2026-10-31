@@ -25,7 +25,7 @@ function WindowBar({
 
   return (
     <div className="flex h-12 items-center gap-2 px-4 text-[12px] font-medium text-[var(--sx-muted)] min-[560px]:px-5">
-      <Icon name={icon} size={16} variant="Bulk" className="text-brand" />
+      <Icon name={icon} size={16} variant="TwoTone" className="text-brand" />
       <span>{title}</span>
       <button
         type="button"

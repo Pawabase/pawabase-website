@@ -66,7 +66,7 @@ export function Icon({
   name,
   size = 18,
   className = "",
-  variant = "Linear",
+  variant = "TwoTone",
   color = "currentColor",
 }: {
   name: IconName | (string & {});
