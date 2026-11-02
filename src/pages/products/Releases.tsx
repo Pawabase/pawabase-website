@@ -1,203 +1,98 @@
-import { useState } from "react";
+import { ProductArticle, type ArticleSection } from "@/components/product/Article";
 
-import { Icon } from "@/components/Icon";
-import { backdrop } from "@/components/landing/Backdrops";
-import { ReleaseTrack } from "@/components/landing/OperateSection";
-import { Band, Card } from "@/components/landing/Section";
-import { Mockup, useInView, useLiveTick } from "@/components/landing/studio/Studio";
-import {
-  Copy,
-  Display,
-  HeroActions,
-  Points,
-  ProductCta,
-  ProductName,
-  ProductShell,
-  Split,
-} from "@/components/product/kit";
-
-const ENVS = [
-  { name: "Development", tone: "var(--sx-faint)", key: "pb_pk_dev_4f…", data: "Sample data", release: "Release 15" },
-  { name: "Staging", tone: "var(--sx-warn)", key: "pb_pk_stg_9a…", data: "A copy to test against", release: "Release 14" },
-  { name: "Production", tone: "var(--sx-ok)", key: "pb_pk_prd_2c…", data: "Your customers' data", release: "Release 14" },
+const SECTIONS: ArticleSection[] = [
+  {
+    title: "A complete copy of your backend",
+    blocks: [
+      { p: "An **environment** is a complete, separate copy of your backend: its own database, users, files, rules, keys and secrets. You build in `development`, check in `staging` and serve real people from `production`. Nothing you do in one affects another." },
+      { table: { head: ["Per environment", "Shared across the project"], rows: [
+        ["Database and every row", "The project itself and its team"],
+        ["Users, roles and organizations", "Your plan and billing"],
+        ["Tables, rules, flows, routes, subscriptions and webhooks", ""],
+        ["Buckets and files", ""],
+        ["Secrets and API keys", ""],
+        ["Auth settings, mail settings and domains", ""],
+      ] } },
+      { p: "Your app chooses the environment with its keys and an `environment` option. To create one, give it a name using lowercase letters, digits and dashes, and optionally copy from another environment to start with its definitions. Definitions are copied. Secrets, keys and data never are." },
+    ],
+  },
+  {
+    title: "Promoting changes",
+    blocks: [
+      { p: "**Promote** copies definitions from one environment to another so `production` matches what you tested. It never copies data, secrets or keys." },
+      { steps: [
+        "In the environment you built, choose Promote in the environment menu.",
+        "Choose the target environment.",
+        "Choose which kinds to include, such as tables, access rules, flows and routes.",
+        "Review the differences, then confirm.",
+      ] },
+      { p: "Promoting copies the definition. A new column still needs its migration applied in the target, which Studio shows as pending. Named rules must be included too, or the tables that use them will not match." },
+    ],
+  },
+  {
+    title: "A release routine",
+    blocks: [
+      { steps: [
+        "Change and test in `development`.",
+        "Take a backup of `production`.",
+        "Promote to `staging`, apply migrations, and run your rule tests.",
+        "Promote to `production` and apply migrations.",
+        "Watch Activity for errors.",
+      ] },
+      { list: [
+        "Keep `production` locked down. Few people should open Studio there, and changes should arrive through promote.",
+        "Use different keys per environment, and never reuse a production secret in development.",
+        "Do not copy production data into development without anonymising it.",
+        "Name environments for their purpose, not for a person.",
+      ] },
+    ],
+  },
+  {
+    title: "API versions",
+    blocks: [
+      { p: "The versions of your live API are listed under **Project, API versions**, and `v1` is always live at `/rest/v1`. **Release a version** serves another environment's definitions as `v2`, `v3` and so on next to `v1`, over the same data. That lets old and new clients run side by side while you migrate." },
+      { p: "Versions share the environment's tables, so a version can add tables, columns and indexes but cannot rename, retype or remove anything a live version uses." },
+    ],
+  },
+  {
+    title: "Previews",
+    blocks: [
+      { p: "A **preview** is a temporary environment for a branch or pull request. It copies definitions, has its own data, and expires by itself, after 72 hours by default. Create one from **Project, Environments, New preview**, and name it after the branch. It is a safe place to try a change with real tooling before it goes anywhere near production." },
+    ],
+  },
+  {
+    title: "Backups",
+    blocks: [
+      { p: "A **backup** saves what makes up an environment, so you can restore it later or move it to another environment. It has four parts, each a checkbox." },
+      { table: { head: ["Part", "Contains"], rows: [
+        ["Definitions", "Resources, policies, schemas, transformers, flows, routes, buckets, mail templates, subscriptions, webhooks, inbound hooks and schedules"],
+        ["Settings", "The environment's auth configuration and settings, such as CORS origins, rate limits and token lifetimes"],
+        ["Users and access", "Roles and permissions, users with their password hashes, linked sign-ins, two-step settings, organizations and teams. People keep their passwords."],
+        ["Data", "Every row of every resource's table, with ids preserved"],
+      ] } },
+      { note: "A backup does not include API keys, secret values, stored files, sessions, logs or jobs. It holds password hashes, so keep the file private." },
+      { p: "Back up now with a name and a note about why. Pin a backup to keep it forever. Schedule automatic backups by choosing how often, the hour in UTC, how many days to keep and how many to keep in total." },
+    ],
+  },
+  {
+    title: "Restoring",
+    blocks: [
+      { p: "Choose a saved backup, or an uploaded file, then what to restore and how. **Merge** adds and updates. **Replace** deletes current rows, users and definitions in the chosen parts first. Leave **Save the current state first** on. It takes a backup of what will be overwritten, so a restore can be undone." },
+      { p: "A sensible plan is automatic daily backups kept for 14 days with the last 30 retained, a pinned backup before every release or risky migration, and a test restore into a non-production environment once a quarter. A backup you have not restored is a hope, not a backup." },
+    ],
+  },
 ];
-
-function Environments() {
-  return (
-    <div className="grid gap-4 min-[860px]:grid-cols-3">
-      {ENVS.map((env) => (
-        <Card key={env.name} className="p-7">
-          <Mockup label={`${env.name}: ${env.release}, with its own key and data`} className="block">
-            <span className="flex items-center gap-2 text-[14px] font-medium">
-              <span className="sx-dot" style={{ background: env.tone }} />
-              {env.name}
-            </span>
-            <div className="mt-6 text-[22px] font-medium tracking-[-0.03em]">{env.release}</div>
-            <div className="mt-1 text-[13px] text-[var(--sx-muted)]">{env.data}</div>
-            <div className="sx-input sx-mono mt-6 h-[34px] justify-between text-[12px] text-[var(--sx-muted)]">
-              {env.key}
-              <Icon name="copy" size={13} />
-            </div>
-          </Mockup>
-        </Card>
-      ))}
-    </div>
-  );
-}
-
-function ReleasesTable() {
-  const { ref, inView } = useInView<HTMLDivElement>();
-  const tick = useLiveTick(inView, 2600);
-  const phase = tick % 3;
-  const s14 = ["Ready", "Activating", "Live"][phase];
-  const s13 = phase === 2 ? "Previous" : "Live";
-  const tone = (s: string) => (s === "Live" ? "var(--sx-ok)" : s === "Activating" ? "var(--sx-brand)" : s === "Ready" ? "var(--sx-warn)" : "var(--sx-faint)");
-  const rows = [
-    { n: 14, changes: "orders.notes column · refund rule · 3 flows", status: s14, action: s14 === "Live" ? "" : "Activate" },
-    { n: 13, changes: "receipt template · stock.reserve", status: s13, action: s13 === "Previous" ? "Roll back" : "" },
-    { n: 12, changes: "team invitations · password policy", status: "Previous", action: "" },
-  ];
-
-  return (
-    <div ref={ref}>
-      <Card className="p-3">
-        <Mockup label="Production releases: release 14 activates and goes live while release 13 stays ready to roll back to" className="sx-window block">
-          <div className="flex items-center justify-between border-b border-[var(--sx-line)] px-5 py-3">
-            <span className="text-[14px] font-semibold">Releases · production</span>
-            <span className="sx-btn sx-btn-primary">Prepare release</span>
-          </div>
-          {rows.map((row) => (
-            <div key={row.n} className="grid h-[54px] grid-cols-[52px_minmax(0,1fr)_110px_92px] items-center border-b border-[var(--sx-line-soft)] px-5 text-[12.5px] last:border-b-0 max-[640px]:grid-cols-[44px_minmax(0,1fr)_100px]">
-              <span className="sx-mono">#{row.n}</span>
-              <span className="truncate pr-4 text-[var(--sx-muted)]">{row.changes}</span>
-              <span key={row.status} className="sx-swap flex items-center gap-2 text-[var(--sx-muted)]">
-                <span className="sx-dot" style={{ background: tone(row.status) }} />
-                {row.status}
-              </span>
-              <span className="text-right max-[640px]:hidden">
-                {row.action ? <span className="sx-btn h-[26px] px-2 text-[11.5px]">{row.action}</span> : null}
-              </span>
-            </div>
-          ))}
-        </Mockup>
-      </Card>
-    </div>
-  );
-}
-
-function Snapshots() {
-  const [picked, setPicked] = useState(21);
-
-  return (
-    <Card className="p-7">
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <span className="text-[15px] font-medium text-text">October snapshots</span>
-        <span className="text-[13px] text-muted">
-          Oct {picked + 1}, 02:00 · <span className="text-text">Restore</span>
-        </span>
-      </div>
-      <div className="mt-6 grid grid-cols-10 gap-2 min-[640px]:grid-cols-[repeat(15,minmax(0,1fr))]">
-        {Array.from({ length: 30 }, (_, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => setPicked(i)}
-            aria-label={`Snapshot from October ${i + 1}`}
-            aria-pressed={picked === i}
-            className="aspect-square cursor-pointer rounded-[6px] transition-colors duration-200 hover:bg-white/20 disabled:cursor-default disabled:hover:bg-transparent"
-            style={{
-              background: picked === i ? "#F5F3EE" : i > 21 ? "rgba(245,243,238,0.03)" : "rgba(245,243,238,0.09)",
-              outline: i > 21 ? "1px dashed rgba(245,243,238,0.12)" : "none",
-            }}
-            disabled={i > 21}
-          />
-        ))}
-      </div>
-      <p className="mt-4 text-[12.5px] text-faint">Pick a night to restore from.</p>
-    </Card>
-  );
-}
 
 export default function ReleasesPage() {
   return (
-    <ProductShell title="Releases" description="Development, staging and production with their own keys, releases you can roll back, and nightly snapshots.">
-      <Band className="pb-[clamp(72px,9vw,120px)] pt-[clamp(64px,8vw,112px)]" backdrop={<>{backdrop.lines("50%", "70%")}{backdrop.glow("50%", "75%", "1100px", "520px")}</>}>
-        <div className="mx-auto flex max-w-[760px] flex-col items-center gap-6 text-center">
-          <ProductName icon="refresh" name="Releases" />
-          <Display quiet="Even on launch day.">Calm in production.</Display>
-          <p className="max-w-[46ch] text-[16px] leading-[1.65] text-muted">
-            Every change moves through staging before it reaches your users,
-            and the last good version is always a click away.
-          </p>
-          <HeroActions />
-        </div>
-        <Card className="mx-auto mt-14 max-w-[1120px] overflow-x-auto px-6 py-10 min-[768px]:px-12">
-          <ReleaseTrack />
-        </Card>
-      </Band>
-
-      <Band labelledBy="rel-envs" className="py-[clamp(72px,9vw,120px)]">
-        <Copy id="rel-envs" center title="Three places to work." quiet="Never mixed up.">
-          Each environment has its own keys and its own data, so a test run
-          can't touch a real customer.
-        </Copy>
-        <div className="mt-12">
-          <Environments />
-        </div>
-      </Band>
-
-      <Band labelledBy="rel-table" className="py-[clamp(72px,9vw,120px)]" backdrop={backdrop.dots("80%", "50%")}>
-        <Split
-          ratio="wide-visual"
-          copy={
-            <Copy id="rel-table" title="Ship on purpose." quiet="Undo in a click.">
-              Bundle schema, rules and flows into a release, activate it
-              when you're ready, and roll back if something looks off.
-            </Copy>
-          }
-          visual={<ReleasesTable />}
-        />
-      </Band>
-
-      <Band labelledBy="rel-snapshots" className="py-[clamp(72px,9vw,120px)]">
-        <Split
-          flip
-          copy={
-            <Copy id="rel-snapshots" title="Last night, on file." quiet="Every night.">
-              Snapshots run on a schedule. If you ever need yesterday back,
-              pick the night and restore it.
-            </Copy>
-          }
-          visual={<Snapshots />}
-        />
-      </Band>
-
-      <Band labelledBy="rel-domain" className="py-[clamp(88px,10vw,140px)]" backdrop={backdrop.hatch("50%", "50%")}>
-        <h2 id="rel-domain" className="text-center text-[15px] text-faint">Your API, on your domain</h2>
-        <p className="mt-6 text-center font-[PP_Neue_Montreal,sans-serif] text-[clamp(24px,3.6vw,48px)] tracking-[-0.03em] text-text">
-          api.northwind.com <span className="text-muted">→ production</span>
-        </p>
-      </Band>
-
-      <Band labelledBy="rel-points" className="py-[clamp(64px,8vw,104px)]">
-        <h2 id="rel-points" className="sr-only">What keeps production calm</h2>
-        <Points
-          columns={4}
-          items={[
-            { icon: "apiSecurity", title: "Separate keys", copy: "A key for each environment, rotated when you need." },
-            { icon: "refresh", title: "Rollback", copy: "The previous release stays one click away." },
-            { icon: "storage", title: "Snapshots", copy: "Nightly backups, restored from the dashboard." },
-            { icon: "activity", title: "Alarms", copy: "An email when error rates climb, plus a status page." },
-          ]}
-        />
-      </Band>
-
-      <ProductCta
-        title="Ship with a net."
-        quiet="Every single time."
-        next={{ label: "Next: Observability", href: "/products/observability" }}
-        backdrop={backdrop.grid("100%")}
-      />
-    </ProductShell>
+    <ProductArticle
+      icon="refresh"
+      name="Releases"
+      category="Operations"
+      description="Development, staging and production with their own keys, releases you can roll back, and nightly snapshots."
+      intro="Releases are how changes reach production safely. Each environment is a complete, separate copy of your backend, and you move definitions forward by promoting them. This page covers environments, promoting, API versions, previews, backups and restoring."
+      sections={SECTIONS}
+      next={{ label: "Next: Observability", href: "/products/observability" }}
+    />
   );
 }

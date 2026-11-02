@@ -2,8 +2,7 @@ import type { ReactNode } from "react";
 
 import { Icon, type IconName } from "@/components/Icon";
 import { Footer } from "@/components/landing/Footer";
-import { PrimaryButton } from "@/components/landing/PrimaryButton";
-import { Band, Card, Lead, TextLink } from "@/components/landing/Section";
+import { Band, Card, TextLink } from "@/components/landing/Section";
 import { Code, Mockup } from "@/components/landing/studio/Studio";
 import { TopBar } from "@/components/landing/TopBar";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -39,18 +38,25 @@ export function ProductShell({
       </a>
       <div className="relative min-h-screen overflow-clip bg-shell">
         <TopBar />
-        <main id="product-content">{children}</main>
+        <main
+          id="product-content"
+          className="relative [&>section:first-of-type]:border-b [&>section:first-of-type]:border-line [&>section:not(:first-of-type)]:!py-[clamp(22px,3vw,36px)] [&>section>.pointer-events-none]:hidden [&_.card]:hidden [&_.sx-window]:hidden [&_[data-visual]]:hidden [&>section>div_.mx-auto]:!ml-0 [&>section>div_.text-center]:!text-left [&>section>div_.justify-center]:!justify-start [&>section>div_.items-center.flex-col]:!items-start [&>section>div_ul.flex-wrap_li]:!text-[17px] [&>section>div_ul.flex-wrap_li]:!tracking-normal"
+        >
+          {children}
+        </main>
         <Footer />
       </div>
     </div>
   );
 }
 
-/** The plain context line above a product headline: Bulk icon and name, never a pill. */
-export function ProductName({ icon, name }: { icon: IconName; name: string }) {
+/** The small marker above a product headline: a bordered icon tile and the name. */
+export function ProductName({ icon, name }: { icon?: IconName; name: string }) {
   return (
-    <span className="inline-flex items-center gap-2 text-[15px] font-medium tracking-[-0.01em] text-muted">
-      <Icon name={icon} size={20} variant="TwoTone" className="text-brand" />
+    <span className="inline-flex items-center gap-3 text-[14px] text-muted">
+      <span className="flex size-11 items-center justify-center rounded-[10px] border border-line bg-white/[0.02] text-brand">
+        <Icon name={icon ?? "database"} size={22} variant="TwoTone" />
+      </span>
       {name}
     </span>
   );
@@ -67,7 +73,7 @@ export function Display({
 }) {
   return (
     <h1
-      className={`text-[clamp(42px,5vw,72px)] font-normal leading-[1.03] tracking-[-0.05em] text-text text-balance ${className}`}
+      className={`text-[clamp(36px,4.4vw,58px)] font-medium leading-[1.06] tracking-[-0.03em] text-text text-balance ${className}`}
     >
       {children}
       {quiet ? <span className="block text-muted">{quiet}</span> : null}
@@ -77,47 +83,44 @@ export function Display({
 
 export function HeroActions({ docs = "Read the docs" }: { docs?: string }) {
   return (
-    <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
-      <PrimaryButton href={APP_URL} className="inline-flex">
+    <div className="flex flex-wrap items-center gap-3">
+      <a
+        href={APP_URL}
+        className="btn-clay inline-flex h-[50px] items-center justify-center gap-2 px-[25px] text-[14px] no-underline"
+      >
         Start building
         <Icon name="arrowRight" size={17} />
-      </PrimaryButton>
-      <TextLink href={DOCS_URL}>{docs}</TextLink>
+      </a>
+      <a
+        href={DOCS_URL}
+        target="_blank"
+        rel="noreferrer"
+        className="btn-clay-dark inline-flex h-[50px] items-center justify-center px-[25px] text-[14px] no-underline"
+      >
+        {docs}
+      </a>
     </div>
   );
 }
 
-/** Short claims with a Bulk icon each, laid out in a row of two, three or four. */
+/** Short claims as plain sub-sections: a small heading and a paragraph each. */
 export function Points({
   items,
-  columns = 3,
   className = "",
 }: {
   items: { icon: IconName; title: string; copy: string }[];
   columns?: 2 | 3 | 4;
   className?: string;
 }) {
-  const grid =
-    columns === 4
-      ? "min-[640px]:grid-cols-2 min-[1000px]:grid-cols-4"
-      : columns === 2
-        ? "min-[640px]:grid-cols-2"
-        : "min-[760px]:grid-cols-3";
-
   return (
-    <ul className={`grid gap-x-10 gap-y-9 ${grid} ${className}`}>
+    <div className={`grid max-w-[680px] gap-7 !mx-0 ${className}`}>
       {items.map((item) => (
-        <li key={item.title} className="flex flex-col gap-2">
-          <Icon name={item.icon} size={24} variant="TwoTone" className="text-brand" />
-          <span className="mt-1 text-[18px] font-medium tracking-[-0.02em] text-text">
-            {item.title}
-          </span>
-          <span className="max-w-[40ch] text-[16px] leading-[1.6] tracking-[-0.01em] text-muted">
-            {item.copy}
-          </span>
-        </li>
+        <div key={item.title}>
+          <h3 className="m-0 text-[18px] font-medium tracking-[-0.015em] text-text">{item.title}</h3>
+          <p className="m-0 mt-2 text-[16px] leading-[1.75] text-muted">{item.copy}</p>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 
@@ -148,48 +151,26 @@ export function CodeCard({
   );
 }
 
-/** Copy on one side, a visual on the other. `flip` puts the visual first. */
+/** A section's copy. Pictures are left to the opening band only, and hidden there too. */
 export function Split({
   copy,
-  visual,
-  flip = false,
-  ratio = "1fr_1fr",
   className = "",
 }: {
   copy: ReactNode;
-  visual: ReactNode;
+  visual?: ReactNode;
   flip?: boolean;
   ratio?: "1fr_1fr" | "wide-visual" | "wide-copy";
   className?: string;
 }) {
-  const cols =
-    ratio === "wide-visual"
-      ? "min-[1000px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]"
-      : ratio === "wide-copy"
-        ? "min-[1000px]:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]"
-        : "min-[1000px]:grid-cols-2";
-  const flipCols =
-    ratio === "wide-visual"
-      ? "min-[1000px]:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]"
-      : ratio === "wide-copy"
-        ? "min-[1000px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
-        : "min-[1000px]:grid-cols-2";
-
-  return (
-    <div className={`grid items-center gap-12 min-[1000px]:gap-16 ${flip ? flipCols : cols} ${className}`}>
-      <div className={flip ? "min-[1000px]:order-2" : ""}>{copy}</div>
-      <div className={`min-w-0 ${flip ? "min-[1000px]:order-1" : ""}`}>{visual}</div>
-    </div>
-  );
+  return <div className={`max-w-[720px] ${className}`}>{copy}</div>;
 }
 
-/** A section's copy block: headline, a quieter line, a short paragraph. */
+/** A section's copy: a heading that reads as one sentence, then a plain paragraph. */
 export function Copy({
   id,
   title,
   quiet,
   children,
-  center = false,
   link,
 }: {
   id: string;
@@ -200,26 +181,25 @@ export function Copy({
   link?: { label: string; href?: string };
 }) {
   return (
-    <div className={`flex flex-col gap-5 ${center ? "mx-auto max-w-[680px] items-center text-center" : ""}`}>
+    <div className="flex max-w-[720px] flex-col gap-4">
       <h2
         id={id}
-        className="text-[clamp(34px,3.8vw,52px)] font-medium leading-[1.06] tracking-[-0.045em] text-text text-balance"
+        className="m-0 text-[clamp(24px,2.6vw,32px)] font-medium leading-[1.2] tracking-[-0.02em] text-text"
       >
         {title}
-        {quiet ? <span className="block text-muted">{quiet}</span> : null}
+        {quiet ? <span className="text-muted"> {quiet}</span> : null}
       </h2>
-      {children ? <Lead className={center ? "max-w-[50ch]" : "max-w-[42ch]"}>{children}</Lead> : null}
+      {children ? <p className="m-0 max-w-[660px] text-[16px] leading-[1.75] text-muted">{children}</p> : null}
       {link ? <TextLink href={link.href ?? DOCS_URL}>{link.label}</TextLink> : null}
     </div>
   );
 }
 
-/** The close of every product page: one line, the action, and where to go next. */
+/** The close of every product page: one sentence, the actions, and where to go next. */
 export function ProductCta({
   title,
   quiet,
   next,
-  backdrop,
 }: {
   title: string;
   quiet: string;
@@ -227,21 +207,29 @@ export function ProductCta({
   backdrop?: ReactNode;
 }) {
   return (
-    <Band labelledBy="product-cta-title" className="py-[clamp(88px,10vw,148px)]" backdrop={backdrop}>
-      <div className="mx-auto flex max-w-[720px] flex-col items-center gap-8 text-center">
+    <Band labelledBy="product-cta-title" className="!pb-[clamp(56px,7vw,96px)] !pt-[clamp(32px,4vw,56px)]">
+      <div className="max-w-[720px]">
         <h2
           id="product-cta-title"
-          className="text-[clamp(38px,4.6vw,64px)] font-normal leading-[1.04] tracking-[-0.05em] text-text text-balance"
+          className="m-0 text-[clamp(24px,2.6vw,32px)] font-medium leading-[1.2] tracking-[-0.02em] text-text"
         >
           {title}
-          <span className="block text-muted">{quiet}</span>
+          <span className="text-muted"> {quiet}</span>
         </h2>
-        <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-4">
-          <PrimaryButton href={APP_URL} className="inline-flex">
+        <div className="mt-7 flex flex-wrap items-center gap-3">
+          <a
+            href={APP_URL}
+            className="btn-clay inline-flex h-[48px] items-center justify-center gap-2 px-[22px] text-[14px] no-underline"
+          >
             Start building
-            <Icon name="arrowRight" size={17} />
-          </PrimaryButton>
-          <TextLink href={next.href}>{next.label}</TextLink>
+            <Icon name="arrowRight" size={16} />
+          </a>
+          <a
+            href={next.href}
+            className="btn-clay-dark inline-flex h-[48px] items-center justify-center px-[22px] text-[14px] no-underline"
+          >
+            {next.label}
+          </a>
         </div>
       </div>
     </Band>

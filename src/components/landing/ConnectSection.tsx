@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Highlight, themes } from "prism-react-renderer";
+import { Highlight, type PrismTheme } from "prism-react-renderer";
 
 import { Icon } from "@/components/Icon";
 
-import { PrimaryButton } from "./PrimaryButton";
-import { Band } from "./Section";
+import { Band, Eyebrow } from "./Section";
 
 type Example = {
   id: "python" | "typescript" | "http";
@@ -102,35 +101,67 @@ const POINTS = [
   "Create and update data in one request",
 ];
 
+/* VS Code's Dark+ feel, tuned toward the brand: teal keywords, soft warm strings. */
+const THEME: PrismTheme = {
+  plain: { color: "#D4D8DE", backgroundColor: "transparent" },
+  styles: [
+    { types: ["comment", "prolog", "doctype"], style: { color: "#627a68" } },
+    { types: ["keyword", "operator", "boolean", "important"], style: { color: "#2dd4bf" } },
+    { types: ["string", "attr-value", "template-string"], style: { color: "#e3c391" } },
+    { types: ["function", "method"], style: { color: "#dcdcaa" } },
+    { types: ["class-name", "builtin"], style: { color: "#5eead4" } },
+    { types: ["number", "constant", "symbol"], style: { color: "#b5cea8" } },
+    { types: ["punctuation"], style: { color: "#8d97a5" } },
+    { types: ["variable", "parameter", "property"], style: { color: "#9cdcfe" } },
+  ],
+};
+
+const MONO =
+  '"JetBrains Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
+
+const LANGUAGE_NAMES = { python: "Python", typescript: "TypeScript", bash: "Shell Script" } as const;
+
+/** The line the cursor sits on, as in an open editor. */
+const ACTIVE_LINE = 2;
+
 function CodeEditor({ code, language }: Pick<Example, "code" | "language">) {
   return (
-    <Highlight theme={themes.vsDark} code={code} language={language}>
+    <Highlight theme={THEME} code={code} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
-          className={`${className} min-h-[430px] overflow-auto py-6 text-[12px] font-semibold leading-[1.75] min-[560px]:py-7 min-[560px]:text-[15px]`}
+          className={`${className} m-0 overflow-auto py-4 text-[13px] font-normal antialiased`}
           style={{
             ...style,
-            margin: 0,
-            background: "#06080b",
-            fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace',
+            background: "transparent",
+            fontFamily: MONO,
             fontVariantLigatures: "none",
+            lineHeight: "22px",
+            scrollbarWidth: "thin",
           }}
         >
-          <code className="block min-w-max">
-            {tokens.map((line, index) => (
-              <span
-                key={index}
-                {...getLineProps({ line })}
-                className="grid min-h-[1.75em] grid-cols-[44px_minmax(0,1fr)] pr-6 min-[560px]:grid-cols-[52px_minmax(0,1fr)] min-[560px]:pr-8"
-              >
-                <span aria-hidden="true" className="select-none pr-4 text-right text-white/25">{index + 1}</span>
-                <span className="whitespace-pre">
-                  {line.map((token, tokenIndex) => (
-                    <span key={tokenIndex} {...getTokenProps({ token })} />
-                  ))}
+          <code className="block min-w-max" style={{ fontFamily: MONO, fontVariantLigatures: "none" }}>
+            {tokens.map((line, index) => {
+              const active = index === ACTIVE_LINE;
+              return (
+                <span
+                  key={index}
+                  {...getLineProps({ line })}
+                  className={`grid min-h-[22px] grid-cols-[56px_minmax(0,1fr)] pr-6 ${active ? "bg-white/[0.045]" : ""}`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`select-none pr-5 text-right ${active ? "text-[#c5cbd3]" : "text-[#4b5563]"}`}
+                  >
+                    {index + 1}
+                  </span>
+                  <span className="whitespace-pre">
+                    {line.map((token, tokenIndex) => (
+                      <span key={tokenIndex} {...getTokenProps({ token })} />
+                    ))}
+                  </span>
                 </span>
-              </span>
-            ))}
+              );
+            })}
           </code>
         </pre>
       )}
@@ -138,103 +169,149 @@ function CodeEditor({ code, language }: Pick<Example, "code" | "language">) {
   );
 }
 
+function useCopy() {
+  const [copied, setCopied] = useState<string | null>(null);
+  const copy = async (key: string, text: string) => {
+    await navigator.clipboard.writeText(text);
+    setCopied(key);
+    window.setTimeout(() => setCopied(null), 1600);
+  };
+  return { copied, copy };
+}
+
 export function ConnectSection() {
   const [activeId, setActiveId] = useState<Example["id"]>("python");
-  const [copied, setCopied] = useState(false);
+  const { copied, copy } = useCopy();
   const active = EXAMPLES.find((example) => example.id === activeId) ?? EXAMPLES[0];
-
-  const copy = async () => {
-    await navigator.clipboard.writeText(active.code);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
-  };
 
   return (
     <Band
       id="connect"
       labelledBy="connect-title"
       wide
-      className="bg-[#06080b] py-[clamp(80px,10vw,140px)]"
+      className="bg-[#06080b] py-0"
     >
-      <div
-        data-reveal="up"
-        className="border-b border-white/[0.08]"
-        role="tablist"
-        aria-label="Connection method"
-      >
-        <div className="flex gap-1 overflow-x-auto">
-          {EXAMPLES.map((example) => {
-            const selected = example.id === active.id;
-            return (
-              <button
-                key={example.id}
-                type="button"
-                role="tab"
-                aria-selected={selected}
-                aria-controls="connect-example"
-                onClick={() => setActiveId(example.id)}
-                className={`min-w-[112px] cursor-pointer rounded-t-[12px] px-6 py-4 text-[15px] font-medium transition-colors ${selected ? "bg-white text-[#06080b]" : "text-muted hover:bg-white/[0.04] hover:text-text"}`}
-              >
-                {example.tab}
-              </button>
-            );
-          })}
+      <div className="relative left-1/2 w-screen -translate-x-1/2 border-b border-line pb-[clamp(40px,5vw,64px)] pt-[clamp(32px,4vw,56px)]">
+        <div data-reveal="up" className="mx-auto flex max-w-[1180px] flex-col items-center gap-6 px-5 text-center">
+          <Eyebrow>Ways to connect</Eyebrow>
+          <div
+            role="tablist"
+            aria-label="Connection method"
+            className="inline-flex gap-1 rounded-[12px] border border-line p-1"
+          >
+            {EXAMPLES.map((example) => {
+              const selected = example.id === active.id;
+              return (
+                <button
+                  key={example.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
+                  aria-controls="connect-example"
+                  onClick={() => setActiveId(example.id)}
+                  className={`flex h-10 min-w-[104px] cursor-pointer items-center justify-center gap-2 rounded-[9px] px-4 text-[14px] font-medium transition-colors ${selected ? "bg-white/[0.08] text-text" : "text-muted hover:text-text"}`}
+                >
+                  <span className={`size-1.5 rounded-full transition-colors ${selected ? "bg-brand" : "bg-white/20"}`} />
+                  {example.tab}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      <div
-        id="connect-example"
-        role="tabpanel"
-        className="grid items-center gap-14 pt-[clamp(48px,6vw,80px)] min-[980px]:grid-cols-[minmax(320px,0.86fr)_minmax(0,1.14fr)] min-[980px]:gap-[clamp(64px,8vw,120px)]"
-      >
-        <div data-reveal="left" className="max-w-[560px]">
-          <p className="text-[13px] font-medium uppercase tracking-[0.12em] text-faint">Ways to connect</p>
-          <h2
-            id="connect-title"
-            className="mt-5 text-[clamp(42px,4.5vw,64px)] font-medium leading-[1.05] tracking-[-0.05em] text-text"
-          >
-            {active.title}
-          </h2>
-          <p className="mt-6 max-w-[38ch] text-[18px] leading-[1.6] tracking-[-0.01em] text-muted">
-            {active.description}
-          </p>
+      <div className="mx-auto max-w-[1180px]">
+        <div
+          id="connect-example"
+          role="tabpanel"
+          className="grid items-stretch gap-12 py-[clamp(40px,5vw,72px)] min-[980px]:grid-cols-[minmax(300px,0.8fr)_minmax(0,1.2fr)] min-[980px]:gap-0"
+        >
+          <div data-reveal="left" className="flex max-w-[460px] flex-col justify-center min-[980px]:pr-[clamp(32px,5vw,72px)]">
+            <h2
+              id="connect-title"
+              className="m-0 text-[clamp(38px,4.2vw,56px)] font-medium leading-[1.05] tracking-[-0.03em] text-text"
+            >
+              {active.title}
+            </h2>
+            <p className="m-0 mt-5 text-[17px] leading-[1.6] text-muted">{active.description}</p>
 
-          <ul className="mt-9 grid gap-4">
-            {POINTS.map((point) => (
-              <li key={point} className="flex items-center gap-3 text-[16px] text-muted">
-                <span className="grid h-5 w-5 flex-none place-items-center rounded-full border border-white/25 text-[11px] text-text">✓</span>
-                {point}
-              </li>
-            ))}
-          </ul>
+            <button
+              type="button"
+              onClick={() => copy("install", active.install)}
+              aria-label={`Copy: ${active.install}`}
+              className="group mt-8 flex w-full cursor-pointer items-center gap-3 rounded-[12px] border border-line bg-white/[0.02] px-4 py-3 text-left font-mono text-[13px] text-text transition-colors hover:border-white/25"
+            >
+              <span className="text-brand">$</span>
+              <span className="min-w-0 flex-1 truncate">{active.install}</span>
+              <span className="flex-none text-[11px] text-muted">{copied === "install" ? "Copied" : "Copy"}</span>
+            </button>
 
-          <PrimaryButton href="https://docs.sillo.build" className="mt-10 inline-flex w-fit">
-            Read the docs
-            <Icon name="arrowRight" size={17} />
-          </PrimaryButton>
-        </div>
+            <ul className="m-0 mt-8 grid list-none gap-3.5 p-0">
+              {POINTS.map((point) => (
+                <li key={point} className="flex items-center gap-3 text-[15px] text-muted">
+                  <span aria-hidden="true" className="size-1.5 flex-none rounded-full bg-brand" />
+                  {point}
+                </li>
+              ))}
+            </ul>
 
-        <div data-reveal="right" className="min-w-0">
-          <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#06080b] transition-colors duration-300 hover:border-white/20">
-            <div className="flex h-14 items-center gap-2.5 border-b border-white/10 bg-[#06080b] px-5 text-[12px] text-muted">
-              <span className="h-2 w-2 rounded-full bg-[#F5F3EE]" />
-              <span className="h-2 w-2 rounded-full bg-[#F5F3EE]" />
-              <span className="h-2 w-2 rounded-full bg-[#F5F3EE]" />
-              <Icon name="document" size={15} className="ml-2 text-[#70757D]" />
-              <span>{active.file}</span>
-              <button
-                type="button"
-                onClick={copy}
-                aria-label={`Copy ${active.file}`}
-                className="ml-auto inline-grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-[#70757D] transition-colors hover:bg-black/[0.06] hover:text-[#06080b]"
-              >
-                <Icon name="copy" size={15} />
-              </button>
-              <span className="sr-only" aria-live="polite">{copied ? "Copied" : ""}</span>
-            </div>
-            <CodeEditor code={active.code} language={active.language} />
+            <a
+              href="https://docs.sillo.build"
+              target="_blank"
+              rel="noreferrer"
+              className="btn-clay mt-9 inline-flex h-[46px] w-fit items-center justify-center gap-2 px-[22px] text-[14px] no-underline"
+            >
+              Read the docs
+              <Icon name="arrowRight" size={16} />
+            </a>
           </div>
 
+          <div data-reveal="right" className="min-w-0 min-[980px]:border-l min-[980px]:border-line min-[980px]:pl-[clamp(32px,5vw,72px)]">
+            <div className="overflow-hidden rounded-[12px] border border-white/[0.07] bg-[#0b0f14]">
+              <div className="flex h-10 items-stretch border-b border-white/[0.06] bg-[#080b0f] text-[12.5px]">
+                <span
+                  className="relative flex items-center gap-2 border-r border-white/[0.06] bg-[#0b0f14] px-4 text-text"
+                  style={{ fontFamily: MONO }}
+                >
+                  <span className="absolute inset-x-0 top-0 h-px bg-brand" />
+                  <span className="size-2 rounded-[2px] bg-brand/80" />
+                  {active.file}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => copy("code", active.code)}
+                  aria-label={`Copy ${active.file}`}
+                  className="ml-auto mr-1 inline-flex cursor-pointer items-center gap-1.5 self-center rounded-md px-2.5 py-1.5 text-[12px] text-muted transition-colors hover:bg-white/[0.06] hover:text-text"
+                >
+                  <Icon name="copy" size={14} />
+                  {copied === "code" ? "Copied" : "Copy"}
+                </button>
+                <span className="sr-only" aria-live="polite">
+                  {copied === "code" ? "Copied" : ""}
+                </span>
+              </div>
+
+              <div
+                className="flex h-7 items-center gap-1.5 px-5 text-[11.5px] text-[#6b7480]"
+                style={{ fontFamily: MONO }}
+              >
+                pawabase <span aria-hidden="true">›</span> <span className="text-[#9aa3af]">{active.file}</span>
+              </div>
+
+              <CodeEditor code={active.code} language={active.language} />
+
+              <div
+                className="flex h-7 items-center justify-between bg-[#0f3d38] px-4 text-[11.5px] text-[#d9f7f2]"
+                style={{ fontFamily: MONO }}
+              >
+                <span>Ln {ACTIVE_LINE + 1}, Col 1</span>
+                <span className="flex gap-4">
+                  <span>UTF-8</span>
+                  <span>{LANGUAGE_NAMES[active.language]}</span>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Band>

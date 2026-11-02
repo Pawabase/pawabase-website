@@ -98,7 +98,7 @@ export function ProductHero({
           <p className="pm-lead">{description}</p>
 
           <ProductActions
-            secondaryHref="/#F5F3EEtures"
+            secondaryHref="/#features"
             secondaryLabel="See all products"
           />
         </div>

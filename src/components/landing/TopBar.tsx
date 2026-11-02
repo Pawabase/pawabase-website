@@ -63,7 +63,7 @@ const NAV_GROUPS: NavGroup[] = [
       description:
         "Data, auth, storage, realtime, email, workflows and jobs—built to work together.",
       ctaLabel: "See the whole platform",
-      ctaHref: "/#F5F3EEtures",
+      ctaHref: "/#features",
     },
     columns: [
       {

@@ -1,4 +1,4 @@
-import { Band, TextLink, Title } from "./Section";
+import { Band, Eyebrow, TextLink, Title } from "./Section";
 
 const QUESTIONS = [
   {
@@ -40,6 +40,7 @@ export function FaqSection() {
     <Band id="faq" labelledBy="faq-title" className="py-[clamp(72px,9vw,128px)]">
       <div className="grid gap-10 min-[1000px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] min-[1000px]:gap-20">
         <div data-reveal="left" className="flex h-fit flex-col gap-6 min-[1000px]:sticky min-[1000px]:top-28">
+          <Eyebrow className="w-fit">FAQ</Eyebrow>
           <Title id="faq-title" quiet="Answered plainly.">
             Questions.
           </Title>

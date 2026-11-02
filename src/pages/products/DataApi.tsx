@@ -1,245 +1,116 @@
-import { backdrop } from "@/components/landing/Backdrops";
-import { Figure } from "@/components/landing/hairline/Hairline";
-import { Band, Card } from "@/components/landing/Section";
-import { Mockup, useInView, useLiveTick } from "@/components/landing/studio/Studio";
-import {
-  CodeCard,
-  Copy,
-  Display,
-  HeroActions,
-  Points,
-  ProductCta,
-  ProductName,
-  ProductShell,
-  Split,
-} from "@/components/product/kit";
+import { ProductArticle, type ArticleSection } from "@/components/product/Article";
 
-const ENDPOINTS = [
-  ["GET", "/rest/v1/orders", "List, filter, sort, page"],
-  ["GET", "/rest/v1/orders/:id", "One record, with relations"],
-  ["POST", "/rest/v1/orders", "Create"],
-  ["PATCH", "/rest/v1/orders/:id", "Update the fields you send"],
-  ["DELETE", "/rest/v1/orders/:id", "Remove"],
+const SECTIONS: ArticleSection[] = [
+  {
+    title: "Every table is an API",
+    blocks: [
+      { p: "When you give a table a resource, Pawabase serves it as a REST API at `/rest/v1/<table>`. There is nothing to deploy and no controllers to write. The same five operations are available from a client library in your app, from plain HTTP, and from the API Explorer in Studio." },
+      { p: "Every request is made as the person who is signed in, so your access rules decide what comes back. Because those rules run on the server, your app can call the API directly from a browser." },
+    ],
+  },
+  {
+    title: "Reading records",
+    blocks: [
+      { p: "`pawabase.from(\"table\")` starts a query. Add filters and options, then `await` it. A query returns one page, 20 records by default, together with the page number, the page size and a total." },
+      { note: "`total` is how many records match for this caller. It is `null` when a per-row access rule means the server cannot count the rows you may see without checking each one. Do not build \"page 3 of N\" from it unless you know it is a number. Use \"Load more\" and stop when a page comes back short." },
+      { h3: "One record, the first match, exactly one" },
+      { p: "`get(id)` reads one record by id and throws `NotFoundError` if it is missing, while `maybeGet(id)` returns `null`. A record that exists but that your rule hides is also \"not found\". The two are the same on purpose, so a refusal never reveals what exists." },
+      { p: "`first()` returns the first match or `null`. `single()` expects exactly one and throws if there are none or several. `count()` and `exists()` answer in one call, and both respect your rules, so they count what you are allowed to see. A number a person should not be able to derive, such as total orders across customers, belongs on a server." },
+      { h3: "Only some fields, or everything" },
+      { p: "Download less by naming the fields you need with `select(\"id\", \"title\")`. Fields you do not select come back absent. When you really want every match, `all()` follows the pages for you, with `pageSize` and `maxRecords` limits for results you know are bounded." },
+      { p: "If you prefer one call with options over chaining, `list({ where, sort, select, expand, page, perPage })` takes a plain object. A leading `-` in `sort` means descending." },
+    ],
+  },
+  {
+    title: "Filtering",
+    blocks: [
+      { p: "Filters are sent to the server and applied by the database, so you only download what matches. Several filters combine with **and**." },
+      { table: { head: ["Method", "Meaning", "Works on"], rows: [
+        ["`eq`, `neq`", "equal, not equal", "all"],
+        ["`gt`, `gte`, `lt`, `lte`", "comparisons", "numbers, dates, text"],
+        ["`like`, `ilike`", "pattern match, where `%` is any run of characters", "text"],
+        ["`in`, `notIn`", "one of a list", "all"],
+        ["`is`, `isNot`", "null, true or false checks", "all"],
+      ] } },
+      { p: "Nothing equals null, so `eq(\"x\", null)` is rejected. Use `is(\"x\", null)` or `isNot(\"x\", null)`. In Python the methods are `in_` and `is_` because `in` and `is` are keywords." },
+      { p: "You can also pass conditions as one object. A plain value means equal, and an object picks an operator." },
+      { list: [
+        "**Dates** can be a `Date`, a Python `datetime` or an ISO 8601 string. Times are UTC.",
+        "**Empty lists** are handled for you: `in(\"id\", [])` returns nothing at once, without a request.",
+        "**Or** is not chained. Use `in` for several values of one column, two queries merged in your app, or a route for complex logic.",
+        "**Search boxes** should debounce the input, cancel the previous query and escape `%` and `_`, because they are pattern characters.",
+      ] },
+      { p: "A filter can never reveal a row an access rule hides. Asking for `owner_id = someone else` simply returns nothing, and a rule cannot be bypassed by a clever filter. For speed, filter on indexed columns. A filter on an unindexed column in a table of millions of rows scans all of it." },
+    ],
+  },
+  {
+    title: "Sorting and paging",
+    blocks: [
+      { p: "Each `order` after the first breaks ties in the earlier ones, and ascending is the default. Without any `order`, the order is not guaranteed, so always sort lists you show." },
+      { p: "Pages count from 1. The default size is 20 and the server caps it at 200. `limit(n)` asks for at most `n` records." },
+      { h3: "Turning paging off" },
+      { p: "When you want every match in one response, such as a short dropdown or a small lookup table, call `paginate(false)`. The response keeps its shape, with `page` and `per_page` set to `null`. One response holds at most 5000 records. If more match, the server answers `400` rather than quietly cutting the list short, so narrow it with filters or go back to paging." },
+      { h3: "Load more" },
+      { p: "Keep the page number and add results as it grows. Stop when a page comes back shorter than the page size. Do not rely on `total`, which can be `null`." },
+    ],
+  },
+  {
+    title: "Writing records",
+    blocks: [
+      { p: "Writes return the saved record, so you can show the server's version, with its `id`, timestamps and defaults, without another read. Every write is checked against the table's `create`, `update` or `delete` rule and against the columns' rules." },
+      { list: [
+        "**Create:** leave out `id`, `created_at` and `updated_at`. If the table has an owner field, it is filled with the caller's id.",
+        "**Update** changes only the fields you send. Sending `null` clears a field, even one that was required at create time, so validate in your form.",
+        "**Replace** writes the whole record, and fields you leave out return to their defaults. Prefer `update` unless you mean \"this is the complete new record\".",
+        "**Delete:** deleting a record that is gone, or one you may not delete, throws `NotFoundError`. There is no recycle bin, so use a soft delete if you need undo.",
+      ] },
+      { table: { head: ["Call", "Rule checked", "Common errors"], rows: [
+        ["`create`", "`create`", "`ValidationError`, `ConflictError`, `PermissionError`"],
+        ["`update`, `replace`", "`update`", "`NotFoundError`, `ValidationError`, `ConflictError`"],
+        ["`delete`", "`delete`", "`NotFoundError`"],
+      ] } },
+    ],
+  },
+  {
+    title: "Errors you can show",
+    blocks: [
+      { p: "The server checks required columns, types and constraints before your rules run, and tells you which column is wrong. Show each message under its own input." },
+      { p: "A taken unique value, such as a duplicate username, is a `ConflictError`. A missing sign-in is an `AuthenticationError`, and a rule that refuses a signed-in person is a `PermissionError`. A query the client cannot send, such as `eq(\"x\", null)`, is an `InvalidQueryError`." },
+    ],
+  },
+  {
+    title: "Many at once, and safe retries",
+    blocks: [
+      { p: "`createMany` sends several creates in parallel and tells you which succeeded and which failed, with each failed row's position, so one bad row does not lose the rest. It is not one transaction. If you need all-or-nothing, use a flow or route that does the writes together." },
+      { table: { head: ["You have", "Use"], rows: [
+        ["Up to a few hundred rows from your app", "`createMany`"],
+        ["A file, or thousands of rows, with updates or duplicates", "Import, which validates, upserts and supports a dry run"],
+        ["A large one-time fix", "The SQL editor, after a backup"],
+      ] } },
+      { p: "A double click or a retry can create two records. Put a unique column on a natural key, such as an order number or an idempotency key you generate on the client, so a second attempt becomes a `ConflictError` you can treat as success. Also disable the button while the request is in flight. The client does not retry a `POST` after a network drop by itself, to avoid exactly this." },
+      { p: "Two people editing the same record is last write wins. To detect it, send the `updated_at` you read and check it on the server, or make fields independent so edits do not collide." },
+    ],
+  },
+  {
+    title: "Caching, limits and the API Explorer",
+    blocks: [
+      { p: "Two settings on a resource protect your database and your bill. **Caching** keeps the answer to a `list` or `get` for a number of seconds, up to a day, and serves repeat requests without touching the database. Writes to the table clear its cache automatically. Cache keys include the caller's identity and the exact query, and access rules are still evaluated before a cached response is served, so one person never receives another's answer. A **rate limit** stops one caller from hammering the table." },
+      { p: "The API Explorer in Studio is a workbench for the API your tables expose. Pick an endpoint, fill in the path, query and body, and send. You can sign in as a real user of your app, with their password and a two-step code if they use one, so you see exactly what they would. When someone says \"I can't see my orders\", send the same request as them: empty means the `list` rule filtered everything, `403` means a rule refused, and `401` means they were not signed in. You can copy any request as a `curl` command." },
+      { p: "Each resource also compiles to an OpenAPI description, including the descriptions and examples you wrote on columns. TypeScript types are generated from it." },
+    ],
+  },
 ];
-
-function RequestResponse() {
-  const { ref, inView } = useInView<HTMLDivElement>();
-  const tick = useLiveTick(inView, 2200);
-  const active = tick % ENDPOINTS.length;
-
-  return (
-    <div ref={ref}>
-      <Card className="p-3">
-        <Mockup label="The five endpoints generated for an orders table, and a JSON response listing paid orders" className="sx-window grid min-[860px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div className="border-b border-[var(--sx-line)] min-[860px]:border-b-0 min-[860px]:border-r">
-            <div className="border-b border-[var(--sx-line)] px-5 py-3 text-[12.5px] font-semibold">orders · generated</div>
-            {ENDPOINTS.map(([method, path, note], i) => (
-              <div
-                key={method + path}
-                className="grid h-[52px] grid-cols-[64px_minmax(0,1fr)] items-center border-b border-[var(--sx-line-soft)] px-5 text-[12.5px] transition-colors duration-500 last:border-b-0"
-                style={{ background: i === active ? "var(--sx-brand-soft)" : "transparent" }}
-              >
-                <span className="sx-mono text-[11.5px]" style={{ color: method === "GET" ? "var(--sx-ok)" : method === "DELETE" ? "var(--sx-danger)" : "var(--sx-info)" }}>
-                  {method}
-                </span>
-                <span className="min-w-0 leading-[1.35]">
-                  <span className="sx-mono block truncate">{path}</span>
-                  <span className="block truncate text-[11.5px] text-[var(--sx-faint)]">{note}</span>
-                </span>
-              </div>
-            ))}
-          </div>
-          <pre className="sx-mono overflow-hidden px-5 py-4 text-[12px] leading-[1.75] text-[var(--sx-muted)]">
-            {"{\n"}
-            {'  "data": [\n'}
-            {"    {\n"}
-            {'      "id": '}<span className="text-[#F5F3EE]">"01JD7…4c1"</span>{",\n"}
-            {'      "total": '}<span className="text-[#F5F3EE]">248.00</span>{",\n"}
-            {'      "status": '}<span className="text-[#F5F3EE]">"paid"</span>{",\n"}
-            {'      "customer": { "name": '}<span className="text-[#F5F3EE]">"Amara Okafor"</span>{" }\n"}
-            {"    },\n"}
-            {"    …\n"}
-            {"  ],\n"}
-            {'  "page": '}<span className="text-[#F5F3EE]">1</span>{', "per_page": '}<span className="text-[#F5F3EE]">20</span>{', "total": '}<span className="text-[#F5F3EE]">931</span>{"\n"}
-            {"}"}
-          </pre>
-        </Mockup>
-      </Card>
-    </div>
-  );
-}
-
-const PARTS = [
-  { text: "/rest/v1/orders", note: "the table" },
-  { text: "?filter[status]=eq.paid", note: "a filter" },
-  { text: "&expand=customer", note: "a relation" },
-  { text: "&sort=-created_at", note: "the order" },
-  { text: "&page=2&per_page=20", note: "the page" },
-];
-
-function QueryAnatomy() {
-  return (
-    <div className="overflow-x-auto pb-2">
-      <div className="mx-auto flex w-max items-start gap-1 font-[PP_Neue_Montreal,sans-serif] text-[clamp(13px,1.35vw,17px)]">
-        <span className="pt-0 text-[#F5F3EE]">GET&nbsp;</span>
-        {PARTS.map((part, i) => (
-          <span key={part.text} className="flex flex-col items-center gap-3">
-            <span className={i === 0 ? "text-text" : "text-muted"}>{part.text}</span>
-            <span className="h-3 w-full border-x border-b border-white/15" />
-            <span className="font-sans text-[13px] text-faint">{part.note}</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Explorer() {
-  return (
-    <Card className="p-3">
-      <Mockup label="The API Explorer sending a request to the orders endpoint and showing a 200 response" className="sx-window block">
-        <div className="flex items-center gap-2 border-b border-[var(--sx-line)] p-3">
-          <span className="sx-btn sx-mono text-[var(--sx-ok)]">GET</span>
-          <span className="sx-input sx-mono flex-1 text-[12px]">/rest/v1/orders?filter[status]=eq.pending</span>
-          <span className="sx-btn sx-btn-primary">Send</span>
-        </div>
-        <div className="flex items-center gap-4 border-b border-[var(--sx-line)] px-4 py-2.5 text-[12px] text-[var(--sx-muted)]">
-          <span className="flex items-center gap-2"><span className="sx-dot bg-[var(--sx-ok)]" />200 OK</span>
-          <span className="sx-num">38 ms</span>
-          <span>as Ada Nwosu · customer</span>
-        </div>
-        <pre className="sx-mono px-4 py-3 text-[12px] leading-[1.75] text-[var(--sx-muted)]">
-          {'{ "data": [ { "id": "01JD7…28b", "total": 1120.00,\n            "status": "pending" } ],\n  "page": 1, "per_page": 20, "total": 1 }'}
-        </pre>
-      </Mockup>
-    </Card>
-  );
-}
-
-function FanOut() {
-  const ys = [40, 100, 160, 220, 280];
-  return (
-    <Figure width={760} height={320} label="One table fans out into list, read, create, update and delete endpoints, plus generated documentation" className="h-auto w-full min-w-[560px]">
-      <rect x={20} y={110} width={180} height={100} rx={12} style={{ stroke: "rgba(245,243,238,0.35)" }} />
-      <text x={110} y={156} textAnchor="middle" fontSize="15" fontFamily="PP Neue Montreal, sans-serif" fill="#F5F3EE">orders</text>
-      <text x={110} y={178} textAnchor="middle" fontSize="11" fill="#70757D">6 columns</text>
-      {ys.map((y, i) => (
-        <g key={y}>
-          <path className="hl-line" d={`M200 160 C300 160 300 ${y} 420 ${y}`} style={{ stroke: i === 0 ? "rgba(245,243,238,0.8)" : "rgba(245,243,238,0.14)" }} />
-          <rect x={420} y={y - 18} width={300} height={36} rx={8} style={{ stroke: "rgba(245,243,238,0.14)" }} />
-          <text x={436} y={y + 4} fontSize="12" fill={i === 0 ? "#F5F3EE" : "#70757D"}>
-            {["list", "read", "create", "update", "delete"][i]}
-          </text>
-          <text x={704} y={y + 4} textAnchor="end" fontSize="11" fill="#70757D">
-            {["GET", "GET", "POST", "PATCH", "DELETE"][i]}
-          </text>
-        </g>
-      ))}
-    </Figure>
-  );
-}
 
 export default function DataApiPage() {
   return (
-    <ProductShell title="Data API" description="Every table gets a secure REST API with filters, relations, sorting, pages and generated docs.">
-      <Band className="pb-[clamp(72px,9vw,120px)] pt-[clamp(64px,8vw,112px)]" backdrop={<>{backdrop.rings("50%", "0%")}{backdrop.glow("50%", "0%", "1000px", "460px")}</>}>
-        <div className="mx-auto flex max-w-[760px] flex-col items-center gap-6 text-center">
-          <ProductName icon="document" name="Data API" />
-          <Display quiet="The moment you create it.">Every table is an API.</Display>
-          <p className="max-w-[46ch] text-[16px] leading-[1.65] text-muted">
-            No controllers, no routes, no serializers. Create a table and get
-            secure endpoints for it, documented and ready for your app.
-          </p>
-          <HeroActions />
-        </div>
-        <div className="mx-auto mt-14 max-w-[1080px]">
-          <RequestResponse />
-        </div>
-      </Band>
-
-      <Band labelledBy="api-anatomy" className="py-[clamp(72px,9vw,120px)]">
-        <Copy id="api-anatomy" center title="Ask for exactly what you need." quiet="In the URL.">
-          Filter, follow relations, sort and page in one readable request.
-        </Copy>
-        <div className="mt-14">
-          <QueryAnatomy />
-        </div>
-      </Band>
-
-      <Band labelledBy="api-explorer" className="py-[clamp(72px,9vw,120px)]" backdrop={backdrop.dots("80%", "50%")}>
-        <Split
-          ratio="wide-visual"
-          copy={
-            <Copy id="api-explorer" title="Try it before you code it." quiet="As any user.">
-              The API Explorer sends real requests from the dashboard, so you
-              can see what a customer, an admin or a visitor would get back.
-            </Copy>
-          }
-          visual={<Explorer />}
-        />
-      </Band>
-
-      <Band labelledBy="api-fan" className="py-[clamp(72px,9vw,120px)]">
-        <Split
-          flip
-          copy={
-            <Copy id="api-fan" title="One table, five endpoints." quiet="And the docs to match.">
-              List, read, create, update and delete come with every table, and
-              the reference documentation writes itself as your schema changes.
-            </Copy>
-          }
-          visual={
-            <Card className="overflow-x-auto px-6 py-8">
-              <FanOut />
-            </Card>
-          }
-        />
-      </Band>
-
-      <Band labelledBy="api-points" className="py-[clamp(64px,8vw,104px)]">
-        <h2 id="api-points" className="sr-only">Built into every endpoint</h2>
-        <Points
-          items={[
-            { icon: "policies", title: "Your rules, every time", copy: "Each request runs through the access rules for the person making it." },
-            { icon: "document", title: "Pages built in", copy: "Results come back in pages, with the total when it's known." },
-            { icon: "code", title: "Typed client", copy: "Generate types from your schema and catch mistakes before you ship." },
-          ]}
-        />
-      </Band>
-
-      <Band labelledBy="api-code" className="py-[clamp(72px,9vw,120px)]">
-        <Split
-          ratio="wide-visual"
-          copy={
-            <Copy id="api-code" title="Typos caught early." quiet="Columns checked as you type.">
-              With generated types, your editor knows every table and column,
-              and flags a missing field before it ever reaches the server.
-            </Copy>
-          }
-          visual={
-            <CodeCard
-              file="client.ts"
-              label="A typed client that knows the posts table and rejects a missing title"
-              lines={[
-                'import { createClient } from "@pawabase/client";',
-                'import type { Database } from "./pawabase.types";',
-                "",
-                "const pawabase = createClient<Database>({ url, apiKey });",
-                "",
-                'await pawabase.from("posts").create({ title: "Hello" });',
-                'await pawabase.from("posts").create({ views: 3 });',
-              ]}
-            />
-          }
-        />
-      </Band>
-
-      <ProductCta
-        title="Skip the boilerplate."
-        quiet="Keep the control."
-        next={{ label: "Next: Authentication", href: "/products/authentication" }}
-        backdrop={backdrop.grid("100%")}
-      />
-    </ProductShell>
+    <ProductArticle
+      icon="document"
+      name="Data API"
+      category="Data"
+      description="Every table gets a secure REST API with filters, relations, sorting, pages and generated docs."
+      intro="The Data API is how your app reads and writes the tables you define. Every table becomes a secure REST API, and the same calls work from a client library, plain HTTP and the API Explorer. This page covers reading, filtering, paging, writing and the errors you will meet."
+      sections={SECTIONS}
+      next={{ label: "Next: Authentication", href: "/products/authentication" }}
+    />
   );
 }

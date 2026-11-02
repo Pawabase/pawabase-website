@@ -1,195 +1,89 @@
-import { useEffect, useRef } from "react";
-
 import { Icon } from "@/components/Icon";
 
-import { PrimaryButton } from "./PrimaryButton";
-import { StudioPreview } from "./StudioPreview";
-
-const contours = Array.from({ length: 25 }, (_, i) => {
-  const offset = i * 25;
-
-  return (
-    <path
-      key={i}
-      d={`
-        M ${320 + offset} -180
-        C ${-180 + offset} 90,
-          ${900 + offset} 180,
-          ${490 + offset} 430
-        S ${130 + offset} 780,
-          ${1100 + offset} 1050
-      `}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={i % 5 === 0 ? 1.4 : 0.8}
-      opacity={0.2 + (i % 4) * 0.06}
-    />
-  );
-});
-
-const FEATURE_ICONS = [
-  { name: "database", label: "Data" },
-  { name: "users", label: "Authentication" },
-  { name: "storage", label: "Storage" },
-  { name: "realtime", label: "Realtime" },
-  { name: "mail", label: "Mail" },
-  { name: "automation", label: "Workflows" },
-  { name: "apiSecurity", label: "API security" },
+const TILES = [
+  { name: "database", x: -480, y: 11 },
+  { name: "users", x: -640, y: 91 },
+  { name: "storage", x: -560, y: 251 },
+  { name: "realtime", x: 400, y: 11 },
+  { name: "mail", x: 560, y: 91 },
+  { name: "automation", x: 480, y: 251 },
 ] as const;
 
+const DOTS = [
+  { x: -240, y: 91, tone: "bg-brand" },
+  { x: 240, y: 171, tone: "bg-brand" },
+  { x: 400, y: 331, tone: "bg-white/25" },
+] as const;
+
+const PILL =
+  "inline-flex h-[50px] items-center justify-center gap-2 px-[25px] text-[14px] no-underline";
+
 export function Hero() {
-  const scrollSceneRef = useRef<HTMLDivElement>(null);
-  const dashboardRef = useRef<HTMLDivElement>(null);
-  const transitionCopyRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const scene = scrollSceneRef.current;
-    const dashboard = dashboardRef.current;
-    const transitionCopy = transitionCopyRef.current;
-
-    if (!scene || !dashboard || !transitionCopy) return;
-
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let frame = 0;
-
-    const clamp = (value: number) => Math.min(1, Math.max(0, value));
-    const ease = (value: number) => 1 - Math.pow(1 - value, 3);
-
-    const update = () => {
-      frame = 0;
-
-      if (reducedMotion.matches) {
-        scene.style.height = "auto";
-        dashboard.style.transform = "none";
-        dashboard.style.opacity = "1";
-        dashboard.style.filter = "none";
-        transitionCopy.style.opacity = "0";
-        return;
-      }
-
-      scene.style.height = "";
-      const travel = Math.max(scene.offsetHeight - window.innerHeight, 1);
-      const progress = clamp(-scene.getBoundingClientRect().top / travel);
-      const expansion = ease(clamp(progress / 0.58));
-      const transition = ease(clamp((progress - 0.58) / 0.24));
-
-      dashboard.style.transform = `scale(${0.9 + expansion * 0.12})`;
-      dashboard.style.opacity = `${1 - transition * 0.86}`;
-      dashboard.style.filter = `brightness(${1 - transition * 0.72})`;
-      transitionCopy.style.opacity = `${transition}`;
-      transitionCopy.style.transform = `translateY(${18 - transition * 18}px)`;
-    };
-
-    const requestUpdate = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-    reducedMotion.addEventListener("change", requestUpdate);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-      reducedMotion.removeEventListener("change", requestUpdate);
-    };
-  }, []);
-
   return (
     <section
       id="platform"
       aria-labelledby="hero-title"
-      className="relative isolate w-full overflow-clip bg-shell px-5 pt-[clamp(72px,8vw,112px)] min-[768px]:px-10"
+      className="relative isolate w-full overflow-clip bg-shell px-5 pb-[clamp(40px,4vw,56px)] pt-[clamp(40px,5vw,73px)] min-[768px]:px-10"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[900px] overflow-hidden"
+        className="pointer-events-none absolute left-1/2 top-0 -z-10 hidden h-[420px] w-[1440px] -translate-x-1/2 min-[900px]:block [mask-image:radial-gradient(ellipse_55%_80%_at_50%_45%,black_30%,transparent_100%)] [-webkit-mask-image:radial-gradient(ellipse_55%_80%_at_50%_45%,black_30%,transparent_100%)]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(245,243,238,0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(245,243,238,0.045) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+          backgroundPosition: "0 11px",
+        }}
       >
-        <svg
-          viewBox="0 0 1600 1000"
-          preserveAspectRatio="xMidYMid slice"
-          className="absolute -top-[8%] left-1/2 h-[115%] w-[130%] -translate-x-1/2 -rotate-[8deg] text-brand opacity-25 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_76%)] [-webkit-mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_76%)]"
-        >
-          {contours}
-        </svg>
+        {TILES.map((tile) => (
+          <span
+            key={tile.name}
+            className="absolute flex size-20 items-center justify-center bg-white/[0.045] text-white/30"
+            style={{ left: `calc(50% + ${tile.x}px)`, top: tile.y }}
+          >
+            <Icon name={tile.name} size={30} variant="TwoTone" />
+          </span>
+        ))}
+        {DOTS.map((dot, i) => (
+          <span
+            key={i}
+            className={`absolute size-2 rounded-full ${dot.tone}`}
+            style={{ left: `calc(50% + ${dot.x}px)`, top: dot.y }}
+          />
+        ))}
       </div>
 
-      <div className="relative z-[3] mx-auto flex max-w-[1380px] flex-col items-center text-center">
+      <div className="relative mx-auto flex max-w-[1100px] flex-col items-center text-center">
+        <p className="m-0 inline-flex h-10 items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.03] px-6 text-[13px] font-bold uppercase tracking-[0.14em] text-brand">
+          <span aria-hidden="true">✦</span>
+          Backend for any app
+          <span aria-hidden="true">✦</span>
+        </p>
+
         <h1
           id="hero-title"
-          className="m-0 text-[clamp(40px,4.2vw,64px)] font-normal leading-[1.12] tracking-[-0.045em]"
+          className="m-0 mt-8 text-[clamp(38px,5.3vw,76px)] font-medium leading-[1.1] tracking-[-0.03em] text-text"
         >
-          <span className="block text-text min-[1100px]:whitespace-nowrap">
-            Your data, auth, storage, and everything else.
-          </span>
-          <span className="mt-3 block text-muted min-[768px]:mt-4">
-            All in one place.
-          </span>
+          Your data, auth and storage
+          <span className="block">in one reliable backend</span>
         </h1>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3 min-[768px]:mt-12">
-          <PrimaryButton href="https://app.pawabase.com" className="inline-flex w-fit">
-            Get Started
-            <Icon name="arrowRight" size={17} />
-          </PrimaryButton>
+        <p className="m-0 mt-7 max-w-[560px] text-[clamp(15px,1.25vw,18px)] leading-[1.7] text-muted">
+          The easiest way to run a database, sign-in, files, realtime and email for your app,
+          without managing a single server.
+        </p>
 
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-5">
           <a
-            href="#F5F3EEtures"
-            className="inline-flex h-[50px] items-center justify-center gap-2 whitespace-nowrap rounded-lg px-[25px] text-[13.5px] font-bold tracking-[-0.02em] text-text no-underline btn-clay-dark"
+            href="https://app.pawabase.com"
+            className={`${PILL} btn-clay`}
           >
-            Explore Features
-            <Icon name="sparkle" size={16} />
+            Get started
           </a>
-        </div>
-      </div>
-
-      <div
-        ref={scrollSceneRef}
-        className="relative z-[2] mt-[clamp(56px,7vw,92px)] h-[155svh] min-[768px]:h-[185svh]"
-      >
-        <div className="sticky top-0 flex h-svh items-center justify-center overflow-hidden">
-          <div
-            ref={dashboardRef}
-            className="w-[min(94vw,1320px)] origin-center will-change-[transform,opacity,filter] [mask-image:linear-gradient(to_bottom,#06080b_0%,#06080b_70%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,#06080b_0%,#06080b_70%,transparent_100%)]"
-            style={{ transform: "scale(0.9)" }}
-          >
-            <div className="box-border w-full overflow-hidden rounded-[18px] border border-white/20 bg-[linear-gradient(145deg,#34383F_0%,#06080b_45%,#06080b_100%)] p-[clamp(12px,2.5vw,38px)] shadow-[inset_0_1px_0_rgba(245,243,238,0.12)] min-[768px]:rounded-[38px]">
-              <StudioPreview />
-            </div>
-          </div>
-
-          <div
-            ref={transitionCopyRef}
-            className="pointer-events-none absolute inset-0 flex items-center justify-center bg-shell px-5 text-center opacity-0 will-change-[transform,opacity]"
-            style={{ transform: "translateY(18px)" }}
-          >
-            <div className="flex max-w-[960px] flex-col items-center">
-              <p className="text-[clamp(42px,6vw,82px)] font-normal leading-[1.04] tracking-[-0.05em] text-text">
-                Everything connected.
-                <span className="mt-2 block text-muted">One place to build.</span>
-              </p>
-
-              <div
-                className="mt-10 flex max-w-[620px] flex-wrap items-center justify-center gap-3 min-[768px]:mt-12 min-[768px]:gap-4"
-                role="list"
-                aria-label="Pawabase features"
-              >
-                {FEATURE_ICONS.map((feature) => (
-                  <span
-                    key={feature.name}
-                    role="listitem"
-                    title={feature.label}
-                    aria-label={feature.label}
-                    className="flex size-12 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.045] text-white/75 min-[768px]:size-14"
-                  >
-                    <Icon name={feature.name} size={21} variant="TwoTone" />
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+          <a href="#features" className={`${PILL} btn-clay-dark`}>
+            Explore features
+            <Icon name="arrowRight" size={18} />
+          </a>
         </div>
       </div>
     </section>

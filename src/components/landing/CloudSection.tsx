@@ -1,8 +1,6 @@
 import { Icon } from "@/components/Icon";
 
-import { backdrop } from "./Backdrops";
-import { PrimaryButton } from "./PrimaryButton";
-import { Band, Card, Lead, TextLink, Title } from "./Section";
+import { Band, Eyebrow, Lead, TextLink, Title } from "./Section";
 
 const CLOUD = [
   "A project with its own database",
@@ -34,18 +32,13 @@ export function CloudSection() {
     <Band
       id="deploy"
       labelledBy="deploy-title"
-      className="py-[clamp(80px,10vw,140px)]"
-      backdrop={
-        <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_240px,black_calc(100%-240px),transparent)] [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_240px,black_calc(100%-240px),transparent)]">
-          {backdrop.grid("100%")}
-          {backdrop.glow("50%", "100%", "1000px", "440px")}
-        </div>
-      }
+      className="py-[clamp(72px,9vw,128px)]"
     >
       <div
         data-reveal="up"
         className="mx-auto flex max-w-[680px] flex-col items-center gap-5 text-center"
       >
+        <Eyebrow>Cloud</Eyebrow>
         <Title id="deploy-title" quiet="A clear path from first build to production.">
           Deploy and scale.
         </Title>
@@ -57,38 +50,37 @@ export function CloudSection() {
 
       <div
         data-reveal="stagger"
-        className="mt-[clamp(48px,6vw,80px)] grid gap-4 min-[900px]:grid-cols-2"
+        className="mx-auto mt-[clamp(40px,5vw,72px)] grid max-w-[1040px] gap-4 min-[900px]:grid-cols-2"
       >
-        <Card className="flex flex-col gap-6 p-8 min-[900px]:p-10">
-          <div className="flex items-center gap-3">
-            <Icon name="sparkle" size={26} variant="TwoTone" className="text-brand" />
-            <h3 className="text-[24px] font-medium tracking-[-0.03em] text-text">Pawabase Cloud</h3>
-          </div>
-          <p className="max-w-[40ch] text-[16.5px] leading-[1.55] tracking-[-0.01em] text-muted">
-            Create a project with data, auth and workflows ready. We run the
-            infrastructure.
+        <article
+          className="relative flex min-h-[380px] flex-col gap-6 overflow-hidden rounded-[18px] p-8 text-text ring-1 ring-white/[0.06] min-[900px]:p-10"
+          style={{
+            background:
+              "radial-gradient(80% 70% at 15% 110%, rgba(45,212,191,0.5) 0%, rgba(45,212,191,0) 65%), linear-gradient(135deg, #0d2f2c 0%, #0b1a1a 100%)",
+          }}
+        >
+          <h3 className="m-0 text-[28px] font-medium leading-[1.1] tracking-[-0.03em]">Pawabase Cloud</h3>
+          <p className="m-0 max-w-[36ch] text-[16px] leading-[1.55] text-text/70">
+            Create a project with data, auth and workflows ready. We run the infrastructure.
           </p>
           <Checks items={CLOUD} />
-          <div className="mt-auto flex flex-wrap items-center gap-x-7 gap-y-4 pt-4">
-            <PrimaryButton href="https://app.pawabase.com" className="inline-flex">
-              Create a project
-              <Icon name="arrowRight" size={17} />
-            </PrimaryButton>
-          </div>
-        </Card>
+          <a
+            href="https://app.pawabase.com"
+            className="btn-clay mt-auto inline-flex h-[46px] w-fit items-center justify-center gap-2 px-[22px] text-[14px] no-underline"
+          >
+            Create a project
+            <Icon name="arrowRight" size={16} />
+          </a>
+        </article>
 
-        <Card className="flex flex-col gap-6 p-8 min-[900px]:p-10">
-          <div className="flex items-center gap-3">
-            <Icon name="database" size={26} variant="TwoTone" className="text-brand" />
-            <h3 className="text-[24px] font-medium tracking-[-0.03em] text-text">Built for production</h3>
-          </div>
-          <p className="max-w-[40ch] text-[16.5px] leading-[1.55] tracking-[-0.01em] text-muted">
-            The work of operating software is visible: environments, releases,
-            alarms and the controls to keep every project moving safely.
+        <article className="relative flex min-h-[380px] flex-col gap-6 overflow-hidden rounded-[18px] bg-[#12171d] p-8 text-text ring-1 ring-white/[0.06] min-[900px]:p-10">
+          <h3 className="m-0 text-[28px] font-medium leading-[1.1] tracking-[-0.03em]">Built for production</h3>
+          <p className="m-0 max-w-[36ch] text-[16px] leading-[1.55] text-muted">
+            Environments, releases, alarms and the controls to keep every project moving safely.
           </p>
           <Checks items={OPERATIONS} />
-          <TextLink href="/products/observability" className="pt-1">Explore operations</TextLink>
-        </Card>
+          <TextLink href="/products/observability" className="mt-auto">Explore operations</TextLink>
+        </article>
       </div>
     </Band>
   );

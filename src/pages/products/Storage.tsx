@@ -1,259 +1,137 @@
-import type { CSSProperties } from "react";
+import { ProductArticle, type ArticleSection } from "@/components/product/Article";
 
-import { backdrop } from "@/components/landing/Backdrops";
-import { Figure } from "@/components/landing/hairline/Hairline";
-import { Band, Card } from "@/components/landing/Section";
-import { Mockup, PASTELS } from "@/components/landing/studio/Studio";
-import {
-  CodeCard,
-  Copy,
-  Display,
-  HeroActions,
-  ProductCta,
-  ProductName,
-  ProductShell,
-  Split,
-} from "@/components/product/kit";
-
-function Mug({ size }: { size: number }) {
-  return (
-    <svg viewBox="0 0 104 84" width={size} height={(size * 84) / 104} className="rounded-[10px]" style={{ background: PASTELS.peach }} aria-hidden="true">
-      <rect x="36" y="24" width="30" height="34" rx="4" fill="#06080b" opacity="0.86" />
-      <path d="M66 32h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#06080b" strokeOpacity="0.86" strokeWidth="4" />
-      <ellipse cx="51" cy="64" rx="22" ry="2.5" fill="#06080b" opacity="0.12" />
-    </svg>
-  );
-}
-
-function Transforms() {
-  return (
-    <div className="flex flex-wrap items-end justify-center gap-[clamp(24px,4vw,56px)]">
-      {[
-        { size: 96, label: "Thumbnail", meta: "200 px · 9 KB" },
-        { size: 180, label: "Card", meta: "800 px · 61 KB" },
-        { size: 300, label: "Original", meta: "2400 px · 2.4 MB" },
-      ].map((v) => (
-        <figure key={v.label} className="flex flex-col items-center gap-3">
-          <Mug size={v.size} />
-          <figcaption className="text-center">
-            <span className="block text-[14px] text-text">{v.label}</span>
-            <span className="block font-[PP_Neue_Montreal,sans-serif] text-[12px] text-faint">{v.meta}</span>
-          </figcaption>
-        </figure>
-      ))}
-    </div>
-  );
-}
-
-function DirectUpload() {
-  const steps = [
-    { x: 40, title: "Your app", note: "asks for an upload slot" },
-    { x: 330, title: "Pawabase", note: "returns a signed link" },
-    { x: 620, title: "Bucket", note: "receives the file directly" },
-  ];
-  const path = "M200 120 C 250 120 280 120 330 120 M490 120 C540 120 570 120 620 120";
-  return (
-    <Figure width={800} height={240} label="Your app asks Pawabase for a signed upload link, then sends the file straight to the bucket without passing through your server" className="h-auto w-full min-w-[620px]">
-      {steps.map((s, i) => (
-        <g key={s.title}>
-          <rect x={s.x} y={80} width={160} height={80} rx={12} style={{ stroke: i === 2 ? "rgba(245,243,238,0.8)" : "rgba(245,243,238,0.3)" }} />
-          <text x={s.x + 80} y={116} textAnchor="middle" fontSize="14" fontFamily="PP Neue Montreal, sans-serif" fill="#F5F3EE">{s.title}</text>
-          <text x={s.x + 80} y={138} textAnchor="middle" fontSize="10.5" fill="#70757D">{s.note}</text>
-        </g>
-      ))}
-      <path className="hl-line" d={path} style={{ stroke: "rgba(245,243,238,0.2)" }} />
-      <path className="hl-line hl-flow" d="M120 160 C120 220 700 220 700 160" style={{ stroke: "rgba(245,243,238,0.75)" }} />
-      <text x={410} y={214} textAnchor="middle" fontSize="11" fill="#70757D">the file goes straight to storage</text>
-      <circle r={3.5} className="hl-travel" style={{ fill: "#F5F3EE", stroke: "none", "--path": 'path("M120 160 C120 220 700 220 700 160")', "--dur": "3s" } as CSSProperties} />
-    </Figure>
-  );
-}
-
-const BUCKETS = [
-  ["product-images", "Anyone can read", "Staff can upload"],
-  ["avatars", "Signed-in people can read", "Owners can replace their own"],
-  ["invoices", "Only the owner can read", "Created by your flows"],
-  ["exports", "Private", "Shared with expiring links"],
+const SECTIONS: ArticleSection[] = [
+  {
+    title: "Files, kept next to your data",
+    blocks: [
+      { p: "Storage keeps the files your app handles: avatars, documents, exports and attachments. Files live in **buckets**, which are folders with their own rules. Each file has a **key**, its path in the bucket, such as `7/avatar.png`." },
+      { p: "You set buckets up in Studio, and your app uses them through `pawabase.storage`. Because every request is made as the signed-in person, the same access rules that protect your tables protect your files." },
+    ],
+  },
+  {
+    title: "Creating a bucket",
+    blocks: [
+      { p: "A bucket is created once per environment and then used from your app by name. The name uses lowercase letters, digits and dashes, is unique within the environment and cannot be changed later. `avatars` in development and in production are separate buckets with separate files." },
+      { list: [
+        "**Public bucket** means anyone with a file's address may read it, which suits avatars and product images. Leave it off for anything private. Uploads, listing and deletes always follow their own rules, whichever you choose.",
+        "**Who may** read, upload new objects, list, replace and delete each use the same rule picker as the rest of Pawabase.",
+        "**Accepted types** and **Largest file** limit what can be uploaded.",
+      ] },
+      { table: { head: ["Bucket", "Public", "Read", "Upload new", "Replace and delete"], rows: [
+        ["`avatars`", "Yes", "Public", "Signed in, own folder", "Own folder"],
+        ["`product-images`", "Yes", "Public", "Role `staff`", "Role `staff`"],
+        ["`documents`", "No", "Own folder", "Own folder", "Own folder"],
+        ["`team-files`", "No", "Same organization", "Same organization", "Same organization"],
+        ["`exports`", "No", "Signed in", "Secret keys and Studio", "Secret keys and Studio"],
+      ] } },
+      { p: "Use a separate bucket when the rules or limits differ: public against private, images against documents, user files against server-written exports. Use folders, which are key prefixes, for everything else, such as per user, per organization or per year." },
+    ],
+  },
+  {
+    title: "Who can do what",
+    blocks: [
+      { p: "A bucket has a rule for each action, and the difference between uploading and replacing matters. Uploading to a key that does not exist uses the upload rule. Uploading to one that does exist uses the replace rule. That lets people add files without overwriting anyone else's." },
+      { table: { head: ["Action", "Setting", "If unset"], rows: [
+        ["Read a file", "Who may read", "Signed-in users, or everyone for a public bucket"],
+        ["Upload a new key", "Who may upload new objects", "Signed-in users"],
+        ["List the bucket", "Who may list objects", "Same as read"],
+        ["Replace an existing key", "Who may replace objects", "Same as upload"],
+        ["Delete a file", "Who may delete objects", "Same as upload"],
+      ] } },
+      { h3: "Design keys around rules" },
+      { p: "Put the owner first in every key, `<user id>/…`. Then one custom rule protects the whole bucket: the first segment of the key equals the signed-in user's id. For organizations, compare the first segment with the organization and use keys like `<org slug>/…`." },
+      { p: "A public bucket does not have to be browsable. Set **Who may list objects** to signed-in users and strangers can only see files whose address they already hold. The rule runs before the file is looked up, so a refusal never reveals whether a key exists." },
+    ],
+  },
+  {
+    title: "Uploading",
+    blocks: [
+      { p: "`upload(key, body)` stores a file at a key. If the key already exists the file is replaced, so repeating an upload is safe. The result describes what was stored: the bucket, key, size, content type and, when available, an ETag." },
+      { p: "In a browser you can pass a `File`, a `Blob`, an `ArrayBuffer`, a string, a `ReadableStream` or `FormData`. In Python you can pass bytes, an open binary file or a path. If you do not pass a content type, the client uses the file's own, then guesses from the key's extension, then falls back to `application/octet-stream`." },
+      { table: { head: ["Bucket setting", "If broken"], rows: [
+        ["Who may upload new objects, or replace", "`AuthenticationError` or `PermissionError`"],
+        ["Accepted types", "`ValidationError`, judged from the file's real contents"],
+        ["Largest file", "`PayloadTooLargeError`"],
+      ] } },
+      { p: "Accepted types are checked against what the file actually contains, not only the header the client sent, so renaming a file does not get around the limit. Signed uploads can also give a browser a temporary link to upload straight to storage." },
+    ],
+  },
+  {
+    title: "Four ways to give someone a file",
+    blocks: [
+      { p: "Pick by who the reader is and for how long." },
+      { table: { head: ["You need", "Use", "Lasts"], rows: [
+        ["Show a file to everyone on your site", "Public URL", "Forever, with a public bucket"],
+        ["A signed-in person reads a private file in your app", "`download()`", "The request"],
+        ["Someone holds a link, no sign-in, for minutes", "Signed link", "Minutes"],
+        ["Someone with no account, for days, revocable", "Share link", "Hours to a year"],
+      ] } },
+      { p: "A **public URL** carries your publishable key, which is designed to be public. A secret key is refused, so you cannot leak one into a page by accident. A private bucket answers \"not found\" to a public address." },
+      { p: "A **signed link** lets anyone who holds it read one file for a short time, 300 seconds by default. You must be able to read the file yourself to sign it, and it is best to make a new link each time the page opens rather than storing one. Typical uses are a download button for a private file or a link in an email." },
+    ],
+  },
+  {
+    title: "Share links",
+    blocks: [
+      { p: "A share link lets someone with no account open one file until a time you choose. It works whatever the bucket's read rule says, for that file only. Use it to send a contract to a client or an export to a partner. You create one in Studio by opening the file and choosing the Sharing tab." },
+      { list: [
+        "**Expires after** can be 15 minutes, 1 hour, 24 hours, 7 days or a custom time from one minute to one year.",
+        "**Allows** can be view and download, view only, or download only.",
+        "Every link shows its status, when it expires and how often it was opened. A revoked link stops working at once.",
+      ] },
+      { table: { head: ["What you do", "Effect on its links"], rows: [
+        ["Replace the file, uploading to the same key", "Links keep working and show the new file"],
+        ["Rename or move it", "Links are revoked"],
+        ["Delete it", "Links are revoked. A new file at the same key is never reachable through an old link."],
+      ] } },
+      { note: "Anyone holding the URL can open the file, so treat it like a password. Prefer short lifetimes, send it over a private channel and revoke links you no longer need." },
+    ],
+  },
+  {
+    title: "Resizing images",
+    blocks: [
+      { p: "Add options to an image's address and Pawabase serves that version. The stored original is never changed, so you do not generate thumbnails yourself. Turn on **Enable transformations** in the bucket's settings, then choose which output formats and fits to allow and the largest sizes." },
+      { table: { head: ["Option", "Values", "Meaning"], rows: [
+        ["`width`, `height`", "pixels", "Output size. Give one and the other follows the ratio."],
+        ["`fit`", "`contain`, `cover`, `fill`", "`contain` fits inside, `cover` fills and crops, `fill` stretches."],
+        ["`format`", "`webp`, `avif`, `jpeg`, `png`, `auto`", "`auto` picks AVIF or WebP when the browser allows it."],
+        ["`quality`", "1 to 100", "Compression for lossy formats."],
+        ["`rotate`", "-360 to 360", "Degrees clockwise."],
+        ["`crop`", "`x,y,width,height`", "Crop the original first, in source pixels."],
+      ] } },
+      { p: "Only PNG, JPEG, WebP, GIF, AVIF and BMP images can be transformed. Photo orientation is applied, animated images use their first frame and SVG is never rasterised. Resizing works for public URLs, signed links and share links, and the read rule is checked on every request, so a variant is never shown to someone who could not read the original." },
+    ],
+  },
+  {
+    title: "Files and records",
+    blocks: [
+      { p: "Storage holds the bytes and your database holds the meaning. Store the file's key on a record, not its URL, and build the URL when you need it. A URL can change, because a signed link expires or a domain moves. A key does not." },
+      { list: [
+        "**Upload first, then save the key,** so a record never points at a file that does not exist.",
+        "**To replace a file,** give the new file a new key, update the record, then delete the old key. A fresh key avoids stale caches.",
+        "**For several files per record,** create an `attachments` table with the record id, key, name, size and content type, and give it the owner access rule.",
+      ] },
+    ],
+  },
+  {
+    title: "Delivery and cleaning up",
+    blocks: [
+      { p: "The **browser cache** setting says how many seconds a browser may reuse a file before asking again. Zero revalidates every time, which is safest when files are replaced. Files have an ETag that changes when a file is replaced, so browsers always revalidate correctly. A longer cache is faster for files that never change, so put a version in the key, such as `avatar-2.png`." },
+      { p: "Deleting a bucket removes its configuration, so delete the files first, then the empty folders, then the bucket. Take a backup if you may need them. Studio administrators can always manage objects, whatever the rules say, so test your rules by trying something that must fail while signed in as an ordinary person." },
+    ],
+  },
 ];
-
-function BucketRules() {
-  return (
-    <Card className="p-3">
-      <Mockup label="Four buckets and who can read and write each one" className="sx-window block">
-        <div className="grid h-[38px] grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_minmax(0,1.2fr)] items-center border-b border-[var(--sx-line)] bg-[var(--sx-head)] px-5 text-[12px] text-[var(--sx-muted)]">
-          <span>Bucket</span>
-          <span>Read</span>
-          <span>Write</span>
-        </div>
-        {BUCKETS.map(([name, read, write]) => (
-          <div key={name} className="grid h-[50px] grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_minmax(0,1.2fr)] items-center border-b border-[var(--sx-line-soft)] px-5 text-[12.5px] last:border-b-0">
-            <span className="sx-mono">{name}</span>
-            <span className="truncate pr-3 text-[var(--sx-muted)]">{read}</span>
-            <span className="truncate text-[var(--sx-muted)]">{write}</span>
-          </div>
-        ))}
-      </Mockup>
-    </Card>
-  );
-}
-
-const HERO_BUCKETS = [
-  ["product-images", "Public"],
-  ["avatars", "Signed in"],
-  ["invoices", "Owner only"],
-  ["exports", "Private"],
-];
-
-const HERO_FILES = [
-  { name: "mug.jpg", size: "2.4 MB", tone: PASTELS.peach },
-  { name: "tote.jpg", size: "1.8 MB", tone: PASTELS.lavender },
-  { name: "notebook.jpg", size: "2.1 MB", tone: PASTELS.butter },
-  { name: "cap.jpg", size: "1.2 MB", tone: PASTELS.mint },
-  { name: "bottle.jpg", size: "3.0 MB", tone: PASTELS.sky },
-  { name: "poster.jpg", size: "4.2 MB", tone: PASTELS.rose },
-];
-
-function StorageHero() {
-  return (
-    <Card className="p-2 min-[768px]:p-3">
-      <Mockup label="Pawabase Studio showing the product-images bucket with six photos and a share link that expires in five minutes" className="sx-window flex min-h-[440px] overflow-hidden">
-        <aside className="hidden w-[188px] flex-none flex-col gap-1 border-r border-[var(--sx-line)] p-3 min-[560px]:flex">
-          <span className="mb-2 px-2.5 pt-1 text-[12px] text-[var(--sx-faint)]">Buckets</span>
-          {HERO_BUCKETS.map(([name, access], i) => (
-            <span key={name} className="sx-nav !h-auto flex-col !items-start gap-0 py-2 mb-1" data-on={i === 0 ? "" : undefined}>
-              <span className="sx-mono">{name}</span>
-              <span className="text-[11.5px] text-[var(--sx-faint)]">{access}</span>
-            </span>
-          ))}
-        </aside>
-        <div className="flex min-w-0 flex-1 flex-col">
-          <div className="flex h-[52px] flex-none items-center justify-between border-b border-[var(--sx-line)] px-5">
-            <span className="text-[15px] font-semibold">product-images</span>
-            <span className="sx-btn sx-btn-primary">Upload</span>
-          </div>
-          <div className="grid flex-1 grid-cols-2 content-start gap-3 p-5 min-[640px]:grid-cols-3">
-            {HERO_FILES.map((file, i) => (
-              <div key={file.name} className={`overflow-hidden rounded-[10px] border ${i === 0 ? "border-[var(--sx-brand)]" : "border-[var(--sx-line)]"}`}>
-                <div className="h-[82px]" style={{ background: file.tone }} />
-                <div className="flex flex-col px-3 py-2 text-[12px] leading-[1.4]">
-                  <span className="truncate">{file.name}</span>
-                  <span className="text-[var(--sx-faint)]">{file.size}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--sx-line)] px-5 py-3 text-[12.5px]">
-            <span className="flex items-center gap-2 whitespace-nowrap text-[var(--sx-muted)]">
-              <span className="sx-dot" style={{ background: "var(--sx-ok)" }} />
-              mug.jpg · share link expires in 5 min
-            </span>
-            <span className="sx-btn">Copy link</span>
-          </div>
-        </div>
-      </Mockup>
-    </Card>
-  );
-}
 
 export default function StoragePage() {
   return (
-    <ProductShell title="Storage" description="Buckets with access rules, image resizing and links that expire, on local disk or any S3-compatible service.">
-      <Band className="pb-[clamp(56px,7vw,96px)] pt-[clamp(56px,7vw,96px)]" backdrop={backdrop.dots("70%", "50%")}>
-        <Split
-          ratio="1fr_1fr"
-          copy={
-            <div className="flex flex-col gap-6">
-              <ProductName icon="storage" name="Storage" />
-              <Display quiet="With the same rules." className="!text-[clamp(40px,4.4vw,64px)]">Files that follow along.</Display>
-              <p className="max-w-[40ch] text-[18px] leading-[1.6] tracking-[-0.01em] text-muted">
-                Avatars, product photos, invoices, exports. Upload them, serve
-                them, and decide who sees each one, without a separate service
-                to wire up.
-              </p>
-              <HeroActions />
-            </div>
-          }
-          visual={<StorageHero />}
-        />
-      </Band>
-
-      <Band labelledBy="st-transform" className="py-[clamp(72px,9vw,120px)]">
-        <Copy id="st-transform" center title="One upload. Every size." quiet="Made when they're asked for.">
-          Upload the original once and ask for the size each screen needs.
-          Pages load faster and you never store a stack of copies.
-        </Copy>
-        <Card className="mx-auto mt-12 max-w-[980px] px-6 py-12">
-          <Transforms />
-        </Card>
-      </Band>
-
-      <Band labelledBy="st-direct" className="py-[clamp(72px,9vw,120px)]" backdrop={backdrop.lines("50%", "60%")}>
-        <Copy id="st-direct" center title="Uploads that skip your server." quiet="Big files, no bottleneck.">
-          Hand the browser a signed link and the file goes straight to storage.
-          The link is the permission, and it expires on its own.
-        </Copy>
-        <Card className="mx-auto mt-12 max-w-[1000px] overflow-x-auto px-6 py-10">
-          <DirectUpload />
-        </Card>
-      </Band>
-
-      <Band labelledBy="st-rules" className="py-[clamp(72px,9vw,120px)]">
-        <Split
-          ratio="wide-visual"
-          copy={
-            <Copy id="st-rules" title="A rule for every bucket." quiet="Set by action." link={{ label: "See access policies", href: "/products/policies" }}>
-              Reading, uploading and deleting can each follow their own rule,
-              written the same way as the rules for your data.
-            </Copy>
-          }
-          visual={<BucketRules />}
-        />
-      </Band>
-
-      <Band labelledBy="st-code" className="py-[clamp(72px,9vw,120px)]">
-        <Split
-          flip
-          copy={
-            <Copy id="st-code" title="Upload, link, done." quiet="From any client.">
-              Store a file, hand out a link that expires, and show public
-              images with a plain URL.
-            </Copy>
-          }
-          visual={
-            <CodeCard
-              file="avatar.ts"
-              label="Uploading an avatar, creating a five-minute link, and getting a public image URL"
-              lines={[
-                'const avatars = pawabase.storage.from("avatars");',
-                "",
-                'await avatars.upload("u1/me.png", file);',
-                "",
-                'const { url } = await avatars.createSignedUrl("u1/me.png", {',
-                "  expiresIn: 300,",
-                "});",
-                "",
-                'const src = pawabase.storage.from("product-images").getPublicUrl("mug.jpg");',
-              ]}
-            />
-          }
-        />
-      </Band>
-
-      <Band labelledBy="st-yours" className="py-[clamp(88px,10vw,140px)]" backdrop={backdrop.hatch("50%", "50%")}>
-        <div className="mx-auto max-w-[900px] text-center">
-          <h2 id="st-yours" className="text-[clamp(28px,3.4vw,46px)] font-normal leading-[1.15] tracking-[-0.045em] text-text text-balance">
-            Keep files on local disk while you build.
-            <span className="text-muted"> Move them to any S3-compatible service when you grow. Your app doesn't change.</span>
-          </h2>
-        </div>
-      </Band>
-
-      <ProductCta
-        title="Bring your files."
-        quiet="We'll keep them in order."
-        next={{ label: "Next: Realtime", href: "/products/realtime" }}
-        backdrop={backdrop.glow("50%", "100%", "1000px", "420px")}
-      />
-    </ProductShell>
+    <ProductArticle
+      icon="storage"
+      name="Storage"
+      category="Files"
+      description="Buckets with access rules, image resizing and links that expire, on local disk or any S3-compatible service."
+      intro="Storage keeps the files your app handles, with the same access rules as the rest of your backend. This page covers buckets, who can do what, uploads, the four ways to hand someone a file, image resizing and how to link files to records."
+      sections={SECTIONS}
+      next={{ label: "Next: Realtime", href: "/products/realtime" }}
+    />
   );
 }

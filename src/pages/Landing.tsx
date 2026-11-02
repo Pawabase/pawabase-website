@@ -1,3 +1,4 @@
+import { AgentsSection } from "@/components/landing/AgentsSection";
 import { CloudSection } from "@/components/landing/CloudSection";
 import { ConnectSection } from "@/components/landing/ConnectSection";
 import { FaqSection } from "@/components/landing/FaqSection";
@@ -6,8 +7,11 @@ import { FinalCta } from "@/components/landing/FinalCta";
 import { Footer } from "@/components/landing/Footer";
 import { FrontendsSection } from "@/components/landing/FrontendsSection";
 import { Hero } from "@/components/landing/Hero";
+import { Mission } from "@/components/landing/Mission";
+import { PlatformStack } from "@/components/landing/PlatformStack";
 import { PricingSection } from "@/components/landing/PricingSection";
 import { ScrollMotion } from "@/components/landing/ScrollMotion";
+import { StepsSection } from "@/components/landing/StepsSection";
 import { TopBar } from "@/components/landing/TopBar";
 import {
   DEFAULT_DESCRIPTION,
@@ -23,15 +27,45 @@ export default function Landing() {
       <div className="relative min-h-screen overflow-clip bg-shell">
         <ScrollMotion />
         <TopBar />
-        <main>
+        <main className="relative">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-[min(calc(100%-32px),1320px)] -translate-x-1/2 border-x border-line"
+          />
           <Hero />
-          <FeatureBento />
-          <ConnectSection />
-          <FrontendsSection />
-          <CloudSection />
-          <PricingSection />
-          <FaqSection />
-          <FinalCta />
+          <div className="relative border-t border-line">
+            <FeatureBento />
+          </div>
+          <div className="relative border-t border-line">
+            <Mission />
+          </div>
+          <div className="relative border-t border-line">
+            <PlatformStack />
+          </div>
+          <div className="relative border-t border-line">
+            <StepsSection />
+          </div>
+          <div className="relative border-t border-line">
+            <ConnectSection />
+          </div>
+          <div className="relative border-t border-line">
+            <AgentsSection />
+          </div>
+          <div className="relative border-t border-line">
+            <FrontendsSection />
+          </div>
+          <div className="relative border-t border-line">
+            <CloudSection />
+          </div>
+          <div className="relative border-t border-line">
+            <PricingSection />
+          </div>
+          <div className="relative border-t border-line">
+            <FaqSection />
+          </div>
+          <div className="relative border-t border-line">
+            <FinalCta />
+          </div>
         </main>
         <Footer />
       </div>

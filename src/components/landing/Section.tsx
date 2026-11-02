@@ -48,6 +48,25 @@ export function RailSection({
   );
 }
 
+/** The section label: a quiet pill with a spark either side, as in the hero. */
+export function Eyebrow({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <p
+      className={`m-0 inline-flex h-10 items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.03] px-6 text-[13px] font-bold uppercase tracking-[0.14em] text-brand ${className}`}
+    >
+      <span aria-hidden="true">✦</span>
+      {children}
+      <span aria-hidden="true">✦</span>
+    </p>
+  );
+}
+
 export function Kicker({
   children,
   className = "",
@@ -83,7 +102,7 @@ export function Title({
   return (
     <h2
       id={id}
-      className={`text-[clamp(38px,4.4vw,62px)] font-medium leading-[1.06] tracking-[-0.045em] text-text text-balance ${className}`}
+      className={`text-[clamp(38px,4.4vw,62px)] font-medium leading-[1.06] tracking-[-0.03em] text-text text-balance ${className}`}
     >
       {children}
       {quiet ? <span className="block text-muted">{quiet}</span> : null}
@@ -223,7 +242,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`card relative overflow-hidden rounded-[24px] bg-card ring-1 ring-white/[0.04] ${className}`}
+      className={`card relative overflow-hidden rounded-[18px] border border-line bg-[#0e1217] ${className}`}
     >
       {children}
     </div>

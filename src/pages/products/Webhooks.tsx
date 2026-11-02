@@ -1,227 +1,101 @@
-import { SiDiscord, SiGithub, SiStripe } from "@icons-pack/react-simple-icons";
-import type { CSSProperties } from "react";
+import { ProductArticle, type ArticleSection } from "@/components/product/Article";
 
-import { backdrop } from "@/components/landing/Backdrops";
-import { Figure } from "@/components/landing/hairline/Hairline";
-import { Band, Card } from "@/components/landing/Section";
-import { Mockup, useInView, useLiveTick } from "@/components/landing/studio/Studio";
-import {
-  Copy,
-  Display,
-  HeroActions,
-  Points,
-  ProductCta,
-  ProductName,
-  ProductShell,
-  Split,
-} from "@/components/product/kit";
-
-function BothWays() {
-  const ins = [70, 160, 250];
-  const outs = [90, 230];
-  return (
-    <Figure width={720} height={320} label="Webhooks arrive from outside services into your project, and your project sends its own events out to partners" className="h-auto w-full">
-      {["Payments", "Code host", "Chat"].map((name, i) => (
-        <g key={name}>
-          <rect x={10} y={ins[i] - 20} width={130} height={40} rx={20} style={{ stroke: "rgba(245,243,238,0.28)" }} />
-          <text x={75} y={ins[i] + 4} textAnchor="middle" fontSize="12" fontFamily="PP Neue Montreal, sans-serif" fill="#70757D">{name}</text>
-          <path className="hl-line" d={`M140 ${ins[i]} C200 ${ins[i]} 220 160 280 160`} style={{ stroke: "rgba(245,243,238,0.16)" }} />
-          <circle r="3" className="hl-travel" style={{ fill: "#F5F3EE", stroke: "none", "--path": `path("M140 ${ins[i]} C200 ${ins[i]} 220 160 280 160")`, "--dur": "2.4s", "--delay": `${i * 0.6}s` } as CSSProperties} />
-        </g>
-      ))}
-      <rect x={280} y={110} width={160} height={100} rx={14} style={{ stroke: "#F5F3EE" }} />
-      <text x={360} y={156} textAnchor="middle" fontSize="14" fontFamily="PP Neue Montreal, sans-serif" fill="#F5F3EE">Your project</text>
-      <text x={360} y={176} textAnchor="middle" fontSize="10.5" fill="#70757D">flows</text>
-      {["Warehouse", "Accounting"].map((name, i) => (
-        <g key={name}>
-          <path className="hl-line" d={`M440 160 C500 160 520 ${outs[i]} 580 ${outs[i]}`} style={{ stroke: "rgba(245,243,238,0.6)" }} />
-          <rect x={580} y={outs[i] - 20} width={130} height={40} rx={20} style={{ stroke: "rgba(245,243,238,0.6)" }} />
-          <text x={645} y={outs[i] + 4} textAnchor="middle" fontSize="12" fontFamily="PP Neue Montreal, sans-serif" fill="#F5F3EE">{name}</text>
-          <circle r="3" className="hl-travel" style={{ fill: "#F5F3EE", stroke: "none", "--path": `path("M440 160 C500 160 520 ${outs[i]} 580 ${outs[i]}")`, "--dur": "2s", "--delay": `${1 + i * 0.7}s` } as CSSProperties} />
-        </g>
-      ))}
-      <text x={75} y={300} textAnchor="middle" fontSize="11" fill="#70757D">in</text>
-      <text x={645} y={300} textAnchor="middle" fontSize="11" fill="#70757D">out</text>
-    </Figure>
-  );
-}
-
-function Endpoint() {
-  return (
-    <Card className="p-3">
-      <Mockup label="A webhook endpoint subscribed to order created, paid and refunded events" className="sx-window block p-6">
-        <div className="text-[12px] text-[var(--sx-muted)]">Endpoint URL</div>
-        <div className="sx-input sx-mono mt-2 h-[36px] text-[12.5px]">https://api.northwind-warehouse.com/hooks/orders</div>
-        <div className="mt-6 text-[12px] text-[var(--sx-muted)]">Send these events</div>
-        <div className="mt-3 grid gap-2.5">
-          {[
-            ["order.created", true],
-            ["order.paid", true],
-            ["order.refunded", true],
-            ["customer.updated", false],
-          ].map(([event, on]) => (
-            <span key={event as string} className="flex items-center gap-3 text-[13px]">
-              <span className="grid h-[16px] w-[16px] place-items-center rounded-[4px] border" style={{ borderColor: on ? "var(--sx-brand)" : "var(--sx-line)", background: on ? "var(--sx-brand)" : "transparent" }}>
-                {on ? (
-                  <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 5.2 4.1 7.3 8 3" stroke="#06080b" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                ) : null}
-              </span>
-              <span className="sx-mono" style={{ color: on ? "var(--sx-text)" : "var(--sx-faint)" }}>{event as string}</span>
-            </span>
-          ))}
-        </div>
-      </Mockup>
-    </Card>
-  );
-}
-
-function Deliveries() {
-  const { ref, inView } = useInView<HTMLDivElement>();
-  const tick = useLiveTick(inView, 2600);
-  const ok = tick % 3 !== 0;
-
-  return (
-    <div ref={ref}>
-      <Card className="p-3">
-        <Mockup label="Recent webhook deliveries; one failed and is redelivered successfully" className="sx-window block">
-          <div className="flex items-center justify-between border-b border-[var(--sx-line)] px-5 py-3">
-            <span className="text-[14px] font-semibold">Deliveries</span>
-            <span className="sx-btn">Replay all failed</span>
-          </div>
-          {[
-            ["order.paid", ok ? "200 OK" : "503 · will retry", ok, "just now"],
-            ["order.created", "200 OK", true, "2 min ago"],
-            ["order.refunded", "200 OK", true, "9 min ago"],
-            ["order.created", "200 OK", true, "14 min ago"],
-          ].map(([event, code, good, at], i) => (
-            <div key={`${event}${i}`} className="grid h-[50px] grid-cols-[minmax(0,1fr)_150px_90px_80px] items-center border-b border-[var(--sx-line-soft)] px-5 text-[12.5px] last:border-b-0 max-[560px]:grid-cols-[minmax(0,1fr)_130px]">
-              <span className="sx-mono">{event as string}</span>
-              <span key={i === 0 ? String(ok) : "s"} className={`flex items-center gap-2 text-[var(--sx-muted)] ${i === 0 ? "sx-swap" : ""}`}>
-                <span className="sx-dot" style={{ background: good ? "var(--sx-ok)" : "var(--sx-warn)" }} />
-                {code as string}
-              </span>
-              <span className="text-[var(--sx-faint)] max-[560px]:hidden">{at as string}</span>
-              <span className="text-right text-[12px] text-[var(--sx-muted)] max-[560px]:hidden">Redeliver</span>
-            </div>
-          ))}
-        </Mockup>
-      </Card>
-    </div>
-  );
-}
-
-function Inspector() {
-  return (
-    <Card className="p-3">
-      <Mockup label="One delivery's request body and the partner's response" className="sx-window grid min-[860px]:grid-cols-2">
-        <div className="border-b border-[var(--sx-line)] min-[860px]:border-b-0 min-[860px]:border-r">
-          <div className="border-b border-[var(--sx-line)] px-5 py-3 text-[12.5px] font-semibold">Request · order.paid</div>
-          <pre className="sx-mono px-5 py-4 text-[12px] leading-[1.75] text-[var(--sx-muted)]">
-            {'{\n  "event": "order.paid",\n  "data": {\n    "id": "01JD7…4c1",\n    "total": 248.00,\n    "customer": "Amara Okafor"\n  }\n}'}
-          </pre>
-        </div>
-        <div>
-          <div className="flex items-center justify-between border-b border-[var(--sx-line)] px-5 py-3 text-[12.5px]">
-            <span className="font-semibold">Response</span>
-            <span className="flex items-center gap-2 text-[var(--sx-muted)]"><span className="sx-dot bg-[var(--sx-ok)]" />200 · 112 ms</span>
-          </div>
-          <pre className="sx-mono px-5 py-4 text-[12px] leading-[1.75] text-[var(--sx-muted)]">{'{ "received": true }'}</pre>
-        </div>
-      </Mockup>
-    </Card>
-  );
-}
+const SECTIONS: ArticleSection[] = [
+  {
+    title: "A call between systems, in both directions",
+    blocks: [
+      { p: "A webhook is an HTTP call between systems. Pawabase supports both directions. **Outbound** webhooks send your events to a URL you control. **Inbound** hooks give another service a Pawabase URL to call, which verifies the request and then starts a flow or emits an event." },
+      { p: "Everything lives under **Logic, Webhooks**, on three pages: Endpoints for outbound webhooks, Deliveries for every attempt with its retries, and Inbound hooks." },
+    ],
+  },
+  {
+    title: "Events are what webhooks carry",
+    blocks: [
+      { p: "An event is a named announcement, such as `orders.created`, `user.created` or `invoice.overdue`. Something emits it, and anything subscribed reacts. The emitter never waits and never needs to know who is listening. You do not have to write code to get events." },
+      { list: [
+        "**Your tables** emit created, updated and deleted events after a write succeeds.",
+        "**Auth** emits sign-ups, sign-ins, password and second-factor changes and more.",
+        "**Flows** can publish any event name you choose with the Emit event block.",
+        "**Schedules** can emit an event on the clock.",
+        "**Inbound hooks** can turn a verified call from another service into an event.",
+      ] },
+      { table: { head: ["Field", "Example", "Meaning"], rows: [
+        ["`name`", "`order.paid`", "The event name"],
+        ["`payload`", "`order_id`, `total`", "The data it carries"],
+        ["`id`", "`evt_3b8f1c2a`", "Unique per event. Use it to skip repeats."],
+        ["`source`", "`flows`", "What emitted it"],
+        ["`actor`", "`usr_abc`", "The person whose action caused it, or empty"],
+        ["`occurred_at`", "`2026-09-30T14:02:11Z`", "When it happened, in UTC"],
+        ["`request_id`", "`req_7e9a1c`", "The request that caused it"],
+      ] } },
+    ],
+  },
+  {
+    title: "Sending events out",
+    blocks: [
+      { p: "To send events to a URL, create an endpoint under **Logic, Webhooks, Endpoints**." },
+      { table: { head: ["Field", "Meaning"], rows: [
+        ["Endpoint URL", "Where to send. Use HTTPS. Private and loopback addresses are refused outside development."],
+        ["Events", "Event names or patterns. `*` sends everything and `orders.*` sends every order event."],
+        ["Extra headers", "Headers sent with every request."],
+        ["Attempts", "Tries before a delivery is marked failed, from 1 to 10. Retries back off exponentially. The default is 5."],
+        ["Signing secret", "Signs each request. At least 16 characters."],
+        ["Enabled", "Pause without deleting."],
+      ] } },
+      { p: "Use **Send test** to send one test event with one attempt and no retries. To send an event to every subscribed endpoint from a flow, add the **Send webhook** block." },
+      { h3: "What your endpoint receives" },
+      { p: "Your endpoint receives a `POST` whose body has the event `id`, the `event` name, the `project` and `env` it came from, the `data` and a `sent_at` time. Reply with a `2xx` within 30 seconds. Anything else counts as a failed attempt and is retried. Use the event `id` to ignore a repeat, because a delivery can arrive more than once." },
+    ],
+  },
+  {
+    title: "Checking that a request is really from Pawabase",
+    blocks: [
+      { p: "Anyone who knows your URL can post to it. The `Pawabase-Signature` header proves a request came from Pawabase. It looks like `t=1700000000,v1=a1b2c3…`, where `v1` is the hex HMAC-SHA256 of the text `<t>.<raw body>`, keyed with your signing secret." },
+      { list: [
+        "Reject requests more than 5 minutes old.",
+        "Sign over the raw body, not re-serialised JSON.",
+        "Compare the signatures in constant time.",
+      ] },
+    ],
+  },
+  {
+    title: "Deliveries, retries and replay",
+    blocks: [
+      { p: "**Deliveries** lists every attempt with its status, which is `pending`, `retrying`, `delivered` or `failed`. You also see the event, the URL, the number of attempts, the duration, the response status and a trimmed body, and the error. You can filter by webhook, event, status or time." },
+      { list: [
+        "**Redeliver** on a row sends that one again.",
+        "After your endpoint was down, select the failed deliveries or filter them, choose Redeliver, and use **Dry run** first to see the count.",
+        "Each resend creates a new delivery with the same payload, so your receiving code must handle repeats safely.",
+      ] },
+    ],
+  },
+  {
+    title: "Receiving events from other services",
+    blocks: [
+      { p: "An inbound hook gives another service a URL to call. Create one under **Inbound hooks**, choose a slug, how requests are verified, and what happens next: run a flow, or emit an event. The address has the form `https://<your api host>/hooks/v1/<environment>/<slug>`. It needs no API key, because the signature is the credential." },
+      { table: { head: ["Verification", "Use it for"], rows: [
+        ["HMAC SHA-256 (the default)", "Services that sign the body, such as GitHub in `x-hub-signature-256`."],
+        ["HMAC SHA-512", "Services that sign with SHA-512."],
+        ["HMAC SHA-256 with timestamp", "Services that sign a timestamp and body, such as Stripe in `stripe-signature`."],
+        ["Pawabase signature", "Calls from another Pawabase project."],
+        ["Shared token", "Simple services that send a fixed token."],
+        ["None", "Avoid it. Anyone who finds the URL can call it."],
+      ] } },
+      { p: "Match the verification and the signature header to what the sender does, and check the sender's documentation. The request's JSON body becomes the flow's input. A bad signature gets `403`. A verified request gets `202` and the flow runs in the background, and failures are visible under Activity, Jobs. Keep the shared secret in Secrets and refer to it as `secret://NAME`." },
+    ],
+  },
+];
 
 export default function WebhooksPage() {
   return (
-    <ProductShell title="Webhooks" description="Send your events to other services and act on theirs, with every delivery logged and failures easy to replay.">
-      <Band className="pb-[clamp(72px,9vw,120px)] pt-[clamp(56px,7vw,96px)]" backdrop={<>{backdrop.rings("75%", "50%")}{backdrop.glow("75%", "50%", "760px", "520px")}</>}>
-        <Split
-          ratio="wide-visual"
-          copy={
-            <div className="flex flex-col gap-6">
-              <ProductName icon="webhooks" name="Webhooks" />
-              <Display quiet="Both ways.">Stay in sync with everything.</Display>
-              <p className="max-w-[40ch] text-[16px] leading-[1.65] text-muted">
-                Tell your partners the moment an order is paid, and act when a
-                payment provider or code host calls you back.
-              </p>
-              <HeroActions />
-            </div>
-          }
-          visual={
-            <Card className="px-5 py-8">
-              <BothWays />
-            </Card>
-          }
-        />
-      </Band>
-
-      <Band labelledBy="wh-out" className="py-[clamp(72px,9vw,120px)]">
-        <Split
-          copy={
-            <Copy id="wh-out" title="Pick the events." quiet="Paste the URL.">
-              Choose which changes a partner hears about. Pawabase sends them
-              as they happen, no polling on either side.
-            </Copy>
-          }
-          visual={<Endpoint />}
-        />
-      </Band>
-
-      <Band labelledBy="wh-deliveries" className="py-[clamp(72px,9vw,120px)]" backdrop={backdrop.lines("50%", "50%")}>
-        <Copy id="wh-deliveries" center title="When a partner is down," quiet="nothing gets lost.">
-          Every delivery is logged. Failures are retried, and anything that
-          still didn't land can be redelivered with one click.
-        </Copy>
-        <div className="mx-auto mt-12 max-w-[920px]">
-          <Deliveries />
-        </div>
-      </Band>
-
-      <Band labelledBy="wh-inspect" className="py-[clamp(72px,9vw,120px)]">
-        <Split
-          flip
-          ratio="wide-visual"
-          copy={
-            <Copy id="wh-inspect" title="See exactly what was sent." quiet="And what came back.">
-              Open any delivery to read the payload and the response, so
-              "did they get it?" takes seconds to answer.
-            </Copy>
-          }
-          visual={<Inspector />}
-        />
-      </Band>
-
-      <Band labelledBy="wh-in" className="py-[clamp(88px,10vw,140px)]" backdrop={backdrop.dots("50%", "60%")}>
-        <Copy id="wh-in" center title="Their events start your flows." quiet="Incoming webhooks, handled.">
-          Point a service at your project and run a flow when it
-          calls, from a paid invoice to a new pull request.
-        </Copy>
-        <div className="mx-auto mt-12 flex items-center justify-center gap-[clamp(32px,6vw,72px)] text-white/40">
-          {[SiStripe, SiGithub, SiDiscord].map((Mark, i) => (
-            <Mark key={i} size={40} aria-hidden="true" className="transition-colors duration-200 hover:text-text" />
-          ))}
-        </div>
-      </Band>
-
-      <Band labelledBy="wh-points" className="py-[clamp(64px,8vw,104px)]">
-        <h2 id="wh-points" className="sr-only">Webhooks at a glance</h2>
-        <Points
-          items={[
-            { icon: "events", title: "Event-based", copy: "Send on the changes that matter, nothing else." },
-            { icon: "refresh", title: "Retried", copy: "Temporary failures are tried again on their own." },
-            { icon: "document", title: "Logged", copy: "Every payload and response, kept for you to read." },
-          ]}
-        />
-      </Band>
-
-      <ProductCta
-        title="Connect the dots."
-        quiet="In both directions."
-        next={{ label: "Next: Releases", href: "/products/releases" }}
-        backdrop={backdrop.glow("50%", "100%", "1000px", "420px")}
-      />
-    </ProductShell>
+    <ProductArticle
+      icon="webhooks"
+      name="Webhooks"
+      category="Integrations"
+      description="Send your events to other services and act on theirs, with every delivery logged and failures easy to replay."
+      intro="Webhooks connect Pawabase to everything else you use. Your events can be sent to any URL, and other services can call a Pawabase URL to start a flow. This page covers events, outbound endpoints, signatures, deliveries and inbound hooks."
+      sections={SECTIONS}
+      next={{ label: "Next: Releases", href: "/products/releases" }}
+    />
   );
 }

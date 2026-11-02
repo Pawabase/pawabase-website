@@ -11,8 +11,7 @@ import {
   SiVuedotjs,
 } from "@icons-pack/react-simple-icons";
 
-import { Orbits } from "./Backdrops";
-import { Band, Lead, Title } from "./Section";
+import { Band, Eyebrow, Lead, Title } from "./Section";
 
 const FRAMEWORKS = [
   { name: "React", Mark: SiReact },
@@ -33,9 +32,9 @@ export function FrontendsSection() {
       id="stack"
       labelledBy="stack-title"
       className="py-[clamp(72px,9vw,128px)]"
-      backdrop={<div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_240px,black_calc(100%-240px),transparent)] [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_240px,black_calc(100%-240px),transparent)]"><Orbits /></div>}
     >
       <div data-reveal="up" className="flex flex-col items-center gap-5 text-center">
+        <Eyebrow>Frameworks</Eyebrow>
         <Title id="stack-title" quiet="On infrastructure you choose." className="max-w-[16ch]">
           Any frontend.
         </Title>
@@ -47,22 +46,24 @@ export function FrontendsSection() {
 
       <ul
         data-reveal="stagger"
-        className="mx-auto mt-14 grid max-w-[920px] grid-cols-5 gap-y-10 max-[559px]:grid-cols-3"
+        className="m-0 mx-auto mt-[clamp(40px,5vw,64px)] grid max-w-[960px] list-none grid-cols-5 border-l border-t border-line p-0 max-[639px]:grid-cols-3"
       >
         {FRAMEWORKS.map(({ name, Mark }) => (
-          <li key={name} className="group flex flex-col items-center gap-3 transition-transform duration-300 hover:-translate-y-1">
+          <li
+            key={name}
+            className="group flex h-[120px] flex-col items-center justify-center gap-3 border-b border-r border-line transition-colors duration-200 hover:bg-white/[0.03]"
+          >
             <Mark
-              size={28}
+              size={30}
               aria-hidden="true"
-              className="text-white/35 transition-all duration-300 group-hover:scale-110 group-hover:text-text"
+              className="text-white/35 transition-colors duration-200 group-hover:text-brand"
             />
-            <span className="text-[15px] font-medium tracking-[-0.01em] text-faint transition-colors duration-200 group-hover:text-muted">
+            <span className="text-[14px] font-medium tracking-[-0.01em] text-faint transition-colors duration-200 group-hover:text-text">
               {name}
             </span>
           </li>
         ))}
       </ul>
-
     </Band>
   );
 }

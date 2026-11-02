@@ -1,305 +1,153 @@
-import { SiApple, SiGithub, SiGoogle } from "@icons-pack/react-simple-icons";
+import { ProductArticle, type ArticleSection } from "@/components/product/Article";
 
-import { Icon } from "@/components/Icon";
-import { backdrop } from "@/components/landing/Backdrops";
-import { Band, Card } from "@/components/landing/Section";
-import {
-  Initials,
-  Mockup,
-  PASTELS,
-  useInView,
-  useLiveTick,
-} from "@/components/landing/studio/Studio";
-import {
-  CodeCard,
-  Copy,
-  Display,
-  HeroActions,
-  Points,
-  ProductCta,
-  ProductName,
-  ProductShell,
-  Split,
-} from "@/components/product/kit";
-
-function SignIn() {
-  const { ref, inView } = useInView<HTMLDivElement>();
-  const tick = useLiveTick(inView, 600);
-  const typed = tick % 10;
-
-  return (
-    <div ref={ref}>
-      <Card className="mx-auto max-w-[460px] p-3">
-        <Mockup label="A sign-in screen with Google, GitHub and Apple, an email field and a two-step code being entered" className="sx-window block px-7 py-8">
-          <div className="text-[18px] font-semibold tracking-[-0.02em]">Sign in to Northwind</div>
-          <div className="mt-1 text-[13px] text-[var(--sx-faint)]">Welcome back. Pick how you'd like to continue.</div>
-          <div className="mt-6 grid gap-2">
-            {[
-              ["Continue with Google", SiGoogle],
-              ["Continue with GitHub", SiGithub],
-              ["Continue with Apple", SiApple],
-            ].map(([name, Mark]) => {
-              const M = Mark as typeof SiGoogle;
-              return (
-                <span key={name as string} className="sx-btn h-[38px] justify-center text-[13px]">
-                  <M size={13} />
-                  {name as string}
-                </span>
-              );
-            })}
-          </div>
-          <div className="my-5 flex items-center gap-3 text-[11px] text-[var(--sx-faint)]">
-            <span className="h-px flex-1 bg-[var(--sx-line)]" />
-            or with email
-            <span className="h-px flex-1 bg-[var(--sx-line)]" />
-          </div>
-          <div className="sx-input h-[38px] text-[13px]">ada@nwosu.dev</div>
-          <div className="mt-5 text-[12.5px] text-[var(--sx-muted)]">Enter the code from your authenticator</div>
-          <div className="mt-2 grid grid-cols-6 gap-2">
-            {"482915".split("").map((digit, i) => (
-              <span
-                key={i}
-                className="sx-mono grid h-[44px] place-items-center rounded-[8px] border text-[16px] transition-colors duration-300"
-                style={{ borderColor: i === typed ? "var(--sx-brand)" : "var(--sx-line)" }}
-              >
-                {i < typed ? digit : ""}
-              </span>
-            ))}
-          </div>
-          <span className="sx-btn sx-btn-primary mt-5 h-[38px] w-full justify-center">Verify and sign in</span>
-        </Mockup>
-      </Card>
-    </div>
-  );
-}
-
-const METHODS = [
-  { name: "Email and password", node: <Icon name="mail" size={30} variant="TwoTone" /> },
-  { name: "Magic links", node: <Icon name="sparkle" size={30} variant="TwoTone" /> },
-  { name: "Google", node: <SiGoogle size={28} /> },
-  { name: "GitHub", node: <SiGithub size={28} /> },
-  { name: "Apple", node: <SiApple size={28} /> },
-  { name: "Single sign-on", node: <Icon name="apiSecurity" size={30} variant="TwoTone" /> },
+const SECTIONS: ArticleSection[] = [
+  {
+    title: "Users for your app",
+    blocks: [
+      { p: "Authentication gives your app **users**. A person signs up once and signs in whenever they return, and from then on every request your app makes is made as that person. Your database, storage and realtime rules read that identity to decide what the request may do." },
+      { p: "You manage all of it in Studio under **Users & auth**, and you use it from your app with `pawabase.auth`. Users belong to an environment, so an account in production does not exist in development and test accounts never mix with real ones." },
+    ],
+  },
+  {
+    title: "What a user is",
+    blocks: [
+      { table: { head: ["Part", "Meaning"], rows: [
+        ["`id`", "A stable identifier. Use it as the owner of records. It never changes."],
+        ["`email`, `email_verified`", "The address, and whether the person has proved they own it."],
+        ["`username`, `name`, `avatar_url`", "Profile fields the person can edit."],
+        ["`user_metadata`", "Free-form data the person can see and edit."],
+        ["`app_metadata`", "Free-form data only your server can change, so it is safe to base permissions on."],
+        ["`roles`", "Named groups of permissions you assign."],
+        ["`mfa_enabled`", "Whether a second step is turned on."],
+        ["`identities`", "Linked sign-in methods, such as a Google account."],
+        ["`created_at`, `last_sign_in_at`", "When the account was made and last used."],
+      ] } },
+      { p: "An **identity** is one way a user proves who they are: a password, a Google account or a company login. One user can have several, so the same person can sign in with a password today and Google tomorrow and end up in the same account." },
+    ],
+  },
+  {
+    title: "Sessions and tokens",
+    blocks: [
+      { p: "When someone signs in, Pawabase creates a **session**, which is one signed-in browser or device. A session has two tokens. The client library stores both, attaches the access token to requests and refreshes it quietly in the background, so your code never touches them." },
+      { table: { head: ["Token", "Lives", "Used for"], rows: [
+        ["Access token", "15 minutes by default", "Sent with every request to prove who is calling."],
+        ["Refresh token", "30 days by default", "Traded for a fresh access token before the old one expires."],
+      ] } },
+      { p: "A refresh token works only once. Using it returns a new refresh token and invalidates the old one. If an old token is ever used again, Pawabase assumes it was stolen and ends the whole session. The client shares one refresh between requests and, in browsers, between tabs, so normal use never trips this rule." },
+      { p: "The access token is a signed document listing facts about the caller: the user id, roles and permissions, the organization and organization role, the assurance level and the email. Because it is signed, the server trusts it without a database lookup. Because it is short-lived, a change such as a new role or a disabled account takes effect within minutes, or immediately if you end the person's sessions." },
+      { list: [
+        "**Access token lifetime** defaults to 900 seconds and can be as short as 60. A shorter lifetime makes changes apply sooner but costs a few more refreshes.",
+        "**Refresh token lifetime** defaults to 30 days and means how long someone stays signed in without activity. Consumer apps suit 30 days, while banking apps use hours.",
+        "**Sessions per user** can be limited, for paid seats or sensitive tools, so one account cannot be shared by a whole team. Over the limit, the oldest session ends.",
+      ] },
+    ],
+  },
+  {
+    title: "Ways to sign in",
+    blocks: [
+      { p: "Offer the sign-in your users prefer and add more later. They all end in the same session, and one person can link several methods to one account." },
+      { h3: "Email and password" },
+      { p: "The classic method. It works everywhere and needs no extra setup. You choose whether anyone may register, whether a new account must verify its email first, and how the sign-up form is laid out. Sign-up either signs the person in at once or, when verification is required, returns `verificationRequired` so you can show \"check your inbox\"." },
+      { h3: "Social providers" },
+      { p: "People use an account they already have. You switch a provider on once, paste in the credentials from the provider's developer console and add a button. Pawabase ships Google, GitHub, Discord, Microsoft, GitLab, LinkedIn, Slack, Facebook, Twitch and Apple, and you can add your own OAuth server for anything else." },
+      { h3: "Passkeys, codes and links" },
+      { p: "A passkey replaces the password with something the device already has, such as a fingerprint, a face scan or a PIN. It cannot be phished and it syncs between a person's devices. Choose the passkey domain early, because it is the identity the device stores and changing it later makes existing passkeys stop working. You can also let people sign in with an emailed code or a sign-in link, and connect a company identity provider for larger customers." },
+    ],
+  },
+  {
+    title: "Handling errors safely",
+    blocks: [
+      { p: "A wrong password and an unknown email give the same `AuthenticationError`, on purpose, so nobody can find out which addresses have accounts. Keep your own messages just as neutral." },
+      { table: { head: ["Error", "What it means for your form"], rows: [
+        ["`AuthenticationError`", "Wrong email or password."],
+        ["`PermissionError`", "The account cannot sign in right now, for example it is disabled or locked."],
+        ["`ValidationError`", "A field is wrong. `fieldError(\"email\")` gives the message to show."],
+        ["`ConflictError`", "On sign-up, that address already has an account."],
+        ["`RateLimitError`", "Too many tries. Wait, and honour `retryAfter`."],
+      ] } },
+      { p: "Sign-up and sign-in share a rate limit per address, so never retry in a loop. Set `autocomplete` to `email`, `current-password` and `new-password` so password managers work, and allow paste. Prefer a long minimum length to complicated character rules, and never log or email passwords." },
+    ],
+  },
+  {
+    title: "Password policy",
+    blocks: [
+      { p: "The password policy decides what counts as acceptable. It applies when someone signs up, resets a password, changes it, or an administrator sets one. Existing passwords keep working until they are changed, so tightening the policy never locks anyone out." },
+      { table: { head: ["Setting", "Meaning"], rows: [
+        ["Minimum length", "From 6 to 128 characters. The default is 8."],
+        ["Must contain", "Any of an uppercase letter, a lowercase letter, a number or a symbol."],
+        ["Different characters", "At least this many distinct characters, so `aaaaaaaa1` does not pass."],
+        ["Remember previous passwords", "A person cannot go back to one of their last few passwords."],
+        ["Passwords expire after", "After this many days a person must choose a new one. Zero means never."],
+        ["Refuse personal details", "Stops `ada2026` for Ada by checking the name, username and email."],
+        ["Refuse breached passwords", "Checked with a range service, so only the first five characters of a hash leave your server."],
+      ] } },
+      { p: "If the breach service is unreachable, the password is accepted rather than blocking sign-up." },
+    ],
+  },
+  {
+    title: "Two-step verification",
+    blocks: [
+      { p: "Two-step verification asks for a second proof after the first: a six-digit code from an authenticator app such as 1Password, Google Authenticator or Authy, or sent by email. Even if a password leaks, the account stays safe." },
+      { list: [
+        "**Authenticator app** is on by default.",
+        "**Email code** is convenient, and only as safe as the mailbox.",
+        "**Backup codes** are shown once at enrolment for when the phone is lost. Ten are issued by default.",
+      ] },
+      { p: "You choose who must use it: nobody, administrators, or everyone. When it is required, a person without a second factor is walked through setting one up before they get a session. A completed second step raises the session from `aal1` to `aal2`, and an access rule can demand `aal2` for sensitive actions, so a stolen password alone is not enough." },
+    ],
+  },
+  {
+    title: "Attack protection",
+    blocks: [
+      { p: "Someone guessing passwords makes many wrong attempts in a row. Attack protection locks an account for a while after a run of failures, and a correct sign-in clears the count. A locked account refuses sign-in even with the right password until the lock ends. Locked accounts and recent failed sign-ins are listed so you can unlock someone or spot an attack." },
+      { table: { head: ["App", "Failed attempts", "Lock"], rows: [
+        ["Consumer app", "10", "15 minutes"],
+        ["Business app", "5", "30 minutes"],
+        ["High risk, such as finance or admin", "3", "60 minutes, plus two-step required"],
+      ] } },
+      { note: "Keep the message neutral: \"We couldn't sign you in. Try again later or reset your password.\" Telling an attacker that an account is locked confirms it exists. A long lock can also be abused to lock people out deliberately, so pair it with two-step verification and alerts." },
+    ],
+  },
+  {
+    title: "Organizations and roles",
+    blocks: [
+      { p: "If your customers are companies or teams rather than individuals, use **organizations**. A person can belong to several, with a different role in each. Your rules can then say \"members of this organization can edit this project\". Each organization has members, smaller teams inside it, and invitations for people who do not have accounts yet." },
+      { table: { head: ["Organization role", "Typical power"], rows: [
+        ["`viewer`", "Read only"],
+        ["`member`", "Normal use"],
+        ["`admin`", "Manage people and settings"],
+        ["`owner`", "Everything, including deleting the organization"],
+      ] } },
+      { p: "Separately, a **role** is a named bundle of **permissions**, and you give people roles. A permission is a string of the form `resource:action`, where `*` is a wildcard, such as `posts:read`, `posts:*` or `*`. The names are yours, and Pawabase only matches strings, so a rule that checks for `editor` stays short and you can change what \"editor\" means in one place. Roles can also be granted automatically at sign-up." },
+    ],
+  },
+  {
+    title: "Keys, API keys and machines",
+    blocks: [
+      { p: "Separate from users, every request carries an API key that identifies your project. A **publishable key** (`pb_pk_…`) goes in client code and can only do what your public rules allow, and once a user signs in, requests are made as that user. A **secret key** (`pb_sk_…`) belongs on a trusted server and bypasses all rules, so never ship it." },
+      { p: "When a script needs to call your API without a password, there are two options. A **user API key** acts as the person who made it, with their permissions or a subset. A **machine** is a caller that is not a person, such as a nightly job, a backend, a CI pipeline or an AI agent, with its own roles and its own keys." },
+      { table: { head: ["", "User API key", "Machine"], rows: [
+        ["Acts as", "The person who made it", "Itself"],
+        ["If the person leaves", "The key stops", "Nothing changes"],
+        ["Permissions", "A subset of the person's", "Its own roles and permissions"],
+        ["Who creates it", "The person", "An administrator, with the secret key"],
+        ["In logs and policies", "Looks like the person", "`actor.type` is `machine`"],
+      ] } },
+      { p: "Both are off until you enable them for an environment, and both limit how many keys exist and how long a key may live. A key's secret is shown once, so store it when you create it." },
+    ],
+  },
 ];
-
-const MEMBERS = [
-  { name: "Ada Nwosu", email: "ada@northwind.com", role: "Owner", tone: PASTELS.peach },
-  { name: "Marcus Chen", email: "marcus@northwind.com", role: "Admin", tone: PASTELS.sky },
-  { name: "Inès Laurent", email: "ines@northwind.com", role: "Member", tone: PASTELS.rose },
-  { name: "Tunde Bakare", email: "tunde@northwind.com", role: "Member", tone: PASTELS.mint },
-];
-
-function Team() {
-  return (
-    <Card className="p-3">
-      <Mockup label="The Northwind organization with four members, their roles, and a pending invitation" className="sx-window block">
-        <div className="flex items-center justify-between border-b border-[var(--sx-line)] px-5 py-3">
-          <span className="flex items-center gap-2">
-            <span className="text-[15px] font-semibold">Northwind</span>
-            <span className="text-[12px] text-[var(--sx-faint)]">· Ops team</span>
-          </span>
-          <span className="sx-btn sx-btn-primary">
-            <Icon name="add" size={13} />
-            Invite
-          </span>
-        </div>
-        {MEMBERS.map((m) => (
-          <div key={m.email} className="flex h-[56px] items-center gap-3 border-b border-[var(--sx-line-soft)] px-5">
-            <Initials name={m.name} tone={m.tone} size={28} />
-            <span className="min-w-0 flex-1 leading-[1.3]">
-              <span className="block text-[13px] font-medium">{m.name}</span>
-              <span className="block truncate text-[12px] text-[var(--sx-faint)]">{m.email}</span>
-            </span>
-            <span className="sx-btn h-[26px] px-2 text-[11.5px] text-[var(--sx-muted)]">{m.role} ⌄</span>
-          </div>
-        ))}
-        <div className="flex h-[56px] items-center gap-3 px-5 text-[13px]">
-          <span className="grid h-7 w-7 place-items-center rounded-full border border-dashed border-[var(--sx-line)] text-[var(--sx-faint)]">
-            <Icon name="mail" size={13} />
-          </span>
-          <span className="flex-1 text-[var(--sx-muted)]">freya@olsen.no</span>
-          <span className="text-[12px] text-[var(--sx-faint)]">Invited · Member</span>
-        </div>
-      </Mockup>
-    </Card>
-  );
-}
-
-function TwoStep() {
-  return (
-    <Card className="p-3">
-      <Mockup label="Two-step verification turned on, with ten single-use recovery codes" className="sx-window grid min-[760px]:grid-cols-2">
-        <div className="border-b border-[var(--sx-line)] p-7 min-[760px]:border-b-0 min-[760px]:border-r">
-          <div className="flex items-center gap-2 text-[14px] font-semibold">
-            <span className="sx-dot bg-[var(--sx-ok)]" />
-            Two-step verification is on
-          </div>
-          <p className="mt-2 text-[12.5px] leading-[1.6] text-[var(--sx-muted)]">
-            Ada signs in with a code from her authenticator app. If she loses
-            her phone, a recovery code gets her back in.
-          </p>
-          <div className="mt-6 grid grid-cols-6 gap-2">
-            {"204816".split("").map((d, i) => (
-              <span key={i} className="sx-mono grid h-[42px] place-items-center rounded-[8px] border border-[var(--sx-line)] text-[16px]">{d}</span>
-            ))}
-          </div>
-        </div>
-        <div className="p-7">
-          <div className="text-[14px] font-semibold">Recovery codes</div>
-          <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5">
-            {["k7f2-9qxd", "m3p8-2hvn", "t9c4-7wbe", "a1r6-5yzu", "q5n3-8kfl", "w2j9-4dmc", "e8g1-6tsa", "h4v7-3xpo", "z6b2-1lqi", "y3s5-9cnr"].map((code, i) => (
-              <span key={code} className="sx-mono text-[12.5px]" style={{ color: i === 3 ? "var(--sx-faint)" : "var(--sx-muted)", textDecoration: i === 3 ? "line-through" : "none" }}>
-                {code}
-              </span>
-            ))}
-          </div>
-        </div>
-      </Mockup>
-    </Card>
-  );
-}
-
-function Sessions() {
-  return (
-    <Card className="p-3">
-      <Mockup label="Ada's active sessions on three devices, each of which can be signed out" className="sx-window block">
-        <div className="flex items-center justify-between border-b border-[var(--sx-line)] px-5 py-3">
-          <span className="text-[14px] font-semibold">Sessions · Ada Nwosu</span>
-          <span className="text-[12px] text-[var(--sx-muted)]">Sign out everywhere</span>
-        </div>
-        {[
-          ["MacBook Pro · Safari", "Active now", true],
-          ["iPhone 15 · Northwind app", "12 min ago", false],
-          ["Windows · Chrome", "3 days ago", false],
-        ].map(([device, seen, current]) => (
-          <div key={device as string} className="flex h-[54px] items-center gap-3 border-b border-[var(--sx-line-soft)] px-5 text-[13px] last:border-b-0">
-            <Icon name={current ? "activity" : "realtime"} size={16} variant="TwoTone" className="text-[var(--sx-muted)]" />
-            <span className="flex-1">{device as string}</span>
-            <span className="text-[12px] text-[var(--sx-faint)]">{seen as string}</span>
-            {current ? <span className="w-[64px] text-right text-[12px] text-[var(--sx-ok)]">This one</span> : <span className="w-[64px] text-right text-[12px] text-[var(--sx-muted)]">Sign out</span>}
-          </div>
-        ))}
-      </Mockup>
-    </Card>
-  );
-}
 
 export default function AuthenticationPage() {
   return (
-    <ProductShell title="Authentication" description="Users, organizations, sessions and two-step verification, ready on launch day.">
-      <Band className="pb-[clamp(72px,9vw,120px)] pt-[clamp(56px,7vw,96px)]" backdrop={<>{backdrop.dots("25%", "50%")}{backdrop.glow("25%", "30%", "760px", "560px")}</>}>
-        <Split
-          flip
-          copy={
-            <div className="flex flex-col gap-6">
-              <ProductName icon="users" name="Authentication" />
-              <Display quiet="Without the headache.">Sign-in, handled.</Display>
-              <p className="max-w-[40ch] text-[16px] leading-[1.65] text-muted">
-                Social sign-in, magic links, two-step codes, teams and invites.
-                Everything your users expect on day one, and none of it to
-                build yourself.
-              </p>
-              <HeroActions />
-            </div>
-          }
-          visual={<SignIn />}
-        />
-      </Band>
-
-      <Band labelledBy="auth-methods" className="py-[clamp(72px,9vw,120px)]">
-        <Copy id="auth-methods" center title="Every way in." quiet="Switched on with a toggle.">
-          Offer the sign-in your users prefer, and connect your company's own
-          identity provider when the big customers arrive.
-        </Copy>
-        <ul className="mx-auto mt-14 grid max-w-[980px] grid-cols-2 gap-y-12 min-[640px]:grid-cols-3 min-[1000px]:grid-cols-6">
-          {METHODS.map((m) => (
-            <li key={m.name} className="group flex flex-col items-center gap-3 text-center">
-              <span className="text-white/45 transition-colors duration-200 group-hover:text-brand">{m.node}</span>
-              <span className="text-[13.5px] text-muted">{m.name}</span>
-            </li>
-          ))}
-        </ul>
-      </Band>
-
-      <Band labelledBy="auth-teams" className="py-[clamp(72px,9vw,120px)]" backdrop={backdrop.hatch("85%", "50%")}>
-        <Split
-          ratio="wide-visual"
-          copy={
-            <Copy id="auth-teams" title="From one user to whole teams." quiet="Built in, not bolted on.">
-              Organizations, teams, roles and invitations come ready, and your
-              access rules can use them straight away.
-            </Copy>
-          }
-          visual={<Team />}
-        />
-      </Band>
-
-      <Band labelledBy="auth-mfa" className="py-[clamp(72px,9vw,120px)]">
-        <Copy id="auth-mfa" center title="A second lock on every door." quiet="And a spare key.">
-          Two-step verification with an authenticator app, and recovery codes
-          for the day someone loses their phone.
-        </Copy>
-        <div className="mx-auto mt-12 max-w-[980px]">
-          <TwoStep />
-        </div>
-      </Band>
-
-      <Band labelledBy="auth-sessions" className="py-[clamp(72px,9vw,120px)]">
-        <Split
-          flip
-          copy={
-            <Copy id="auth-sessions" title="Every session, in view." quiet="And easy to end.">
-              See where people are signed in, end one session or all of them,
-              and enforce the password policy your security team asks for.
-            </Copy>
-          }
-          visual={<Sessions />}
-        />
-        <Points
-          className="mt-[clamp(64px,8vw,96px)]"
-          items={[
-            { icon: "policies", title: "Password policy", copy: "Set length and strength rules, and check them on every change." },
-            { icon: "mail", title: "Email verification", copy: "Confirm addresses before accounts go live." },
-            { icon: "apiSecurity", title: "Personal API keys", copy: "Let users create keys for their own integrations." },
-          ]}
-        />
-      </Band>
-
-      <Band labelledBy="auth-code" className="py-[clamp(72px,9vw,120px)]" backdrop={backdrop.glow("70%", "50%", "820px", "480px")}>
-        <Split
-          ratio="wide-visual"
-          copy={
-            <Copy id="auth-code" title="A few lines in your app." quiet="Sessions kept fresh for you.">
-              Sign people in, ask for their second step when it's on, and react
-              when they come and go. Tokens refresh on their own.
-            </Copy>
-          }
-          visual={
-            <CodeCard
-              file="sign-in.ts"
-              label="Signing in with a password, asking for a two-step code when required, and listening for sign-in changes"
-              lines={[
-                "const result = await pawabase.auth.signInWithPassword({ email, password });",
-                "",
-                'if (result.status === "mfa_required") {',
-                "  await result.verify(codeFromAuthenticator);",
-                "}",
-                "",
-                "pawabase.auth.onAuthStateChange((event, session) => {",
-                '  if (event === "SIGNED_OUT") router.push("/login");',
-                "});",
-              ]}
-            />
-          }
-        />
-      </Band>
-
-      <ProductCta
-        title="Let people in."
-        quiet="Keep everyone else out."
-        next={{ label: "Next: Access policies", href: "/products/policies" }}
-        backdrop={backdrop.rings("50%", "100%")}
-      />
-    </ProductShell>
+    <ProductArticle
+      icon="users"
+      name="Authentication"
+      category="Access"
+      description="Users, organizations, sessions and two-step verification, ready on launch day."
+      intro="Authentication gives your app users, sessions and the security around them, without a service of your own to build. This page explains how users and tokens work, the ways people can sign in, and the controls that keep accounts safe."
+      sections={SECTIONS}
+      next={{ label: "Next: Access policies", href: "/products/policies" }}
+    />
   );
 }
