@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 
 import { Icon, type IconName } from "@/components/Icon";
+import { Junctions } from "@/components/landing/Junctions";
 import { Band } from "@/components/landing/Section";
 
 import { APP_URL, DOCS_URL, ProductShell } from "./kit";
@@ -179,6 +180,8 @@ export function ProductArticle({
       </section>
 
       <div className="relative">
+        <Junctions />
+        <Junctions edge="bottom" />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-[min(calc(100%-32px),1320px)] -translate-x-1/2 border-x border-line"

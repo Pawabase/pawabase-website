@@ -6,6 +6,7 @@ import { FeatureBento } from "@/components/landing/FeatureBento";
 import { FinalCta } from "@/components/landing/FinalCta";
 import { Footer } from "@/components/landing/Footer";
 import { FrontendsSection } from "@/components/landing/FrontendsSection";
+import { Junctions } from "@/components/landing/Junctions";
 import { Hero } from "@/components/landing/Hero";
 import { Mission } from "@/components/landing/Mission";
 import { PlatformStack } from "@/components/landing/PlatformStack";
@@ -34,36 +35,47 @@ export default function Landing() {
           />
           <Hero />
           <div className="relative border-t border-line">
+            <Junctions />
             <FeatureBento />
           </div>
           <div className="relative border-t border-line">
+            <Junctions />
             <Mission />
           </div>
           <div className="relative border-t border-line">
+            <Junctions />
             <PlatformStack />
           </div>
           <div className="relative border-t border-line">
+            <Junctions />
             <StepsSection />
           </div>
           <div className="relative border-t border-line">
+            <Junctions />
             <ConnectSection />
           </div>
           <div className="relative border-t border-line">
+            <Junctions />
             <AgentsSection />
           </div>
           <div className="relative border-t border-line">
+            <Junctions />
             <FrontendsSection />
           </div>
           <div className="relative border-t border-line">
+            <Junctions />
             <CloudSection />
           </div>
           <div className="relative border-t border-line">
+            <Junctions />
             <PricingSection />
           </div>
           <div className="relative border-t border-line">
+            <Junctions />
             <FaqSection />
           </div>
           <div className="relative border-t border-line">
+            <Junctions />
             <FinalCta />
           </div>
         </main>

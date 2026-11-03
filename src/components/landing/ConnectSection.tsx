@@ -189,10 +189,10 @@ export function ConnectSection() {
       id="connect"
       labelledBy="connect-title"
       wide
-      className="bg-[#06080b] py-0"
+      className="py-0"
     >
-      <div className="relative left-1/2 w-screen -translate-x-1/2 border-b border-line pb-[clamp(40px,5vw,64px)] pt-[clamp(32px,4vw,56px)]">
-        <div data-reveal="up" className="mx-auto flex max-w-[1180px] flex-col items-center gap-6 px-5 text-center">
+      <div className="mx-auto max-w-[1180px] pb-[clamp(40px,5vw,72px)]">
+        <div data-reveal="up" className="flex flex-col items-center gap-6 px-5 pt-[clamp(32px,4vw,56px)] text-center">
           <Eyebrow>Ways to connect</Eyebrow>
           <div
             role="tablist"
@@ -218,9 +218,8 @@ export function ConnectSection() {
             })}
           </div>
         </div>
-      </div>
 
-      <div className="mx-auto max-w-[1180px]">
+        <div className="px-6 min-[980px]:px-10">
         <div
           id="connect-example"
           role="tabpanel"
@@ -312,6 +311,7 @@ export function ConnectSection() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </Band>

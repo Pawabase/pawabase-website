@@ -7,7 +7,6 @@ export function PricingSection() {
     <Band
       id="pricing"
       labelledBy="pricing-title"
-      wide
       className="py-[clamp(72px,9vw,128px)]"
     >
       <div data-reveal="up" className="mx-auto flex max-w-[720px] flex-col items-center gap-5 text-center">
