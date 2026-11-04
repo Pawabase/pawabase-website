@@ -194,7 +194,7 @@ export function Initials({
         width: size,
         height: size,
         background: tone,
-        color: "#06080b",
+        color: "#121316",
         fontSize: size * 0.4,
       }}
     >
@@ -204,12 +204,12 @@ export function Initials({
 }
 
 export const PASTELS = {
-  lavender: "#F5F3EE",
-  peach: "#F5F3EE",
-  mint: "#F5F3EE",
-  butter: "#F5F3EE",
-  sky: "#F5F3EE",
-  rose: "#F5F3EE",
+  lavender: "#FCF8F5",
+  peach: "#FCF8F5",
+  mint: "#FCF8F5",
+  butter: "#FCF8F5",
+  sky: "#FCF8F5",
+  rose: "#FCF8F5",
 };
 
 /* Python and TypeScript share one quiet palette; the keyword list covers both. */
@@ -221,12 +221,12 @@ const PY_TOKENS =
 
 function pyColor(token: string, next: string) {
   if (token.startsWith("#")) return "var(--sx-faint)";
-  if (token.startsWith('"') || token.startsWith("'")) return "#F5F3EE";
+  if (token.startsWith('"') || token.startsWith("'")) return "#FCF8F5";
   if (token.startsWith("@")) return "var(--sx-brand)";
-  if (PY_KEYWORDS.has(token)) return "#F5F3EE";
-  if (/^\d/.test(token)) return "#F5F3EE";
-  if (next.startsWith("(")) return "#F5F3EE";
-  return "#F5F3EE";
+  if (PY_KEYWORDS.has(token)) return "#FCF8F5";
+  if (/^\d/.test(token)) return "#FCF8F5";
+  if (next.startsWith("(")) return "#FCF8F5";
+  return "#FCF8F5";
 }
 
 /** Studio's code view: numbered lines, Geist Mono, quiet colours. */

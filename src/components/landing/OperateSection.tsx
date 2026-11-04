@@ -43,7 +43,7 @@ export function ReleaseTrack() {
     >
       {LANES.map((lane) => (
         <g key={lane.name}>
-          <text x={0} y={lane.y + 4} fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill="#70757D">
+          <text x={0} y={lane.y + 4} fontSize="13" fontFamily="Plus Jakarta Sans, sans-serif" fill="#70757D">
             {lane.name}
           </text>
           <line x1={X0} x2={X1} y1={lane.y} y2={lane.y} style={{ stroke: "rgba(245,243,238,0.08)" }} />
@@ -92,11 +92,11 @@ export function ReleaseTrack() {
                 r={lit ? 7 : 5.5}
                 style={{
                   fill: "var(--hl-plate)",
-                  stroke: lit ? "#F5F3EE" : isLive ? "rgba(245,243,238,0.7)" : "rgba(245,243,238,0.35)",
+                  stroke: lit ? "#FCF8F5" : isLive ? "rgba(245,243,238,0.7)" : "rgba(245,243,238,0.35)",
                 }}
               />
-              {lit ? <circle cx={x} cy={y} r={2.5} style={{ fill: "#F5F3EE", stroke: "none" }} /> : null}
-              <text x={x} y={y - 14} textAnchor="middle" fontSize="11" fill={isLive ? "#F5F3EE" : "#70757D"}>
+              {lit ? <circle cx={x} cy={y} r={2.5} style={{ fill: "#FCF8F5", stroke: "none" }} /> : null}
+              <text x={x} y={y - 14} textAnchor="middle" fontSize="11" fill={isLive ? "#FCF8F5" : "#70757D"}>
                 #{r.n}
               </text>
             </g>
@@ -104,7 +104,7 @@ export function ReleaseTrack() {
         });
       })}
 
-      <text x={liveX + 16} y={254} fontSize="11" fill="#F5F3EE">
+      <text x={liveX + 16} y={254} fontSize="11" fill="#FCF8F5">
         live
       </text>
       <text x={prevX - 16} y={254} textAnchor="end" fontSize="11" fill="#70757D">
@@ -117,7 +117,7 @@ export function ReleaseTrack() {
         className="hl-travel"
         style={
           {
-            fill: "#F5F3EE",
+            fill: "#FCF8F5",
             stroke: "none",
             "--path": `path("${drop(live.x)}")`,
             "--dur": "3.6s",

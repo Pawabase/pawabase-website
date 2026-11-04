@@ -4,15 +4,15 @@
  */
 .hairline {
   --hl-plate: var(--color-shell);
-  --hl-hi: #F5F3EE;
+  --hl-hi: #FCF8F5;
   --hl-edge: #70757D;
   --hl-mid: #34383F;
   --hl-lo: #34383F;
-  --hl-brand: #F5F3EE;
+  --hl-brand: #FCF8F5;
 
   display: block;
   overflow: visible;
-  font-family: "PP Neue Montreal", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 .card .hairline {

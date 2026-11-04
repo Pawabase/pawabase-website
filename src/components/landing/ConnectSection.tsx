@@ -106,10 +106,10 @@ const THEME: PrismTheme = {
   plain: { color: "#D4D8DE", backgroundColor: "transparent" },
   styles: [
     { types: ["comment", "prolog", "doctype"], style: { color: "#627a68" } },
-    { types: ["keyword", "operator", "boolean", "important"], style: { color: "#2dd4bf" } },
+    { types: ["keyword", "operator", "boolean", "important"], style: { color: "#FF6A00" } },
     { types: ["string", "attr-value", "template-string"], style: { color: "#e3c391" } },
     { types: ["function", "method"], style: { color: "#dcdcaa" } },
-    { types: ["class-name", "builtin"], style: { color: "#5eead4" } },
+    { types: ["class-name", "builtin"], style: { color: "#FFD27A" } },
     { types: ["number", "constant", "symbol"], style: { color: "#b5cea8" } },
     { types: ["punctuation"], style: { color: "#8d97a5" } },
     { types: ["variable", "parameter", "property"], style: { color: "#9cdcfe" } },

@@ -191,24 +191,24 @@ function HighlightedLine({ line }: { line: string }) {
   return (
     <>
       {tokens.map((token, index) => {
-        let color = "#F5F3EE";
+        let color = "#FCF8F5";
 
         if (token.startsWith("//")) {
-          color = "#F5F3EE";
+          color = "#FCF8F5";
         } else if (
           token.startsWith('"') ||
           token.startsWith("'") ||
           token.startsWith("`")
         ) {
-          color = "#F5F3EE";
+          color = "#FCF8F5";
         } else if (KEYWORDS.has(token)) {
-          color = "#F5F3EE";
+          color = "#FCF8F5";
         } else if (FUNCTIONS.has(token)) {
-          color = "#F5F3EE";
+          color = "#FCF8F5";
         } else if (TYPES.has(token)) {
-          color = "#F5F3EE";
+          color = "#FCF8F5";
         } else if (/^\d+$/.test(token)) {
-          color = "#F5F3EE";
+          color = "#FCF8F5";
         }
 
         return (
@@ -335,11 +335,11 @@ export function StackShowcase() {
               id="framework-code"
               role="tabpanel"
               aria-labelledby={`framework-tab-${activeIndex}`}
-              className="relative z-[1] ml-auto w-[94%] max-w-[620px] overflow-hidden rounded-tl-xl border-l border-t border-[#34383F] bg-[#06080b]"
+              className="relative z-[1] ml-auto w-[94%] max-w-[620px] overflow-hidden rounded-tl-xl border-l border-t border-[#34383F] bg-[#121316]"
             >
               <div className="relative h-[300px] overflow-hidden min-[768px]:h-[340px]">
 
-                <pre className="absolute inset-0 overflow-hidden px-5 py-6 font-mono text-[11px] leading-[1.95] text-[#F5F3EE]">
+                <pre className="absolute inset-0 overflow-hidden px-5 py-6 font-mono text-[11px] leading-[1.95] text-[#FCF8F5]">
                   <code>
                     {framework.code
                       .split("\n")
@@ -363,7 +363,7 @@ export function StackShowcase() {
                 {/* Subtle bottom fade */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[125px] bg-gradient-to-b from-transparent via-[#06080b]/70 to-[#06080b]"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[125px] bg-gradient-to-b from-transparent via-[#121316]/70 to-[#121316]"
                 />
               </div>
             </div>

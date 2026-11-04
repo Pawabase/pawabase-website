@@ -62,7 +62,7 @@ const LAYERS: Layer[] = [
     muted: "text-text/70",
     style: {
       background:
-        "radial-gradient(70% 90% at 92% 112%, rgba(45,212,191,0.5) 0%, rgba(45,212,191,0) 62%), linear-gradient(135deg, #0d2f2c 0%, #0b1a1a 100%)",
+        "radial-gradient(70% 90% at 92% 112%, rgba(255,106,0,0.5) 0%, rgba(255,106,0,0) 62%), linear-gradient(135deg, #0d2f2c 0%, #0b1a1a 100%)",
     },
     visual: <Spec rows={FLOWS} divider="divide-white/[0.14]" term="text-text" />,
   },

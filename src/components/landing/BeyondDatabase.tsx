@@ -13,7 +13,7 @@ const USERS = [
     role: "Admin",
     status: "Active",
     avatar: "bg-brand/15 text-brand",
-    dot: "bg-[#F5F3EE]",
+    dot: "bg-[#FCF8F5]",
   },
   {
     initials: "JL",
@@ -21,8 +21,8 @@ const USERS = [
     email: "jonas@acme.co",
     role: "Editor",
     status: "Active",
-    avatar: "bg-[#F5F3EE]/15 text-[#F5F3EE]",
-    dot: "bg-[#F5F3EE]",
+    avatar: "bg-[#FCF8F5]/15 text-[#FCF8F5]",
+    dot: "bg-[#FCF8F5]",
   },
   {
     initials: "SK",
@@ -30,8 +30,8 @@ const USERS = [
     email: "sofia@acme.co",
     role: "Viewer",
     status: "Invited",
-    avatar: "bg-[#F5F3EE]/12 text-[#F5F3EE]",
-    dot: "bg-[#F5F3EE]",
+    avatar: "bg-[#FCF8F5]/12 text-[#FCF8F5]",
+    dot: "bg-[#FCF8F5]",
   },
   {
     initials: "DR",
@@ -39,8 +39,8 @@ const USERS = [
     email: "diego@acme.co",
     role: "Editor",
     status: "Active",
-    avatar: "bg-[#F5F3EE]/12 text-[#F5F3EE]",
-    dot: "bg-[#F5F3EE]",
+    avatar: "bg-[#FCF8F5]/12 text-[#FCF8F5]",
+    dot: "bg-[#FCF8F5]",
   },
   {
     initials: "PS",
@@ -49,7 +49,7 @@ const USERS = [
     role: "Viewer",
     status: "Active",
     avatar: "bg-white/[0.06] text-white/60",
-    dot: "bg-[#F5F3EE]",
+    dot: "bg-[#FCF8F5]",
   },
   {
     initials: "NB",
@@ -57,8 +57,8 @@ const USERS = [
     email: "noah@acme.co",
     role: "Editor",
     status: "Active",
-    avatar: "bg-[#F5F3EE]/15 text-[#F5F3EE]",
-    dot: "bg-[#F5F3EE]",
+    avatar: "bg-[#FCF8F5]/15 text-[#FCF8F5]",
+    dot: "bg-[#FCF8F5]",
   },
   {
     initials: "LO",
@@ -66,8 +66,8 @@ const USERS = [
     email: "lena@acme.co",
     role: "Viewer",
     status: "Invited",
-    avatar: "bg-[#F5F3EE]/12 text-[#F5F3EE]",
-    dot: "bg-[#F5F3EE]",
+    avatar: "bg-[#FCF8F5]/12 text-[#FCF8F5]",
+    dot: "bg-[#FCF8F5]",
   },
   {
     initials: "MC",
@@ -76,7 +76,7 @@ const USERS = [
     role: "Admin",
     status: "Active",
     avatar: "bg-brand/15 text-brand",
-    dot: "bg-[#F5F3EE]",
+    dot: "bg-[#FCF8F5]",
   },
   {
     initials: "AO",
@@ -85,7 +85,7 @@ const USERS = [
     role: "Viewer",
     status: "Active",
     avatar: "bg-white/[0.06] text-white/60",
-    dot: "bg-[#F5F3EE]",
+    dot: "bg-[#FCF8F5]",
   },
 ];
 
@@ -155,8 +155,8 @@ const RUNS = [
     name: "Send welcome email",
     meta: "12 runs today",
     status: "Done",
-    dot: "bg-[#F5F3EE]",
-    statusClass: "text-[#F5F3EE]",
+    dot: "bg-[#FCF8F5]",
+    statusClass: "text-[#FCF8F5]",
   },
   {
     name: "Sync Stripe invoices",
@@ -176,15 +176,15 @@ const RUNS = [
     name: "Deliver webhooks",
     meta: "48 delivered",
     status: "Done",
-    dot: "bg-[#F5F3EE]",
-    statusClass: "text-[#F5F3EE]",
+    dot: "bg-[#FCF8F5]",
+    statusClass: "text-[#FCF8F5]",
   },
   {
     name: "Rebuild search index",
     meta: "3 runs today",
     status: "Done",
-    dot: "bg-[#F5F3EE]",
-    statusClass: "text-[#F5F3EE]",
+    dot: "bg-[#FCF8F5]",
+    statusClass: "text-[#FCF8F5]",
   },
 ];
 
@@ -197,7 +197,7 @@ function UiPanel({
 }) {
   return (
     <div
-      className={`flex flex-col overflow-hidden border-t border-line bg-[#06080b] ${className}`}
+      className={`flex flex-col overflow-hidden border-t border-line bg-[#121316] ${className}`}
     >
       {children}
     </div>
@@ -214,7 +214,7 @@ function IdentityUi() {
             Search users
           </span>
         </span>
-        <span className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-md bg-brand px-3 text-[12px] font-semibold text-[#06080b]">
+        <span className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-md bg-brand px-3 text-[12px] font-semibold text-[#121316]">
           <Icon name="add" size={12} />
           Invite
         </span>
@@ -276,10 +276,10 @@ function RealtimeUi() {
     <UiPanel className="h-[220px] min-[1120px]:h-full">
       <div className="flex h-12 shrink-0 items-center justify-between border-b border-line px-4">
         <span className="inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.1em] text-white/65">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#F5F3EE] motion-reduce:animate-none" />
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#FCF8F5] motion-reduce:animate-none" />
           Live feed
         </span>
-        <span className="inline-flex items-center gap-1.5 text-[11px] text-white/35"><span className="h-1.5 w-1.5 rounded-full bg-[#F5F3EE]" />Live</span>
+        <span className="inline-flex items-center gap-1.5 text-[11px] text-white/35"><span className="h-1.5 w-1.5 rounded-full bg-[#FCF8F5]" />Live</span>
       </div>
 
       {EVENTS.slice(0, 3).map((event, index) => (

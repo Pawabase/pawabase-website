@@ -3,8 +3,8 @@ import { Icon, type IconName } from "@/components/Icon";
 import { Band } from "./Section";
 
 const TONES = {
-  teal: "bg-brand text-[#03201c]",
-  cream: "bg-[#F5F3EE] text-[#06080b]",
+  teal: "bg-brand text-[#121316]",
+  cream: "bg-[#FCF8F5] text-[#121316]",
   deep: "bg-[#0f3d38] text-brand",
 } as const;
 
@@ -61,5 +61,47 @@ export function Mission() {
         </a>
       </div>
     </Band>
+  );
+}
+
+/** The statement under the mission. The section rules and the page rails are the frame. */
+export function Pledge() {
+  return (
+    <div role="region" aria-label="Why one backend" className="relative py-[clamp(72px,9vw,128px)]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-1/2 w-[min(calc(100%-32px),1320px)] -translate-x-1/2"
+        style={{
+          backgroundImage: "radial-gradient(rgba(245,243,238,0.18) 0.7px, transparent 0.7px)",
+          backgroundSize: "16px 16px",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 left-1/2 h-48 w-[min(calc(100%-32px),1320px)] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(255,106,0,0.1),transparent_68%)]"
+      />
+      <div data-reveal="up" className="relative mx-auto max-w-[1100px] px-6 text-center min-[768px]:px-10">
+        <p className="m-0 text-[clamp(22px,2.7vw,36px)] font-medium leading-[1.45] tracking-[-0.025em] text-text">
+          Every backend you assemble by hand is a
+          <span className="mx-[0.2em] inline-flex translate-y-[0.08em] items-center align-baseline">
+            <span aria-hidden="true" className="hidden h-px w-[clamp(28px,4vw,72px)] bg-gradient-to-r from-transparent to-[#e87870]/80 min-[720px]:block" />
+            <span className="relative mx-2 inline-flex px-[0.45em] py-[0.08em] text-[#f0b0aa] [text-shadow:0_0_22px_rgba(232,120,112,0.45)]">
+              <span aria-hidden="true" className="absolute left-0 top-0 size-[0.35em] border-l border-t border-[#e87870]" />
+              <span aria-hidden="true" className="absolute right-0 top-0 size-[0.35em] border-r border-t border-[#e87870]" />
+              <span aria-hidden="true" className="absolute bottom-0 left-0 size-[0.35em] border-b border-l border-[#e87870]" />
+              <span aria-hidden="true" className="absolute bottom-0 right-0 size-[0.35em] border-b border-r border-[#e87870]" />
+              week spent on plumbing
+            </span>
+            <span aria-hidden="true" className="hidden h-px w-[clamp(28px,4vw,72px)] bg-gradient-to-l from-transparent to-[#e87870]/80 min-[720px]:block" />
+          </span>
+        </p>
+        <p className="m-0 mt-[clamp(28px,4vw,48px)] text-[clamp(22px,2.7vw,36px)] font-medium leading-[1.45] tracking-[-0.025em] text-text">
+          Pawabase is one backend, so the time you have goes to{" "}
+          <span className="inline-flex translate-y-[0.06em] rounded-[8px] border border-brand/30 bg-brand/[0.08] px-[0.4em] py-[0.04em] align-baseline text-brand">
+            the product
+          </span>
+        </p>
+      </div>
+    </div>
   );
 }

@@ -65,10 +65,10 @@ export function AccessFigure() {
                 r={14}
                 style={{ stroke: lit ? "var(--hl-brand)" : "var(--hl-mid)" }}
               />
-              <text x={70} y={c.y + 4} textAnchor="middle" fontSize="10" fill={lit ? "#F5F3EE" : "#70757D"}>
+              <text x={70} y={c.y + 4} textAnchor="middle" fontSize="10" fill={lit ? "#FCF8F5" : "#70757D"}>
                 {c.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}
               </text>
-              <text x={96} y={c.y - 3} fontSize="13" fontFamily="PP Neue Montreal, sans-serif" fill={lit ? "#F5F3EE" : "#70757D"}>
+              <text x={96} y={c.y - 3} fontSize="13" fontFamily="Plus Jakarta Sans, sans-serif" fill={lit ? "#FCF8F5" : "#70757D"}>
                 {c.name}
               </text>
               <text x={96} y={c.y + 14} fontSize="10.5" fill="#70757D">
@@ -86,19 +86,19 @@ export function AccessFigure() {
         {/* the policy */}
         <rect x={GATE.x} y={GATE.y} width={GATE.w} height={GATE.h} rx={12} style={{ stroke: "var(--hl-edge)" }} />
         <line className="hl-line" x1={GATE.x} x2={GATE.x + GATE.w} y1={GATE.y + 44} y2={GATE.y + 44} />
-        <text x={GATE.x + 18} y={GATE.y + 27} fontSize="12" fontFamily="PP Neue Montreal, sans-serif" fill="#F5F3EE">
+        <text x={GATE.x + 18} y={GATE.y + 27} fontSize="12" fontFamily="Plus Jakarta Sans, sans-serif" fill="#FCF8F5">
           Owners manage their orders
         </text>
         <text x={GATE.x + 18} y={GATE.y + 76} fontSize="10.5" fill="#70757D">allow list, read, update when</text>
         <rect x={GATE.x + 16} y={GATE.y + 92} width={GATE.w - 32} height={30} rx={6} style={{ stroke: active === 0 ? "var(--hl-brand)" : "var(--hl-mid)" }} />
-        <text x={GATE.x + 28} y={GATE.y + 111} fontSize="11" fill="#F5F3EE">owns the record · owner_id</text>
+        <text x={GATE.x + 28} y={GATE.y + 111} fontSize="11" fill="#FCF8F5">owns the record · owner_id</text>
         <text x={GATE.x + 28} y={GATE.y + 146} fontSize="10.5" fill="#70757D">or</text>
         <rect x={GATE.x + 16} y={GATE.y + 160} width={GATE.w - 32} height={30} rx={6} style={{ stroke: active === 1 ? "var(--hl-brand)" : "var(--hl-mid)" }} />
-        <text x={GATE.x + 28} y={GATE.y + 179} fontSize="11" fill="#F5F3EE">has role · admin</text>
+        <text x={GATE.x + 28} y={GATE.y + 179} fontSize="11" fill="#FCF8F5">has role · admin</text>
         <line className="hl-line" x1={GATE.x} x2={GATE.x + GATE.w} y1={GATE.y + 222} y2={GATE.y + 222} style={{ stroke: "var(--hl-lo)" }} />
         <text x={GATE.x + 18} y={GATE.y + 250} fontSize="10.5" fill="#70757D">applies to</text>
         <text x={GATE.x + 18} y={GATE.y + 270} fontSize="11" fill="#70757D">REST API · files · realtime</text>
-        <text x={GATE.x + 18} y={GATE.y + 304} fontSize="10.5" fill={active === 2 ? "#F5F3EE" : "#70757D"}>
+        <text x={GATE.x + 18} y={GATE.y + 304} fontSize="10.5" fill={active === 2 ? "#FCF8F5" : "#70757D"}>
           {active === 2 ? "no rule matched · refused" : "checked on every request"}
         </text>
 
@@ -122,17 +122,17 @@ export function AccessFigure() {
           return (
             <g key={row.id}>
               <rect x={860} y={row.y - 18} width={200} height={36} rx={6} style={{ stroke: lit ? "var(--hl-hi)" : "var(--hl-lo)" }} />
-              <text x={876} y={row.y + 4} fontSize="11" fill={lit ? "#F5F3EE" : "#34383F"}>
+              <text x={876} y={row.y + 4} fontSize="11" fill={lit ? "#FCF8F5" : "#34383F"}>
                 {row.id}
               </text>
-              <text x={924} y={row.y + 4} fontSize="12" fontFamily="PP Neue Montreal, sans-serif" fill={lit ? "#70757D" : "#34383F"}>
+              <text x={924} y={row.y + 4} fontSize="12" fontFamily="Plus Jakarta Sans, sans-serif" fill={lit ? "#70757D" : "#34383F"}>
                 {row.owner}
               </text>
             </g>
           );
         })}
         <text x={860} y={78} fontSize="10.5" fill="#70757D">orders</text>
-        <text key={`r${tick}`} x={1060} y={78} fontSize="10.5" textAnchor="end" fill={active === 2 ? "#F5F3EE" : "#70757D"}>
+        <text key={`r${tick}`} x={1060} y={78} fontSize="10.5" textAnchor="end" fill={active === 2 ? "#FCF8F5" : "#70757D"}>
           {caller.result}
         </text>
 

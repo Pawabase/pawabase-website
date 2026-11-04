@@ -1,59 +1,24 @@
 @import "tailwindcss";
-
-@font-face {
-  font-family: "PP Neue Montreal";
-  src: url("https://fonts.cdnfonts.com/s/100431/ppneuemontreal-book.woff")
-    format("woff");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Neue Montreal";
-  src: url("https://fonts.cdnfonts.com/s/100431/ppneuemontreal-medium.woff")
-    format("woff");
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Neue Montreal";
-  src: url("https://fonts.cdnfonts.com/s/100431/ppneuemontreal-medium.woff")
-    format("woff");
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Neue Montreal";
-  src: url("https://fonts.cdnfonts.com/s/100431/ppneuemontreal-bold.woff")
-    format("woff");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
+@font-face { font-family: "Plus Jakarta Sans"; src: url("/brand/PlusJakartaSans-Variable.ttf") format("truetype"); font-weight: 200 800; font-style: normal; font-display: swap; }
 
 @theme {
-  --color-page: #06080b;
-  --color-shell: #06080b;
-  --color-deep: #06080b;
-  --color-elevated: color-mix(in srgb, #F5F3EE 7%, #06080b);
-  --color-text: #F5F3EE;
-  --color-muted: color-mix(in srgb, #F5F3EE 68%, #06080b);
-  --color-faint: color-mix(in srgb, #F5F3EE 51%, #06080b);
-  --color-brand: #2dd4bf;
-  --color-lavender: #F5F3EE;
+  --color-page: #121316;
+  --color-shell: #121316;
+  --color-deep: #121316;
+  --color-elevated: color-mix(in srgb, #FCF8F5 7%, #121316);
+  --color-text: #FCF8F5;
+  --color-muted: color-mix(in srgb, #FCF8F5 68%, #121316);
+  --color-faint: color-mix(in srgb, #FCF8F5 51%, #121316);
+  --color-brand: #FF6A00;
+  --color-lavender: #FCF8F5;
   --color-line: #1f252e;
-  --color-line-subtle: color-mix(in srgb, #F5F3EE 10%, #06080b);
-  --color-surface: color-mix(in srgb, #F5F3EE 3%, #06080b);
-  --color-card: color-mix(in srgb, #F5F3EE 4%, #06080b);
-  --color-tint: color-mix(in srgb, #F5F3EE 2%, #06080b);
-  --color-warm: color-mix(in srgb, #F5F3EE 2%, #06080b);
-  --font-sans: "PP Neue Montreal", sans-serif;
-  --font-mono: "PP Neue Montreal", sans-serif;
+  --color-line-subtle: color-mix(in srgb, #FCF8F5 10%, #121316);
+  --color-surface: color-mix(in srgb, #FCF8F5 3%, #121316);
+  --color-card: color-mix(in srgb, #FCF8F5 4%, #121316);
+  --color-tint: color-mix(in srgb, #FCF8F5 2%, #121316);
+  --color-warm: color-mix(in srgb, #FCF8F5 2%, #121316);
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --animate-marquee: marquee 52s linear infinite;
   --animate-rise: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-flow: flow 1.4s linear infinite;
@@ -169,7 +134,7 @@
 
   ::selection {
     background: rgba(245,243,238,0.42);
-    color: #F5F3EE;
+    color: #FCF8F5;
   }
 
   :focus-visible {
@@ -266,8 +231,8 @@
 
 /* Core palette: utility colors are tonal aliases, never additional brand inks. */
 @theme {
-  --color-white: #F5F3EE;
-  --color-black: #06080b;
+  --color-white: #FCF8F5;
+  --color-black: #121316;
 }
 
 /* Buttons, copied from the Pawabase dashboard.
@@ -278,23 +243,23 @@
   transition: background-color 0.15s, transform 0.08s, box-shadow 0.15s;
 }
 .btn-clay {
-  background-color: #2dd4bf;
+  background-color: #FF6A00;
   background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 62%);
-  border: 1px solid #5eead4;
+  border: 1px solid #FFD27A;
   border-radius: 10px;
-  color: #03201c;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -3px 0 rgba(0, 70, 60, 0.32), 0 6px 14px -6px rgba(45, 212, 191, 0.55);
+  color: #121316;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -3px 0 rgba(120,45,0, 0.32), 0 6px 14px -6px rgba(255,106,0, 0.55);
 }
-.btn-clay:hover { background-color: #4be0cd; }
-.btn-clay:active { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 70, 60, 0.3), 0 1px 3px -1px rgba(45, 212, 191, 0.5); }
+.btn-clay:hover { background-color: #FF9500; }
+.btn-clay:active { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(120,45,0, 0.3), 0 1px 3px -1px rgba(255,106,0, 0.5); }
 .btn-clay-dark {
-  background-color: color-mix(in srgb, #F5F3EE 9%, #06080b);
+  background-color: color-mix(in srgb, #FCF8F5 9%, #121316);
   background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0) 65%);
-  border: 1px solid color-mix(in srgb, #F5F3EE 15%, #06080b);
+  border: 1px solid color-mix(in srgb, #FCF8F5 15%, #121316);
   border-radius: 10px;
-  color: #F5F3EE;
+  color: #FCF8F5;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -3px 0 rgba(0, 0, 0, 0.32), 0 4px 10px -4px rgba(0, 0, 0, 0.7);
 }
-.btn-clay-dark:hover { background-color: color-mix(in srgb, #F5F3EE 14%, #06080b); }
+.btn-clay-dark:hover { background-color: color-mix(in srgb, #FCF8F5 14%, #121316); }
 .btn-clay:active,
 .btn-clay-dark:active { transform: translateY(1px); }

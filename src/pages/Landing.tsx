@@ -1,4 +1,5 @@
 import { AgentsSection } from "@/components/landing/AgentsSection";
+import { CapabilityBoard } from "@/components/landing/CapabilityBoard";
 import { CloudSection } from "@/components/landing/CloudSection";
 import { ConnectSection } from "@/components/landing/ConnectSection";
 import { FaqSection } from "@/components/landing/FaqSection";
@@ -8,7 +9,7 @@ import { Footer } from "@/components/landing/Footer";
 import { FrontendsSection } from "@/components/landing/FrontendsSection";
 import { Junctions } from "@/components/landing/Junctions";
 import { Hero } from "@/components/landing/Hero";
-import { Mission } from "@/components/landing/Mission";
+import { Mission, Pledge } from "@/components/landing/Mission";
 import { PlatformStack } from "@/components/landing/PlatformStack";
 import { PricingSection } from "@/components/landing/PricingSection";
 import { ScrollMotion } from "@/components/landing/ScrollMotion";
@@ -41,6 +42,14 @@ export default function Landing() {
           <div className="relative border-t border-line">
             <Junctions />
             <Mission />
+          </div>
+          <div className="relative border-t border-line">
+            <Junctions />
+            <Pledge />
+          </div>
+          <div className="relative border-t border-line">
+            <Junctions />
+            <CapabilityBoard />
           </div>
           <div className="relative border-t border-line">
             <Junctions />

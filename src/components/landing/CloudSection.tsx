@@ -56,7 +56,7 @@ export function CloudSection() {
           className="relative flex min-h-[380px] flex-col gap-6 overflow-hidden rounded-[18px] p-8 text-text ring-1 ring-white/[0.06] min-[900px]:p-10"
           style={{
             background:
-              "radial-gradient(80% 70% at 15% 110%, rgba(45,212,191,0.5) 0%, rgba(45,212,191,0) 65%), linear-gradient(135deg, #0d2f2c 0%, #0b1a1a 100%)",
+              "radial-gradient(80% 70% at 15% 110%, rgba(255,106,0,0.5) 0%, rgba(255,106,0,0) 65%), linear-gradient(135deg, #0d2f2c 0%, #0b1a1a 100%)",
           }}
         >
           <h3 className="m-0 text-[28px] font-medium leading-[1.1] tracking-[-0.03em]">Pawabase Cloud</h3>

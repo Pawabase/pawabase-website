@@ -14,7 +14,7 @@ function LoginScreen() {
       className="relative mx-5 h-full overflow-hidden rounded-t-[18px] border border-b-0 border-white/[0.1] px-6 pt-8 text-center"
       style={{
         background:
-          "radial-gradient(90% 38% at 50% 0%, rgba(45,212,191,0.32), rgba(45,212,191,0) 75%), #080b0f",
+          "radial-gradient(90% 38% at 50% 0%, rgba(255,106,0,0.32), rgba(255,106,0,0) 75%), #080b0f",
       }}
     >
       <span aria-hidden="true" className="mx-auto block size-8 rounded-full bg-brand" />
@@ -55,7 +55,7 @@ const EVENTS = [
   ["UPDATE", "profiles", "Ada is online"],
 ] as const;
 
-const PEOPLE = ["bg-[#F5F3EE] text-[#06080b]", "bg-brand text-[#03201c]", "bg-[#0f3d38] text-brand"];
+const PEOPLE = ["bg-[#FCF8F5] text-[#121316]", "bg-brand text-[#121316]", "bg-[#0f3d38] text-brand"];
 
 function LiveStack() {
   const { ref, inView } = useInView<HTMLDivElement>();
@@ -69,19 +69,19 @@ function LiveStack() {
     <div ref={ref} className="relative h-[116px]">
       <div className={`${ghost} inset-x-5 bottom-6 h-[56px] bg-[#05413a] opacity-60`} />
       <div className={`${ghost} inset-x-2.5 bottom-3 h-[56px] bg-[#04332e] opacity-80`}>
-        <span className="font-mono text-[11px] text-[#F5F3EE]/45">
+        <span className="font-mono text-[11px] text-[#FCF8F5]/45">
           {at(1)[0]} &middot; {at(1)[1]}
         </span>
       </div>
       <div
         key={tick}
-        className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 rounded-[12px] border border-white/[0.08] bg-[#03201c] px-4 py-3 text-[#F5F3EE] shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] motion-safe:animate-rise"
+        className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 rounded-[12px] border border-white/[0.08] bg-[#121316] px-4 py-3 text-[#FCF8F5] shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] motion-safe:animate-rise"
       >
         <div className="min-w-0 font-mono text-[12px] leading-[1.5]">
           <div className="flex items-center gap-2">
             <span className="size-1.5 rounded-full bg-brand" />
             <span className="text-brand">{kind}</span>
-            <span className="truncate text-[#F5F3EE]/60">{target}</span>
+            <span className="truncate text-[#FCF8F5]/60">{target}</span>
           </div>
           <div className="truncate pl-3.5">{detail}</div>
         </div>
@@ -89,7 +89,7 @@ function LiveStack() {
           {PEOPLE.map((tone, i) => (
             <span
               key={i}
-              className={`flex size-6 items-center justify-center rounded-full text-[10px] font-bold ring-2 ring-[#03201c] ${tone}`}
+              className={`flex size-6 items-center justify-center rounded-full text-[10px] font-bold ring-2 ring-[#121316] ${tone}`}
             >
               {["A", "K", "I"][i]}
             </span>
@@ -155,7 +155,7 @@ export function FeatureBento() {
           className={`${TILE} flex min-h-[470px] flex-col !pb-0 text-text ring-1 ring-white/[0.06] min-[1100px]:row-span-2 min-[1100px]:min-h-0`}
           style={{
             background:
-              "radial-gradient(90% 50% at 50% 100%, rgba(45,212,191,0.22), rgba(45,212,191,0) 70%), #0b0f14",
+              "radial-gradient(90% 50% at 50% 100%, rgba(255,106,0,0.22), rgba(255,106,0,0) 70%), #0b0f14",
           }}
         >
           <Words title="Auth" line="Sign-in, organizations, sessions, roles and permissions." />
@@ -168,7 +168,7 @@ export function FeatureBento() {
         </div>
 
         {/* Realtime: solid teal, with a stack of live changes */}
-        <div className={`${TILE} flex min-h-[262px] flex-col justify-between bg-brand text-[#03201c]`}>
+        <div className={`${TILE} flex min-h-[262px] flex-col justify-between bg-brand text-[#121316]`}>
           <h3 className="m-0 max-w-[13ch] text-[28px] font-medium leading-[1.08] tracking-[-0.03em]">
             Updates, the moment they happen.
           </h3>
@@ -194,9 +194,9 @@ export function FeatureBento() {
         </div>
 
         {/* Pricing: pale */}
-        <div className={`${TILE} flex min-h-[262px] flex-col justify-end bg-[#F5F3EE] text-[#06080b]`}>
+        <div className={`${TILE} flex min-h-[262px] flex-col justify-end bg-[#FCF8F5] text-[#121316]`}>
           <div className="text-[clamp(64px,6vw,84px)] font-medium leading-none tracking-[-0.05em]">$0</div>
-          <p className="m-0 mt-3 max-w-[28ch] text-[15px] leading-[1.4] text-[#06080b]/65">
+          <p className="m-0 mt-3 max-w-[28ch] text-[15px] leading-[1.4] text-[#121316]/65">
             to start. The free plan includes a project, a database and sign-in.
           </p>
         </div>
@@ -206,7 +206,7 @@ export function FeatureBento() {
           className={`${TILE} min-h-[262px] text-text ring-1 ring-white/[0.06] min-[640px]:col-span-2`}
           style={{
             background:
-              "radial-gradient(75% 95% at 10% 105%, rgba(45,212,191,0.75) 0%, rgba(45,212,191,0) 62%), linear-gradient(135deg, #0d2f2c 0%, #0b1a1a 100%)",
+              "radial-gradient(75% 95% at 10% 105%, rgba(255,106,0,0.75) 0%, rgba(255,106,0,0) 62%), linear-gradient(135deg, #0d2f2c 0%, #0b1a1a 100%)",
           }}
         >
           <h3 className="m-0 max-w-[10ch] text-[28px] font-medium leading-[1.1] tracking-[-0.03em]">
@@ -229,7 +229,7 @@ export function FeatureBento() {
             {ORBIT.map((chip) => (
               <span
                 key={chip.icon}
-                className="absolute flex size-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#F5F3EE] text-[#06080b] shadow-[0_6px_16px_-6px_rgba(0,0,0,0.5)]"
+                className="absolute flex size-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#FCF8F5] text-[#121316] shadow-[0_6px_16px_-6px_rgba(0,0,0,0.5)]"
                 style={chip.style}
               >
                 <Icon name={chip.icon} size={20} variant="TwoTone" />

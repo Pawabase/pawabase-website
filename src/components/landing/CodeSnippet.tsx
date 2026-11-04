@@ -35,12 +35,12 @@ function tokenColor(token: string) {
     token.startsWith("'") ||
     token.startsWith("`")
   ) {
-    return "#F5F3EE";
+    return "#FCF8F5";
   }
-  if (KEYWORDS.has(token)) return "#F5F3EE";
-  if (FUNCTIONS.has(token)) return "#F5F3EE";
-  if (/^\d+$/.test(token)) return "#F5F3EE";
-  return "#F5F3EE";
+  if (KEYWORDS.has(token)) return "#FCF8F5";
+  if (FUNCTIONS.has(token)) return "#FCF8F5";
+  if (/^\d+$/.test(token)) return "#FCF8F5";
+  return "#FCF8F5";
 }
 
 function HighlightedLine({ line }: { line: string }) {
@@ -72,7 +72,7 @@ export function CodeSnippet({
 }) {
   return (
     <div
-      className={`overflow-hidden rounded-lg border border-line bg-[#06080b] ${className}`}
+      className={`overflow-hidden rounded-lg border border-line bg-[#121316] ${className}`}
     >
       {label ? (
         <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-2.5 font-mono text-[8px] uppercase tracking-[0.14em] text-faint">
