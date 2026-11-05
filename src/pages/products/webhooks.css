@@ -1,0 +1,69 @@
+/* Webhooks: the page is cut in two. Everything on the left comes in, everything on the right goes out. */
+.wh-hero { min-height: 0; }
+.wh-copy { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 40px; padding: clamp(28px, 4vw, 52px) calc(var(--ix-gutter) + 40px) clamp(28px, 3.4vw, 44px); }
+.wh-copy h1 { margin: 0; max-width: 15ch; font-size: clamp(36px, 5vw, 68px); font-weight: 500; line-height: 1.03; letter-spacing: -0.04em; color: var(--ix-text); }
+.wh-copy .pf-actions { margin: 0; }
+.wh-split { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0 calc(var(--ix-gutter) - 0.5px); border-top: 1px solid var(--ix-line-2); }
+.wh-split::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--ix-orange); box-shadow: 0 0 22px rgba(255, 106, 0, 0.6); }
+.wh-side { position: relative; min-width: 0; padding: 28px 0 26px; overflow: hidden; }
+.wh-side.in { background: linear-gradient(90deg, transparent, rgba(255, 106, 0, 0.1)); }
+.wh-side.out { background: #0d0e10; }
+.wh-side > b { display: block; padding: 0 28px; font-size: clamp(76px, 13vw, 180px); font-weight: 600; line-height: 0.86; letter-spacing: -0.06em; color: #15130f; -webkit-text-stroke: 3px rgba(252, 248, 245, 0.4); paint-order: stroke fill; }
+.wh-side.out > b { text-align: right; color: #0d0e10; -webkit-text-stroke-color: rgba(255, 106, 0, 0.85); }
+.wh-side > p { margin: 14px 28px 22px; font-size: 16px; color: var(--ix-muted); }
+.wh-side.out > p { text-align: right; }
+.wh-lane { overflow: hidden; margin-bottom: 8px; }
+.wh-lane > div { display: flex; gap: 8px; width: max-content; animation: wh-go 26s linear infinite; }
+.wh-lane:nth-of-type(2) > div { animation-duration: 34s; }
+@keyframes wh-go { from { transform: translateX(-33.333%); } to { transform: translateX(0); } }
+.wh-lane span { padding: 9px 14px; border-radius: 8px; background: #1b1c20; font: 12.5px var(--ix-mono); white-space: nowrap; color: rgba(252, 248, 245, 0.78); }
+.wh-lane.out span { background: rgba(255, 106, 0, 0.14); color: #ffb37a; }
+
+.wh-trust { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); }
+.wh-keep { padding: clamp(40px, 5vw, 60px) 40px; }
+.wh-keep h2 { margin: 0 0 34px; max-width: 16ch; font-size: clamp(30px, 3.6vw, 48px); font-weight: 500; line-height: 1.06; letter-spacing: -0.036em; color: var(--ix-text); }
+.wh-attempts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.wh-attempts li { display: grid; gap: 22px; padding: 16px; border: 1px dashed var(--ix-dash); border-radius: 10px; transition: background-color 0.3s ease, border-color 0.3s ease; }
+.wh-attempts b { font-size: 13.5px; font-weight: 500; color: var(--ix-muted); }
+.wh-attempts span { font-size: 15px; color: var(--ix-faint); }
+.wh-attempts li.seen span { color: var(--ix-text); }
+.wh-attempts li.ok.seen { border: 1px solid var(--ix-orange); background: var(--ix-orange); }
+.wh-attempts li.ok.seen b, .wh-attempts li.ok.seen span { color: #ffffff; }
+.wh-seal-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 28px; border-left: 1px dashed var(--ix-dash); background: #111214; text-align: center; }
+.wh-seal { position: relative; display: grid; place-items: center; width: 168px; height: 168px; color: var(--ix-orange); }
+.wh-ring { position: absolute; inset: 0; animation: wh-seal 40s linear infinite; }
+.wh-seal text { font: 500 12.5px var(--ix-mono); letter-spacing: 0.12em; fill: currentColor; }
+@keyframes wh-seal { to { transform: rotate(360deg); } }
+.wh-seal-wrap h3 { margin: 18px 0 0; font-size: 18px; font-weight: 500; color: var(--ix-text); }
+.wh-seal-wrap p { margin: 6px 0 0; font-size: 14.5px; line-height: 1.5; color: var(--ix-muted); }
+
+.wh-routes { padding: clamp(40px, 5vw, 60px) 40px; background: #0d0e10; }
+.wh-routes h2 { margin: 0 0 30px; font-size: clamp(28px, 3.2vw, 42px); font-weight: 500; letter-spacing: -0.032em; color: var(--ix-text); }
+.wh-routes ul { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.wh-routes li { display: flex; align-items: center; gap: 16px; padding: 7px 0; font-size: clamp(17px, 2vw, 26px); color: rgba(252, 248, 245, 0.34); transition: color 0.3s ease; }
+.wh-routes code { font: 500 0.92em var(--ix-mono); letter-spacing: -0.04em; }
+.wh-routes li i { flex: 1; height: 1px; background: repeating-linear-gradient(to right, currentColor 0 5px, transparent 5px 10px); }
+.wh-routes li.lit { color: var(--ix-orange); }
+.wh-routes p { margin: 24px 0 0; font-size: 15.5px; color: var(--ix-muted); }
+
+.wh-inbound { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; gap: 32px 64px; padding: clamp(40px, 5vw, 60px) 40px; }
+.wh-inbound h2 { margin: 0; font-size: clamp(28px, 3.2vw, 42px); font-weight: 500; line-height: 1.08; letter-spacing: -0.032em; color: var(--ix-text); }
+.wh-inbound p { margin: 14px 0 0; font-size: 16px; line-height: 1.55; color: var(--ix-muted); }
+.wh-inbound ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.wh-inbound li { display: flex; align-items: center; gap: 12px; height: 50px; padding: 0 16px; border-radius: 8px; background: rgba(252, 248, 245, 0.045); font-size: 14.5px; color: var(--ix-text); }
+.wh-inbound em { padding: 2px 8px; border-radius: 5px; background: rgba(252, 248, 245, 0.08); font-size: 11.5px; font-style: normal; color: var(--ix-muted); }
+.wh-inbound b { display: inline-flex; align-items: center; gap: 7px; margin-left: auto; font-size: 13px; font-weight: 400; color: var(--ix-orange); white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .wh-copy { padding-left: 28px; padding-right: 28px; }
+  .wh-trust, .wh-inbound { grid-template-columns: minmax(0, 1fr); }
+  .wh-seal-wrap { border-left: 0; border-top: 1px dashed var(--ix-dash); }
+  .wh-keep, .wh-routes, .wh-inbound { padding-left: 24px; padding-right: 24px; }
+}
+@media (max-width: 640px) {
+  .wh-side > b { padding: 0 16px; }
+  .wh-side > p { margin-left: 16px; margin-right: 16px; font-size: 14px; }
+  .wh-attempts { grid-template-columns: minmax(0, 1fr); }
+  .wh-attempts li { gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) { .wh-lane > div, .wh-ring { animation: none; } }

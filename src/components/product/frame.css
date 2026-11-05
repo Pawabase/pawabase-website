@@ -1,0 +1,19 @@
+/* What every product page shares: the hero's buttons, and a thin strip of related products. Everything else belongs to the page. */
+
+.pf-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+.pf-next { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: #111214; }
+.pf-next-item { position: relative; display: flex; align-items: center; gap: 14px; min-width: 0; padding: 22px 26px; color: var(--ix-faint); transition: background-color 0.2s ease, color 0.2s ease; }
+.pf-next-item:not(:last-child) { border-right: 1px dashed var(--ix-dash); }
+.pf-next-item > svg:first-child { flex: none; color: var(--ix-orange); }
+.pf-next-item > svg:last-child { flex: none; margin-left: auto; transition: transform 0.2s ease; }
+.pf-next-item span { display: grid; gap: 3px; min-width: 0; }
+.pf-next-item b { font-size: 15px; font-weight: 500; color: var(--ix-text); }
+.pf-next-item small { overflow: hidden; font-size: 13px; color: var(--ix-faint); text-overflow: ellipsis; white-space: nowrap; }
+.pf-next-item:hover { background: rgba(255, 106, 0, 0.05); color: var(--ix-orange); }
+.pf-next-item:hover > svg:last-child { transform: translateX(3px); }
+
+@media (max-width: 760px) {
+  .pf-next { grid-template-columns: minmax(0, 1fr); }
+  .pf-next-item:not(:last-child) { border-right: 0; border-bottom: 1px dashed var(--ix-dash); }
+}

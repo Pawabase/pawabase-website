@@ -1,0 +1,48 @@
+/* Access policies: type first. A sentence that rolls, a list that changes with who's asking. */
+.po-hero { min-height: min(720px, 94svh); background: radial-gradient(60% 60% at 50% 55%, rgba(255, 106, 0, 0.09), transparent 70%), var(--ix-shell); }
+.po-copy { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; padding: 32px 40px 72px; text-align: center; }
+.po-copy h1 { margin: 0; font-size: clamp(30px, 3.6vw, 50px); font-weight: 500; line-height: 1.08; letter-spacing: -0.035em; color: var(--ix-text); }
+.po-sentence { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 14px; margin: 26px 0 30px; font-size: clamp(28px, 4.5vw, 62px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.2; color: var(--ix-text); }
+.po-reel { display: inline-block; height: 1.2em; padding: 0 0.28em; overflow: hidden; border-radius: 0.2em; background: #1c1d21; box-shadow: inset 0 0 0 1px rgba(252, 248, 245, 0.1), inset 0 -2px var(--ix-orange); color: var(--ix-orange); vertical-align: top; }
+.po-reel-track { display: flex; flex-direction: column; transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1); }
+.po-reel-track > span { display: block; height: 1.2em; line-height: 1.2em; white-space: nowrap; }
+.po-line { margin: 0; max-width: 54ch; font-size: 16.5px; line-height: 1.55; color: var(--ix-muted); }
+.po-copy .pf-actions { justify-content: center; }
+
+.po-filter { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; gap: 32px 64px; padding: clamp(44px, 5vw, 72px) 40px; }
+.po-filter h2 { margin: 0; font-size: clamp(30px, 3.8vw, 52px); font-weight: 500; line-height: 1.06; letter-spacing: -0.038em; color: var(--ix-text); }
+.po-filter > div:first-child > p { margin: 16px 0 0; max-width: 42ch; font-size: 16.5px; line-height: 1.55; color: var(--ix-muted); }
+.po-rows p { display: flex; align-items: baseline; gap: 7px; margin: 0 0 14px; font-size: 15px; color: var(--ix-muted); }
+.po-rows p b { font-weight: 500; color: var(--ix-orange); }
+.po-rows p span { margin-left: auto; font: 13px var(--ix-mono); color: var(--ix-faint); }
+.po-rows ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.po-rows li { display: flex; align-items: center; justify-content: space-between; height: 44px; padding: 0 16px; border-radius: 8px; background: rgba(252, 248, 245, 0.06); font-size: 14.5px; color: var(--ix-text); transition: opacity 0.45s ease, transform 0.45s ease, background-color 0.45s ease; }
+.po-rows li small { font: 12.5px var(--ix-mono); color: var(--ix-faint); }
+.po-rows li.gone { opacity: 0.13; transform: translateX(14px) scale(0.98); }
+
+.po-once { padding: clamp(40px, 5vw, 60px) 0 0; background: #111214; }
+.po-once h2 { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0 40px 36px; font-size: clamp(22px, 2.4vw, 32px); font-weight: 500; letter-spacing: -0.025em; color: var(--ix-text); }
+.po-chip { padding: 5px 13px; border-radius: 8px; background: var(--ix-orange); font: 500 0.72em var(--ix-mono); letter-spacing: -0.02em; color: #ffffff; }
+.po-places { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px dashed var(--ix-dash); }
+.po-places b { display: grid; place-items: center; height: clamp(92px, 11vw, 150px); font-size: clamp(22px, 3vw, 42px); font-weight: 600; letter-spacing: -0.04em; color: #111214; -webkit-text-stroke: 2px rgba(252, 248, 245, 0.34); paint-order: stroke fill; transition: -webkit-text-stroke-color 0.4s ease, color 0.4s ease, background-color 0.4s ease; }
+.po-places b:not(:last-child) { border-right: 1px dashed var(--ix-dash); }
+.po-places b.lit { color: var(--ix-orange); -webkit-text-stroke-color: var(--ix-orange); background: rgba(255, 106, 0, 0.06); }
+
+.po-logic { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: center; gap: 32px 64px; padding: clamp(44px, 5vw, 72px) 40px; }
+.po-group { position: relative; display: grid; gap: 8px; padding: 34px 14px 14px; border: 1px solid rgba(252, 248, 245, 0.1); border-left: 3px solid var(--ix-orange); border-radius: 10px; background: rgba(252, 248, 245, 0.02); }
+.po-group > em { position: absolute; left: 14px; top: 10px; font: normal 12.5px var(--ix-mono); color: var(--ix-orange); }
+.po-group > span { padding: 10px 14px; border-radius: 7px; background: #1c1d21; font-size: 14.5px; color: var(--ix-text); }
+.po-logic-copy h2 { margin: 0; font-size: clamp(28px, 3.4vw, 46px); font-weight: 500; letter-spacing: -0.034em; line-height: 1.08; color: var(--ix-text); }
+.po-logic-copy > p { margin: 14px 0 24px; font-size: 16.5px; color: var(--ix-muted); }
+.po-logic-copy ul { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
+.po-logic-copy li { padding-left: 18px; background: linear-gradient(var(--ix-orange), var(--ix-orange)) 0 0.55em / 7px 7px no-repeat; font-size: 15px; line-height: 1.45; color: rgba(252, 248, 245, 0.78); }
+
+@media (max-width: 900px) {
+  .po-copy { padding-left: 20px; padding-right: 20px; }
+  .po-filter, .po-logic { grid-template-columns: minmax(0, 1fr); padding-left: 24px; padding-right: 24px; }
+  .po-once h2 { margin-left: 24px; margin-right: 24px; }
+  .po-places { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .po-places b { border-bottom: 1px dashed var(--ix-dash); }
+  .po-places b:nth-child(2n) { border-right: 0; }
+  .po-places b:last-child { grid-column: 1 / -1; border-bottom: 0; }
+}
