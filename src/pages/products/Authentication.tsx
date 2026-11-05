@@ -12,7 +12,7 @@ const INFO: ProductInfo = {
       icon: "users",
       title: "Every way to sign in",
       line: "Turn on the ones your users expect.",
-      chips: ["Email and password", "Email code", "Magic link", "Passkeys", "Guests", "Google", "GitHub", "Microsoft", "Discord", "GitLab", "LinkedIn", "Slack", "Facebook", "Twitch"],
+      chips: ["Email and password", "Email code", "Magic link", "Passkeys", "Guests", "Google", "Apple", "GitHub", "Microsoft", "Discord", "GitLab", "LinkedIn", "Slack", "Facebook", "Twitch"],
     },
     { kind: "solid", icon: "policies", title: "Two-step verification", line: "Authenticator apps and backup codes for accounts that need more." },
     { kind: "word", icon: "users", word: "ORGS", title: "Organizations built in", line: "Teams, roles and invitations for business apps." },
@@ -25,7 +25,7 @@ const INFO: ProductInfo = {
     },
   ],
   capabilities: [
-    { icon: "users", title: "Social sign-in", line: "Nine providers, ready once you add your keys." },
+    { icon: "users", title: "Social sign-in", line: "Ten providers, ready once you add your keys." },
     { icon: "apiSecurity", title: "Passkeys", line: "Sign in with a fingerprint or a face, no password to forget." },
     { icon: "document", title: "Organizations and roles", line: "Group users into teams with the roles you define." },
     { icon: "mail", title: "Invitations", line: "Bring people into an organization by email." },
