@@ -1,24 +1,13 @@
 import { useEffect, useState } from "react";
 import { SiClaude, SiCursor, SiGithubcopilot } from "@icons-pack/react-simple-icons";
 
-import { APP, Arrow, Lines, Rule, SectionHead } from "./Home";
+import { APP, Arrow, Rule, SectionHead } from "./Home";
 import "./bento.css";
 import "./mcp.css";
 
 /*
- * Pawabase over MCP. Choosing an access level says what the AI may do and how many tools that gives it, and the outlined
- * number follows. Under it, how to connect, then three tiles in the bento's style for what keeps people in control.
+ * Pawabase over MCP: how to connect, then three tiles in the bento's style for what keeps people in control.
  */
-
-const CYCLE = 5200;
-/** What each level allows, with the tools a key at that level can use: the server's ai-read and ai-build presets, and an unscoped secret key. */
-const LEVELS = [
-  { name: "Look only", line: "Reads tables, flows and logs. Changes nothing.", tools: 35 },
-  { name: "Build with me", line: "Builds tables, flows and files. No users, keys or secrets.", tools: 48 },
-  { name: "Everything", line: "Every tool on one environment. Permanent calls ask first.", tools: 65 },
-];
-const barLines = [1, 2, 3].map((k) => [k / 5, 0, 1] as [number, number, number]);
-const barMarks = barLines.flatMap(([x]) => [[x, 0, "sq"]] as [number, number, "sq"][]);
 
 const still = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -33,72 +22,11 @@ function useTicker(ms: number) {
   return tick;
 }
 
-/** The number runs to its new value rather than jumping. */
-function useCountTo(target: number) {
-  const [shown, setShown] = useState(target);
-  useEffect(() => {
-    if (still()) { setShown(target); return; }
-    const from = shown;
-    const start = performance.now();
-    let frame = 0;
-    const step = (now: number) => {
-      const t = Math.min(1, (now - start) / 520);
-      setShown(Math.round(from + (target - from) * (1 - (1 - t) ** 3)));
-      if (t < 1) frame = requestAnimationFrame(step);
-    };
-    frame = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(frame);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target]);
-  return shown;
-}
-
 function Check() {
   return (
     <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="m3.5 8.5 3 3 6-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-  );
-}
-
-/* ── the levels ──────────────────────────────────────────────────────────────────────────────────────────────────────── */
-
-function Levels() {
-  const [level, setLevel] = useState(0);
-  const [auto, setAuto] = useState(true);
-  useEffect(() => {
-    if (!auto || still()) return;
-    const timer = window.setInterval(() => setLevel((l) => (l + 1) % LEVELS.length), CYCLE);
-    return () => window.clearInterval(timer);
-  }, [auto]);
-  const count = useCountTo(LEVELS[level].tools);
-  return (
-    <div className="ix-panel mc-panel" data-reveal="up">
-      <Rule />
-      <div className="mc-bar">
-        <Lines v={barLines} marks={barMarks} />
-        <div className="mc-levels" role="radiogroup" aria-label="What your AI tool may do">
-          {LEVELS.map((item, i) => (
-            <button
-              key={item.name}
-              type="button"
-              role="radio"
-              aria-checked={level === i}
-              className={`mc-level ${level === i ? "on" : ""}`}
-              onClick={() => { setLevel(i); setAuto(false); }}
-            >
-              {level === i && auto && <i className="mc-fill" key={level} style={{ animationDuration: `${CYCLE}ms` }} />}
-              <b>{item.name}</b>
-              <span>{item.line}</span>
-            </button>
-          ))}
-        </div>
-        <div className="mc-count" aria-live="polite">
-          <b>{count}</b>
-          <span>tools it<br />can use</span>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -255,7 +183,6 @@ export function Mcp() {
       <SectionHead id="mcp-title" title="Your AI builds it. You hold the keys.">
         <a href={APP} className="ix-btn caps">Connect your AI <Arrow /></a>
       </SectionHead>
-      <Levels />
       <Connect />
       <Tiles />
     </section>
