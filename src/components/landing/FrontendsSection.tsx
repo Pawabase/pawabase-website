@@ -35,12 +35,12 @@ export function FrontendsSection() {
     >
       <div data-reveal="up" className="flex flex-col items-center gap-5 text-center">
         <Eyebrow>Frameworks</Eyebrow>
-        <Title id="stack-title" quiet="On infrastructure you choose." className="max-w-[16ch]">
-          Any frontend.
+        <Title id="stack-title" quiet="Same system underneath." className="max-w-[16ch]">
+          Any app.
         </Title>
         <Lead className="max-w-[46ch]">
-          Web frameworks, native apps and servers all reach Pawabase over the
-          same API, through a client library or plain HTTP.
+          Web, mobile and servers all talk to the same system,
+          through a client library or plain HTTP.
         </Lead>
       </div>
 

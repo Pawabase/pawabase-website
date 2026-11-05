@@ -1,0 +1,41 @@
+/*
+ * Works with what you already use: a 9 × 3 grid of logos between the rails, divided by the panel's dashed lines with
+ * crosses at the crossings, Pawabase on an orange square at the centre. Cells light up now and then; hover names them.
+ */
+
+.lg-panel { background: #121316; }
+.lg-grid { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.lg-cell { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; height: 128px; color: rgba(252, 248, 245, 0.42); transition: color 0.35s ease, background-color 0.35s ease; }
+.lg-cell svg { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+.lg-name { position: absolute; bottom: 16px; font: 11px var(--ix-mono); color: var(--ix-faint); opacity: 0; transform: translateY(4px); transition: opacity 0.25s ease, transform 0.25s ease; }
+.lg-cell:hover, .lg-cell.lit { color: var(--ix-orange); background: radial-gradient(circle at 50% 50%, rgba(255, 106, 0, 0.09), transparent 70%); }
+.lg-cell:hover svg { transform: translateY(-6px); }
+.lg-cell:hover .lg-name { opacity: 1; transform: none; }
+/* a lit cell gets a small orange square in its corner */
+.lg-cell::after { content: ""; position: absolute; top: 12px; right: 12px; width: 5px; height: 5px; background: var(--ix-orange); opacity: 0; transition: opacity 0.35s ease; }
+.lg-cell.lit::after { opacity: 1; }
+
+/* the centre: Pawabase, knocked out in white on an orange square, with a slow ring breathing round it */
+.lg-core { color: inherit; }
+.lg-core:hover { background: none; }
+.lg-core-mark { position: relative; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 16px; background: var(--ix-orange); }
+.lg-core-mark i { width: 34px; height: 34px; background: #ffffff; -webkit-mask: url("/brand/mark.svg") center / contain no-repeat; mask: url("/brand/mark.svg") center / contain no-repeat; }
+.lg-core-mark::before { content: ""; position: absolute; inset: -10px; border: 1px solid rgba(255, 106, 0, 0.45); border-radius: 22px; animation: lg-breathe 3.2s ease-in-out infinite; }
+@keyframes lg-breathe { 0%, 100% { opacity: 0.2; transform: scale(0.94); } 50% { opacity: 1; transform: scale(1.04); } }
+
+@media (max-width: 900px) {
+  .lg-cell { height: 96px; }
+  .lg-cell svg { width: 22px; height: 22px; }
+}
+@media (max-width: 680px) {
+  /* three across: the panel's nine-column lines no longer fit, so the cells draw their own */
+  .lg-panel > .ix-lines { display: none; }
+  .lg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lg-cell { height: 84px; border-bottom: 1px dashed var(--ix-dash); }
+  .lg-cell:not(:nth-child(3n)) { border-right: 1px dashed var(--ix-dash); }
+  .lg-cell:nth-last-child(-n + 3) { border-bottom: 0; }
+  .lg-name { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lg-core-mark::before { animation: none; opacity: 0.6; }
+}

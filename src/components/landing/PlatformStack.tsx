@@ -21,16 +21,16 @@ function Spec({ rows, divider, term }: { rows: [string, string][]; divider: stri
 }
 
 const SECURITY: [string, string][] = [
-  ["Scoped keys", "Publishable keys for apps and browsers, secret keys for servers. Each key reaches only what you allow."],
-  ["Ordered firewall", "Rules are evaluated in order, so a blocked address range is stopped before anything else is checked."],
-  ["Rate limits", "Cap requests per route, such as sign-in, to slow down abuse."],
-  ["CORS", "Choose which sites may call your API from a browser."],
+  ["Reusable", "One policy, used by every resource that needs it."],
+  ["Knows the user", "Rules see who is asking, their team and their role."],
+  ["Scoped keys", "Each key reaches only what you allow."],
+  ["Rate limits", "Slow down abuse on the routes that matter."],
 ];
 
 const FLOWS: [string, string][] = [
-  ["Triggers", "Start from an API call, a schedule, a database event or a webhook."],
-  ["Actions", "Change data, call out to other services and send email from any step."],
-  ["Built visually", "Lay the logic out in Studio instead of writing and hosting another service."],
+  ["Triggers", "An endpoint, a schedule, a data change or a webhook."],
+  ["Agents", "Hand a step to an agent, with the model you choose."],
+  ["Built visually", "Or describe it, and edit what you get."],
 ];
 
 /* ── cards ─────────────────────────────────────────────────────────────── */
@@ -48,21 +48,21 @@ type Layer = {
 const LAYERS: Layer[] = [
   {
     icon: "apiSecurity",
-    title: "API security",
-    line: "Scoped keys, an ordered firewall, rate limits and CORS stand in front of every route, so only the right traffic reaches your data.",
-    className: "!bg-[#12171d] text-text",
+    title: "Policies",
+    line: "Write a rule once and reuse it on endpoints, tables, files and agents. Keys and limits stand in front of all of it.",
+    className: "!bg-[#17181b] text-text",
     muted: "text-muted",
     visual: <Spec rows={SECURITY} divider="divide-white/[0.08]" term="text-text" />,
   },
   {
     icon: "automation",
-    title: "Workflows",
-    line: "Build backend logic visually: react to database events, webhooks and schedules, and send email from any step.",
+    title: "Flows and agents",
+    line: "Lay out the logic visually. Call an agent from any step, or straight from an endpoint or route.",
     className: "text-text",
     muted: "text-text/70",
     style: {
       background:
-        "radial-gradient(70% 90% at 92% 112%, rgba(255,106,0,0.5) 0%, rgba(255,106,0,0) 62%), linear-gradient(135deg, #0d2f2c 0%, #0b1a1a 100%)",
+        "#17181b",
     },
     visual: <Spec rows={FLOWS} divider="divide-white/[0.14]" term="text-text" />,
   },
@@ -78,10 +78,10 @@ export function PlatformStack() {
             id="stack-heading"
             className="m-0 text-[clamp(38px,4.4vw,62px)] font-medium leading-[1.06] tracking-[-0.03em] text-text text-balance"
           >
-            Secure the front door. Automate the rest.
+            Write the rule once. Let flows do the rest.
           </h2>
           <p className="m-0 max-w-[48ch] text-[18px] leading-[1.6] text-muted">
-            Decide who gets in, then let workflows handle the repetitive work.
+            Policies guard everything in the system. Flows and agents handle the work.
           </p>
         </div>
       </div>

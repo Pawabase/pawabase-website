@@ -15,8 +15,7 @@ export function PricingSection() {
           Pricing that scales with the work.
         </Title>
         <Lead className="max-w-[52ch]">
-          Every plan includes data, auth, storage, email, realtime, workflows, background jobs, and the tools to run
-          them.
+          Every plan gets the whole system: data, auth, policies, storage, flows, agents and APIs.
         </Lead>
         <TextLink href="/pricing">Compare every limit</TextLink>
       </div>

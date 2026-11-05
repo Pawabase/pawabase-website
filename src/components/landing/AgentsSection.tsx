@@ -29,11 +29,11 @@ export function AgentsSection() {
           id="agents-title"
           className="m-0 text-[clamp(38px,4.4vw,62px)] font-medium leading-[1.06] tracking-[-0.03em] text-text text-balance"
         >
-          Let your AI tools work on your backend
+          Your AI tools can work in it too
         </h2>
         <p className="m-0 max-w-[52ch] text-[18px] leading-[1.6] text-muted">
-          Pawabase includes an MCP server. Claude, Codex, Cursor and any other MCP client can inspect tables,
-          read logs and change rules, with your approval.
+          Connect Claude, Cursor or any MCP client. They can look around, read logs and make changes, with your
+          approval.
         </p>
       </div>
 

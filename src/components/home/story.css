@@ -1,0 +1,99 @@
+/*
+ * The scroll story (after pxxl's "from repo to production"): a sticky list of steps on the left; on the right a dotted
+ * block per step holding a dark card that runs off the rail and is cut by the block's bottom edge. Pawabase colours.
+ */
+
+.rp { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); }
+
+/* ── the steps ── */
+.rp-side { border-right: 1px dashed var(--ix-dash); }
+.rp-steps { position: sticky; top: 24px; margin: 0; padding: 0; list-style: none; }
+.rp-steps li { border-bottom: 1px dashed var(--ix-dash); }
+.rp-steps button { display: flex; align-items: baseline; gap: 18px; width: 100%; padding: 28px 36px; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; transition: background-color 0.2s ease; }
+.rp-steps button:hover { background: rgba(252, 248, 245, 0.02); }
+.rp-n { flex: none; font: 12px var(--ix-mono); color: var(--ix-faint); transition: color 0.25s ease; }
+.rp-step-text { display: grid; gap: 0; }
+.rp-step-text b { font-size: 19px; font-weight: 450; letter-spacing: -0.01em; color: rgba(252, 248, 245, 0.45); transition: color 0.25s ease; }
+.rp-step-line { display: block; max-height: 0; overflow: hidden; font-size: 15px; line-height: 1.45; color: var(--ix-muted); opacity: 0; transition: max-height 0.35s ease, opacity 0.35s ease, margin 0.35s ease; }
+.rp-steps button.on .rp-n { color: var(--ix-orange); }
+.rp-steps button.on b { color: var(--ix-text); }
+.rp-steps button.on .rp-step-line { max-height: 60px; margin-top: 8px; opacity: 1; }
+
+/* ── the blocks ── */
+.rp-blocks { display: grid; gap: 56px; padding: 56px 0; }
+.rp-block { position: relative; height: 360px; overflow: hidden; padding: 44px 0 0 56px; border-top: 1px dashed var(--ix-dash); border-bottom: 1px dashed var(--ix-dash);
+  background-color: #111214; background-image: radial-gradient(circle, rgba(252, 248, 245, 0.08) 1px, transparent 1.25px); background-size: 14px 14px; }
+.rp-block-title { display: none; }
+
+/* the card runs off the right rail and past the block's bottom edge */
+.rp-card { position: relative; min-height: 420px; padding: 30px 0 0 32px; border: 1px solid rgba(252, 248, 245, 0.1); border-right: 0; border-radius: 12px 0 0 0; background: #18191c; }
+.rp-card-head { position: relative; display: flex; gap: 16px; padding-bottom: 26px; }
+.rp-ring { flex: none; width: 24px; height: 24px; border: 1.5px solid rgba(252, 248, 245, 0.35); border-radius: 50%; }
+/* the timeline runs down from the ring, past the options */
+.rp-card-head::after { content: ""; position: absolute; left: 11.5px; top: 30px; height: 400px; border-left: 1px solid rgba(252, 248, 245, 0.12); }
+.rp-card-title { margin: 1px 0 0; font-size: 15px; color: var(--ix-text); }
+.rp-card-hint { margin: 6px 0 0; font-size: 13.5px; color: var(--ix-faint); }
+.rp-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0 0 0 40px; padding: 0; list-style: none; border-top: 1px solid rgba(252, 248, 245, 0.08); }
+.rp-options li { display: flex; align-items: center; gap: 16px; min-height: 104px; padding: 18px 24px; border-bottom: 1px solid rgba(252, 248, 245, 0.08); transition: background-color 0.2s ease; }
+.rp-options li:nth-child(odd) { border-right: 1px solid rgba(252, 248, 245, 0.08); }
+.rp-options li:hover { background: rgba(255, 106, 0, 0.04); }
+.rp-mark { display: grid; flex: none; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: #26272b; color: rgba(252, 248, 245, 0.8); transition: background-color 0.2s ease, color 0.2s ease; }
+.rp-options li:hover .rp-mark { background: var(--ix-orange); color: #ffffff; }
+.rp-glyph { font: 600 13px var(--ix-mono); letter-spacing: -0.02em; }
+.rp-options b { display: block; font-size: 15px; font-weight: 600; color: var(--ix-text); }
+.rp-options small { display: block; margin-top: 4px; font-size: 13.5px; line-height: 1.4; color: rgba(252, 248, 245, 0.5); }
+
+/* ── how far through: an orange line grows down the divider, with a lit head ── */
+.rp-side { position: relative; }
+.rp-progress { position: absolute; top: 0; right: -1px; z-index: 3; width: 2px; height: calc(var(--p, 0) * 100%); background: linear-gradient(to bottom, rgba(255, 106, 0, 0), var(--ix-orange) 40%); pointer-events: none; }
+.rp-progress::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 9px; height: 9px; border-radius: 50%; transform: translate(-50%, 50%); background: var(--ix-orange); box-shadow: 0 0 0 4px rgba(255, 106, 0, 0.18); }
+
+/* ── the open block: its card is bright, the others rest; orange dots glow round its corner ── */
+.rp-block::before { content: ""; position: absolute; inset: 0; z-index: 0; opacity: 0; pointer-events: none; transition: opacity 0.6s ease;
+  background-image: radial-gradient(circle, var(--ix-orange) 1.2px, transparent 1.45px); background-size: 14px 14px;
+  -webkit-mask-image: radial-gradient(ellipse 260px 200px at 56px 44px, #000 0%, transparent 70%); mask-image: radial-gradient(ellipse 260px 200px at 56px 44px, #000 0%, transparent 70%); }
+.rp-block.on::before { opacity: 0.7; }
+.rp-card { transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s ease; }
+.rp-block:not(.on) .rp-card { opacity: 0.45; transform: translateY(10px); }
+.rp-block.on .rp-card { border-color: rgba(252, 248, 245, 0.14); }
+
+/* the ring fills once the card is live */
+.rp-ring { display: grid; place-items: center; color: transparent; transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease; }
+.rp-card.live .rp-ring { border-color: var(--ix-orange); background: var(--ix-orange); color: #ffffff; }
+
+/* the option under the cursor is picked as the cursor lands on it */
+.rp-options li { position: relative; transition: background-color 0.25s ease, box-shadow 0.25s ease; }
+.rp-options li.picked { background: rgba(255, 106, 0, 0.06); box-shadow: inset 0 0 0 1px rgba(255, 106, 0, 0.55); transition-delay: 0.8s; }
+.rp-options li.picked .rp-mark { background: var(--ix-orange); color: #ffffff; transition-delay: 0.8s; }
+.rp-check { position: absolute; top: 14px; right: 14px; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--ix-orange); color: #ffffff; opacity: 0; transform: scale(0.6); transition: opacity 0.2s ease, transform 0.25s ease; }
+.rp-options li.picked .rp-check { opacity: 1; transform: scale(1); transition-delay: 0.8s; }
+
+/* the cursor glides to the next option, presses, and a ring spreads from the press */
+.rp-cursor { position: absolute; left: 0; top: 0; z-index: 5; width: 22px; height: 22px; pointer-events: none; transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1); }
+.rp-cursor svg { display: block; animation: rp-tap 2.2s ease infinite; animation-delay: 0.75s; transform-origin: 30% 20%; }
+@keyframes rp-tap { 0%, 100% { transform: scale(1); } 6% { transform: scale(0.82); } 14% { transform: scale(1); } }
+.rp-press { position: absolute; left: -9px; top: -9px; width: 22px; height: 22px; border: 1.5px solid var(--ix-orange); border-radius: 50%; opacity: 0; animation: rp-ripple 0.7s ease-out 0.78s both; }
+@keyframes rp-ripple { from { opacity: 0.9; transform: scale(0.3); } to { opacity: 0; transform: scale(1.8); } }
+
+@media (max-width: 1100px) {
+  .rp { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
+  .rp-steps button { padding: 24px 24px; }
+  .rp-options { grid-template-columns: minmax(0, 1fr); }
+  .rp-options li:nth-child(odd) { border-right: 0; }
+}
+@media (max-width: 900px) {
+  .rp { grid-template-columns: minmax(0, 1fr); }
+  .rp-side { display: none; }
+  .rp-blocks { gap: 0; padding: 0; }
+  .rp-block { height: auto; max-height: 460px; padding: 28px 0 0 20px; border-top: 0; }
+  .rp-block-title { display: flex; gap: 12px; align-items: baseline; margin: 0 0 20px; font-size: 18px; color: var(--ix-text); }
+  .rp-block-title span { font: 12px var(--ix-mono); color: var(--ix-orange); }
+  .rp-card { min-height: 0; padding: 22px 0 0 20px; }
+  .rp-options { margin-left: 0; }
+  .rp-card-head::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rp-step-line, .rp-card, .rp-cursor, .rp-options li, .rp-options li .rp-mark, .rp-check { transition: none !important; }
+  .rp-cursor svg, .rp-press { animation: none; }
+  .rp-block:not(.on) .rp-card { transform: none; }
+}

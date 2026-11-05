@@ -39,12 +39,12 @@ export function CloudSection() {
         className="mx-auto flex max-w-[680px] flex-col items-center gap-5 text-center"
       >
         <Eyebrow>Cloud</Eyebrow>
-        <Title id="deploy-title" quiet="A clear path from first build to production.">
-          Deploy and scale.
+        <Title id="deploy-title" quiet="We run it for you.">
+          Ship it.
         </Title>
         <Lead className="max-w-[48ch]">
-          Start with a complete backend, then move from an idea to a reliable
-          production system without assembling the platform around it.
+          Go from your first table to production without
+          putting together a platform first.
         </Lead>
       </div>
 
@@ -53,15 +53,15 @@ export function CloudSection() {
         className="mx-auto mt-[clamp(40px,5vw,72px)] grid max-w-[1040px] gap-4 min-[900px]:grid-cols-2"
       >
         <article
-          className="relative flex min-h-[380px] flex-col gap-6 overflow-hidden rounded-[18px] p-8 text-text ring-1 ring-white/[0.06] min-[900px]:p-10"
+          className="relative flex min-h-[380px] flex-col gap-6 overflow-hidden rounded-[10px] p-8 text-text ring-1 ring-white/[0.06] min-[900px]:p-10"
           style={{
             background:
-              "radial-gradient(80% 70% at 15% 110%, rgba(255,106,0,0.5) 0%, rgba(255,106,0,0) 65%), linear-gradient(135deg, #0d2f2c 0%, #0b1a1a 100%)",
+              "#17181b",
           }}
         >
           <h3 className="m-0 text-[28px] font-medium leading-[1.1] tracking-[-0.03em]">Pawabase Cloud</h3>
           <p className="m-0 max-w-[36ch] text-[16px] leading-[1.55] text-text/70">
-            Create a project with data, auth and workflows ready. We run the infrastructure.
+            A project with data, auth, flows and agents ready to go. We keep it running.
           </p>
           <Checks items={CLOUD} />
           <a
@@ -73,10 +73,10 @@ export function CloudSection() {
           </a>
         </article>
 
-        <article className="relative flex min-h-[380px] flex-col gap-6 overflow-hidden rounded-[18px] bg-[#12171d] p-8 text-text ring-1 ring-white/[0.06] min-[900px]:p-10">
+        <article className="relative flex min-h-[380px] flex-col gap-6 overflow-hidden rounded-[10px] bg-[#17181b] p-8 text-text ring-1 ring-white/[0.06] min-[900px]:p-10">
           <h3 className="m-0 text-[28px] font-medium leading-[1.1] tracking-[-0.03em]">Built for production</h3>
           <p className="m-0 max-w-[36ch] text-[16px] leading-[1.55] text-muted">
-            Environments, releases, alarms and the controls to keep every project moving safely.
+            Environments, alarms and a full view of what the system is doing.
           </p>
           <Checks items={OPERATIONS} />
           <TextLink href="/products/observability" className="mt-auto">Explore operations</TextLink>

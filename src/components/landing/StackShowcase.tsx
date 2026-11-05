@@ -191,24 +191,24 @@ function HighlightedLine({ line }: { line: string }) {
   return (
     <>
       {tokens.map((token, index) => {
-        let color = "#FCF8F5";
+        let color = "#f3f0eb";
 
         if (token.startsWith("//")) {
-          color = "#FCF8F5";
+          color = "#f3f0eb";
         } else if (
           token.startsWith('"') ||
           token.startsWith("'") ||
           token.startsWith("`")
         ) {
-          color = "#FCF8F5";
+          color = "#f3f0eb";
         } else if (KEYWORDS.has(token)) {
-          color = "#FCF8F5";
+          color = "#f3f0eb";
         } else if (FUNCTIONS.has(token)) {
-          color = "#FCF8F5";
+          color = "#f3f0eb";
         } else if (TYPES.has(token)) {
-          color = "#FCF8F5";
+          color = "#f3f0eb";
         } else if (/^\d+$/.test(token)) {
-          color = "#FCF8F5";
+          color = "#f3f0eb";
         }
 
         return (
@@ -335,11 +335,11 @@ export function StackShowcase() {
               id="framework-code"
               role="tabpanel"
               aria-labelledby={`framework-tab-${activeIndex}`}
-              className="relative z-[1] ml-auto w-[94%] max-w-[620px] overflow-hidden rounded-tl-xl border-l border-t border-[#34383F] bg-[#121316]"
+              className="relative z-[1] ml-auto w-[94%] max-w-[620px] overflow-hidden rounded-tl-xl border-l border-t border-[#2e3035] bg-[#111214]"
             >
               <div className="relative h-[300px] overflow-hidden min-[768px]:h-[340px]">
 
-                <pre className="absolute inset-0 overflow-hidden px-5 py-6 font-mono text-[11px] leading-[1.95] text-[#FCF8F5]">
+                <pre className="absolute inset-0 overflow-hidden px-5 py-6 font-mono text-[11px] leading-[1.95] text-[#f3f0eb]">
                   <code>
                     {framework.code
                       .split("\n")
@@ -348,7 +348,7 @@ export function StackShowcase() {
                           key={`${framework.name}-${index}`}
                           className="grid grid-cols-[36px_minmax(max-content,1fr)]"
                         >
-                          <span className="select-none pr-4 text-right text-[#70757D]">
+                          <span className="select-none pr-4 text-right text-[#a8a49d]">
                             {index + 1}
                           </span>
 
@@ -363,7 +363,7 @@ export function StackShowcase() {
                 {/* Subtle bottom fade */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[125px] bg-gradient-to-b from-transparent via-[#121316]/70 to-[#121316]"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[125px] bg-gradient-to-b from-transparent via-[#111214]/70 to-[#111214]"
                 />
               </div>
             </div>

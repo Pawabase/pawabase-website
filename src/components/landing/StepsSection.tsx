@@ -6,17 +6,17 @@ const STEPS: { icon: IconName; title: string; line: string }[] = [
   {
     icon: "database",
     title: "Create a project",
-    line: "Sign in to Pawabase Cloud and start a project. It comes with its own database, sign-in and file storage.",
+    line: "Start a project. Data, auth and storage are there from the first minute.",
   },
   {
     icon: "automation",
-    title: "Shape your backend",
-    line: "Add tables, access rules and workflows in Studio, or describe them in code and deploy.",
+    title: "Shape the system",
+    line: "Add tables, policies, flows and agents in Studio, or in code.",
   },
   {
     icon: "code",
-    title: "Connect your app",
-    line: "Use the Python or TypeScript client, plain HTTP, or hand the keys to an AI agent through MCP.",
+    title: "Plug everything in",
+    line: "Apps, teammates, partners and agents all use the same system.",
   },
 ];
 
@@ -29,7 +29,7 @@ export function StepsSection() {
           id="steps-title"
           className="m-0 text-[clamp(38px,4.4vw,62px)] font-medium leading-[1.06] tracking-[-0.03em] text-text text-balance"
         >
-          Start in three steps
+          Three steps in
         </h2>
       </div>
 

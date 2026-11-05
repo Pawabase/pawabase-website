@@ -1,0 +1,49 @@
+/*
+ * Everything a system needs: six cells in a 3 × 2 grid, touching, divided by the panel's dashed lines. Each cell has
+ * an orange icon square, a faint dotted corner with its number, a dashed rule under the heading, and an orange line
+ * that slides in along its top on hover.
+ */
+
+.ix-features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; }
+.ix-group { position: relative; overflow: hidden; padding: 36px 40px 40px; }
+
+/* a faint field of dots in the top-right corner, fading out toward the copy */
+.ix-group::after { content: ""; position: absolute; top: 0; right: 0; z-index: 0; width: 260px; height: 200px; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(252, 248, 245, 0.12) 0.9px, transparent 1.15px); background-size: 10px 10px;
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 0%, transparent 70%); mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 0%, transparent 70%); }
+/* an orange line slides in along the top on hover */
+.ix-group::before { content: ""; position: absolute; left: 0; right: 0; top: 0; z-index: 2; height: 2px; background: var(--ix-orange); transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+.ix-group:hover::before { transform: scaleX(1); }
+.ix-group:hover { background: linear-gradient(180deg, rgba(255, 106, 0, 0.045), rgba(255, 106, 0, 0) 55%); }
+.ix-group > * { position: relative; z-index: 1; }
+
+.ix-group-n { position: absolute; top: 40px; right: 40px; font: 12px var(--ix-mono); color: var(--ix-faint); transition: color 0.2s ease; }
+.ix-group:hover .ix-group-n { color: var(--ix-orange); }
+
+.ix-group-head { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px dashed rgba(252, 248, 245, 0.12); }
+.ix-group-icon { display: grid; flex: none; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: var(--ix-orange); color: #ffffff; }
+.ix-group-head h3 { margin: 0; font-size: 18px; font-weight: 500; letter-spacing: -0.015em; color: var(--ix-text); }
+
+.ix-group ul { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.ix-group li { position: relative; padding-left: 20px; font-size: 14.5px; line-height: 1.45; color: rgba(252, 248, 245, 0.74); transition: color 0.15s ease; }
+.ix-group li::before { content: ""; position: absolute; left: 1px; top: 7px; width: 6px; height: 6px; border-radius: 1.5px; background: rgba(255, 106, 0, 0.6); transition: background-color 0.15s ease; }
+.ix-group:hover li { color: rgba(252, 248, 245, 0.86); }
+.ix-group li:hover { color: var(--ix-text); }
+.ix-group li:hover::before { background: var(--ix-orange); }
+
+@media (max-width: 1100px) {
+  .ix-features { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; }
+  .ix-features > .ix-lines .ix-dv, .ix-features > .ix-lines .ix-dh, .ix-features > .ix-lines .ix-m { display: none; }
+  .ix-features > .ix-cell { border-bottom: 1px dashed var(--ix-dash); }
+  .ix-features > .ix-cell:nth-of-type(even) { border-left: 1px dashed var(--ix-dash); }
+}
+@media (max-width: 900px) {
+  .ix-features { grid-template-columns: minmax(0, 1fr); }
+  .ix-features > .ix-cell:nth-of-type(even) { border-left: 0; }
+  .ix-features > .ix-cell:last-of-type { border-bottom: 0; }
+  .ix-group { padding: 28px; }
+  .ix-group-n { top: 32px; right: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ix-group::before { transition: none; }
+}

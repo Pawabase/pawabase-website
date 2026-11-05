@@ -242,7 +242,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`card relative overflow-hidden rounded-[18px] border border-line bg-[#0e1217] ${className}`}
+      className={`card relative overflow-hidden rounded-[10px] border border-line bg-[#111214] ${className}`}
     >
       {children}
     </div>

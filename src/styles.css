@@ -2,21 +2,21 @@
 @font-face { font-family: "Plus Jakarta Sans"; src: url("/brand/PlusJakartaSans-Variable.ttf") format("truetype"); font-weight: 200 800; font-style: normal; font-display: swap; }
 
 @theme {
-  --color-page: #121316;
-  --color-shell: #121316;
-  --color-deep: #121316;
-  --color-elevated: color-mix(in srgb, #FCF8F5 7%, #121316);
-  --color-text: #FCF8F5;
-  --color-muted: color-mix(in srgb, #FCF8F5 68%, #121316);
-  --color-faint: color-mix(in srgb, #FCF8F5 51%, #121316);
+  --color-page: #111214;
+  --color-shell: #111214;
+  --color-deep: #0c0d0f;
+  --color-elevated: #1d1e22;
+  --color-text: #f3f0eb;
+  --color-muted: #a8a49d;
+  --color-faint: #77736c;
   --color-brand: #FF6A00;
-  --color-lavender: #FCF8F5;
-  --color-line: #1f252e;
-  --color-line-subtle: color-mix(in srgb, #FCF8F5 10%, #121316);
-  --color-surface: color-mix(in srgb, #FCF8F5 3%, #121316);
-  --color-card: color-mix(in srgb, #FCF8F5 4%, #121316);
-  --color-tint: color-mix(in srgb, #FCF8F5 2%, #121316);
-  --color-warm: color-mix(in srgb, #FCF8F5 2%, #121316);
+  --color-lavender: #f3f0eb;
+  --color-line: #232428;
+  --color-line-subtle: #2e3035;
+  --color-surface: #17181b;
+  --color-card: #17181b;
+  --color-tint: #141518;
+  --color-warm: #141518;
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --animate-marquee: marquee 52s linear infinite;
@@ -134,7 +134,7 @@
 
   ::selection {
     background: rgba(245,243,238,0.42);
-    color: #FCF8F5;
+    color: #f3f0eb;
   }
 
   :focus-visible {
@@ -231,8 +231,8 @@
 
 /* Core palette: utility colors are tonal aliases, never additional brand inks. */
 @theme {
-  --color-white: #FCF8F5;
-  --color-black: #121316;
+  --color-white: #f3f0eb;
+  --color-black: #111214;
 }
 
 /* Buttons, copied from the Pawabase dashboard.
@@ -240,26 +240,232 @@
 .btn-clay,
 .btn-clay-dark {
   font-weight: 600;
-  transition: background-color 0.15s, transform 0.08s, box-shadow 0.15s;
+  border-radius: 8px;
+  box-shadow: none;
+  background-image: none;
+  transition: background-color 0.15s, border-color 0.15s;
 }
-.btn-clay {
-  background-color: #FF6A00;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 62%);
-  border: 1px solid #FFD27A;
-  border-radius: 10px;
-  color: #121316;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -3px 0 rgba(120,45,0, 0.32), 0 6px 14px -6px rgba(255,106,0, 0.55);
+.btn-clay { background-color: #FF6A00; border: 1px solid #FF6A00; color: #ffffff; }
+.btn-clay:hover { background-color: #ff7d1f; border-color: #ff7d1f; }
+.btn-clay:active { background-color: #F65A00; border-color: #F65A00; }
+.btn-clay-dark { background-color: #17181b; border: 1px solid #2e3035; color: #f3f0eb; }
+.btn-clay-dark:hover { background-color: #1d1e22; border-color: #43454c; }
+
+/* ── hero: an orange panel with an LED dot matrix, and the Orange Planet rising through it like a sun ─────────────
+   Everything is the brand's own: orange #FF6A00 and deep orange #F65A00 for the panel and its matrix, sunlight #FFD27A
+   and ivory for the light. The light is drawn by dots getting brighter, not by a blur. */
+.hero-sun-panel {
+  --planet: clamp(440px, 50vw, 780px);
+  display: flex; align-items: flex-start; justify-content: center;
+  min-height: clamp(760px, 94svh, 940px);
+  padding: clamp(120px, 17vh, 176px) 20px calc(var(--planet) * 0.42 + 40px);
+  border-radius: 12px;
+  background: #FF6A00;
+  box-shadow: inset 0 0 0 1px rgba(255, 210, 122, 0.35) !important;
 }
-.btn-clay:hover { background-color: #FF9500; }
-.btn-clay:active { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(120,45,0, 0.3), 0 1px 3px -1px rgba(255,106,0, 0.5); }
-.btn-clay-dark {
-  background-color: color-mix(in srgb, #FCF8F5 9%, #121316);
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0) 65%);
-  border: 1px solid color-mix(in srgb, #FCF8F5 15%, #121316);
-  border-radius: 10px;
-  color: #FCF8F5;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -3px 0 rgba(0, 0, 0, 0.32), 0 4px 10px -4px rgba(0, 0, 0, 0.7);
+/* the matrix: a fine grid of deep-orange dots over the whole panel, a little denser towards the rim */
+.hero-sun-matrix {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(246, 90, 0, 0.9) 0.9px, transparent 1.15px);
+  background-size: 5px 5px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 40%, rgba(0,0,0,0.45), #000 100%);
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 40%, rgba(0,0,0,0.45), #000 100%);
 }
-.btn-clay-dark:hover { background-color: color-mix(in srgb, #FCF8F5 14%, #121316); }
-.btn-clay:active,
-.btn-clay-dark:active { transform: translateY(1px); }
+/* the light: the same grid in sunlight, bright at the planet and thinning upwards into the headline */
+.hero-sun-light {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle, #FFD27A 0.95px, transparent 1.2px);
+  background-size: 5px 5px;
+  -webkit-mask-image: radial-gradient(ellipse 58% 70% at 50% 100%, #000 0%, rgba(0,0,0,0.7) 38%, rgba(0,0,0,0.18) 68%, transparent 100%);
+  mask-image: radial-gradient(ellipse 58% 70% at 50% 100%, #000 0%, rgba(0,0,0,0.7) 38%, rgba(0,0,0,0.18) 68%, transparent 100%);
+}
+.hero-sun-planet {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background-size: 5px 5px;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: var(--planet) var(--planet); mask-size: var(--planet) var(--planet);
+  -webkit-mask-position: 50% calc(100% + var(--planet) * 0.58); mask-position: 50% calc(100% + var(--planet) * 0.58);
+}
+.hero-sun-planet.upper { background-image: radial-gradient(circle, #FFD27A 1.55px, transparent 1.75px); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M43.54554 201.56252A112 112 0 1 1 237.58751 104.87909C157.87944 101.37044 84.49478 152.70781 43.54554 201.56252Z' fill='black'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M43.54554 201.56252A112 112 0 1 1 237.58751 104.87909C157.87944 101.37044 84.49478 152.70781 43.54554 201.56252Z' fill='black'/%3E%3C/svg%3E"); }
+.hero-sun-planet.lower { background-image: radial-gradient(circle, #FCF8F5 1.6px, transparent 1.8px); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M239.68196 119.56555A112 112 0 0 1 85.38303 231.57507C107.48096 166.78947 160.36086 120.94921 239.68196 119.56555Z' fill='black'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M239.68196 119.56555A112 112 0 0 1 85.38303 231.57507C107.48096 166.78947 160.36086 120.94921 239.68196 119.56555Z' fill='black'/%3E%3C/svg%3E"); }
+.hero-sun-copy { z-index: 2; }
+.hero-sun-cta {
+  display: inline-flex; align-items: center; height: 50px; padding: 0 26px; border-radius: 999px;
+  background: #ffffff; color: #111214; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; transition: background 0.15s;
+}
+.hero-sun-cta:hover { background: #FCF8F5; }
+.hero-sun-link {
+  display: inline-flex; align-items: center; gap: 6px; height: 50px; padding: 0 22px; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.55); color: #ffffff; font-size: 15px; font-weight: 550; transition: border-color 0.15s, background 0.15s;
+}
+.hero-sun-link:hover { border-color: #ffffff; background: rgba(255, 255, 255, 0.08); }
+.motion-enabled .hero-sun-planet { animation: hero-sun-rise 1.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.motion-enabled .hero-sun-light { animation: hero-sun-fade 1.8s ease-out 0.2s both; }
+@keyframes hero-sun-rise { from { opacity: 0; -webkit-mask-position: 50% calc(100% + var(--planet) * 0.7); mask-position: 50% calc(100% + var(--planet) * 0.7); } to { opacity: 1; } }
+@keyframes hero-sun-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .hero-sun-planet, .hero-sun-light { animation: none !important; } }
+@media (max-width: 767px) { .hero-sun-panel { --planet: 104vw; min-height: 680px; padding-top: 104px; } }
+/* the first section rail marks would sit on the panel's corners: the panel already frames itself */
+main > section#platform::before, main > section#platform::after { display: none; }
+
+/* ── the bento, in the hero's language: hairline tiles, an LED matrix that lights under the pointer ───────────────── */
+.bento-tile { border: 1px solid #2e3035; transition: border-color 0.25s ease; }
+.bento-tile:hover { border-color: #43454c; }
+.bento-tile.bg-brand { border-color: rgba(255, 210, 122, 0.4); }
+.bento-tile.bento-ivory { border-color: #e4e0d9; }
+/* the LED layer: the matrix lit in orange in a small circle around the pointer, dark everywhere else */
+.bento-led {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.35s ease;
+  background-image: radial-gradient(circle, #FF6A00 1px, transparent 1.25px); background-size: 6px 6px;
+  -webkit-mask-image: radial-gradient(180px circle at var(--mx, 50%) var(--my, 50%), #000 0%, rgba(0,0,0,0.35) 45%, transparent 75%);
+  mask-image: radial-gradient(180px circle at var(--mx, 50%) var(--my, 50%), #000 0%, rgba(0,0,0,0.35) 45%, transparent 75%);
+}
+.bento-led.ink { background-image: radial-gradient(circle, rgba(17, 18, 20, 0.55) 1px, transparent 1.25px); }
+.bento-tile:hover .bento-led { opacity: 0.55; }
+/* and at rest, a faint matrix in one corner of the dark tiles, so they share the hero's grid */
+.bento-tile:not(.bg-brand):not(.bento-ivory):not(.bento-storage)::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(243, 240, 235, 0.16) 0.8px, transparent 1.05px); background-size: 6px 6px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 100% 0%, #000, transparent 70%);
+  mask-image: radial-gradient(ellipse 60% 70% at 100% 0%, #000, transparent 70%);
+}
+.bento-tile > :not(.bento-led):not(.bento-sun-matrix):not(.bento-sun-light):not(.bento-storage-matrix):not(.bento-storage-light):not(.bento-ivory-halftone):not(.bento-ivory-planet):not(.bento-wave):not(svg):not(.absolute) { position: relative; z-index: 1; }
+.bento-tile > .absolute:not(svg) { z-index: 1; }
+
+/* realtime: the hero's orange LED panel in miniature, with a low sunrise */
+.bento-sun-matrix, .bento-sun-light, .bento-storage-matrix, .bento-storage-light, .bento-ivory-halftone { position: absolute; inset: 0; pointer-events: none; background-size: 5px 5px; }
+.bento-sun-matrix {
+  background-image: radial-gradient(circle, rgba(246, 90, 0, 0.9) 0.9px, transparent 1.15px);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 30% 20%, rgba(0,0,0,0.4), #000); mask-image: radial-gradient(ellipse 90% 80% at 30% 20%, rgba(0,0,0,0.4), #000);
+}
+.bento-sun-light {
+  background-image: radial-gradient(circle, #FFD27A 1px, transparent 1.25px);
+  -webkit-mask-image: radial-gradient(ellipse 80% 55% at 70% 100%, rgba(0,0,0,0.8), transparent 75%); mask-image: radial-gradient(ellipse 80% 55% at 70% 100%, rgba(0,0,0,0.8), transparent 75%);
+}
+
+/* storage: LED dots lit in sunlight around the folder */
+.bento-storage-matrix {
+  background-image: radial-gradient(circle, rgba(243, 240, 235, 0.22) 0.85px, transparent 1.1px); background-size: 6px 6px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 42%, #000, transparent); mask-image: radial-gradient(ellipse 75% 65% at 50% 42%, #000, transparent);
+}
+.bento-storage-light {
+  background-image: radial-gradient(circle, #FF9500 1px, transparent 1.3px); background-size: 6px 6px;
+  -webkit-mask-image: radial-gradient(circle 92px at 50% 40%, rgba(0,0,0,0.75), transparent 80%); mask-image: radial-gradient(circle 92px at 50% 40%, rgba(0,0,0,0.75), transparent 80%);
+}
+
+/* $0: an ink halftone from the upper right corner */
+.bento-ivory-halftone {
+  background-image: radial-gradient(circle, rgba(17, 18, 20, 0.22) 1px, transparent 1.3px); background-size: 6px 6px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 100% 0%, #000, transparent 70%); mask-image: radial-gradient(ellipse 80% 80% at 100% 0%, #000, transparent 70%);
+}
+
+/* workflows: the hero's orbit system, the dial and two satellites turning slowly */
+.bento-dial, .bento-sat { transform-box: view-box; transform-origin: 400px 330px; }
+.motion-enabled .bento-dial { animation: bento-turn 200s linear infinite; }
+.motion-enabled .bento-sat.a { animation: bento-turn-a 60s linear infinite; }
+.motion-enabled .bento-sat.b { animation: bento-turn-b 110s linear infinite; }
+.bento-sat.a { transform: rotate(-38deg); }
+.bento-sat.b { transform: rotate(-62deg); }
+@keyframes bento-turn { to { transform: rotate(360deg); } }
+@keyframes bento-turn-a { from { transform: rotate(-38deg); } to { transform: rotate(-398deg); } }
+@keyframes bento-turn-b { from { transform: rotate(-62deg); } to { transform: rotate(298deg); } }
+@media (prefers-reduced-motion: reduce) { .bento-dial, .bento-sat { animation: none !important; } .bento-led { transition: none; } }
+
+/* ── the bento as one instrument panel: joined tiles on hairlines, handles at the junctions ────────────────────────── */
+.bento-frame { width: min(calc(100% - 32px), 1320px); margin: 0 auto; padding: 0; }
+.bento-grid { gap: 1px !important; background: #2e3035; border: 0; border-radius: 0; overflow: hidden; max-width: none !important; }
+.bento-grid > .bento-tile { border: 0 !important; border-radius: 0 !important; }
+.bento-grid > .bento-tile:hover { box-shadow: inset 0 0 0 1px #43454c !important; }
+/* the handles: small squares where the panel's lines meet, as in a design tool */
+.bento-handle { position: absolute; z-index: 3; width: 7px; height: 7px; margin: -3px 0 0 -3px; background: #111214; border: 1px solid #5a5c63; pointer-events: none; }
+.bento-handle.tl { left: 0; top: 0; } .bento-handle.tr { left: 100%; top: 0; margin-left: -4px; }
+.bento-handle.bl { left: 0; top: 100%; margin-top: -4px; } .bento-handle.br { left: 100%; top: 100%; margin: -4px 0 0 -4px; }
+.bento-handle.t1, .bento-handle.t2, .bento-handle.t3, .bento-handle.b1, .bento-handle.b2, .bento-handle.b3,
+.bento-handle.m1, .bento-handle.m2, .bento-handle.m3, .bento-handle.ml, .bento-handle.mr { display: none; }
+@media (min-width: 1100px) {
+  .bento-handle.t1, .bento-handle.t2, .bento-handle.t3, .bento-handle.b1, .bento-handle.b2, .bento-handle.b3, .bento-handle.m1, .bento-handle.m2, .bento-handle.m3, .bento-handle.ml, .bento-handle.mr { display: block; }
+  .bento-handle.t1, .bento-handle.b1, .bento-handle.m1 { left: 25%; }
+  .bento-handle.t2, .bento-handle.b2, .bento-handle.m2 { left: 50%; }
+  .bento-handle.t3, .bento-handle.b3, .bento-handle.m3 { left: 75%; }
+  .bento-handle.t1, .bento-handle.t2, .bento-handle.t3 { top: 0; }
+  .bento-handle.b1, .bento-handle.b2, .bento-handle.b3 { top: 100%; margin-top: -4px; }
+  .bento-handle.m1, .bento-handle.m2, .bento-handle.m3, .bento-handle.ml, .bento-handle.mr { top: 50%; }
+  .bento-handle.ml { left: 0; } .bento-handle.mr { left: 100%; margin-left: -4px; }
+}
+.bento-handle.ml, .bento-handle.mr, .bento-handle.tl, .bento-handle.tr, .bento-handle.bl, .bento-handle.br { border-color: #FF6A00; }
+
+/* database: query traffic as LED columns, rising and settling */
+.bento-wave { position: absolute; right: 20px; top: 22px; z-index: 0 !important; display: flex; align-items: flex-end; gap: 3px; width: 31%; height: 50px; pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 30%); mask-image: linear-gradient(90deg, transparent, #000 30%); }
+.bento-wave span { flex: 1; height: var(--h); background-image: radial-gradient(circle, #FF6A00 1.1px, transparent 1.4px); background-size: 5px 5px; background-position: center bottom; opacity: 0.85; }
+.motion-enabled .bento-wave span { animation: bento-wave 2.8s ease-in-out var(--d) infinite alternate; }
+@keyframes bento-wave { from { height: var(--h); } to { height: calc(var(--h) * 0.45); } }
+
+/* $0: the Orange Planet in ink dots, half in the tile's upper right corner (the dots sit on the tile's grid) */
+.bento-ivory-planet {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; background-size: 6px 6px;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 260px 260px; mask-size: 260px 260px;
+  -webkit-mask-position: calc(100% + 70px) -70px; mask-position: calc(100% + 70px) -70px;
+}
+.bento-ivory-planet.upper { background-image: radial-gradient(circle, rgba(17, 18, 20, 0.62) 1.25px, transparent 1.5px); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M43.54554 201.56252A112 112 0 1 1 237.58751 104.87909C157.87944 101.37044 84.49478 152.70781 43.54554 201.56252Z' fill='black'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M43.54554 201.56252A112 112 0 1 1 237.58751 104.87909C157.87944 101.37044 84.49478 152.70781 43.54554 201.56252Z' fill='black'/%3E%3C/svg%3E"); }
+.bento-ivory-planet.lower { background-image: radial-gradient(circle, #FF6A00 1.45px, transparent 1.7px); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M239.68196 119.56555A112 112 0 0 1 85.38303 231.57507C107.48096 166.78947 160.36086 120.94921 239.68196 119.56555Z' fill='black'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M239.68196 119.56555A112 112 0 0 1 85.38303 231.57507C107.48096 166.78947 160.36086 120.94921 239.68196 119.56555Z' fill='black'/%3E%3C/svg%3E"); }
+@media (prefers-reduced-motion: reduce) { .bento-wave span { animation: none !important; } }
+
+/* ── mission: a title, then the globe on a band of its own, then three cells, each running between the rails ────── */
+.mission-stage, .mission-cells { width: min(calc(100% - 32px), 1320px); margin: 0 auto; }
+.mission-stage {
+  position: relative; height: clamp(340px, 40vw, 560px); overflow: hidden;
+  background-color: #0a0b0d; border-top: 1px solid #2e3035; border-bottom: 1px solid #2e3035;
+  background-image: radial-gradient(circle, rgba(243, 240, 235, 0.07) 0.8px, transparent 1.05px); background-size: 6px 6px;
+}
+.mission-stage > div[aria-hidden] { width: 100%; }
+.mission-globe { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mission-cells { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #2e3035; border-bottom: 1px solid #2e3035; }
+.mission-cell { position: relative; overflow: hidden; display: grid; align-content: start; gap: 12px; min-height: 280px; padding: 44px clamp(28px, 3.2vw, 48px) 48px; background: #111214; transition: background 0.25s ease; }
+.mission-cell:hover { background: #141518; }
+.mission-cell:hover .bento-led { opacity: 0.5; }
+.mission-cell > :not(.bento-led) { position: relative; z-index: 1; }
+.mission-cell::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(243, 240, 235, 0.14) 0.8px, transparent 1.05px); background-size: 6px 6px;
+  -webkit-mask-image: radial-gradient(ellipse 55% 70% at 100% 100%, #000, transparent 70%); mask-image: radial-gradient(ellipse 55% 70% at 100% 100%, #000, transparent 70%); }
+.mission-cell-index { position: absolute !important; top: 22px; right: 26px; font: 500 12px/1 var(--font-mono); letter-spacing: 0.04em; color: var(--color-faint); }
+.mission-cell-icon { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 18px; border: 1px solid #2e3035; border-radius: 9px; color: #FF6A00; background: #17181b; }
+.mission-cell h3 { margin: 0; font-size: 24px; font-weight: 550; letter-spacing: -0.025em; color: var(--color-text); }
+.mission-cell p { margin: 0; max-width: 34ch; font-size: 15.5px; line-height: 1.6; color: var(--color-muted); }
+.mission-cells .mission-handle { position: absolute; z-index: 3; width: 7px; height: 7px; margin: -4px 0 0 -4px; background: #111214; border: 1px solid #5a5c63; pointer-events: none; }
+.mission-cells .mission-handle.c1, .mission-cells .mission-handle.c2 { top: 0; }
+.mission-cells .mission-handle.c1 { left: 33.333%; } .mission-cells .mission-handle.c2 { left: 66.666%; }
+.mission-cells::before, .mission-cells::after { content: ""; position: absolute; z-index: 3; bottom: 0; width: 7px; height: 7px; margin: 0 0 -4px -4px; background: #111214; border: 1px solid #5a5c63; }
+.mission-cells::before { left: 33.333%; } .mission-cells::after { left: 66.666%; }
+@media (max-width: 860px) {
+  .mission-cells { grid-template-columns: minmax(0, 1fr); }
+  .mission-cells .mission-handle, .mission-cells::before, .mission-cells::after { display: none; }
+  .mission-cell { min-height: 0; }
+}
+
+/* the bands close on the rails: their own left and right borders (their fill would otherwise hide the page's rails) */
+.bento-frame, .mission-stage, .mission-cells { border-left: 1px solid #2e3035; border-right: 1px solid #2e3035; }
+.bento-frame { box-sizing: border-box; }
+
+/* any app → one backend: clients around the globe, wired into the Pawabase hub */
+.mission-net { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.mission-net > .mission-wires { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.mission-wire { fill: none; stroke: rgba(243, 240, 235, 0.16); stroke-width: 1px; vector-effect: non-scaling-stroke; stroke-dasharray: 0.6 1.2; }
+.mission-flow { fill: none; stroke: #FF6A00; stroke-width: 1.5px; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-dasharray: 10 90; stroke-dashoffset: 100; }
+.motion-enabled .mission-flow { animation: mission-flow 3.2s linear infinite; }
+@keyframes mission-flow { to { stroke-dashoffset: 0; } }
+.mission-client {
+  position: absolute; display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px 0 11px; transform: translate(-50%, -50%);
+  border: 1px solid #2e3035; border-radius: 999px; background: #111214; color: #f3f0eb; font-size: 13px; font-weight: 550; white-space: nowrap;
+}
+.mission-client svg { flex: none; width: 18px; height: 18px; color: #f3f0eb; }
+.mission-hub {
+  position: absolute; display: grid; place-items: center; width: 64px; height: 64px; transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 210, 122, 0.55); border-radius: 16px; background: #111214;
+}
+.mission-hub::before, .mission-hub::after { content: ""; position: absolute; inset: -10px; border: 1px solid rgba(255, 106, 0, 0.5); border-radius: 22px; opacity: 0; }
+.motion-enabled .mission-hub::before { animation: mission-hub 2.8s ease-out infinite; }
+.motion-enabled .mission-hub::after { animation: mission-hub 2.8s ease-out 1.4s infinite; }
+@keyframes mission-hub { 0% { opacity: 0.9; transform: scale(0.85); } 100% { opacity: 0; transform: scale(1.5); } }
+@media (prefers-reduced-motion: reduce) { .mission-flow, .mission-hub::before, .mission-hub::after { animation: none !important; } }
+@media (max-width: 760px) { .mission-client span { display: none; } .mission-client { padding: 0 10px; } }

@@ -7,7 +7,7 @@ export function FinalCta() {
     <Band id="start" labelledBy="start-title" wide>
       <div
         data-reveal="scale"
-        className="relative mx-auto my-[clamp(48px,6vw,96px)] flex max-w-[1040px] flex-col items-center overflow-hidden rounded-[24px] border border-line px-6 py-[clamp(64px,8vw,112px)] text-center"
+        className="relative mx-auto my-[clamp(48px,6vw,96px)] flex max-w-[1040px] flex-col items-center overflow-hidden rounded-[10px] border border-line px-6 py-[clamp(64px,8vw,112px)] text-center"
       >
         <div
           aria-hidden="true"
@@ -23,8 +23,8 @@ export function FinalCta() {
           id="start-title"
           className="relative m-0 mt-8 max-w-[16ch] text-[clamp(42px,6vw,84px)] font-medium leading-[1.04] tracking-[-0.035em] text-text"
         >
-          Build the app.
-          <span className="block text-muted">Automate the work.</span>
+          Build the whole system.
+          <span className="block text-muted">Every team, from day one.</span>
         </h2>
         <div className="relative mt-10 flex flex-wrap items-center justify-center gap-3">
           <a

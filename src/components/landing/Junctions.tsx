@@ -7,8 +7,8 @@ function Plus({ side }: { side: "left" | "right" }) {
     <span
       className={`absolute top-0 block size-[13px] ${side === "left" ? "left-0 -translate-x-1/2" : "right-0 translate-x-1/2"} -translate-y-1/2`}
     >
-      <i className="absolute left-0 top-1/2 block h-px w-full -translate-y-1/2 bg-[#9aa4b0]" />
-      <i className="absolute left-1/2 top-0 block h-full w-px -translate-x-1/2 bg-[#9aa4b0]" />
+      <i className="absolute left-0 top-1/2 block h-px w-full -translate-y-1/2 bg-[#a8a49d]" />
+      <i className="absolute left-1/2 top-0 block h-full w-px -translate-x-1/2 bg-[#a8a49d]" />
     </span>
   );
 }

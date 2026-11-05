@@ -11,9 +11,9 @@ function Records() {
     <div className="relative mx-auto w-full max-w-[520px]">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-8 rounded-full bg-[radial-gradient(circle,rgba(255,106,0,0.16),transparent_68%)]"
+        className="pointer-events-none absolute -inset-8 rounded-full"
       />
-      <div className="relative overflow-hidden rounded-[20px] border border-white/[0.08] bg-[#0c1117]/90 shadow-[0_40px_80px_-48px_rgba(255,106,0,0.8)]">
+      <div className="relative overflow-hidden rounded-[10px] border border-white/[0.08] bg-[#111214]/90">
         <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3">
           <span className="text-[13px] font-medium tracking-[-0.01em] text-text">orders</span>
           <span className="text-[12px] text-muted">Today</span>
@@ -47,15 +47,15 @@ function SignedIn() {
         {["A", "L", "M"].map((letter, i) => (
           <span
             key={letter}
-            className={`flex size-9 items-center justify-center rounded-full border border-[#0c1117] text-[12px] font-medium ${
-              i === 0 ? "bg-brand text-[#121316]" : i === 1 ? "bg-[#FCF8F5] text-[#121316]" : "bg-[#143f3a] text-brand"
+            className={`flex size-9 items-center justify-center rounded-full border border-[#111214] text-[12px] font-medium ${
+              i === 0 ? "bg-brand text-[#111214]" : i === 1 ? "bg-[#f3f0eb] text-[#111214]" : "bg-[#1d1e22] text-brand"
             }`}
           >
             {letter}
           </span>
         ))}
       </div>
-      <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[12.5px] text-text shadow-[0_16px_40px_-24px_rgba(255,106,0,0.9)]">
+      <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[12.5px] text-text">
         <Icon name="users" size={14} className="text-brand" />
         Signed in as Ada
         <span className="size-1.5 rounded-full bg-brand" />
@@ -66,7 +66,7 @@ function SignedIn() {
 
 function SavedFile() {
   return (
-    <div className="w-[230px] rounded-[16px] border border-white/[0.08] bg-[#0c1117] p-3.5 shadow-[0_24px_50px_-32px_rgba(0,0,0,0.8)]">
+    <div className="w-[230px] rounded-[10px] border border-white/[0.08] bg-[#111214] p-3.5">
       <div className="flex items-center gap-3">
         <span className="flex size-9 items-center justify-center rounded-[10px] bg-brand/15 text-brand">
           <Icon name="storage" size={18} />
@@ -135,28 +135,28 @@ export function CapabilityBoard() {
           <div className="flex flex-1 items-center py-4">
             <Records />
           </div>
-          <Copy title="The product remembers">
-            Orders, customers and status stay in one place, so the screen you ship is telling the truth.
+          <Copy title="One source of truth">
+            Your app, your dashboard and your agents read the same records. Nobody keeps a copy.
           </Copy>
         </article>
 
         <article className="flex flex-col justify-between gap-8 border-b border-line p-8 min-[900px]:flex-row min-[900px]:items-end min-[900px]:p-10">
-          <Copy title="A visitor becomes a customer">
-            They sign in once. After that, the app knows who they are and what they are allowed to see.
+          <Copy title="People, with permissions">
+            Sign in once. Every part of the system knows who they are and what they can touch.
           </Copy>
           <SignedIn />
         </article>
 
         <article className="flex flex-col justify-between gap-8 border-b border-line p-8 min-[900px]:flex-row min-[900px]:items-end min-[900px]:border-b-0 min-[900px]:border-r min-[900px]:p-10">
-          <Copy title="The file stays with the work">
-            The invoice lands beside the order, and the person who should open it still can tomorrow.
+          <Copy title="Files that stay put">
+            Stored next to the data they belong to, and shared only with who should see them.
           </Copy>
           <SavedFile />
         </article>
 
         <article className="flex flex-col justify-between gap-8 p-8 min-[900px]:flex-row min-[900px]:items-end min-[900px]:p-10">
-          <Copy title="They hear from you">
-            The welcome, the receipt, the invite. Each one goes out, and you can tell which were opened.
+          <Copy title="Messages that go out">
+            Welcome emails, receipts, invites. Sent by a flow, and you can see what landed.
           </Copy>
           <SentMail />
         </article>

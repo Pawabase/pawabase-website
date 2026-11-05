@@ -3,11 +3,11 @@ import { Band, Eyebrow, TextLink, Title } from "./Section";
 const QUESTIONS = [
   {
     q: "What is Pawabase?",
-    a: "A unified backend platform for data APIs, authentication, storage, email, realtime, visual workflows and background jobs.",
+    a: "A place to build complete systems: data, auth, policies, storage, flows, agents and APIs. Your apps, your team and your agents all work from it.",
   },
   {
-    q: "Which databases does it use?",
-    a: "PostgreSQL. Tables you create become REST endpoints with filtering, sorting, relations and pagination.",
+    q: "Is it just a backend?",
+    a: "It can be one, but most people use it for more. The same system serves your app, the people who run things, your partners and your agents.",
   },
   {
     q: "How do I get started?",
@@ -18,16 +18,16 @@ const QUESTIONS = [
     a: "Yes. Pawabase Cloud runs the platform for you, with projects that have their own database, environments, release controls and operational visibility.",
   },
   {
-    q: "How does access control work?",
-    a: "Policies are written per table and per action, and they know the user, role and team. The same policy applies to REST requests, files and realtime channels. An ordered firewall and scoped keys sit in front of them.",
+    q: "How do policies work?",
+    a: "Write a rule once and use it anywhere: endpoints, tables, files and agents. Rules know the user, their team and their role.",
   },
   {
-    q: "Which frontends can use it?",
-    a: "Any that can make an HTTP request. There is a TypeScript client for web and Node, a Python client, and the REST API for everything else, including mobile apps.",
+    q: "What can connect to it?",
+    a: "Anything that speaks HTTP. There are TypeScript and Python clients, the REST API, and MCP for AI tools.",
   },
   {
-    q: "How do I add my own logic?",
-    a: "Build visual workflows triggered by APIs, schedules, database events or webhooks. Slow work runs as background jobs with retries.",
+    q: "Where do agents fit in?",
+    a: "Call them from a flow, an endpoint or a route. Add the models you like. They follow the same policies as everyone else.",
   },
   {
     q: "How are changes released?",
@@ -41,7 +41,7 @@ export function FaqSection() {
       <div className="grid gap-10 min-[1000px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] min-[1000px]:gap-20">
         <div data-reveal="left" className="flex h-fit flex-col gap-6 min-[1000px]:sticky min-[1000px]:top-28">
           <Eyebrow className="w-fit">FAQ</Eyebrow>
-          <Title id="faq-title" quiet="Answered plainly.">
+          <Title id="faq-title" quiet="Short answers.">
             Questions.
           </Title>
           <TextLink href="https://docs.sillo.build">Browse the documentation</TextLink>

@@ -41,7 +41,7 @@ export function CurrencyPicker() {
       </button>
       {converted ? <span className="text-[12.5px] text-faint">Billed in USD</span> : null}
       {open ? (
-        <div role="listbox" className="absolute left-0 top-[calc(100%+8px)] z-30 grid w-[280px] gap-2 rounded-2xl bg-card p-2 shadow-2xl ring-1 ring-white/[0.1]">
+        <div role="listbox" className="absolute left-0 top-[calc(100%+8px)] z-30 grid w-[280px] gap-2 rounded-[10px] bg-card p-2 shadow-2xl ring-1 ring-white/[0.1]">
           <input
             autoFocus
             value={query}

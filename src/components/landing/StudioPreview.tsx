@@ -24,7 +24,7 @@ export function StudioPreview() {
   }, [manual]);
 
   return (
-    <div className="overflow-hidden rounded-[15px] border border-line bg-page text-text">
+    <div className="overflow-hidden rounded-[10px] border border-line bg-page text-text">
       <div role="tablist" aria-label="Studio screens" className="flex flex-wrap items-center justify-center gap-1 border-b border-line bg-surface p-2 text-[clamp(11px,1vw,13px)]">
         {SCREENS.map((screen, index) => (
           <button

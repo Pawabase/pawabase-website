@@ -14,7 +14,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
       {plans.map((plan) => (
         <article
           key={plan.name}
-          className={`relative flex min-w-0 flex-col overflow-hidden rounded-[24px] p-6 ring-1 min-[768px]:p-7 ${
+          className={`relative flex min-w-0 flex-col overflow-hidden rounded-[10px] p-6 ring-1 min-[768px]:p-7 ${
             plan.featured
               ? "bg-warm ring-brand/45"
               : "bg-card ring-white/[0.05]"

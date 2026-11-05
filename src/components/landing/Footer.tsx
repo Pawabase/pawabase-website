@@ -26,11 +26,11 @@ export function Footer() {
                 </a>
 
                 <p className="mt-5 max-w-[24ch] text-[16px] font-medium leading-[1.5] tracking-[-0.02em] text-text">
-                  One backend for apps and operations.
+                  One system, every team.
                 </p>
 
                 <p className="mt-2 max-w-[32ch] text-[15px] leading-[1.7] tracking-[-0.01em] text-muted">
-                  Manage data, users, files, email and workflows in one platform.
+                  Data, auth, agents and APIs your apps, teams and AI all work from.
                 </p>
               </div>
 

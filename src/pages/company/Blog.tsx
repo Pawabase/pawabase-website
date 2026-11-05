@@ -1,69 +1,30 @@
-import {
-  ArrowLink,
-  CompanyHero,
-  CompanySection,
-  CompanyShell,
-  SectionHeading,
-} from "@/components/company/CompanyPage";
+import { Icon, type IconName } from "@/components/Icon";
+import { CompanyHero, CompanySection, CompanyShell, SectionHeading } from "@/components/company/CompanyPage";
 
-const CHANNELS = [
-  {
-    label: "Product",
-    title: "What we ship, and why.",
-    copy: "Release notes with the decisions behind them—not just a list of changes.",
-    href: "https://app.pawabase.com",
-    action: "Create a project",
-  },
-  {
-    label: "Engineering",
-    title: "Systems made understandable.",
-    copy: "Notes on the architecture, tradeoffs, and small details behind a complete backend.",
-    href: "/products/observability",
-    action: "Explore operations",
-  },
-  {
-    label: "Guides",
-    title: "From idea to working software.",
-    copy: "Practical paths through database, auth, storage, workflows, and operating the result.",
-    href: "https://docs.sillo.build",
-    action: "Open the docs",
-  },
+const CHANNELS: { icon: IconName; title: string; copy: string; href: string; action: string }[] = [
+  { icon: "sparkle", title: "What we ship, and why", copy: "Release notes with the decisions behind them.", href: "https://app.pawabase.com", action: "Try Pawabase" },
+  { icon: "code", title: "How it's built", copy: "Notes on the system and the choices behind it.", href: "/products/observability", action: "See observability" },
+  { icon: "document", title: "From idea to working app", copy: "Practical guides through data, auth, storage, flows and agents.", href: "https://docs.sillo.build", action: "Open the docs" },
 ];
 
 export default function BlogPage() {
   return (
-    <CompanyShell
-      title="Blog"
-      description="Product updates, engineering notes, and practical guides from the people building Pawabase."
-    >
-      <CompanyHero
-        label="Pawabase journal"
-        icon="document"
-        title="Notes from"
-        quiet="the build."
-        description="Product updates, engineering decisions, and useful lessons from building a backend that is meant to feel like one thing."
-      />
+    <CompanyShell title="Blog" description="Product updates and engineering notes from the people building Pawabase.">
+      <CompanyHero title="Notes from" quiet="the build." description="Product updates and engineering notes from the people building Pawabase." />
 
       <CompanySection labelledBy="blog-start">
-        <div className="grid gap-10 min-[860px]:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] min-[860px]:gap-16">
-          <SectionHeading
-            id="blog-start"
-            label="The journal"
-            title="The first stories are being written."
-            description="Until they land here, the clearest way to explore Pawabase is through the product and documentation."
-          />
-          <div className="divide-y divide-line border-y border-line">
-            {CHANNELS.map((channel) => (
-              <article key={channel.label} className="py-7 min-[700px]:py-9">
-                <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-brand">{channel.label}</p>
-                <h3 className="mt-4 text-[24px] font-medium leading-[1.2] tracking-[-0.035em] text-text">{channel.title}</h3>
-                <p className="mt-3 max-w-[55ch] text-[16px] leading-[1.68] text-muted">{channel.copy}</p>
-                <div className="mt-6">
-                  <ArrowLink href={channel.href} external>{channel.action}</ArrowLink>
-                </div>
-              </article>
-            ))}
-          </div>
+        <SectionHeading id="blog-start" title="The first stories are being written" description="Until they land here, the product and the docs are the best way in." />
+        <div className="sp-cards">
+          {CHANNELS.map((c) => (
+            <a key={c.title} href={c.href} className="sp-card" {...(c.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}>
+              <span className="sp-card-icon"><Icon name={c.icon} size={20} variant="Linear" /></span>
+              <span>
+                <h3>{c.title}</h3>
+                <p>{c.copy}</p>
+              </span>
+              <span className="sp-go">{c.action} <Icon name="arrowRight" size={15} /></span>
+            </a>
+          ))}
         </div>
       </CompanySection>
     </CompanyShell>

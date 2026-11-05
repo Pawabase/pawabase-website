@@ -5,7 +5,7 @@ import { Icon } from "@/components/Icon";
 
 import { Band, Eyebrow } from "./Section";
 
-type Example = {
+export type Example = {
   id: "python" | "typescript" | "http";
   tab: string;
   title: string;
@@ -16,7 +16,7 @@ type Example = {
   code: string;
 };
 
-const EXAMPLES: Example[] = [
+export const EXAMPLES: Example[] = [
   {
     id: "python",
     tab: "Python",
@@ -96,23 +96,23 @@ curl -X POST "$URL/rest/v1/posts" \\
 ];
 
 const POINTS = [
-  "Sign in with the same identity system",
-  "Query records through access policies",
-  "Create and update data in one request",
+  "Same users everywhere",
+  "Same rules on every request",
+  "Same data in every app",
 ];
 
 /* VS Code's Dark+ feel, tuned toward the brand: teal keywords, soft warm strings. */
 const THEME: PrismTheme = {
-  plain: { color: "#D4D8DE", backgroundColor: "transparent" },
+  plain: { color: "#e4e0d9", backgroundColor: "transparent" },
   styles: [
-    { types: ["comment", "prolog", "doctype"], style: { color: "#627a68" } },
+    { types: ["comment", "prolog", "doctype"], style: { color: "#77736c" } },
     { types: ["keyword", "operator", "boolean", "important"], style: { color: "#FF6A00" } },
-    { types: ["string", "attr-value", "template-string"], style: { color: "#e3c391" } },
-    { types: ["function", "method"], style: { color: "#dcdcaa" } },
+    { types: ["string", "attr-value", "template-string"], style: { color: "#ffd27a" } },
+    { types: ["function", "method"], style: { color: "#ffd27a" } },
     { types: ["class-name", "builtin"], style: { color: "#FFD27A" } },
-    { types: ["number", "constant", "symbol"], style: { color: "#b5cea8" } },
-    { types: ["punctuation"], style: { color: "#8d97a5" } },
-    { types: ["variable", "parameter", "property"], style: { color: "#9cdcfe" } },
+    { types: ["number", "constant", "symbol"], style: { color: "#7fb2f0" } },
+    { types: ["punctuation"], style: { color: "#a8a49d" } },
+    { types: ["variable", "parameter", "property"], style: { color: "#f3f0eb" } },
   ],
 };
 
@@ -150,7 +150,7 @@ function CodeEditor({ code, language }: Pick<Example, "code" | "language">) {
                 >
                   <span
                     aria-hidden="true"
-                    className={`select-none pr-5 text-right ${active ? "text-[#c5cbd3]" : "text-[#4b5563]"}`}
+                    className={`select-none pr-5 text-right ${active ? "text-[#d9d5ce]" : "text-[#77736c]"}`}
                   >
                     {index + 1}
                   </span>
@@ -197,7 +197,7 @@ export function ConnectSection() {
           <div
             role="tablist"
             aria-label="Connection method"
-            className="inline-flex gap-1 rounded-[12px] border border-line p-1"
+            className="inline-flex gap-1 rounded-[10px] border border-line p-1"
           >
             {EXAMPLES.map((example) => {
               const selected = example.id === active.id;
@@ -238,7 +238,7 @@ export function ConnectSection() {
               type="button"
               onClick={() => copy("install", active.install)}
               aria-label={`Copy: ${active.install}`}
-              className="group mt-8 flex w-full cursor-pointer items-center gap-3 rounded-[12px] border border-line bg-white/[0.02] px-4 py-3 text-left font-mono text-[13px] text-text transition-colors hover:border-white/25"
+              className="group mt-8 flex w-full cursor-pointer items-center gap-3 rounded-[10px] border border-line bg-white/[0.02] px-4 py-3 text-left font-mono text-[13px] text-text transition-colors hover:border-white/25"
             >
               <span className="text-brand">$</span>
               <span className="min-w-0 flex-1 truncate">{active.install}</span>
@@ -266,10 +266,10 @@ export function ConnectSection() {
           </div>
 
           <div data-reveal="right" className="min-w-0 min-[980px]:border-l min-[980px]:border-line min-[980px]:pl-[clamp(32px,5vw,72px)]">
-            <div className="overflow-hidden rounded-[12px] border border-white/[0.07] bg-[#0b0f14]">
-              <div className="flex h-10 items-stretch border-b border-white/[0.06] bg-[#080b0f] text-[12.5px]">
+            <div className="overflow-hidden rounded-[10px] border border-white/[0.07] bg-[#111214]">
+              <div className="flex h-10 items-stretch border-b border-white/[0.06] bg-[#0c0d0f] text-[12.5px]">
                 <span
-                  className="relative flex items-center gap-2 border-r border-white/[0.06] bg-[#0b0f14] px-4 text-text"
+                  className="relative flex items-center gap-2 border-r border-white/[0.06] bg-[#111214] px-4 text-text"
                   style={{ fontFamily: MONO }}
                 >
                   <span className="absolute inset-x-0 top-0 h-px bg-brand" />
@@ -291,16 +291,16 @@ export function ConnectSection() {
               </div>
 
               <div
-                className="flex h-7 items-center gap-1.5 px-5 text-[11.5px] text-[#6b7480]"
+                className="flex h-7 items-center gap-1.5 px-5 text-[11.5px] text-[#77736c]"
                 style={{ fontFamily: MONO }}
               >
-                pawabase <span aria-hidden="true">›</span> <span className="text-[#9aa3af]">{active.file}</span>
+                pawabase <span aria-hidden="true">›</span> <span className="text-[#a8a49d]">{active.file}</span>
               </div>
 
               <CodeEditor code={active.code} language={active.language} />
 
               <div
-                className="flex h-7 items-center justify-between bg-[#0f3d38] px-4 text-[11.5px] text-[#d9f7f2]"
+                className="flex h-7 items-center justify-between bg-[#17181b] px-4 text-[11.5px] text-[#f3f0eb]"
                 style={{ fontFamily: MONO }}
               >
                 <span>Ln {ACTIVE_LINE + 1}, Col 1</span>

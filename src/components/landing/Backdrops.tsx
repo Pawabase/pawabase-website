@@ -52,8 +52,8 @@ export function Orbits({ className = "" }: { className?: string }) {
       preserveAspectRatio="xMidYMid slice"
       className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}
       style={{
-        maskImage: "radial-gradient(ellipse 55% 70% at 50% 60%, #121316, transparent 80%)",
-        WebkitMaskImage: "radial-gradient(ellipse 55% 70% at 50% 60%, #121316, transparent 80%)",
+        maskImage: "radial-gradient(ellipse 55% 70% at 50% 60%, #111214, transparent 80%)",
+        WebkitMaskImage: "radial-gradient(ellipse 55% 70% at 50% 60%, #111214, transparent 80%)",
       }}
     >
       {[120, 200, 290, 390].map((r, i) => (
@@ -68,8 +68,8 @@ export function Orbits({ className = "" }: { className?: string }) {
           strokeDasharray={i % 2 ? "2 6" : undefined}
         />
       ))}
-      <circle cx={500 + 290} cy="360" r="3" fill="#FCF8F5" opacity="0.7" />
-      <circle cx={500 - 141} cy={360 - 141} r="2.5" fill="#FCF8F5" opacity="0.5" />
+      <circle cx={500 + 290} cy="360" r="3" fill="#f3f0eb" opacity="0.7" />
+      <circle cx={500 - 141} cy={360 - 141} r="2.5" fill="#f3f0eb" opacity="0.5" />
     </svg>
   );
 }

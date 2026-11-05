@@ -1,0 +1,104 @@
+/*
+ * The highlights bento, laid out like Cloudflare's: a dotted ground, square tiles a small gap apart, corner squares
+ * on the grid's corners, regular-weight titles set low, one solid orange tile. Pawabase colours only.
+ */
+
+/* padding, not the grid's margin: a child's margin would collapse through the panel and the dotted band would vanish */
+.cf-panel { padding: clamp(24px, 3vw, 36px) 0; background-color: #111214; background-image: radial-gradient(circle, rgba(252, 248, 245, 0.07) 1px, transparent 1.25px); background-size: 14px 14px; }
+/* the tiles run rail to rail: the dashed rails are their outer edges, so only the dotted ground shows above and below */
+.cf-bento { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(330px, auto)); gap: 10px; }
+.cf-corner { position: absolute; z-index: 3; width: 8px; height: 8px; border: 1px solid var(--ix-line-2); background: #111214; transform: translate(-50%, -50%); }
+.cf-corner.tl { left: 0; top: 0; }
+.cf-corner.tr { left: 100%; top: 0; }
+.cf-corner.bl { left: 0; top: 100%; }
+.cf-corner.br { left: 100%; top: 100%; }
+
+.cf-tile { position: relative; display: flex; flex-direction: column; min-width: 0; padding: 30px 32px; overflow: hidden; border: 1px solid rgba(252, 248, 245, 0.08); background: #18191c; }
+.cf-api, .cf-agents { grid-column: span 2; }
+/* the side on a rail stays square and borderless (the rail is the edge); the corners facing the gaps are rounded */
+.cf-api, .cf-rule { border-left: 0; border-radius: 0 12px 12px 0; }
+.cf-solid, .cf-agents { border-right: 0; border-radius: 12px 0 0 12px; }
+.cf-copy { position: relative; z-index: 2; margin-top: auto; }
+.cf-copy.top { margin-top: 0; }
+/* stops short of the terminal, which starts at 53% of the tile */
+.cf-copy.narrow { max-width: 46%; }
+.cf-copy h3 { margin: 0; font-size: 19px; font-weight: 450; line-height: 1.3; letter-spacing: -0.01em; color: var(--ix-text); }
+.cf-copy p { margin: 10px 0 0; max-width: 42ch; font-size: 15.5px; line-height: 1.4; color: rgba(252, 248, 245, 0.58); }
+.cf-copy > svg { display: block; margin-bottom: 16px; color: var(--ix-text); }
+
+/* ── tables that are already APIs: the app square, and requests arriving ── */
+.cf-api-top { display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: 34px; align-items: start; margin-bottom: 24px; }
+.cf-app { position: relative; display: grid; place-items: center; width: 68px; height: 68px; border-radius: 14px; background: var(--ix-orange); }
+/* the Pawabase mark, knocked out in white on the orange square */
+.cf-app-mark { width: 38px; height: 38px; background: #ffffff; -webkit-mask: url("/brand/mark.svg") center / contain no-repeat; mask: url("/brand/mark.svg") center / contain no-repeat; }
+.cf-app-badge { position: absolute; right: -14px; bottom: -14px; display: grid; place-items: center; width: 30px; height: 30px; border: 3px solid #18191c; border-radius: 8px; background: #f4efe9; color: #3a3632; }
+.cf-rows { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; height: 168px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 100%); mask-image: linear-gradient(to bottom, #000 40%, transparent 100%); }
+.cf-rows li { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr) 112px; align-items: center; gap: 16px; height: 52px; padding: 0 18px; border-radius: 8px; background: #23170f; font: 13.5px var(--ix-mono); white-space: nowrap; }
+.cf-rows li.pending { animation: cf-in 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes cf-in { from { opacity: 0; transform: translateY(-12px); } }
+.cf-row-a { overflow: hidden; color: rgba(255, 106, 0, 0.62); text-overflow: ellipsis; }
+.cf-row-b { overflow: hidden; color: var(--ix-orange); text-overflow: ellipsis; }
+.cf-row-c { display: inline-flex; align-items: center; justify-content: flex-end; gap: 12px; color: var(--ix-orange); font-family: inherit; }
+.cf-spin { width: 18px; height: 18px; border: 1.5px dashed var(--ix-orange); border-radius: 50%; animation: cf-turn 3s linear infinite; }
+@keyframes cf-turn { to { transform: rotate(360deg); } }
+.cf-ok { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: rgba(255, 106, 0, 0.75); color: #18191c; }
+
+/* ── every team in one place: the solid tile ── */
+.cf-solid { border-color: var(--ix-orange); background: var(--ix-orange); color: #ffffff; }
+.cf-solid .cf-copy { margin-top: 22px; }
+.cf-solid .cf-copy h3 { color: #ffffff; }
+.cf-solid .cf-copy p { color: rgba(255, 255, 255, 0.9); }
+
+/* ── write the rule once: a shield in lit dots, fading down into the copy ── */
+.cf-shield { position: absolute; left: 50%; top: 26px; width: 140px; height: 154px; transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 95%); mask-image: linear-gradient(to bottom, #000 30%, transparent 95%); }
+.cf-shield i { position: absolute; inset: 0; background-image: radial-gradient(circle, var(--ix-orange) 1.3px, transparent 1.6px); background-size: 6px 6px;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.5 3.5 4.8v6.4c0 5.3 3.6 9.9 8.5 11.3 4.9-1.4 8.5-6 8.5-11.3V4.8z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.5 3.5 4.8v6.4c0 5.3 3.6 9.9 8.5 11.3 4.9-1.4 8.5-6 8.5-11.3V4.8z'/%3E%3C/svg%3E") center / contain no-repeat; }
+
+/* ── agents, called from anywhere: a terminal that runs off the tile's corner ── */
+.cf-term { position: absolute; left: 53%; right: -1px; top: 72px; bottom: -1px; display: flex; flex-direction: column; border: 1px solid rgba(252, 248, 245, 0.1); border-right: 0; border-bottom: 0; border-top-left-radius: 8px; background: #121315; }
+.cf-term-log { flex: 1; min-height: 0; padding: 16px 20px 10px; overflow: hidden; }
+.cf-term-log p { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 14.5px; color: rgba(252, 248, 245, 0.88); }
+.cf-term-log p + ul, .cf-term-log p + p { margin-top: 10px; }
+.cf-term-log p.hot { color: var(--ix-orange); }
+.cf-term-log ul { display: grid; gap: 7px; margin: 10px 0 12px; padding: 0 0 0 4px; list-style: none; }
+.cf-term-log li { display: flex; align-items: center; gap: 8px; overflow: hidden; font: 12.5px var(--ix-mono); color: rgba(252, 248, 245, 0.5); white-space: nowrap; }
+.cf-term-log li code { padding: 3px 7px; border-radius: 4px; background: #26272b; font: inherit; color: var(--ix-text); }
+.cf-elbow { flex: none; color: rgba(252, 248, 245, 0.4); }
+.cf-arrow { color: rgba(252, 248, 245, 0.7); }
+.cf-sep { color: rgba(252, 248, 245, 0.35); }
+.cf-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ix-orange); animation: cf-pulse 1.8s ease-in-out infinite; }
+@keyframes cf-pulse { 50% { opacity: 0.35; } }
+.cf-grid { width: 14px; height: 14px; background-image: radial-gradient(circle, var(--ix-orange) 1.4px, transparent 1.6px); background-size: 5px 5px; }
+.cf-ellipsis::after { content: "..."; display: inline-block; width: 0; overflow: hidden; vertical-align: bottom; animation: cf-type 1.6s steps(4) infinite; }
+@keyframes cf-type { to { width: 1.3em; } }
+.cf-term-dots { flex: none; height: 16px; background-image: radial-gradient(circle, rgba(255, 106, 0, 0.55) 1px, transparent 1.2px); background-size: 6px 6px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 25%); mask-image: linear-gradient(to right, transparent, #000 25%); }
+.cf-term-input { display: flex; flex: none; align-items: center; justify-content: space-between; height: 52px; padding-left: 22px; border-top: 1px solid rgba(252, 248, 245, 0.08); }
+.cf-term-input span { font: 13px var(--ix-mono); color: rgba(252, 248, 245, 0.4); }
+.cf-term-input b { display: inline-flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px 0 16px; border-radius: 6px 0 0 6px; background: var(--ix-orange); color: #ffffff; font-size: 14px; font-weight: 500; }
+.cf-term-input kbd { padding: 2px 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.22); font: inherit; }
+
+@media (max-width: 1100px) {
+  .cf-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; }
+  .cf-tile { border-radius: 0; }
+  .cf-api, .cf-agents { grid-column: span 2; }
+  .cf-solid, .cf-rule { min-height: 300px; }
+  .cf-agents { min-height: 380px; }
+}
+@media (max-width: 760px) {
+  .cf-bento { grid-template-columns: minmax(0, 1fr); }
+  .cf-api, .cf-agents { grid-column: auto; }
+  .cf-tile { padding: 28px; }
+  .cf-api-top { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .cf-rows li { grid-template-columns: minmax(0, 1fr) auto; }
+  .cf-row-b { display: none; }
+  .cf-agents { min-height: 0; }
+  .cf-copy.narrow { max-width: none; }
+  .cf-term { position: relative; left: auto; top: auto; margin: 28px -28px -29px 0; min-height: 300px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cf-rows li.pending, .cf-spin, .cf-dot, .cf-ellipsis::after { animation: none !important; }
+}

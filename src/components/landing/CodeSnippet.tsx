@@ -29,18 +29,18 @@ const TOKEN_PATTERN =
   /(\/\/.*|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`|\b[a-zA-Z_$][\w$]*\b|\b\d+\b)/g;
 
 function tokenColor(token: string) {
-  if (token.startsWith("//")) return "#70757D";
+  if (token.startsWith("//")) return "#a8a49d";
   if (
     token.startsWith('"') ||
     token.startsWith("'") ||
     token.startsWith("`")
   ) {
-    return "#FCF8F5";
+    return "#f3f0eb";
   }
-  if (KEYWORDS.has(token)) return "#FCF8F5";
-  if (FUNCTIONS.has(token)) return "#FCF8F5";
-  if (/^\d+$/.test(token)) return "#FCF8F5";
-  return "#FCF8F5";
+  if (KEYWORDS.has(token)) return "#f3f0eb";
+  if (FUNCTIONS.has(token)) return "#f3f0eb";
+  if (/^\d+$/.test(token)) return "#f3f0eb";
+  return "#f3f0eb";
 }
 
 function HighlightedLine({ line }: { line: string }) {
@@ -72,7 +72,7 @@ export function CodeSnippet({
 }) {
   return (
     <div
-      className={`overflow-hidden rounded-lg border border-line bg-[#121316] ${className}`}
+      className={`overflow-hidden rounded-lg border border-line bg-[#111214] ${className}`}
     >
       {label ? (
         <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-2.5 font-mono text-[8px] uppercase tracking-[0.14em] text-faint">

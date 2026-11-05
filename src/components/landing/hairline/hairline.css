@@ -4,11 +4,11 @@
  */
 .hairline {
   --hl-plate: var(--color-shell);
-  --hl-hi: #FCF8F5;
-  --hl-edge: #70757D;
-  --hl-mid: #34383F;
-  --hl-lo: #34383F;
-  --hl-brand: #FCF8F5;
+  --hl-hi: #f3f0eb;
+  --hl-edge: #a8a49d;
+  --hl-mid: #2e3035;
+  --hl-lo: #2e3035;
+  --hl-brand: #f3f0eb;
 
   display: block;
   overflow: visible;
@@ -75,7 +75,7 @@
 }
 
 .hairline .hl-callout text {
-  fill: #70757D;
+  fill: #a8a49d;
   stroke: none;
   font-size: 11px;
   letter-spacing: 0;
@@ -86,7 +86,7 @@
 }
 
 .hairline .hl-callout-lit text {
-  fill: #70757D;
+  fill: #a8a49d;
 }
 
 .hairline text {
