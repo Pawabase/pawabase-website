@@ -1,3 +1,5 @@
+import { DOCS } from "@/lib/links";
+
 export type FooterLink =
   | {
       label: string;
@@ -15,7 +17,6 @@ export type FooterLinkGroup = {
   links: FooterLink[];
 };
 
-const DOCS = "https://docs.sillo.build";
 
 const live = (label: string, href: string, external = false): FooterLink => ({
   label,

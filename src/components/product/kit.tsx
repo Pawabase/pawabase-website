@@ -6,6 +6,7 @@ import { Band, Card, TextLink } from "@/components/landing/Section";
 import { Code, Mockup } from "@/components/landing/studio/Studio";
 import { TopBar } from "@/components/landing/TopBar";
 import { usePageMeta } from "@/hooks/usePageMeta";
+import { DOCS, SIGN_UP } from "@/lib/links";
 
 /**
  * The product-page kit. Pages are marketing pages in the landing's language:
@@ -14,8 +15,6 @@ import { usePageMeta } from "@/hooks/usePageMeta";
  * page composes its own sections so no two read alike.
  */
 
-export const APP_URL = "https://app.pawabase.com";
-export const DOCS_URL = "https://docs.sillo.build";
 
 export function ProductShell({
   title,
@@ -85,14 +84,14 @@ export function HeroActions({ docs = "Read the docs" }: { docs?: string }) {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <a
-        href={APP_URL}
+        href={SIGN_UP}
         className="btn-clay inline-flex h-[50px] items-center justify-center gap-2 px-[25px] text-[14px] no-underline"
       >
         Start building
         <Icon name="arrowRight" size={17} />
       </a>
       <a
-        href={DOCS_URL}
+        href={DOCS}
         target="_blank"
         rel="noreferrer"
         className="btn-clay-dark inline-flex h-[50px] items-center justify-center px-[25px] text-[14px] no-underline"
@@ -190,7 +189,7 @@ export function Copy({
         {quiet ? <span className="text-muted"> {quiet}</span> : null}
       </h2>
       {children ? <p className="m-0 max-w-[660px] text-[16px] leading-[1.75] text-muted">{children}</p> : null}
-      {link ? <TextLink href={link.href ?? DOCS_URL}>{link.label}</TextLink> : null}
+      {link ? <TextLink href={link.href ?? DOCS}>{link.label}</TextLink> : null}
     </div>
   );
 }
@@ -218,7 +217,7 @@ export function ProductCta({
         </h2>
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <a
-            href={APP_URL}
+            href={SIGN_UP}
             className="btn-clay inline-flex h-[48px] items-center justify-center gap-2 px-[22px] text-[14px] no-underline"
           >
             Start building

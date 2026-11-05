@@ -6,9 +6,8 @@ import { Footer } from "@/components/landing/Footer";
 import { TopBar } from "@/components/landing/TopBar";
 
 import "./product-marketing.css";
+import { DOCS, SIGN_UP } from "@/lib/links";
 
-const APP_URL = "https://app.pawabase.com";
-const DOCS_URL = "https://docs.sillo.build";
 
 type AccentStyle = CSSProperties & {
   "--pm-accent"?: string;
@@ -110,7 +109,7 @@ export function ProductHero({
 }
 
 export function ProductActions({
-  secondaryHref = DOCS_URL,
+  secondaryHref = DOCS,
   secondaryLabel = "Explore the docs",
 }: {
   secondaryHref?: string;
@@ -118,7 +117,7 @@ export function ProductActions({
 }) {
   return (
     <div className="pm-actions">
-      <a className="pm-primary" href={APP_URL}>
+      <a className="pm-primary" href={SIGN_UP}>
         Start building
         <Icon name="arrowRight" size={20} />
       </a>
@@ -270,7 +269,7 @@ export function FeatureScene({
         <div className="pm-scene-copy">
           <h2 className="pm-heading">{title}</h2>
           <p className="pm-copy">{description}</p>
-          <a className="pm-doc-link" href={DOCS_URL}>
+          <a className="pm-doc-link" href={DOCS}>
             {linkLabel}
             <Icon name="arrowRight" size={17} />
           </a>
@@ -301,7 +300,7 @@ export function CenterScene({
         <div className="pm-center-copy">
           <h2 className="pm-heading">{title}</h2>
           <p className="pm-copy">{description}</p>
-          <a className="pm-doc-link" href={DOCS_URL}>
+          <a className="pm-doc-link" href={DOCS}>
             {linkLabel}
             <Icon name="arrowRight" size={17} />
           </a>

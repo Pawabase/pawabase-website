@@ -28,8 +28,9 @@ import {
   SiVuedotjs,
 } from "@icons-pack/react-simple-icons";
 
-import { Arrow, DOCS, Lines, Rule, SectionHead } from "./Home";
+import { Arrow, Lines, Rule, SectionHead } from "./Home";
 import "./stack.css";
+import { DOCS } from "@/lib/links";
 
 /*
  * Works with what you already use: a 9 × 3 grid of logos running rail to rail, divided by dashed lines with crosses

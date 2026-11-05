@@ -1,4 +1,5 @@
 import { Icon } from "@/components/Icon";
+import { SIGN_UP } from "@/lib/links";
 
 /* The Orange Planet mark rises from the panel's lower edge like a sun, drawn in the panel's own dot matrix
    (its shapes are CSS masks in styles.css, so the lit dots sit exactly on the panel's grid). */
@@ -24,7 +25,7 @@ export function Hero() {
             Build it once in Pawabase. Your apps, your team and your AI all work from it.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <a href="https://app.pawabase.com" className="hero-sun-cta">Get started</a>
+            <a href={SIGN_UP} className="hero-sun-cta">Get started</a>
             <a href="#features" className="hero-sun-link">
               See how it works
               <Icon name="arrowRight" size={17} />

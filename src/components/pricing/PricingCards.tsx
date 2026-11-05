@@ -3,8 +3,8 @@ import { PrimaryButton } from "@/components/landing/PrimaryButton";
 
 import { useCurrency } from "@/lib/currency";
 import { usePlans } from "@/hooks/usePlans";
+import { SIGN_UP } from "@/lib/links";
 
-const APP_URL = "https://app.pawabase.com";
 
 export function PricingCards({ compact = false }: { compact?: boolean }) {
   const { plans } = usePlans();
@@ -50,7 +50,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
             ))}
           </ul>
           <PrimaryButton
-            href={APP_URL}
+            href={SIGN_UP}
             target="_blank"
             rel="noreferrer"
             className="mt-8 flex w-full px-4"

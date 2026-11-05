@@ -4,6 +4,7 @@ import { Figure } from "./hairline/Hairline";
 import { Contours } from "./Backdrops";
 import { Band, Card, Lead, Ledger, TextLink, Title } from "./Section";
 import { useInView, useLiveTick } from "./studio/Studio";
+import { DOCS } from "@/lib/links";
 
 const GATE = { x: 440, y: 56, w: 240, h: 328 };
 const ROWS = [
@@ -185,7 +186,7 @@ export function PoliciesSection() {
             every request, every file and every live channel, so a new feature
             never ships with a hole in it.
           </Lead>
-          <TextLink href="https://docs.sillo.build">Write your first rule</TextLink>
+          <TextLink href={DOCS}>Write your first rule</TextLink>
         </div>
         <Ledger
           className="self-end"

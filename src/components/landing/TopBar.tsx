@@ -8,9 +8,8 @@ import {
 import { Icon, type IconName } from "@/components/Icon";
 
 import { Wordmark } from "./Brand";
+import { DOCS, SIGN_UP } from "@/lib/links";
 
-const DOCS_URL = "https://docs.sillo.build";
-const APP_URL = "https://app.pawabase.com";
 
 type NavLink = {
   label: string;
@@ -51,7 +50,7 @@ type NavGroup = {
 };
 
 const EXTRA_LINKS = [
-  { label: "Docs", href: DOCS_URL, external: true },
+  { label: "Docs", href: DOCS, external: true },
 ];
 
 const NAV_GROUPS: NavGroup[] = [
@@ -106,7 +105,7 @@ const NAV_GROUPS: NavGroup[] = [
       description:
         "A complete managed backend in about a minute. No servers to set up.",
       ctaLabel: "Create a project",
-      href: APP_URL,
+      href: SIGN_UP,
       glyph: "PB",
       tint: "245,243,238",
       external: true,
@@ -120,7 +119,7 @@ const NAV_GROUPS: NavGroup[] = [
       description:
         "Documentation, API reference, and practical guidance for building against Pawabase.",
       ctaLabel: "Open documentation",
-      ctaHref: DOCS_URL,
+      ctaHref: DOCS,
       external: true,
     },
     columns: [
@@ -129,21 +128,21 @@ const NAV_GROUPS: NavGroup[] = [
         links: [
           {
             label: "Documentation",
-            href: DOCS_URL,
+            href: DOCS,
             description: "Guides and references",
             icon: "document",
             external: true,
           },
           {
             label: "API reference",
-            href: DOCS_URL,
+            href: DOCS,
             description: "Every endpoint, documented",
             icon: "apiSecurity",
             external: true,
           },
           {
             label: "Quickstart",
-            href: DOCS_URL,
+            href: DOCS,
             description: "From zero to running",
             icon: "play",
             external: true,
@@ -155,7 +154,7 @@ const NAV_GROUPS: NavGroup[] = [
         links: [
           {
             label: "Quickstart",
-            href: DOCS_URL,
+            href: DOCS,
             description: "Your first project",
             icon: "play",
             external: true,
@@ -168,7 +167,7 @@ const NAV_GROUPS: NavGroup[] = [
           },
           {
             label: "Cloud",
-            href: APP_URL,
+            href: SIGN_UP,
             description: "Start a managed project",
             icon: "sparkle",
             external: true,
@@ -182,7 +181,7 @@ const NAV_GROUPS: NavGroup[] = [
       description:
         "The docs are the product. Learn the API, understand each primitive, and ship.",
       ctaLabel: "Read the docs",
-      href: DOCS_URL,
+      href: DOCS,
       glyph: "</>",
       tint: "245,243,238",
       external: true,
@@ -240,7 +239,7 @@ const NAV_GROUPS: NavGroup[] = [
       description:
         "Build your product with data, identity, automation and operations already connected.",
       ctaLabel: "Create a project",
-      href: APP_URL,
+      href: SIGN_UP,
       glyph: "PB",
       tint: "255,106,0",
       external: true,
@@ -575,7 +574,7 @@ export function TopBar() {
           </div>
 
           <a
-            href={APP_URL}
+            href={SIGN_UP}
             target="_blank"
             rel="noreferrer"
             className="hidden h-10 shrink-0 items-center justify-center gap-1.5 rounded-lg px-4 text-[15px] font-bold tracking-[-0.02em] no-underline min-[900px]:inline-flex btn-clay"
@@ -676,7 +675,7 @@ export function TopBar() {
               ))}
 
               <a
-                href={APP_URL}
+                href={SIGN_UP}
                 target="_blank"
                 rel="noreferrer"
                 onClick={closeAll}

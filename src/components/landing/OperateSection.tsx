@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { backdrop } from "./Backdrops";
 import { Figure } from "./hairline/Hairline";
 import { Band, Card, Lead, TextLink, Title } from "./Section";
+import { DOCS } from "@/lib/links";
 
 /**
  * The release track: three lanes, one per environment. Each release drops
@@ -150,7 +151,7 @@ export function OperateSection() {
           Every change moves through staging before it reaches your users,
           and the last good version is never more than a click away.
         </Lead>
-        <TextLink href="https://docs.sillo.build">Run it in production</TextLink>
+        <TextLink href={DOCS}>Run it in production</TextLink>
       </div>
 
       <Card className="mx-auto mt-[clamp(48px,6vw,72px)] max-w-[1120px] overflow-x-auto px-6 py-10 min-[768px]:px-12 min-[768px]:py-14">

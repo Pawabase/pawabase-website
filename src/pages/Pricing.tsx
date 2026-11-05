@@ -1,4 +1,5 @@
-import { APP, Arrow, DOCS, Pricing, Rule, SectionHead } from "@/components/home/Home";
+import { Arrow, Pricing, Rule, SectionHead } from "@/components/home/Home";
+import { DOCS, SIGN_UP } from "@/lib/links";
 import { PageHero, SitePage } from "@/components/site/SitePage";
 import { usePlans } from "@/hooks/usePlans";
 import { useCurrency } from "@/lib/currency";
@@ -45,7 +46,7 @@ export default function PricingPage() {
   return (
     <SitePage title="Pricing" description="Pawabase Cloud pricing: start free, and every plan includes the whole system.">
       <PageHero title="Start free." quiet="Grow when you need to." line="Every plan includes the whole system: data, auth, storage, flows and agents. Pick the room you need today.">
-        <a href={APP} className="ix-btn primary">Start building <Arrow /></a>
+        <a href={SIGN_UP} className="ix-btn primary">Start building <Arrow /></a>
         <a href={DOCS} className="ix-link" target="_blank" rel="noreferrer">Read the docs</a>
       </PageHero>
 

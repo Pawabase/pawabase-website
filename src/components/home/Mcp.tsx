@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { SiClaude, SiCursor, SiGithubcopilot } from "@icons-pack/react-simple-icons";
 
-import { APP, Arrow, Rule, SectionHead } from "./Home";
+import { Arrow, Rule, SectionHead } from "./Home";
 import "./bento.css";
 import "./mcp.css";
+import { SIGN_UP } from "@/lib/links";
 
 /*
  * Pawabase over MCP: how to connect, then three tiles in the bento's style for what keeps people in control.
@@ -181,7 +182,7 @@ export function Mcp() {
     <section className="ix-section" id="mcp" aria-labelledby="mcp-title" data-plain="">
       <Rule />
       <SectionHead id="mcp-title" title="Your AI builds it. You hold the keys.">
-        <a href={APP} className="ix-btn caps">Connect your AI <Arrow /></a>
+        <a href={SIGN_UP} className="ix-btn caps">Connect your AI <Arrow /></a>
       </SectionHead>
       <Connect />
       <Tiles />

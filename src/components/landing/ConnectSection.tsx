@@ -4,6 +4,7 @@ import { Highlight, type PrismTheme } from "prism-react-renderer";
 import { Icon } from "@/components/Icon";
 
 import { Band, Eyebrow } from "./Section";
+import { DOCS } from "@/lib/links";
 
 export type Example = {
   id: "python" | "typescript" | "http";
@@ -255,7 +256,7 @@ export function ConnectSection() {
             </ul>
 
             <a
-              href="https://docs.sillo.build"
+              href={DOCS}
               target="_blank"
               rel="noreferrer"
               className="btn-clay mt-9 inline-flex h-[46px] w-fit items-center justify-center gap-2 px-[22px] text-[14px] no-underline"

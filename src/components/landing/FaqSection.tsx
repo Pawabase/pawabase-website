@@ -1,4 +1,5 @@
 import { Band, Eyebrow, TextLink, Title } from "./Section";
+import { DOCS } from "@/lib/links";
 
 const QUESTIONS = [
   {
@@ -44,7 +45,7 @@ export function FaqSection() {
           <Title id="faq-title" quiet="Short answers.">
             Questions.
           </Title>
-          <TextLink href="https://docs.sillo.build">Browse the documentation</TextLink>
+          <TextLink href={DOCS}>Browse the documentation</TextLink>
         </div>
 
         <div data-reveal="stagger" className="border-t border-white/[0.08]">

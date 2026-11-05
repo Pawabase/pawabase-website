@@ -7,9 +7,8 @@ import { usePlans } from "@/hooks/usePlans";
 import { useCurrency } from "@/lib/currency";
 
 import "./home.css";
+import { DOCS, SIGN_UP } from "@/lib/links";
 
-export const APP = "https://app.pawabase.com";
-export const DOCS = "https://docs.sillo.build";
 
 /* ── the frame: rules that bleed past the page, crosses where they meet the rails ──────────────────────────────────── */
 
@@ -110,7 +109,7 @@ export function Hero() {
           One system, every team.
         </h1>
         <p data-reveal="up">APIs, auth and storage for your apps, with the flows and agents behind them.</p>
-        <a href={APP} className="ix-btn primary" data-reveal="up">Start building <Arrow /></a>
+        <a href={SIGN_UP} className="ix-btn primary" data-reveal="up">Start building <Arrow /></a>
       </div>
     </section>
   );
@@ -198,7 +197,7 @@ export function Pricing({ title = "Start free", compare = "/pricing" }: { title?
             <p>{plan.description}</p>
             <div className="ix-price"><b>{show(Number(plan.price))}</b><span>/ month</span></div>
             <ul>{plan.features.map((f) => <li key={f}>{f}</li>)}</ul>
-            <a href={APP} className={`ix-btn ${plan.featured ? "primary" : ""}`}>Get started</a>
+            <a href={SIGN_UP} className={`ix-btn ${plan.featured ? "primary" : ""}`}>Get started</a>
           </article>
         ))}
       </div>

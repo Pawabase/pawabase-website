@@ -1,6 +1,7 @@
 import { Icon } from "@/components/Icon";
 
 import { Band, Eyebrow, Lead, TextLink, Title } from "./Section";
+import { SIGN_UP } from "@/lib/links";
 
 const CLOUD = [
   "A project with its own database",
@@ -65,7 +66,7 @@ export function CloudSection() {
           </p>
           <Checks items={CLOUD} />
           <a
-            href="https://app.pawabase.com"
+            href={SIGN_UP}
             className="btn-clay mt-auto inline-flex h-[46px] w-fit items-center justify-center gap-2 px-[22px] text-[14px] no-underline"
           >
             Create a project

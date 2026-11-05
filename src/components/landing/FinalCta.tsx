@@ -1,6 +1,7 @@
 import { Icon } from "@/components/Icon";
 
 import { Band, Eyebrow } from "./Section";
+import { DOCS, SIGN_UP } from "@/lib/links";
 
 export function FinalCta() {
   return (
@@ -28,14 +29,14 @@ export function FinalCta() {
         </h2>
         <div className="relative mt-10 flex flex-wrap items-center justify-center gap-3">
           <a
-            href="https://app.pawabase.com"
+            href={SIGN_UP}
             className="btn-clay inline-flex h-[50px] items-center justify-center gap-2 px-[25px] text-[14px] no-underline"
           >
             Get started
             <Icon name="arrowRight" size={17} />
           </a>
           <a
-            href="https://docs.sillo.build"
+            href={DOCS}
             target="_blank"
             rel="noreferrer"
             className="btn-clay-dark inline-flex h-[50px] items-center justify-center px-[25px] text-[14px] no-underline"

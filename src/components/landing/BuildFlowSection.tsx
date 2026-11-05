@@ -5,6 +5,7 @@ import { Icon } from "@/components/Icon";
 import { PrimaryButton } from "./PrimaryButton";
 import { Band } from "./Section";
 import { Mockup, Rise } from "./studio/Studio";
+import { DOCS } from "@/lib/links";
 
 function WindowBar({
   title,
@@ -117,7 +118,7 @@ export function BuildFlowSection() {
             Create a project, connect your app, and start building.
           </p>
           <PrimaryButton
-            href="https://docs.sillo.build"
+            href={DOCS}
             className="mt-8 inline-flex w-fit"
           >
             Read the quickstart

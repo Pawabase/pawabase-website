@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Icon, type IconName } from "@/components/Icon";
 
 import "./site.css";
+import { DOCS, SIGN_IN, SIGN_UP } from "@/lib/links";
 
 /*
  * The site's navigation, in the home page's frame: the logo; Products, Developers and Company open full-width
@@ -11,8 +12,6 @@ import "./site.css";
  * leaves. On small screens one button opens everything as a list.
  */
 
-const APP = "https://app.pawabase.com";
-const DOCS = "https://docs.sillo.build";
 
 export type Product = { label: string; href: string; line: string; icon: IconName };
 export type ProductGroup = { title: string; items: Product[] };
@@ -59,7 +58,7 @@ const MENUS: Menu[] = [
   {
     id: "products",
     label: "Products",
-    feature: { title: "One system for your apps", line: "APIs, auth, storage, flows and agents, built to work together.", cta: "Start building", href: APP },
+    feature: { title: "One system for your apps", line: "APIs, auth, storage, flows and agents, built to work together.", cta: "Start building", href: SIGN_UP },
     groups: PRODUCTS,
   },
   {
@@ -80,7 +79,7 @@ const MENUS: Menu[] = [
         items: [
           { label: "Access policies", href: "/products/policies", line: "How access works", icon: "policies" },
           { label: "API security", href: "/products/api-security", line: "Keys, scopes and limits", icon: "apiSecurity" },
-          { label: "Pawabase Cloud", href: APP, line: "Start a managed project", icon: "sparkle" },
+          { label: "Pawabase Cloud", href: SIGN_UP, line: "Start a managed project", icon: "sparkle" },
         ],
       },
     ],
@@ -208,8 +207,8 @@ export function SiteNav() {
       </ul>
 
       <div className="ix-nav-actions">
-        <a href={APP} className="ix-nav-signin">Sign in</a>
-        <a href={APP} className="ix-btn small">Get started</a>
+        <a href={SIGN_IN} className="ix-nav-signin">Sign in</a>
+        <a href={SIGN_UP} className="ix-btn small">Get started</a>
         <button type="button" className="sn-burger" aria-label={mobile ? "Close menu" : "Open menu"} aria-expanded={mobile} onClick={() => setMobile(!mobile)}>
           <Icon name={mobile ? "close" : "menu"} size={20} variant="Linear" />
         </button>
@@ -227,7 +226,8 @@ export function SiteNav() {
           ))}
           <div className="sn-mobile-actions">
             <a href="/pricing" className="ix-btn">Pricing</a>
-            <a href={APP} className="ix-btn primary">Get started</a>
+            <a href={SIGN_IN} className="ix-btn">Sign in</a>
+            <a href={SIGN_UP} className="ix-btn primary">Get started</a>
           </div>
         </div>
       )}

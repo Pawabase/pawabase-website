@@ -2,6 +2,7 @@ import { Icon } from "@/components/Icon";
 
 import { PrimaryButton } from "./PrimaryButton";
 import { RailSection } from "./Section";
+import { SIGN_UP } from "@/lib/links";
 
 export function Simplicity() {
   return (
@@ -29,7 +30,7 @@ export function Simplicity() {
           </p>
 
           <PrimaryButton
-            href="https://app.pawabase.com"
+            href={SIGN_UP}
             className="mt-8 inline-flex w-fit"
           >
             Start building

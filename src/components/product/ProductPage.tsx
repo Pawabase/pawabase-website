@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 
 import { Icon, type IconName } from "@/components/Icon";
-import { APP, Arrow, DOCS, InnerRails, Lines, Rule, SectionHead, Sky } from "@/components/home/Home";
+import { Arrow, InnerRails, Lines, Rule, SectionHead, Sky } from "@/components/home/Home";
 import { Closing } from "@/components/home/Sections";
 import { Footer } from "@/components/landing/Footer";
 import { ScrollMotion } from "@/components/landing/ScrollMotion";
@@ -10,6 +10,7 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 
 import "@/components/home/bento.css";
 import "./product.css";
+import { DOCS, SIGN_UP } from "@/lib/links";
 
 /*
  * A product's marketing page, in the home page's system: the sky hero (the product's name, and what it does for you
@@ -108,7 +109,7 @@ export function ProductPage({ icon, name, description, promise, line, tiles, cap
             </h1>
             <p data-reveal="up">{line}</p>
             <div className="pp-hero-actions" data-reveal="up">
-              <a href={APP} className="ix-btn primary">Start building <Arrow /></a>
+              <a href={SIGN_UP} className="ix-btn primary">Start building <Arrow /></a>
               <a href={DOCS} className="ix-btn" target="_blank" rel="noreferrer">Read the docs</a>
             </div>
           </div>

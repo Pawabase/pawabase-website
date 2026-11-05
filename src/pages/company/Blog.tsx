@@ -1,10 +1,11 @@
 import { Icon, type IconName } from "@/components/Icon";
 import { CompanyHero, CompanySection, CompanyShell, SectionHeading } from "@/components/company/CompanyPage";
+import { DOCS, SIGN_UP } from "@/lib/links";
 
 const CHANNELS: { icon: IconName; title: string; copy: string; href: string; action: string }[] = [
-  { icon: "sparkle", title: "What we ship, and why", copy: "Release notes with the decisions behind them.", href: "https://app.pawabase.com", action: "Try Pawabase" },
+  { icon: "sparkle", title: "What we ship, and why", copy: "Release notes with the decisions behind them.", href: SIGN_UP, action: "Try Pawabase" },
   { icon: "code", title: "How it's built", copy: "Notes on the system and the choices behind it.", href: "/products/observability", action: "See observability" },
-  { icon: "document", title: "From idea to working app", copy: "Practical guides through data, auth, storage, flows and agents.", href: "https://docs.sillo.build", action: "Open the docs" },
+  { icon: "document", title: "From idea to working app", copy: "Practical guides through data, auth, storage, flows and agents.", href: DOCS, action: "Open the docs" },
 ];
 
 export default function BlogPage() {

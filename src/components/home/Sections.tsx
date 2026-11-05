@@ -2,8 +2,9 @@ import type { CSSProperties } from "react";
 
 import { Icon, type IconName } from "@/components/Icon";
 
-import { APP, Arrow, DOCS, Rule } from "./Home";
+import { Arrow, Rule } from "./Home";
 import "./sections.css";
+import { DOCS, SIGN_UP } from "@/lib/links";
 
 /* ── one message: developers build it, everyone runs it. The message in one large tile; beside it, a tile for each
       kind of user, each with one big outlined verb that a slow orange glint passes through ──────────────────────────── */
@@ -28,7 +29,7 @@ export function Everyone() {
               <span className="hot">Everyone runs it.</span>
             </h2>
             <div className="ev-actions">
-              <a href={APP} className="ix-btn primary">Start building <Arrow /></a>
+              <a href={SIGN_UP} className="ix-btn primary">Start building <Arrow /></a>
               <a href={DOCS} className="ix-link">Read the docs</a>
             </div>
           </div>
@@ -67,7 +68,7 @@ export function Closing() {
         <h2 id="closing-title">Build your app's APIs, auth<br />and storage in one place.</h2>
         <div className="ix-closing-actions">
           <a href={DOCS} className="ix-btn">Read the docs</a>
-          <a href={APP} className="ix-btn primary">Start building <Arrow /></a>
+          <a href={SIGN_UP} className="ix-btn primary">Start building <Arrow /></a>
         </div>
       </div>
     </section>
