@@ -6,3 +6,4 @@ dist
 
 .tanstack/
 brag-output/
+dist-ssr

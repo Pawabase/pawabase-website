@@ -24,8 +24,15 @@ if (!container) {
   throw new Error("#root is missing from index.html");
 }
 
-createRoot(container).render(
+const app = (
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
 );
+
+// Built pages arrive already rendered, so they read and look right before any script runs (and for anything that never runs one).
+// The browser then renders over them once the page's code is in; it does not hydrate, because the router lays out its loading
+// boundaries differently on the server and in the browser, so the two trees could never match.
+const root = createRoot(container);
+if (container.firstElementChild) void router.load().then(() => root.render(app));
+else root.render(app);

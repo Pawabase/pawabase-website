@@ -11,6 +11,8 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // The build manifest tells the SEO step which scripts and styles each page needs, so it can link them in the page itself.
+  build: { manifest: true },
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
   },

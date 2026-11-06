@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/seo/postbuild.mjs",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seo:images": "node scripts/seo/og.mjs && node scripts/seo/icons.mjs"
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^13.15.1",
@@ -18,6 +19,7 @@
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/router-plugin": "^1.140.0",
     "@types/node": "^26.6.5",
