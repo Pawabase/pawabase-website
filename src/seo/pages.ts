@@ -60,8 +60,8 @@ const legal = (slug: string, name: string, description: string, file: string): P
 export const PAGES: Page[] = [
   {
     path: "/",
-    title: "Pawabase | Build data, auth, flows and agents as one system",
-    description: "A developer platform for complete systems: data, access policies, auth, storage, flows and agents in one place that your apps, team and AI all share.",
+    title: "Pawabase | Build apps and APIs: data, auth, flows and agents",
+    description: "Build apps and APIs on one system: Postgres data, auth, access policies, storage, flows and agents. Every table is a REST API, shared by your apps, team and AI.",
     kind: "home",
     name: "Pawabase",
     source: "src/pages/Landing.tsx",
@@ -79,16 +79,16 @@ export const PAGES: Page[] = [
     changefreq: "monthly",
   },
 
-  product("database", "Database", "Data", "Postgres Database with an Instant API | Pawabase", "Postgres tables with an API from day one: access rules, a visual editor, relations, vector search and schema changes that can't lose your data.", "Database"),
-  product("data-api", "Data API", "Data", "REST Data API for Every Table | Pawabase", "A REST API for every table: filters, sorting, relations, full-text search, pagination, OpenAPI docs and side-by-side API versions, with no code to write.", "DataApi"),
+  product("database", "Database", "Data", "Postgres Database with an Instant API | Pawabase", "Build your app's backend on Postgres tables with an API from day one: access rules, a visual editor, relations, vector search and safe schema changes.", "Database"),
+  product("data-api", "Data API", "Data", "REST Data API for Every Table | Pawabase", "Build an API without writing one: a REST API for every table with filters, relations, full-text search, pagination, OpenAPI docs and API versions.", "DataApi"),
   product("storage", "Storage", "Data", "File Storage with Access Rules and Share Links | Pawabase", "File storage with per-action access rules, share links that expire, on-the-fly image resizing, folders and S3-compatible backends.", "Storage"),
   product("realtime", "Realtime", "Data", "Realtime: Live Changes, Channels and Presence | Pawabase", "Live table changes, channels, presence and durable message history over WebSockets or server-sent events, under the same access rules as the rest of your data.", "Realtime"),
 
-  product("authentication", "Authentication", "Identity & security", "Authentication: Passkeys, SSO, MFA and Organizations | Pawabase", "Email, passkeys, social and company sign-in, two-step verification, organizations, roles, invitations and sessions, built in and connected to your data.", "Authentication"),
+  product("authentication", "Authentication", "Identity & security", "Authentication: Passkeys, SSO, MFA and Organizations | Pawabase", "Add sign-in to your app or API: email, passkeys, social and company login, two-step verification, organizations, roles and sessions, tied to your data.", "Authentication"),
   product("policies", "Access policies", "Identity & security", "Access Policies for Tables, Files, Flows and Routes | Pawabase", "Write an access rule once and reuse it across tables, files, channels, flows and routes, enforced in the database so it can't be skipped.", "Policies"),
   product("api-security", "API security", "Identity & security", "API Security: Scoped Keys, Rate Limits and Audit Log | Pawabase", "Publishable and secret keys, keys scoped to routes and addresses, expiring keys, rate limits and an audit log of who did what.", "ApiSecurity"),
 
-  product("flows", "Flows", "Automation", "Visual Workflow Automation with AI Steps | Pawabase", "Visual workflows with eight kinds of triggers, branches, loops, retries, AI and agent steps, and a full history of every run.", "Flows"),
+  product("flows", "Flows", "Automation", "Visual Workflow Automation with AI Steps | Pawabase", "Build app logic and API endpoints as visual workflows with eight kinds of triggers, branches, loops, retries, AI and agent steps, and a full history of every run.", "Flows"),
   product("queues", "Queues", "Automation", "Background Jobs and Queues with Retries | Pawabase", "Background jobs with durable retries and schedules, plus failed jobs you can see, inspect and run again.", "Queues"),
   product("mail", "Mail", "Automation", "Transactional Email with a Visual Template Editor | Pawabase", "Transactional email with a visual template editor, sign-in emails, sends from flows, a delivery log and retries over your own SMTP.", "Mail"),
   product("webhooks", "Webhooks", "Automation", "Webhooks: Inbound Triggers, Signed Outbound Events | Pawabase", "Inbound webhooks that start flows, and signed, retried outbound events with a history of every delivery.", "Webhooks"),

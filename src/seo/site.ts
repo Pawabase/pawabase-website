@@ -11,9 +11,9 @@ export const SITE = {
   name: "Pawabase",
   legalName: "Pawabase",
   url: SITE_URL,
-  tagline: "One system for your data, auth, flows and agents",
+  tagline: "Build apps and APIs on one system",
   description:
-    "Pawabase is a developer platform for building complete systems: data, access policies, auth, storage, flows and agents in one place that your apps, your team and your AI share.",
+    "Pawabase is a developer platform for building apps and APIs as one system: Postgres data with a REST API for every table, auth, access policies, storage, flows and agents, shared by your apps, your team and your AI.",
   locale: "en_US",
   language: "en",
   themeColor: "#111214",
