@@ -30,6 +30,6 @@ export const QUESTIONS: { q: string; a: string }[] = [
   },
   {
     q: "How are changes released?",
-    a: "Work happens in an environment, such as staging, and is released to production. Snapshots and alarms back it up, and a release can be rolled back.",
+    a: "On paid plans, work happens in one environment, such as development or staging, and is released to production. Snapshots and alarms back it up, and a release can be rolled back.",
   },
 ];

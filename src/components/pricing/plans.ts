@@ -48,6 +48,7 @@ export const PLANS: Plan[] = [
 
 export const PRICING_METRICS: PricingMetric[] = [
   { label: "Projects", values: ["1", "1", "3", "10", "25"] },
+  { label: "Environments / project", note: "Free runs on the project's first environment. Starter adds production; Pro and up add staging and more.", values: ["1", "2", "5", "15", "50"] },
   { label: "PostgreSQL storage", values: ["500 MB", "1 GB", "5 GB", "25 GB", "100 GB"] },
   { label: "Monthly active users", values: ["1,000", "5,000", "25,000", "100,000", "500,000"] },
   { label: "API requests / month", values: ["100K", "500K", "2M", "10M", "50M"] },
