@@ -12,6 +12,7 @@ export type PricingMetric = {
   values: string[];
 };
 
+/** `price` is naira a month, the same numbers as the Cloud's bundled plans (pawabase-cloud/backend/pawacloud/seed.py): change one, change both. */
 export const PLANS: Plan[] = [
   {
     name: "Free",
@@ -21,26 +22,26 @@ export const PLANS: Plan[] = [
   },
   {
     name: "Starter",
-    price: "5",
+    price: "6500",
     description: "For a small app with room to find its footing.",
     features: ["1 project", "1 GB PostgreSQL", "5,000 monthly active users"],
   },
   {
     name: "Pro",
-    price: "19",
+    price: "25500",
     description: "For products becoming part of people's daily work.",
     featured: true,
     features: ["3 projects", "5 GB PostgreSQL", "25,000 monthly active users"],
   },
   {
     name: "Business",
-    price: "79",
+    price: "106500",
     description: "For teams running production systems at a larger scale.",
     features: ["10 projects", "25 GB PostgreSQL", "100,000 monthly active users"],
   },
   {
     name: "Scale",
-    price: "299",
+    price: "403000",
     description: "For high-volume products with serious operational needs.",
     features: ["25 projects", "100 GB PostgreSQL", "500,000 monthly active users"],
   },

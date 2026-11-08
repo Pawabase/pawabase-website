@@ -18,6 +18,9 @@ import { canonical, ogImage, ogImagePath, PAGES } from "../../src/seo/pages.ts";
 import { absolute, SITE, SITE_URL } from "../../src/seo/site.ts";
 import { esc, ROOT } from "./lib.mjs";
 
+/** A plan's price as the pricing page writes it: ₦6,500 a month (Free for zero). Plans are priced in naira. */
+const naira = (price) => (Number(price) ? `₦${Number(price).toLocaleString("en-NG")}` : "Free");
+
 const DIST = `${ROOT}/dist`;
 const problems = [];
 const warnings = [];
@@ -192,7 +195,7 @@ ${groups.map((g) => `### ${g}\n\n${byKind("product").filter((p) => p.group === g
 
 ${link(PAGES.find((p) => p.kind === "pricing"))}
 
-${PLANS.map((p) => `- ${p.name}: $${p.price} per month. ${p.description}`).join("\n")}
+${PLANS.map((p) => `- ${p.name}: ${naira(p.price)} per month. ${p.description}`).join("\n")}
 
 ## Documentation
 
@@ -212,7 +215,7 @@ write(`${DIST}/llms.txt`, llms);
 
 const planTable = `| | ${PLANS.map((p) => p.name).join(" | ")} |
 | --- | ${PLANS.map(() => "---").join(" | ")} |
-| Price per month | ${PLANS.map((p) => `$${p.price}`).join(" | ")} |
+| Price per month | ${PLANS.map((p) => naira(p.price)).join(" | ")} |
 ${PRICING_METRICS.map((m) => `| ${m.label} | ${m.values.join(" | ")} |`).join("\n")}`;
 
 write(
