@@ -62,6 +62,7 @@ export const FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
       live("Privacy Policy", "/legal/privacy"),
       live("Terms of Service", "/legal/terms"),
       live("Cookie Policy", "/legal/cookies"),
+      live("Cookie settings", "#cookie-settings"),
       live("Refund Policy", "/legal/refund"),
       live("Data Processing Addendum", "/legal/dpa"),
       live("Acceptable Use Policy", "/legal/acceptable-use"),

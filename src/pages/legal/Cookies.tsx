@@ -64,6 +64,9 @@ export default function CookiesPage() {
         <p>
           Most web browsers allow you to control cookies through their settings preferences. You can set your browser to refuse cookies or delete certain cookies. However, if you disable or refuse cookies, some parts of our website may not function properly.
         </p>
+        <p>
+          You can also change your choice on this site at any time: <a href="#cookie-settings">open the cookie settings</a>.
+        </p>
         <p>Here's how to manage cookies in popular browsers:</p>
         <ul>
           <li><strong>Chrome:</strong> Settings → Privacy and Security → Cookies and other site data</li>
