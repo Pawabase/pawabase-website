@@ -1,0 +1,46 @@
+/*
+ * The tools an agent can use: 24 apps in an 8 × 3 grid between the rails, divided by dashed lines. Each mark is the company's
+ * own, in its own colours, on a white app-icon tile. A tile lights up now and then (an orange ring); hovering lifts it. A line
+ * of orange dots runs along the head, and the tiles arrive one after another as the panel scrolls into view.
+ */
+
+.int-panel { background: #121316; }
+.int-head { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 24px 32px 20px; }
+.int-head h3 { margin: 0; font-size: 20px; font-weight: 500; letter-spacing: -0.02em; color: var(--ix-text); }
+.int-count { font: 500 12px/1 var(--ix-mono); color: var(--ix-orange); }
+.int-head p { flex-basis: 100%; margin: 4px 0 0; max-width: 62ch; font-size: 15px; line-height: 1.55; color: var(--ix-muted); }
+/* dots run along the foot of the head, left to right */
+.int-flow { position: absolute; right: 0; bottom: -1px; left: 0; height: 3px; pointer-events: none; background-image: radial-gradient(circle, var(--ix-orange) 1px, transparent 1.5px); background-size: 14px 3px; animation: int-run 1.8s linear infinite; -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); opacity: 0.55; }
+@keyframes int-run { to { background-position: 14px 0; } }
+
+/* the grid: dashed lines between cells, none on its outer edges (the negative margins push them out of the clip) */
+.int-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); margin: 0; padding: 0; overflow: hidden; list-style: none; border-top: 1px dashed var(--ix-dash); }
+.int-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-width: 0; height: 148px; margin: 0 -1px -1px 0; padding: 14px 8px; border-right: 1px dashed var(--ix-dash); border-bottom: 1px dashed var(--ix-dash); transition: background-color 0.3s ease; }
+.int-tile { position: relative; display: grid; place-items: center; width: 58px; height: 58px; border-radius: 16px; background: #fcf8f5; box-shadow: 0 0 0 0 rgba(255, 106, 0, 0); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease; }
+.int-tile img, .int-tile svg { display: block; width: 30px; height: 30px; }
+.int-name { max-width: 100%; overflow: hidden; font: 11.5px/1.3 var(--ix-mono); color: var(--ix-faint); text-align: center; text-overflow: ellipsis; white-space: nowrap; transition: color 0.3s ease; }
+.int-cell:hover, .int-cell.lit { background-color: rgba(255, 106, 0, 0.05); }
+.int-cell:hover .int-tile, .int-cell.lit .int-tile { box-shadow: 0 0 0 3px #121316, 0 0 0 4.5px var(--ix-orange); }
+.int-cell:hover .int-tile { transform: translateY(-5px); }
+.int-cell:hover .int-name, .int-cell.lit .int-name { color: rgba(252, 248, 245, 0.85); }
+
+/* the tiles arrive one after another as the panel scrolls into view */
+@keyframes int-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.motion-enabled .int-cell { opacity: 0; }
+.motion-enabled .int-panel.is-visible .int-cell { animation: int-in 0.7s var(--d, 0s) cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (max-width: 1100px) {
+  .int-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .int-cell { height: 132px; }
+}
+@media (max-width: 680px) {
+  .int-head { padding: 20px 20px 18px; }
+  .int-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .int-cell { height: 120px; gap: 10px; }
+  .int-tile { width: 52px; height: 52px; border-radius: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .int-flow { animation: none; }
+  .motion-enabled .int-cell { opacity: 1; }
+  .motion-enabled .int-panel.is-visible .int-cell { animation: none; }
+}

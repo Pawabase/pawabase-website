@@ -1,6 +1,7 @@
 import { Highlights } from "@/components/home/Bento";
 import { Features } from "@/components/home/Features";
 import { Hero, InnerRails, Pricing, Rule, Statement } from "@/components/home/Home";
+import { Integrations } from "@/components/home/Integrations";
 import { Mcp } from "@/components/home/Mcp";
 import { Stack } from "@/components/home/Stack";
 import { Closing, Everyone } from "@/components/home/Sections";
@@ -23,6 +24,7 @@ export default function Landing() {
         <Highlights />
         <Story />
         <Mcp />
+        <Integrations />
         <Features />
         <Stack />
         <Pricing />
