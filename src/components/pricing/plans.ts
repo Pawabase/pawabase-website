@@ -18,36 +18,36 @@ export const PLANS: Plan[] = [
     name: "Free",
     price: "0",
     description: "For prototypes, experiments, and learning the platform.",
-    features: ["1 project", "500 MB PostgreSQL", "1,000 monthly active users"],
+    features: ["1 project", "500 MB PostgreSQL", "1,000 monthly active users", "Community support"],
   },
   {
     name: "Starter",
     price: "7500",
     description: "For a small app with room to find its footing.",
-    features: ["1 project", "1 GB PostgreSQL", "5,000 monthly active users"],
+    features: ["1 project", "1 GB PostgreSQL", "5,000 monthly active users", "Community support"],
   },
   {
     name: "Pro",
     price: "29000",
     description: "For products becoming part of people's daily work.",
     featured: true,
-    features: ["3 projects", "5 GB PostgreSQL", "25,000 monthly active users"],
+    features: ["3 projects", "5 GB PostgreSQL", "25,000 monthly active users", "Community support"],
   },
   {
     name: "Business",
     price: "119000",
     description: "For teams running production systems at a larger scale.",
-    features: ["10 projects", "25 GB PostgreSQL", "100,000 monthly active users"],
+    features: ["10 projects", "25 GB PostgreSQL", "100,000 monthly active users", "Priority email support"],
   },
   {
     name: "Scale",
     price: "449000",
     description: "For high-volume products with serious operational needs.",
-    features: ["25 projects", "100 GB PostgreSQL", "500,000 monthly active users"],
+    features: ["25 projects", "100 GB PostgreSQL", "500,000 monthly active users", "Full support, with a named engineer"],
   },
 ];
 
-export const PRICING_METRICS: PricingMetric[] = [
+const USAGE_METRICS: PricingMetric[] = [
   { label: "Projects", values: ["1", "1", "3", "10", "25"] },
   { label: "Environments / project", note: "Free runs on the project's first environment. Starter adds production; Pro and up add staging and more.", values: ["1", "2", "5", "15", "50"] },
   { label: "PostgreSQL storage", values: ["500 MB", "1 GB", "5 GB", "25 GB", "100 GB"] },
@@ -69,3 +69,22 @@ export const PRICING_METRICS: PricingMetric[] = [
   { label: "Sign-in history", values: ["7 days", "30 days", "90 days", "180 days", "365 days"] },
   { label: "Audit log history", values: ["7 days", "30 days", "90 days", "365 days", "730 days"] },
 ];
+
+/** The support lines of each plan, in plan order (Free to Scale). The same words as the Cloud's bundled plans (seed.py's SUPPORT): change one, change both. */
+export const SUPPORT_HEADLINES = ["Community support", "Community support", "Community support", "Priority email support", "Full support, with a named engineer"];
+
+/** Support and compliance rows of the comparison table, one value per plan. They are the website's words, so they stay when the table is read from the Cloud. */
+export const SUPPORT_METRICS: PricingMetric[] = [
+  { label: "Support", values: ["Community", "Community", "Community", "Priority email", "Full, named engineer"] },
+  { label: "First reply", values: ["—", "—", "—", "1 business day", "4 hours"] },
+  { label: "Outage escalation", values: ["—", "—", "—", "Business hours", "Any hour"] },
+  { label: "Onboarding", values: ["Docs", "Docs", "Docs", "Guided session", "Dedicated onboarding"] },
+  { label: "Hands-on help building your product", note: "Architecture, reviews and engineering help from the team.", values: ["—", "—", "—", "—", "Included"] },
+  { label: "Private Slack channel", values: ["—", "—", "—", "—", "Included"] },
+  { label: "Data Processing Addendum", values: ["—", "—", "—", "On request", "Included"] },
+  { label: "Security and compliance reviews", note: "Help with your questionnaires and audits; Scale adds full compliance support.", values: ["—", "—", "—", "Questionnaire help", "Full support"] },
+  { label: "Custom contract and uptime SLA", values: ["—", "—", "—", "—", "Included"] },
+  { label: "Migration help", values: ["—", "—", "—", "—", "Included"] },
+];
+
+export const PRICING_METRICS: PricingMetric[] = [...USAGE_METRICS, ...SUPPORT_METRICS];

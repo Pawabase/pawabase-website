@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { PLANS, PRICING_METRICS, type Plan, type PricingMetric } from "@/components/pricing/plans";
+import { PLANS, PRICING_METRICS, SUPPORT_HEADLINES, SUPPORT_METRICS, type Plan, type PricingMetric } from "@/components/pricing/plans";
 
 /** Where Pawabase Cloud's backend answers, and the publishable key of its `cloud` environment (safe for browsers). Unset: the bundled plans. */
 const CLOUD_URL = (import.meta.env.VITE_CLOUD_URL as string | undefined)?.replace(/\/$/, "");
@@ -55,12 +55,12 @@ function format(unit: string | undefined, value: unknown, key: string): string {
 
 function fromOffer(offer: Offer): { plans: Plan[]; metrics: PricingMetric[] } {
   const label = new Map(offer.limits.map((limit) => [limit.key, limit]));
-  const plans = offer.plans.map((plan) => ({
+  const plans = offer.plans.map((plan, index) => ({
     name: plan.name,
     price: String(plan.amount / 100),
     description: plan.description,
     featured: plan.code === "pro",
-    features: plan.features.slice(0, 3),
+    features: [...plan.features.filter((feature) => !feature.startsWith("##")).slice(0, 3), SUPPORT_HEADLINES[index] ?? "Community support"],
   }));
   const metrics = ROWS.map((row) => {
     const limit = label.get(row.key);
@@ -70,7 +70,7 @@ function fromOffer(offer: Offer): { plans: Plan[]; metrics: PricingMetric[] } {
       values: offer.plans.map((plan) => format(limit?.unit, plan.limits?.project_limits?.[row.key] ?? plan.limits?.[row.key], row.key)),
     };
   });
-  return { plans, metrics };
+  return { plans, metrics: [...metrics, ...SUPPORT_METRICS] };
 }
 
 let pending: Promise<Offer | null> | null = null;
