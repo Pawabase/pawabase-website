@@ -79,10 +79,6 @@ export function Footer() {
                       </li>
                     ))}
                   </ul>
-
-                  <p className="mt-3 text-[13px] leading-[1.6] text-faint/75">
-                    More channels are being set up.
-                  </p>
                 </div>
               </div>
             </div>

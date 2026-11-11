@@ -25,11 +25,6 @@ const live = (label: string, href: string, external = false): FooterLink => ({
   external,
 });
 
-const planned = (label: string): FooterLink => ({
-  label,
-  status: "planned",
-});
-
 export const FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
   {
     title: "Product",
@@ -71,7 +66,6 @@ export const FOOTER_LINK_GROUPS: FooterLinkGroup[] = [
 ];
 
 export const FOOTER_SOCIALS: FooterLink[] = [
-  planned("X"),
-  planned("LinkedIn"),
-  planned("Discord"),
+  live("X", "https://x.com/getpawabase", true),
+  live("LinkedIn", "https://www.linkedin.com/company/pawabase/", true),
 ];

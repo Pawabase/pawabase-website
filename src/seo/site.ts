@@ -17,8 +17,8 @@ export const SITE = {
   locale: "en_US",
   language: "en",
   themeColor: "#111214",
-  /** Real profiles only; the footer's social links are still planned. */
-  sameAs: ["https://github.com/Pawabase"],
+  /** Profiles that exist. */
+  sameAs: ["https://github.com/Pawabase", "https://x.com/getpawabase", "https://www.linkedin.com/company/pawabase/"],
   dashboard: "https://dashboard.pawabase.com",
   docs: "https://docs.pawabase.com",
   logo: "/icon-512.png",
