@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
 /**
  * Prices are in naira: the payment account settles in it and every charge is made in naira. A visitor sees naira by default and may pick another
@@ -63,24 +63,49 @@ export function priceIn(naira: number, currency: string, rates: Rates): string {
   return new Intl.NumberFormat("en", { style: "currency", currency, currencyDisplay: "narrowSymbol", minimumFractionDigits: digits, maximumFractionDigits: digits }).format(value);
 }
 
+/**
+ * The picker and every price read this same choice. Each `useCurrency()` used to keep its own copy, so choosing a
+ * currency updated the button and left the prices in naira.
+ */
+type Store = { rates: Rates; picked: string | null };
+const serverStore: Store = { rates: {}, picked: null };
+let store: Store = {
+  rates: {},
+  picked: typeof window === "undefined" ? null : load<string>(CHOICE_KEY),
+};
+const listeners = new Set<() => void>();
+let ratesStarted = false;
+
+function emit() {
+  listeners.forEach((listener) => listener());
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  if (!ratesStarted && typeof window !== "undefined") {
+    ratesStarted = true;
+    fetchRates().then((rates) => {
+      store = { ...store, rates };
+      emit();
+    });
+  }
+  return () => listeners.delete(listener);
+}
+
+function choose(code: string) {
+  save(CHOICE_KEY, code);
+  store = { ...store, picked: code };
+  emit();
+}
+
 export function useCurrency() {
-  const [rates, setRates] = useState<Rates>({});
-  const [picked, setPicked] = useState<string | null>(() => load<string>(CHOICE_KEY));
-  useEffect(() => {
-    let alive = true;
-    fetchRates().then((next) => alive && setRates(next));
-    return () => {
-      alive = false;
-    };
-  }, []);
-  const currency = resolveCurrency(picked, rates);
+  const current = useSyncExternalStore(subscribe, () => store, () => serverStore);
+  const currency = resolveCurrency(current.picked, current.rates);
   /** A price in naira as the visitor's currency. */
-  const show = useCallback((naira: number) => priceIn(naira, currency, rates), [currency, rates]);
-  const choose = (code: string) => {
-    setPicked(code);
-    save(CHOICE_KEY, code);
-  };
-  const options = rates[BASE] ? CURRENCIES.filter((code) => code === BASE || rates[code]).sort((a, b) => (a === BASE ? -1 : b === BASE ? 1 : a.localeCompare(b))) : [BASE];
+  const show = useCallback((naira: number) => priceIn(naira, currency, current.rates), [currency, current.rates]);
+  const options = current.rates[BASE]
+    ? CURRENCIES.filter((code) => code === BASE || current.rates[code]).sort((a, b) => (a === BASE ? -1 : b === BASE ? 1 : a.localeCompare(b)))
+    : [BASE];
   return { currency, show, choose, converted: currency !== BASE, options, base: BASE };
 }
 

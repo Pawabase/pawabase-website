@@ -90,7 +90,7 @@ export function CurrencyPicker() {
               role="listbox"
               aria-label="Currency"
               style={{ position: "fixed", zIndex: 1000, width: WIDTH, maxWidth: "calc(100vw - 16px)", visibility: place ? "visible" : "hidden", ...place }}
-              className="flex flex-col gap-2 rounded-[10px] bg-card p-2 shadow-2xl ring-1 ring-white/[0.1]"
+              className="flex flex-col gap-2 overflow-hidden rounded-[10px] bg-card p-2 shadow-2xl ring-1 ring-white/[0.1]"
             >
               <input
                 autoFocus
@@ -99,7 +99,7 @@ export function CurrencyPicker() {
                 placeholder="Search currency"
                 className="h-9 w-full shrink-0 rounded-lg bg-white/[0.05] px-3 text-[13px] text-text outline-none placeholder:text-faint focus:ring-1 focus:ring-brand/60"
               />
-              <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain" data-lenis-prevent>
+              <div className="overflow-y-auto overscroll-contain" data-lenis-prevent style={{ maxHeight: Math.max(120, (place?.maxHeight ?? 320) - 60) }}>
                 {shown.map((code) => (
                   <button
                     key={code}
