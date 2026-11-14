@@ -17,6 +17,7 @@ import { headHtml } from "../../src/seo/head.ts";
 import { canonical, ogImage, ogImagePath, PAGES } from "../../src/seo/pages.ts";
 import { absolute, SITE, SITE_URL } from "../../src/seo/site.ts";
 import { esc, ROOT } from "./lib.mjs";
+import { buildSkill } from "../skill/bundle.mjs";
 
 /** A plan's price as the pricing page writes it: ₦6,500 a month (Free for zero). Plans are priced in naira. */
 const naira = (price) => (Number(price) ? `₦${Number(price).toLocaleString("en-NG")}` : "Free");
@@ -269,7 +270,12 @@ write(
 `,
 );
 
-if (!existsSync(`${DIST}/SKILL.md`)) problems.push("/SKILL.md: missing; build it from the pawabase-skill repository (scripts/build_bundle.py)");
+// ── SKILL.md: the Pawabase skill for coding agents, built from skill/ on every build ──
+try {
+  write(`${DIST}/SKILL.md`, buildSkill());
+} catch (error) {
+  problems.push(`/SKILL.md: ${error.message}`);
+}
 
 rmSync(`${DIST}/.vite`, { recursive: true, force: true });
 

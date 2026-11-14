@@ -8,6 +8,9 @@
     "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/seo/postbuild.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "skill": "node scripts/skill/bundle.mjs",
+    "skill:check": "python3 skill/scripts/check_skill.py --docs ../pawabase-docs",
+    "skill:catalog": "python3 skill/scripts/build_catalog.py --docs ../pawabase-docs",
     "seo:images": "node scripts/seo/og.mjs && node scripts/seo/icons.mjs"
   },
   "dependencies": {
