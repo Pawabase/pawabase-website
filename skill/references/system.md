@@ -34,7 +34,9 @@ come back. Details in [auth and policies](auth-policies.md).
 
 ## Identity
 
-Every request needs `apikey`; a person's or machine's request adds `Authorization: Bearer <access token>`. Publishable keys
+Every request needs `apikey` and names its project (`x-project-id`) and, unless it means the project's default, its environment
+(`x-environment`); a person's or machine's request adds `Authorization: Bearer <access token>`. Keys belong to the project and
+reach all of its environments or only some. Publishable keys
 are for apps and always obey policies. Secret keys bypass them and can carry management scopes. Machines (services, AI agents)
 have their own identities and roles. Organizations scope a session to one team at a time. `user_metadata` is editable by the
 user and is never authority.

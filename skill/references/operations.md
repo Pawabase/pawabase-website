@@ -13,7 +13,7 @@ data, users, keys or secrets. A client's key must belong to the environment it n
 | **`pawabase-iac`** | Definitions reviewed in git | Python declarations; `pawabase validate` (offline), `emulate`, `plan` (reads the real environment), `deploy` (writes). See [platform lifecycle](platform-lifecycle.md) |
 
 ```python
-pb = Pawabase(url, os.environ["PAWABASE_SECRET_KEY"], environment="staging")
+pb = Pawabase(url, os.environ["PAWABASE_SECRET_KEY"], project=project, environment="staging")
 pb.manage.secrets.set("STRIPE_KEY", os.environ["STRIPE_KEY"])
 failed = pb.manage.flows.runs(status="failed", limit=20)
 matches = pb.admin.users.search(search="ada@example.com")
@@ -32,7 +32,7 @@ Rules for all three:
 - Restores, key rotations, bulk replays and destructive migrations change durable state: look at the target environment and the
   plan or backup first, save the current state, and say what will change.
 - Prefer dry runs where offered (promotion, replays). Never replay successful events to test an integration.
-- A secret key manages only its own environment (plus those it is explicitly allowed). `/studio` uses a Cloud-signed token and
+- A secret key manages only the environments of its project it reaches (all of them, or the ones it was limited to). `/studio` uses a Cloud-signed token and
   is not an app management endpoint.
 
 ## Diagnose by layer

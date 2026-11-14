@@ -30,8 +30,8 @@ Ask the user only for what the task needs, at the moment it needs it, and say ex
 
 | The task needs | Ask for | Where the user finds it | Where it goes |
 | --- | --- | --- | --- |
-| App code that calls Pawabase | The API address, the environment name, a **publishable** `pb_pk_` key | Studio → Overview → **Connect** | The project's env file (it is safe in a browser bundle) |
-| Server code that administers (manage, admin, share links, captcha verify) | A **secret** `pb_sk_` key | Studio → **Settings → API keys** | A server-only env var. Never in the bundle or git |
+| App code that calls Pawabase | The API address, the **project ID**, a **publishable** `pb_pk_` key, and the environment's name only if it is not the project's default | Studio → Overview → **Connect** | The project's env file (it is safe in a browser bundle) |
+| Server code that administers (manage, admin, share links, captcha verify) | A **secret** `pb_sk_` key, limited to the environments the server works in | Studio → **Settings → API keys** | A server-only env var. Never in the bundle or git |
 | You to look at or change the environment yourself (tables, policies, flows, mail, data) | An **MCP key**: Look only or Build with me | Studio → **Manage → MCP** | The user's shell as `PAWABASE_MCP_KEY`, then the agent's MCP config. See [the MCP tutorial](references/mcp.md) |
 | A worker or AI agent that acts as itself | A machine's client id and secret | Studio → **Users & auth → Machines** | The service's secret store |
 
@@ -74,8 +74,10 @@ Read only what the task needs. When a task crosses two areas, read both and test
   identity (`asMachine` / `as_machine`) instead of borrowing a person's access.
 - **Callers.** A signed-in person's calls carry their access token. A server acting for a person uses `asUser(token)` /
   `as_user(token)` with a publishable key, so that person's policies apply.
-- **Environments are separate.** Data, users, keys, policies, secrets, files and settings belong to one environment. A key only
-  works in its own. Promotion moves definitions, never data, users, keys or secrets.
+- **Keys belong to the project; data belongs to an environment.** Data, users, policies, secrets, files and settings belong to
+  one environment. A key belongs to the project and reaches all of its environments or only the ones it was limited to; a client
+  names the project (required) and the environment (optional: left out, the project's default). Promotion moves definitions,
+  never data, users or secrets.
 - **Policies decide access, on the server.** Lists are filtered in the database, so totals can be smaller and a single-row `404`
   can mean "not yours". Test with real, different users, never only with a secret key.
 - **Definitions and tables differ.** Changing a resource definition can need a migration; preview it, and check the table after.

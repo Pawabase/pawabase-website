@@ -1,6 +1,6 @@
 # TypeScript and JavaScript client
 
-`@pawabase/client` (verified at **0.7.0**) runs in browsers, React, Node, Deno, Bun and edge runtimes on standard `fetch` and
+`@pawabase/client` (verified at **0.8.0**) runs in browsers, React, Node, Deno, Bun and edge runtimes on standard `fetch` and
 `WebSocket`, as ESM or CommonJS. One client shares one session across every module. Check the installed version first:
 `node -p "require('@pawabase/client/package.json').version"`.
 
@@ -8,12 +8,14 @@
 import { createClient } from "@pawabase/client";
 
 const pawabase = createClient({
-  url: "https://api.example.com",   // the project's gateway
-  apiKey: "pb_pk_…",                // publishable in browsers
+  url: "https://api.example.com",   // the gateway
+  project: "01JC4…",                // required: the project's id (Studio → Overview → Connect)
+  environment: "production",        // optional: its name in the project; left out, the project's default
+  apiKey: "pb_pk_…",                // a key of the project; publishable in browsers
 });
 ```
 
-Options: `url`, `apiKey`, `project`, `environment`, `timeoutMs`, `retry` (or `false`), `fetch`, `headers`, `hooks`, `auth`
+Options: `url`, `apiKey`, `project` (required since 0.8; a `ConfigError` without it), `environment` (the short name), `timeoutMs`, `retry` (or `false`), `fetch`, `headers`, `hooks`, `auth`
 (session storage and behaviour), `realtime` (socket options, an injected `WebSocket` for old Node), `accessToken` (a fixed token
 or a function returning one, which makes the client stateless for server use), and `dangerouslyAllowBrowser` (only to silence the
 refusal of a secret key in a browser; never set it in shipped code). Call `pawabase.dispose()` when you drop a client.
@@ -27,7 +29,7 @@ refusal of a secret key in a browser; never set it in shipped code). Call `pawab
 | A server doing administration | A separate client with a secret key, kept on the server |
 | A service or AI agent | `pawabase.asMachine({ clientId, clientSecret, scope })`: its own identity and roles |
 
-## Surface at 0.7.0
+## Surface at 0.8.0
 
 | Area | API |
 | --- | --- |

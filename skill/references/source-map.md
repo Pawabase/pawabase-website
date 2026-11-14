@@ -17,8 +17,8 @@ what you verified.
 
 | Package or source | Checked | What it means |
 | --- | --- | --- |
-| `@pawabase/client` | `0.7.0` source | Records, auth with MFA, passkeys, SSO and organizations, storage with share links and transforms, realtime channels and `realtime.live`, flows, routes, AI models, agents and knowledge, captcha, `asUser`, `asMachine`. Management in `@pawabase/client/manage` and `@pawabase/client/admin`. `pawabase-types` CLI for generated types. |
-| Python `pawabase` | `0.9.0` source | The same areas in snake_case: `pb.from_`, `pb.auth`, `pb.storage`, `pb.realtime` (channels and live queries on `AsyncPawabase`), `pb.flows.invoke`, `pb.routes`, `pb.ai`, `pb.captcha`, `pb.manage`, `pb.admin`, `as_user`, `as_machine`. No function kit and no CLI. |
+| `@pawabase/client` | `0.8.0` source | Records, auth with MFA, passkeys, SSO and organizations, storage with share links and transforms, realtime channels and `realtime.live`, flows, routes, AI models, agents and knowledge, captcha, `asUser`, `asMachine`. Management in `@pawabase/client/manage` and `@pawabase/client/admin`. `pawabase-types` CLI for generated types. |
+| Python `pawabase` | `0.10.0` source | The same areas in snake_case: `pb.from_`, `pb.auth`, `pb.storage`, `pb.realtime` (channels and live queries on `AsyncPawabase`), `pb.flows.invoke`, `pb.routes`, `pb.ai`, `pb.captcha`, `pb.manage`, `pb.admin`, `as_user`, `as_machine`. No function kit and no CLI. |
 | `pawabase-iac` | `0.2.4` source | A separate package for definitions as Python code. Its CLI is also called `pawabase`: `init`, `validate`, `emulate`, `plan`, `deploy`, `whoami`. |
 | Public OpenAPI | `pawabase-docs/openapi/public.json` | 78 public paths. It leaves out each environment's own table schema and the management surface; use the environment's API Explorer for those. |
 | Product docs | `pawabase-docs` at `e446b6a` | The pages the [docs catalog](docs-catalog.md) lists. |

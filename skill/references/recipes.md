@@ -8,7 +8,8 @@ own. Before copying, confirm every method in the installed package ([source map]
 
 1. **Find the facts.** Gateway URL, environment name, a publishable key for the app, a secret key for servers (never in the
    bundle), and which client the project's language needs. Put them in the project's existing env file pattern:
-   `PAWABASE_URL`, `PAWABASE_ENV`, `PAWABASE_PUBLISHABLE_KEY` (exposed to the browser through the framework's public prefix,
+   `PAWABASE_URL`, `PAWABASE_PROJECT` (the project's id), `PAWABASE_ENV` (only when not the project's default),
+   `PAWABASE_PUBLISHABLE_KEY` (exposed to the browser through the framework's public prefix,
    such as `VITE_` or `NEXT_PUBLIC_`), `PAWABASE_SECRET_KEY` (server only).
 2. **Install the client.** `npm install @pawabase/client`, or `pip install pawabase` (`"pawabase[realtime]"` to listen).
 3. **Make one client module** and import it everywhere; never create a client per component or per request.
@@ -20,6 +21,7 @@ own. Before copying, confirm every method in the installed package ([source map]
 
    export const pawabase = createClient<Database>({
      url: import.meta.env.VITE_PAWABASE_URL,
+     project: import.meta.env.VITE_PAWABASE_PROJECT,
      apiKey: import.meta.env.VITE_PAWABASE_PUBLISHABLE_KEY,
      environment: import.meta.env.VITE_PAWABASE_ENV,
    });
@@ -72,7 +74,7 @@ await pawabase.from("projects").create({ name: "Launch", org_id: org.id });
 
 ```ts
 // one shared client for the server, publishable key
-const server = createClient({ url, apiKey: process.env.PAWABASE_PUBLISHABLE_KEY!, environment });
+const server = createClient({ url, project, apiKey: process.env.PAWABASE_PUBLISHABLE_KEY!, environment });
 
 app.get("/api/tasks", async (req, res) => {
   const token = req.headers.authorization?.replace(/^Bearer /, "") ?? req.cookies.pb_access;
@@ -93,7 +95,7 @@ Set up: Studio → Auth → Machines: create a machine, give it a role whose per
 import os
 from pawabase import Pawabase
 
-pb = Pawabase(os.environ["PAWABASE_URL"], os.environ["PAWABASE_PUBLISHABLE_KEY"], environment="production")
+pb = Pawabase(os.environ["PAWABASE_URL"], os.environ["PAWABASE_PUBLISHABLE_KEY"], project=os.environ["PAWABASE_PROJECT"], environment="production")
 worker = pb.as_machine(client_id=os.environ["PB_MACHINE_ID"], client_secret=os.environ["PB_MACHINE_SECRET"])
 
 for order in worker.from_("orders").eq("status", "paid").iterate():

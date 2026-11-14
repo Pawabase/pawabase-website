@@ -1,6 +1,6 @@
 # Python client
 
-`pawabase` (verified at **0.9.0**) needs Python 3.11+ and `httpx`. `Pawabase` blocks, `AsyncPawabase` has the same methods
+`pawabase` (verified at **0.10.0**) needs Python 3.11+ and `httpx`. `Pawabase` blocks, `AsyncPawabase` has the same methods
 awaited. Live channels and live queries need the async client and the `realtime` extra. Check the installed version first:
 `python -c "import pawabase; print(pawabase.__version__)"`.
 
@@ -12,11 +12,12 @@ pip install "pawabase[realtime]"     # + websockets, for channels and live queri
 ```python
 from pawabase import Pawabase
 
-with Pawabase("https://api.example.com", "pb_pk_…", environment="production") as pb:
+with Pawabase("https://api.example.com", "pb_pk_…", project="01JC4…", environment="production") as pb:
     page = pb.from_("orders").eq("status", "paid").order("-created_at").per_page(20).execute()
 ```
 
-Options: `environment` (defaults to `"development"`: always set it, a key from another environment is refused), `timeout`,
+Options: `project` (required since 0.10: a `ConfigError` without it), `environment` (its name in the project; left out, the
+project's default), `timeout`,
 `retries`, `session_store` (`MemorySessionStore`, `FileSessionStore`, or your own `SessionStore`), `access_token`,
 `auto_refresh`, `headers`. Use `with` / `async with`, or call `close()` (`await pb.close()` on the async client), so connections are released.
 
@@ -29,7 +30,7 @@ Options: `environment` (defaults to `"development"`: always set it, a key from a
 | Server administration | A separate client with a secret key: `pb.manage` and `pb.admin` unlock |
 | A service or AI agent | `pb.as_machine(client_id=…, client_secret=…, scope=…)`: its own identity and roles |
 
-## Surface at 0.9.0
+## Surface at 0.10.0
 
 | Area | API |
 | --- | --- |
@@ -49,7 +50,7 @@ Options: `environment` (defaults to `"development"`: always set it, a key from a
 ```python
 from pawabase import AsyncPawabase
 
-async with AsyncPawabase(url, "pb_pk_…", environment="production") as pb:
+async with AsyncPawabase(url, "pb_pk_…", project=project, environment="production") as pb:
     async with pb.realtime.live("tasks", filter={"done": "is.false"}, sort="-created_at", limit=20) as live:
         async for result in live:          # the whole filtered result, each time it changes
             render(result["data"])

@@ -1,8 +1,11 @@
 # HTTP API and wire contracts
 
 For any language without a client, or when a client lacks a method the server has. Use the project's gateway URL. Every
-request carries `apikey: pb_pk_…` (or `pb_sk_…` on servers); add `Authorization: Bearer <access token>` to act as a signed-in
-person or machine, and `Content-Type: application/json` for JSON bodies.
+request carries `apikey: pb_pk_…` (or `pb_sk_…` on servers) and `x-project-id: <project id>`; add `x-environment: production`
+to use an environment other than the project's default, `Authorization: Bearer <access token>` to act as a signed-in person or
+machine, and `Content-Type: application/json` for JSON bodies. A key of another project, or one that does not reach the named
+environment, is `401 invalid_api_key`. Keyless URLs (file URLs, OAuth starts, JWKS) name the environment as
+`<project id>.<environment>`, or `<project id>` alone for the default.
 
 The contract that counts is the environment's own OpenAPI: Studio → API Explorer, or `GET /docs/v1/<env>/openapi.json` when the environment has public API docs switched on. It
 includes that environment's tables, custom routes and their real error shapes. The public snapshot in the docs repository is
@@ -53,7 +56,8 @@ curl "$PAWABASE_URL/rest/v1/orders?filter%5Bstatus%5D=eq.paid&sort=-created_at&p
 | `/health/v1` | `GET` | Health |
 
 There is no `/functions/v1`: Pawabase no longer runs uploaded functions. `/studio` takes a Cloud-signed Studio token, not an app
-key. Management keys only reach their own environment.
+key. Management paths may name the environment by its short name (`/platform/v1/envs/production/…`); a key manages only the
+environments it reaches.
 
 ## Errors
 
