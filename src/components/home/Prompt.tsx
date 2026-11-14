@@ -1,27 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { SiClaude, SiCursor, SiGithubcopilot } from "@icons-pack/react-simple-icons";
 
 import { Arrow, SectionHead } from "./Home";
 import "./prompt.css";
 
 /*
- * One prompt that adds Pawabase to any project. The prompt itself is never shown: the button copies it. The panel shows what
- * happens next: an agent working through the job beside the file it reads, pawabase.com/SKILL.md.
+ * One prompt that adds Pawabase to any project. The prompt itself is never shown: the button copies it. Below, one short strip
+ * shows what happens next: a coding agent working through the job, step by step.
  */
 
 export const SKILL_URL = "https://pawabase.com/SKILL.md";
 
 export const PROMPT = `Read ${SKILL_URL} and follow it to add Pawabase as the backend for this project. Look at the code first, then set up the client, tables, access policies and sign-in, keep the app running after each step, and prove each part works with a real request.`;
 
+/** What the agent does with the prompt, in order. */
+const STEPS = ["SKILL.md", "Client", "Tables", "Policies", "Sign-in"];
+
+/** The coding agents the badge cycles through. */
+const AGENTS: [string, ReactNode][] = [
+  ["Claude Code", <SiClaude size={16} color="currentColor" />],
+  ["Cursor", <SiCursor size={16} color="currentColor" />],
+  ["Copilot", <SiGithubcopilot size={16} color="currentColor" />],
+  ["Codex", <b>C</b>],
+];
+
 const still = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function useTicker(ms: number) {
-  const [tick, setTick] = useState(0);
+  const [tick, setTick] = useState(STEPS.length);
   useEffect(() => {
-    if (still()) {
-      setTick(STEPS.length);
-      return;
-    }
+    if (still()) return;
+    setTick(0);
     const timer = window.setInterval(() => setTick((t) => t + 1), ms);
     return () => window.clearInterval(timer);
   }, [ms]);
@@ -30,8 +39,8 @@ function useTicker(ms: number) {
 
 function Check() {
   return (
-    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="m3.5 8.5 3 3 6-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="m3.5 8.5 3 3 6-7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -55,80 +64,29 @@ function CopyPrompt() {
   );
 }
 
-/** What the agent does with the prompt, one step at a time. */
-const STEPS: [string, string][] = [
-  ["Read", "pawabase.com/SKILL.md"],
-  ["Install", "@pawabase/client"],
-  ["Create table", "tasks"],
-  ["Write policy", "owner only"],
-  ["Add", "sign-in and sessions"],
-  ["Prove", "user B can't read A's tasks"],
-];
-
-function Run() {
-  const tick = useTicker(1100);
-  const span = STEPS.length + 3;                 // a pause on the finished run before it starts again
+/** One short strip: the agent, then the steps lighting up along an orange beam. */
+function Strip() {
+  const tick = useTicker(850);
+  const span = STEPS.length + 3;                 // hold the finished run a moment before it starts again
   const at = tick % span;
+  const [name, icon] = AGENTS[Math.floor(tick / span) % AGENTS.length];
+  const fill = Math.min(at, STEPS.length) / STEPS.length;
   return (
-    <div className="pr-run" aria-hidden="true">
-      <div className="pr-tools">
-        <SiClaude size={15} color="currentColor" />
-        <SiCursor size={15} color="currentColor" />
-        <SiGithubcopilot size={15} color="currentColor" />
-        <span>Codex</span>
-        <span className="dim">and any coding agent</span>
-      </div>
-      <div className="pr-ask">
-        <span className="pr-you">You</span>
-        <p>Add a backend to this app with sign-in and a tasks list</p>
-        <span className="pr-attach"><i />SKILL.md prompt</span>
-      </div>
-      <ol className="pr-steps">
-        {STEPS.map(([verb, what], i) => {
-          const state = i < at ? "done" : i === at ? "now" : "next";
-          return (
-            <li key={verb + what} className={state}>
-              <span className="pr-mark">{state === "done" ? <Check /> : state === "now" ? <i className="pr-spin" /> : null}</span>
-              <b>{verb}</b>
-              <span>{what}</span>
-            </li>
-          );
-        })}
-      </ol>
+    <div className="pr-strip" aria-hidden="true">
+      <span className="pr-agent" key={name}>
+        <span className="pr-agent-icon">{icon}</span>
+        {name}
+      </span>
+      <span className="pr-track">
+        <i className="pr-rail"><i className="pr-beam" style={{ transform: `scaleX(${fill})` }} /></i>
+        {STEPS.map((step, i) => (
+          <span key={step} className={`pr-step ${i < at ? "done" : ""}`}>
+            <span className="pr-dot">{i < at && <Check />}</span>
+            {step}
+          </span>
+        ))}
+      </span>
     </div>
-  );
-}
-
-/** The sections of SKILL.md, as its contents list shows them. */
-const SECTIONS = [
-  "Work in four moves", "Rules that do not bend", "System model", "Recipes", "TypeScript client", "Python client", "HTTP API",
-  "Auth, keys and policies", "Data and queries", "Storage and files", "Realtime and live queries", "Flows, routes and events",
-  "AI, agents and knowledge", "MCP", "Environments and releases", "Troubleshooting", "Docs catalog",
-];
-
-/** The file the agent reads: its address, then the contents scrolling past. */
-function File() {
-  const rows = [...SECTIONS, ...SECTIONS];
-  return (
-    <a className="pr-file" href="/SKILL.md" aria-label="Open SKILL.md">
-      <span className="pr-file-bar">
-        <i /><i /><i />
-        <b>pawabase.com/SKILL.md</b>
-      </span>
-      <span className="pr-file-head" aria-hidden="true">
-        <code>---</code>
-        <code><em>name:</em> pawabase</code>
-        <code><em>description:</em> Build, secure and ship apps on Pawabase…</code>
-        <code>---</code>
-      </span>
-      <span className="pr-file-body" aria-hidden="true">
-        <span className="pr-file-roll">
-          {rows.map((title, i) => (
-            <span key={i} className="pr-line"><i>##</i>{title}</span>
-          ))}
-        </span>
-      </span>
-    </a>
   );
 }
 
@@ -141,8 +99,7 @@ export function Prompt() {
         <a href="/SKILL.md" className="ix-link">Read SKILL.md</a>
       </SectionHead>
       <div className="ix-panel pr-panel" data-reveal="up">
-        <Run />
-        <File />
+        <Strip />
       </div>
     </section>
   );

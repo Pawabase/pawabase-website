@@ -16,7 +16,8 @@ against the caller's key, identity and policies.
 
 1. **Locate.** Identify the project, environment, API address, who is calling (a person, a server, a machine, an agent), the key
    type, and the installed client version. If Pawabase MCP is connected, start with a harmless overview tool to confirm the
-   environment before asking the user for anything.
+   environment before asking the user for anything; if it is not and the task changes the environment, walk the user through
+   connecting it (see the keys section below).
 2. **Verify the contract.** Check the method exists in the installed package (see [source map](#source-compatibility-and-verification)), and
    the endpoint and fields exist in the environment's own OpenAPI (Studio → API Explorer). Docs can be ahead of a package; the
    package can be ahead of a deployment.
@@ -24,6 +25,25 @@ against the caller's key, identity and policies.
    by policies rather than by app code.
 4. **Prove it.** Make a real request as the intended caller and as an unrelated one. For data rules, read a row you should and a
    row you should not. For automation, find the run in Activity. Report what you verified and what you did not.
+
+## Keys: when you need one, which, and how to ask
+
+Ask the user only for what the task needs, at the moment it needs it, and say exactly where in Studio it is.
+
+| The task needs | Ask for | Where the user finds it | Where it goes |
+| --- | --- | --- | --- |
+| App code that calls Pawabase | The API address, the environment name, a **publishable** `pb_pk_` key | Studio → Overview → **Connect** | The project's env file (it is safe in a browser bundle) |
+| Server code that administers (manage, admin, share links, captcha verify) | A **secret** `pb_sk_` key | Studio → **Settings → API keys** | A server-only env var. Never in the bundle or git |
+| You to look at or change the environment yourself (tables, policies, flows, mail, data) | An **MCP key**: Look only or Build with me | Studio → **Manage → MCP** | The user's shell as `PAWABASE_MCP_KEY`, then the agent's MCP config. See [the MCP tutorial](#mcp-connect-ai-tools-and-pawabase) |
+| A worker or AI agent that acts as itself | A machine's client id and secret | Studio → **Users & auth → Machines** | The service's secret store |
+
+- Publishable keys and addresses may be pasted in chat. **Secret and MCP keys must not be**: ask the user to put them in an env
+  var or secret store themselves, and refer to the variable by name. Never print, log or commit one.
+- Writing code needs no key at all: write it against env var names, and ask for values only to run or test it.
+- Before asking, check what is already there: the project's env files and examples, and whether Pawabase MCP tools are already
+  connected (a harmless `get_overview` or `list_environments` call answers that).
+- Use a **Look only** MCP key for production and a **Build with me** key for development. Only an administrator key can touch
+  users, keys and secrets; if a task needs that, tell the user and let them do it in Studio rather than asking for such a key.
 
 ## Choose the path
 
@@ -327,8 +347,8 @@ password sign-in for its members. Add the callback URL to the redirect allowlist
 
 ### 10. Hand an AI coding tool the environment
 
-Create a scoped secret key in Studio → AI → AI tools (**Look only** for production, **Build with me** for development), keep it
-in `PAWABASE_MCP_KEY`, and add the server to the tool (see [MCP](#mcp-connect-ai-tools-and-pawabase)). Then ask for real work: "List the tables, then add a
+Create a scoped key in Studio → **Manage → MCP** (**Look only** for production, **Build with me** for development), keep it
+in `PAWABASE_MCP_KEY`, and add the server to the tool (step by step in [MCP](#mcp-connect-ai-tools-and-pawabase)). Then ask for real work: "List the tables, then add a
 `comments` table owned by the signed-in user, with policies, and show me the migration before applying it."
 
 ---
@@ -969,16 +989,68 @@ Pawabase participates in MCP in two directions. Keep them separate:
 
 The skill itself is instructions. Installing it does not create an MCP connection. MCP is optional for the skill's advice; use it when live project inspection or management is useful.
 
+### Tutorial: connect yourself to the user's environment
+
+Follow this when the task means changing or inspecting a real environment (creating tables, writing policies, building flows,
+reading errors) and no Pawabase tools are available yet.
+
+**1. Check first.** Look for Pawabase MCP tools in your tool list (`get_overview`, `list_environments`, `list_resources`…). If
+they are there, call `get_overview` and skip to step 6. Check the project's env files for `PAWABASE_URL` too.
+
+**2. Decide the access, and tell the user why.** Say what you are about to do and which access it needs:
+
+- **Look only** (`ai-read`): read tables, flows, runs, logs and usage. Change nothing. Always this for production.
+- **Build with me** (`ai-build`): also build tables, rows, flows, mail templates, buckets and webhooks. No users, keys or
+  secrets. For development.
+
+**3. Ask the user to create the key.** Give them these steps, filled in:
+
+> 1. Open Studio, choose the **development** environment, then **Manage → MCP**.
+> 2. Name the key after this tool (for example "Claude Code"), pick **Build with me**, and create it. It is shown once.
+> 3. In your terminal, run `export PAWABASE_MCP_KEY="…"` with the key (or add it to your shell profile or secret manager).
+>    Please don't paste the key here.
+> 4. Copy the **MCP address** from the same page and send me that (it is not secret).
+
+**4. Add the server to the agent** with the address the user sent, referring to the key only by variable name. The snippets are
+under [client setup](#client-setup) below; Studio's MCP page also shows a ready snippet for Claude Code, Cursor, VS Code and
+Codex. Commands that change the user's agent configuration are theirs to approve: show the command and run it only with their
+yes, or let them run it.
+
+**5. Restart or reload** the agent so it loads the new server (Claude Code: start a new session, then `/mcp` shows it connected;
+Codex: restart, `codex mcp list`; Cursor: reload MCP servers in settings).
+
+**6. Prove the connection** with a harmless read: `get_overview`, then `list_tables`. Report the environment name you see, so
+the user can confirm it is the right one before you change anything.
+
+**7. Work through the tools, carefully.**
+
+- Inspect before changing: `get_resource`, `describe_table`, `list_policies`.
+- After `create_resource` or `update_resource`, check `get_schema_changes` and apply with `migrate_resource`; then confirm with a
+  read.
+- Prefer record tools (`create_record`, `update_record`) over `run_sql`: SQL skips events and realtime.
+- Tools that delete, send email, set secrets, write SQL or promote ask for a `confirm` value. Ask the user before supplying it;
+  `promote_environment` runs as a dry run unless told otherwise.
+- `request_platform` reaches any management endpoint the key allows: use it only when no dedicated tool exists.
+- Every call is recorded on Studio's MCP page with the key's name.
+
+**When to ask for more access.** A refused call (`403`, or a missing tool) means the key's scope does not cover it. Say which
+action needs what, and let the user choose: do it themselves in Studio, or create a key with wider access. Users, API keys and
+secrets are never in **Build with me**; send the user to Studio for those. Never ask for an administrator key in chat.
+
 ### When MCP is already connected
 
-Discover the Pawabase tool/resource catalog supplied by the client. Start with a read such as `get_overview`, `list_environments`, or `pawabase://{env}/overview` to identify the environment and visible scope. Use a purpose-built tool (`list_resources`, `get_resource`, `list_flow_runs`, and so on) before the broader `request_platform` escape hatch. For a definition change, inspect the current definition and plan/schema drift, apply the authorized change, then verify the result with a read. Do not ask the user to paste an API key when the connected tool already has the needed access. If a tool is absent, determine whether the key lacks its scope or the runtime lacks that tool; do not invent a tool call.
+Start with `get_overview` or `list_environments` (or the `pawabase://{env}/overview` resource) to confirm the environment and
+what the key can see. Use purpose-built tools before `request_platform`. For a definition change, read the current definition,
+check schema changes, apply the authorized change, then verify with a read. Do not ask for an API key when the connected tools
+already have the access. If a tool is missing, decide whether the key lacks the scope or the runtime lacks the tool; never
+invent a tool call.
 
 ### AI client → Pawabase: choose authority first
 
 For a hosted/remote client, use the public **HTTPS** gateway address `https://YOUR-API/mcp/v1`, not the internal server port. Pawabase's HTTP MCP endpoint is stateless Streamable HTTP: JSON-RPC over `POST`, ordinary JSON response, no session or SSE stream. `GET` and `DELETE` return `405`. The endpoint can be disabled with `PAWABASE_MCP_ENABLED=false`; the local stdio command remains a separate explicit option.
 The route is intentionally excluded from the environment's generated OpenAPI. Verify it against the runtime MCP guide and the target deployment rather than expecting it in the API Explorer.
 
-Create a **secret** environment key in Studio → AI → AI tools (or the environment's API keys page) and select **Look only** (`ai-read`) or **Build with me** (`ai-build`). A publishable key is refused. A scoped secret key needs at least one management scope to reach MCP; each listed tool and each call is then checked against its scopes. A key is pinned to its own environment and cannot escape into another environment through `request_platform`. An unscoped secret key exposes every available tool for that environment, so use a scoped key for ordinary AI clients. The key is shown once. Keep it in the client/secret store, not in git, chat, or a committed TOML file.
+Create a **secret** environment key in Studio → **Manage → MCP** (or Settings → API keys) and select **Look only** (`ai-read`) or **Build with me** (`ai-build`). A publishable key is refused. A scoped secret key needs at least one management scope to reach MCP; each listed tool and each call is then checked against its scopes. A key is pinned to its own environment and cannot escape into another environment through `request_platform`. An unscoped secret key exposes every available tool for that environment, so use a scoped key for ordinary AI clients. The key is shown once. Keep it in the client/secret store, not in git, chat, or a committed TOML file.
 
 `ai-read` can inspect project definitions and activity without changing them. `ai-build` adds data and definition building but excludes users, keys, secrets, snapshots, and promotion. Exact tool visibility depends on key scopes and runtime version. The tool list can include resources/schema, records, policies, flows/jobs, storage, mail, webhooks, logs, AI models, and release/backup operations. Do not assume a static tool count.
 
@@ -1007,10 +1079,16 @@ env_http_headers = { apikey = "PAWABASE_MCP_KEY" }   # or: bearer_token_env_var 
 
 The key stays in the environment, not the file. Check with `codex mcp list` and `/mcp`.
 
-**Cursor, VS Code and other `mcp.json` clients**
+**Cursor and other `mcp.json` clients** (`.cursor/mcp.json` or `~/.cursor/mcp.json`)
 
 ```json
 { "mcpServers": { "pawabase": { "url": "https://YOUR-API/mcp/v1", "headers": { "apikey": "${env:PAWABASE_MCP_KEY}" } } } }
+```
+
+**VS Code** (`.vscode/mcp.json`)
+
+```json
+{ "servers": { "pawabase": { "type": "http", "url": "https://YOUR-API/mcp/v1", "headers": { "apikey": "${env:PAWABASE_MCP_KEY}" } } } }
 ```
 
 Whatever the client, keep its approval prompt on for tools that are not read only, and always for production. Then ask for a
