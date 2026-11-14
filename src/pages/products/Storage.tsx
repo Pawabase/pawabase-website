@@ -1,111 +1,111 @@
+import { useState } from "react";
+
 import { Icon } from "@/components/Icon";
-import { Sky } from "@/components/home/Home";
-import { SiteNav } from "@/components/site/SiteNav";
-import { Band, HeroActions, ProductFrame, useTicker } from "@/components/product/ProductFrame";
+import { SectionHead } from "@/components/home/Home";
+import { Picture } from "@/components/home/Platform";
+import { ProductFrame, useTicker } from "@/components/product/ProductFrame";
+import { ProductHero } from "@/components/product/sections";
+
 import "./storage.css";
 
-/* Files as objects: columns of them drift past the hero, one picture climbs a staircase of sizes, three ways for a file to leave, and a rule per action. */
+/*
+ * Storage, told through one file. The hero is a picture and its smaller copy. Then: a slider that asks the same image for a different
+ * size, the address changing with it; three ways to hand out a file, drawn as doors; and where the bytes live, local disk or an
+ * S3-compatible service. Nothing here appears on another product page.
+ */
 
-type Sheet = { kind: "photo" | "doc" | "clip"; tall?: boolean; name: string; tone?: number };
-const WALL: Sheet[][] = [
-  [{ kind: "photo", tall: true, name: "team.jpg", tone: 1 }, { kind: "doc", name: "invoice.pdf" }, { kind: "photo", name: "logo.png", tone: 2 }, { kind: "clip", name: "demo.mp4" }, { kind: "doc", name: "contract.pdf" }],
-  [{ kind: "doc", name: "report.pdf" }, { kind: "photo", name: "avatar.webp", tone: 3 }, { kind: "photo", tall: true, name: "product.jpg", tone: 2 }, { kind: "doc", name: "terms.pdf" }, { kind: "photo", name: "cover.png", tone: 1 }],
-  [{ kind: "clip", name: "intro.mp4" }, { kind: "photo", tall: true, name: "office.jpg", tone: 3 }, { kind: "doc", name: "receipt.pdf" }, { kind: "photo", name: "banner.jpg", tone: 1 }, { kind: "doc", name: "brief.pdf" }],
-];
-const SIZES = [48, 96, 160, 256, 400];
-const ACCESS: [string, string, string][] = [
-  ["Upload", "Signed-in users", "users"],
-  ["Read", "Anyone", "search"],
-  ["Delete", "Admins", "policies"],
-];
-const MORE: [string, string][] = [
-  ["Folders", "Organise files the way your app thinks about them."],
-  ["Files beside records", "Keep files linked to the records they belong to."],
-  ["Profile pictures", "Avatars for your users, ready to use."],
-  ["Kept where you want", "On local disk or any S3-compatible service."],
-];
+const WIDTHS = [64, 160, 320, 640, 1280];
 
-function FileSheet({ item }: { item: Sheet }) {
+function Sizes() {
+  const [at, setAt] = useState(2);
+  const w = WIDTHS[at];
   return (
-    <div className={`st-file ${item.kind} ${item.tall ? "tall" : ""} tone-${item.tone ?? 0}`}>
-      <div className="st-art">{item.kind === "clip" && <Icon name="play" size={22} variant="Linear" />}{item.kind === "doc" && <><i /><i /><i /><i /></>}</div>
-      <span>{item.name}</span>
-    </div>
+    <section className="ix-section" aria-labelledby="st-sizes-title" data-plain="">
+      <SectionHead id="st-sizes-title" title="Upload once, ask for any size" lead="Thumbnails and previews are made the first time they are asked for, then kept. Change the width in the address and you get that size." />
+      <div className="st-sizes" data-reveal="up">
+        <div className="st-frame" aria-hidden="true">
+          <span className="st-pic" style={{ width: `${18 + at * 18}%` }}>
+            <svg viewBox="0 0 120 90" preserveAspectRatio="none"><path d="M0 90 L36 50 L56 68 L82 38 L120 78 L120 90 Z" /><circle cx="90" cy="24" r="7" /></svg>
+          </span>
+        </div>
+        <div className="st-controls">
+          <code className="st-url">/storage/v1/products/lamp.jpg<b>?w={w}</b></code>
+          <input type="range" min={0} max={WIDTHS.length - 1} step={1} value={at} onChange={(e) => setAt(Number(e.target.value))} aria-label="Image width" />
+          <div className="st-ticks">{WIDTHS.map((x, i) => <span key={x} className={i === at ? "on" : ""}>{x}px</span>)}</div>
+        </div>
+      </div>
+    </section>
   );
 }
 
-function Countdown() {
-  const left = 3599 - (useTicker(1000) % 3600);
-  const clock = `${String(Math.floor(left / 60)).padStart(2, "0")}:${String(left % 60).padStart(2, "0")}`;
-  return <b className="st-clock" aria-hidden="true">{clock}</b>;
+function Doors() {
+  const left = 30 - (useTicker(1000, 0) % 31);
+  return (
+    <section className="ix-section ix-band" aria-labelledby="st-doors-title" data-plain="">
+      <SectionHead id="st-doors-title" title="Three ways out the door" lead="Decide per bucket how files leave it. Public for what anyone may see, private behind your rules, or a link for one person that stops working when you say." />
+      <div className="st-doors" data-reveal="up">
+        <article className="st-door open">
+          <div className="st-arch" aria-hidden="true"><span className="st-leaf" /></div>
+          <h3>Public</h3>
+          <p>Anyone with the address can see it. Logos, product images, anything meant to be seen.</p>
+        </article>
+        <article className="st-door locked">
+          <div className="st-arch" aria-hidden="true"><span className="st-leaf" /><span className="st-lock"><Icon name="lock" size={18} variant="Linear" /></span></div>
+          <h3>Private</h3>
+          <p>Only the people your rules allow. Every download is checked, like every row.</p>
+        </article>
+        <article className="st-door timed">
+          <div className="st-arch" aria-hidden="true"><span className="st-leaf" /><span className="st-clock">{String(left).padStart(2, "0")}<small>days</small></span></div>
+          <h3>Share link</h3>
+          <p>One file, to anyone, to view or download, until the day you choose.</p>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+function Where() {
+  const [s3, setS3] = useState(false);
+  return (
+    <section className="ix-section" aria-labelledby="st-where-title" data-plain="">
+      <SectionHead id="st-where-title" title="Your bytes, where you want them" lead="Keep files on local disk or on any S3-compatible service. Your app, your rules and your links stay exactly the same.">
+        <div className="st-pick" role="radiogroup" aria-label="Where files are kept">
+          <button type="button" role="radio" aria-checked={!s3} onClick={() => setS3(false)}>Local disk</button>
+          <button type="button" role="radio" aria-checked={s3} onClick={() => setS3(true)}>S3-compatible</button>
+        </div>
+      </SectionHead>
+      <div className={`st-where ${s3 ? "s3" : ""}`} data-reveal="up" aria-hidden="true">
+        <div className="st-app"><span>Your app</span><code>/storage/v1/…</code></div>
+        <span className="st-pipe"><i /></span>
+        <div className="st-bucket"><Icon name="storage" size={22} variant="Linear" /><b>products</b><small>bucket</small></div>
+        <span className="st-pipe"><i /></span>
+        <div className="st-backend">
+          <span className={!s3 ? "on" : ""}><Icon name="database" size={18} variant="Linear" />Local disk</span>
+          <span className={s3 ? "on" : ""}><Icon name="globe" size={18} variant="Linear" />S3-compatible</span>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default function StoragePage() {
-  const size = useTicker(1300) % SIZES.length;
   return (
-    <ProductFrame name="Storage" description="File storage with per-action access rules, share links that expire, image resizing, folders and S3-compatible backends.">
-      <section className="ix-hero st-hero" aria-labelledby="product-title" data-plain="">
-        <Sky seed={41} />
-        <SiteNav />
-        <div className="st-split">
-          <div className="st-copy">
-            <h1 id="product-title" data-reveal="up">Files with the same rules as your data.</h1>
-            <p data-reveal="up">Buckets for uploads, images and documents, with access rules, share links and image resizing built in.</p>
-            <HeroActions />
-          </div>
-          <div className="st-wall" aria-hidden="true">
-            {WALL.map((column, c) => (
-              <div key={c} className={`st-column c${c}`}>
-                {[...column, ...column].map((item, i) => <FileSheet key={i} item={item} />)}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <Band label="Images resized on request" className="st-sizes">
-        <div className="st-sizes-copy">
-          <h2>One upload.<br />Every size.</h2>
-          <p>Thumbnails and previews are made when they are asked for, so you never store every version.</p>
-        </div>
-        <div className="st-stairs" aria-hidden="true">
-          {SIZES.map((px, i) => (
-            <div key={px} className={`st-step ${i === size ? "on" : ""}`}>
-              <div className="st-pic" style={{ width: px / 2.6, height: px / 2.6 }} />
-              <small>{px}px</small>
-            </div>
-          ))}
-        </div>
-      </Band>
-
-      <Band label="Hand out files the right way" className="st-doors">
-        <article>
-          <span className="st-door-mark open"><Icon name="search" size={24} variant="Linear" /></span>
-          <h3>Public</h3>
-          <p>Anyone with the address can see it.</p>
-        </article>
-        <article>
-          <span className="st-door-mark"><Icon name="policies" size={24} variant="Linear" /></span>
-          <h3>Private</h3>
-          <p>Only the people your rules allow.</p>
-        </article>
-        <article className="hot">
-          <Countdown />
-          <h3>Share link</h3>
-          <p>Send one file to anyone, to view or download, for as long as you choose.</p>
-        </article>
-      </Band>
-
-      <Band label="Rules for every action" className="st-rules">
-        <h2>Who can do what, bucket by bucket.</h2>
-        <ul>
-          {ACCESS.map(([action, who]) => <li key={action}><b>{action}</b><i /><span>{who}</span></li>)}
-        </ul>
-      </Band>
-
-      <Band label="Everything in Storage" className="st-more">
-        {MORE.map(([title, line]) => <article key={title}><h3>{title}</h3><p>{line}</p></article>)}
-      </Band>
+    <ProductFrame
+      name="Storage"
+      description="File storage with per-action access rules, share links that expire, image resizing, folders and S3-compatible backends."
+      hero={
+        <ProductHero
+          title="Files with the same rules"
+          quiet="as your data."
+          lead="Buckets for uploads, images and documents, with access rules, share links and image resizing built in."
+          art={<Picture />}
+          notes={["Rules per action", "Share links that expire", "Resized on request"]}
+        />
+      }
+    >
+      <Sizes />
+      <Doors />
+      <Where />
     </ProductFrame>
   );
 }

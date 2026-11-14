@@ -1,5 +1,5 @@
 import { SiteNav } from "@/components/site/SiteNav";
-import { Band, HeroActions, ProductFrame, useTicker } from "@/components/product/ProductFrame";
+import { Band, HeroActions, ProductFrame, Questions, Spec, Steps, useTicker } from "@/components/product/ProductFrame";
 import "./flows.css";
 
 /* The canvas comes first and the words after it: a real flow runs across the hero with a pulse moving down its lines. Then the eight triggers in big type, the blocks going past, and a test run. */
@@ -93,7 +93,7 @@ export default function FlowsPage() {
         </div>
       </section>
 
-      <Band label="Test before you ship" className="fl-test">
+      <Band label="Test before you ship" className="fl-test" band>
         <div>
           <h2>Test before you ship.</h2>
           <p>Run a flow by hand and see what each step did. Every real run is kept the same way.</p>
@@ -106,6 +106,28 @@ export default function FlowsPage() {
         <h2>Put a model to work inside any flow.</h2>
         <p>Ask it to decide, write or sort, with the model you choose.</p>
       </Band>
+
+      <Steps band lead="Work that runs itself, built on a canvas." steps={[
+        ["Pick a trigger", "A request, an event, a schedule, a webhook, or any of the other ways to start."],
+        ["Add the steps", "Branches, loops, retries, delays and AI, as blocks you connect."],
+        ["Test it, then watch it", "Run it by hand first, then see every real run, step by step."],
+      ]} />
+
+      <Spec title="Everything in Flows" icon="automation" items={[
+        ["A visual editor", "Build on a canvas, and tidy it in one click."],
+        ["Eight triggers", "Requests, events, schedules, webhooks and more."],
+        ["Branches and loops", "Decide and repeat without writing code."],
+        ["Retries and delays", "Wait, and try again when a step fails."],
+        ["AI steps", "Decide, write or sort with the model you choose."],
+        ["A history of every run", "What each step received and returned."],
+      ]} />
+
+      <Questions items={[
+        ["Do I need to write code?", "No. Branches, loops, retries and delays are blocks on the canvas."],
+        ["What can start a flow?", "Requests, events, schedules and webhooks among them: eight ways to start in all."],
+        ["Which AI models can a step use?", "The one you choose. Connect a model provider in AI and pick it in the step."],
+        ["How do I know a flow worked?", "Every run is kept: open one to see what each step received, returned and how long it took."],
+      ]} />
     </ProductFrame>
   );
 }

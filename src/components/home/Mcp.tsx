@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SiClaude, SiCursor, SiGithubcopilot } from "@icons-pack/react-simple-icons";
 
-import { Arrow, Rule, SectionHead } from "./Home";
+import { Arrow, SectionHead } from "./Home";
 import "./bento.css";
 import "./mcp.css";
 import { SIGN_UP } from "@/lib/links";
@@ -48,7 +48,6 @@ function Connect() {
   };
   return (
     <div className="ix-panel mc-connect" data-reveal="up">
-      <Rule />
       <div className="mc-clients">
         <span className="mc-over">Connect over MCP</span>
         <span className="mc-client"><SiClaude size={17} color="currentColor" />Claude</span>
@@ -147,10 +146,8 @@ function Prompts() {
 
 function Tiles() {
   return (
-    <div className="ix-panel cf-panel mc-tiles-panel" data-reveal="up">
-      <Rule />
+    <div className="ix-panel bare cf-panel mc-tiles-panel" data-reveal="up">
       <div className="mc-tiles">
-        <span className="cf-corner tl" /><span className="cf-corner tr" /><span className="cf-corner bl" /><span className="cf-corner br" />
         <article className="cf-tile mc-tile first">
           <Asks />
           <div className="cf-copy">
@@ -180,9 +177,9 @@ function Tiles() {
 export function Mcp() {
   return (
     <section className="ix-section" id="mcp" aria-labelledby="mcp-title" data-plain="">
-      <Rule />
-      <SectionHead id="mcp-title" title="Your AI builds it. You hold the keys.">
-        <a href={SIGN_UP} className="ix-btn caps">Connect your AI <Arrow /></a>
+      <SectionHead id="mcp-title" title="Your AI builds it. You hold the keys."
+        lead="Claude, Cursor and any MCP client work in your environment, under the keys and rules you set.">
+        <a href={SIGN_UP} className="btn">Connect your AI <Arrow /></a>
       </SectionHead>
       <Connect />
       <Tiles />

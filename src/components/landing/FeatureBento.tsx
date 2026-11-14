@@ -23,7 +23,7 @@ function LoginScreen() {
       <div className="mt-6 flex h-[42px] items-center rounded-[9px] border border-white/[0.14] bg-black px-3 text-left text-[12.5px] text-muted">
         you@company.com
       </div>
-      <span className="btn-clay mt-3 inline-flex h-[42px] w-full items-center justify-center text-[13px]">
+      <span className="btn btn-light btn-block mt-3">
         Continue
       </span>
 
@@ -34,10 +34,10 @@ function LoginScreen() {
       </div>
 
       <div className="grid gap-2.5">
-        <span className="btn-clay-dark inline-flex h-[42px] items-center justify-center gap-2 text-[13px]">
+        <span className="btn">
           <SiGithub size={15} /> GitHub
         </span>
-        <span className="btn-clay-dark inline-flex h-[42px] items-center justify-center gap-2 text-[13px]">
+        <span className="btn">
           <SiGoogle size={14} /> Google
         </span>
       </div>

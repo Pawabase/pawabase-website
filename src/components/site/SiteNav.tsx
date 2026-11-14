@@ -6,12 +6,12 @@ import "./site.css";
 import { DOCS, SIGN_IN, SIGN_UP } from "@/lib/links";
 
 /*
- * The site's navigation, in the home page's frame: the logo; Products, Developers and Company open full-width
- * panels (Products is the whole catalogue, grouped, like Cloudflare's); Pricing is a plain link; sign in and get
- * started on the right. Panels open on hover or click and close on Escape, on a click outside, or when the pointer
- * leaves. On small screens one button opens everything as a list.
+ * The site's navigation, after Clerk's: a floating bar with rounded corners (the logo, a divider, the menus, then sign in and
+ * get started on the right). Products, Developers and Company each open a compact card under their own trigger: small
+ * uppercase group labels, each link a matte icon tile with its name and one line, and a footer row under a hairline with the
+ * menu's main action. Menus open on hover or click and close on Escape, on a click outside, or when the pointer leaves. On
+ * small screens one button opens everything as a list.
  */
-
 
 export type Product = { label: string; href: string; line: string; icon: IconName };
 export type ProductGroup = { title: string; items: Product[] };
@@ -108,6 +108,7 @@ const MENUS: Menu[] = [
 ];
 
 const external = (href: string) => href.startsWith("http");
+const outside = (href: string) => (external(href) ? { target: "_blank", rel: "noreferrer" } : {});
 
 function Chevron() {
   return (
@@ -119,8 +120,8 @@ function Chevron() {
 
 function Item({ item }: { item: Product }) {
   return (
-    <a href={item.href} className="sn-item" {...(external(item.href) ? { target: "_blank", rel: "noreferrer" } : {})}>
-      <span className="sn-item-icon"><Icon name={item.icon} size={17} variant="Linear" /></span>
+    <a href={item.href} className="sn-item" {...outside(item.href)}>
+      <span className="sn-tile"><Icon name={item.icon} size={17} variant="Linear" /></span>
       <span className="sn-item-text">
         <b>{item.label}</b>
         <small>{item.line}</small>
@@ -129,23 +130,34 @@ function Item({ item }: { item: Product }) {
   );
 }
 
-function Panel({ menu, onLeave }: { menu: Menu; onLeave: () => void }) {
+/** A menu's card: its groups in columns (two groups to a column when there are more than two), then the footer row. */
+function Panel({ menu }: { menu: Menu }) {
+  const columns = menu.groups.length > 2
+    ? [menu.groups.slice(0, Math.ceil(menu.groups.length / 2)), menu.groups.slice(Math.ceil(menu.groups.length / 2))]
+    : menu.groups.map((g) => [g]);
   return (
-    <div className="sn-panel" role="region" aria-label={menu.label} onMouseLeave={onLeave}>
-      <div className="sn-feature">
-        <p className="sn-feature-title">{menu.feature.title}</p>
-        <p className="sn-feature-line">{menu.feature.line}</p>
-        <a href={menu.feature.href} className="ix-btn primary small" {...(external(menu.feature.href) ? { target: "_blank", rel: "noreferrer" } : {})}>
-          {menu.feature.cta}
-        </a>
-      </div>
-      <div className={`sn-groups n${menu.groups.length}`}>
-        {menu.groups.map((group) => (
-          <div key={group.title} className="sn-group">
-            <p className="sn-group-title">{group.title}</p>
-            {group.items.map((item) => <Item key={item.label + item.href} item={item} />)}
+    <div className="sn-panel" role="region" aria-label={menu.label}>
+      <div className="sn-columns">
+        {columns.map((column, i) => (
+          <div key={i} className="sn-column">
+            {column.map((group) => (
+              <div key={group.title} className="sn-group">
+                <p className="sn-label">{group.title}</p>
+                {group.items.map((item) => <Item key={item.label + item.href} item={item} />)}
+              </div>
+            ))}
           </div>
         ))}
+      </div>
+      <div className="sn-foot">
+        <span>
+          <b>{menu.feature.title}</b>
+          <small>{menu.feature.line}</small>
+        </span>
+        <a href={menu.feature.href} className="btn btn-sm" {...outside(menu.feature.href)}>
+          {menu.feature.cta}
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9.5M8.5 4 12.5 8l-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </a>
       </div>
     </div>
   );
@@ -182,60 +194,51 @@ export function SiteNav() {
     window.clearTimeout(hover.current);
     hover.current = window.setTimeout(fn, ms);
   };
-  const current = MENUS.find((m) => m.id === open);
 
   return (
-    <nav ref={nav} className="ix-nav sn" aria-label="Main" onMouseLeave={() => later(() => setOpen(null), 180)} onMouseEnter={() => window.clearTimeout(hover.current)}>
-      <a href="/" className="ix-logo" aria-label="Pawabase home">
-        <img src="/brand/horizontal-dark.svg" width={132} height={32} alt="Pawabase" />
+    <nav ref={nav} className="sn" aria-label="Main" onMouseLeave={() => later(() => setOpen(null), 180)} onMouseEnter={() => window.clearTimeout(hover.current)}>
+      <a href="/" className="sn-logo" aria-label="Pawabase home">
+        <img src="/brand/horizontal-dark.svg" width={124} height={30} alt="Pawabase" />
       </a>
+      <span className="sn-divider" aria-hidden="true" />
 
       <ul className="sn-links">
-        {MENUS.slice(0, 2).map((m) => (
+        {MENUS.map((m) => (
           <li key={m.id}>
-            <button type="button" className={`sn-trigger ${open === m.id ? "on" : ""}`} aria-expanded={open === m.id} onClick={() => setOpen(open === m.id ? null : m.id)} onMouseEnter={() => later(() => setOpen(m.id), 90)}>
+            <button type="button" className={`sn-trigger ${open === m.id ? "on" : ""}`} aria-expanded={open === m.id}
+              onClick={() => setOpen(open === m.id ? null : m.id)} onMouseEnter={() => later(() => setOpen(m.id), 90)}>
               {m.label}<Chevron />
             </button>
+            {open === m.id && <Panel menu={m} />}
           </li>
         ))}
         <li><a href="/pricing" className="sn-trigger" onMouseEnter={() => later(() => setOpen(null), 90)}>Pricing</a></li>
-        <li>
-          <button type="button" className={`sn-trigger ${open === "company" ? "on" : ""}`} aria-expanded={open === "company"} onClick={() => setOpen(open === "company" ? null : "company")} onMouseEnter={() => later(() => setOpen("company"), 90)}>
-            Company<Chevron />
-          </button>
-        </li>
       </ul>
 
-      <div className="ix-nav-actions">
-        <a href={SIGN_IN} className="ix-nav-signin">Sign in</a>
-        <a href={SIGN_UP} className="ix-btn small">Get started</a>
-        <button type="button" className="sn-burger" aria-label={mobile ? "Close menu" : "Open menu"} aria-expanded={mobile} onClick={() => setMobile(!mobile)}>
+      <div className="sn-actions">
+        <a href={SIGN_IN} className="btn btn-ghost btn-sm sn-signin">Sign in</a>
+        <span className="sn-divider sn-signin" aria-hidden="true" />
+        <a href={SIGN_UP} className="btn btn-light btn-sm">Get started</a>
+        <button type="button" className="btn btn-ghost btn-sm sn-burger" aria-label={mobile ? "Close menu" : "Open menu"} aria-expanded={mobile} onClick={() => setMobile(!mobile)}>
           <Icon name={mobile ? "close" : "menu"} size={20} variant="Linear" />
         </button>
       </div>
-
-      {current && <Panel menu={current} onLeave={() => later(() => setOpen(null), 180)} />}
 
       {mobile && (
         <div className="sn-mobile">
           {MENUS.map((m) => (
             <div key={m.id} className="sn-mobile-group">
-              <p className="sn-group-title">{m.label}</p>
+              <p className="sn-label">{m.label}</p>
               {m.groups.flatMap((g) => g.items).map((item) => <Item key={m.id + item.label + item.href} item={item} />)}
             </div>
           ))}
           <div className="sn-mobile-actions">
-            <a href="/pricing" className="ix-btn">Pricing</a>
-            <a href={SIGN_IN} className="ix-btn">Sign in</a>
-            <a href={SIGN_UP} className="ix-btn primary">Get started</a>
+            <a href="/pricing" className="btn">Pricing</a>
+            <a href={SIGN_IN} className="btn">Sign in</a>
+            <a href={SIGN_UP} className="btn btn-light">Get started</a>
           </div>
         </div>
       )}
-
-      {/* the nav's bottom rule, bleeding past the page like every rule */}
-      <span className="ix-rule bottom" aria-hidden="true">
-        <i className="ix-rule-line" /><i className="ix-plus l" /><i className="ix-plus r" /><i className="ix-sq l" /><i className="ix-sq r" />
-      </span>
     </nav>
   );
 }

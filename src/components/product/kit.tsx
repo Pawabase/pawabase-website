@@ -85,7 +85,7 @@ export function HeroActions({ docs = "Read the docs" }: { docs?: string }) {
     <div className="flex flex-wrap items-center gap-3">
       <a
         href={SIGN_UP}
-        className="btn-clay inline-flex h-[50px] items-center justify-center gap-2 px-[25px] text-[14px] no-underline"
+        className="btn btn-light btn-lg"
       >
         Start building
         <Icon name="arrowRight" size={17} />
@@ -94,7 +94,7 @@ export function HeroActions({ docs = "Read the docs" }: { docs?: string }) {
         href={DOCS}
         target="_blank"
         rel="noreferrer"
-        className="btn-clay-dark inline-flex h-[50px] items-center justify-center px-[25px] text-[14px] no-underline"
+        className="btn btn-lg"
       >
         {docs}
       </a>
@@ -218,14 +218,14 @@ export function ProductCta({
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <a
             href={SIGN_UP}
-            className="btn-clay inline-flex h-[48px] items-center justify-center gap-2 px-[22px] text-[14px] no-underline"
+            className="btn btn-light btn-lg"
           >
             Start building
             <Icon name="arrowRight" size={16} />
           </a>
           <a
             href={next.href}
-            className="btn-clay-dark inline-flex h-[48px] items-center justify-center px-[22px] text-[14px] no-underline"
+            className="btn btn-lg"
           >
             {next.label}
           </a>

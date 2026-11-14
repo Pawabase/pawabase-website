@@ -1,49 +1,54 @@
 /*
- * Everything a system needs: six cells in a 3 × 2 grid, touching, divided by the panel's dashed lines. Each cell has
- * an orange icon square, a faint dotted corner with its number, a dashed rule under the heading, and an orange line
- * that slides in along its top on hover.
+ * Everything a system needs (Features.tsx): an index. The six groups run down the left as tabs; the chosen one is open on the
+ * right in the bento's materials (platform.css): a lighter card with a corner light, the group's icon a matte tile in its groove,
+ * its parts a two-column sheet divided by hairlines. Grey; orange only marks the open tab.
  */
+.ft-box { display: grid; grid-template-columns: minmax(240px, 0.36fr) minmax(0, 1fr); gap: 10px; margin: 0 var(--ix-gutter); }
 
-.ix-features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; }
-.ix-group { position: relative; overflow: hidden; padding: 36px 40px 40px; }
+/* the tabs */
+.ft-tabs { display: grid; align-content: start; gap: 2px; }
+.ft-tab { position: relative; display: flex; align-items: center; gap: 16px; width: 100%; height: 58px; padding: 0 18px; border: 1px solid transparent; border-radius: 12px;
+  background: none; color: rgba(252, 248, 245, 0.5); font: inherit; font-size: 15.5px; text-align: left; cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
+.ft-tab:hover { color: rgba(252, 248, 245, 0.85); background: rgba(252, 248, 245, 0.025); }
+.ft-tab[aria-selected="true"] { border-color: rgba(255, 255, 255, 0.065); background: linear-gradient(180deg, #1d1d21, #18181b); color: #f4f4f5; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05); }
+.ft-tab:focus-visible { outline: 2px solid var(--ix-orange, #ff6a00); outline-offset: 2px; }
+.ft-n { width: 20px; font: 12px var(--ix-mono); color: rgba(252, 248, 245, 0.32); transition: color 0.2s ease; }
+.ft-tab[aria-selected="true"] .ft-n { color: var(--ix-orange, #ff6a00); }
+.ft-name { flex: 1; min-width: 0; }
+.ft-tab svg { flex: none; opacity: 0; transform: translateX(-4px); transition: opacity 0.2s ease, transform 0.2s ease; }
+.ft-tab[aria-selected="true"] svg { opacity: 0.6; transform: none; }
 
-/* a faint field of dots in the top-right corner, fading out toward the copy */
-.ix-group::after { content: ""; position: absolute; top: 0; right: 0; z-index: 0; width: 260px; height: 200px; pointer-events: none;
-  background-image: radial-gradient(circle, rgba(252, 248, 245, 0.12) 0.9px, transparent 1.15px); background-size: 10px 10px;
-  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 0%, transparent 70%); mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 0%, transparent 70%); }
-/* an orange line slides in along the top on hover */
-.ix-group::before { content: ""; position: absolute; left: 0; right: 0; top: 0; z-index: 2; height: 2px; background: var(--ix-orange); transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
-.ix-group:hover::before { transform: scaleX(1); }
-.ix-group:hover { background: linear-gradient(180deg, rgba(255, 106, 0, 0.045), rgba(255, 106, 0, 0) 55%); }
-.ix-group > * { position: relative; z-index: 1; }
+/* the open group */
+.ft-panel { position: relative; min-height: 400px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.065); border-radius: 16px;
+  background: radial-gradient(70% 60% at 100% 0%, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 60%), linear-gradient(180deg, #1d1d21 0%, #18181b 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05); }
+.ft-body { display: flex; flex-direction: column; justify-content: space-between; gap: 48px; height: 100%; padding: 36px 40px 30px; }
+.motion-enabled .ft-body { animation: ft-in 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes ft-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-.ix-group-n { position: absolute; top: 40px; right: 40px; font: 12px var(--ix-mono); color: var(--ix-faint); transition: color 0.2s ease; }
-.ix-group:hover .ix-group-n { color: var(--ix-orange); }
+.ft-head { display: flex; align-items: center; gap: 22px; }
+.ft-tile { display: grid; place-items: center; width: 60px; height: 60px; flex: none; border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 16px;
+  background: linear-gradient(180deg, #2a2a2f 0%, #202024 100%); color: rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 14px 28px -10px rgba(0, 0, 0, 0.6), 0 0 0 7px #19191c, 0 0 0 8px rgba(255, 255, 255, 0.045); }
+.ft-head h3 { margin: 0; color: #f4f4f5; font-size: clamp(24px, 2.4vw, 32px); font-weight: 500; letter-spacing: -0.025em; }
 
-.ix-group-head { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px dashed rgba(252, 248, 245, 0.12); }
-.ix-group-icon { display: grid; flex: none; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: var(--ix-orange); color: #ffffff; }
-.ix-group-head h3 { margin: 0; font-size: 18px; font-weight: 500; letter-spacing: -0.015em; color: var(--ix-text); }
+.ft-sheet { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; margin: 0; padding: 0; list-style: none; }
+.ft-sheet li { display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 12px 0; border-top: 1px solid rgba(255, 255, 255, 0.07);
+  color: rgba(252, 248, 245, 0.78); font-size: 15px; line-height: 1.4; }
+.ft-sheet li svg { flex: none; color: rgba(255, 255, 255, 0.35); }
 
-.ix-group ul { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
-.ix-group li { position: relative; padding-left: 20px; font-size: 14.5px; line-height: 1.45; color: rgba(252, 248, 245, 0.74); transition: color 0.15s ease; }
-.ix-group li::before { content: ""; position: absolute; left: 1px; top: 7px; width: 6px; height: 6px; border-radius: 1.5px; background: rgba(255, 106, 0, 0.6); transition: background-color 0.15s ease; }
-.ix-group:hover li { color: rgba(252, 248, 245, 0.86); }
-.ix-group li:hover { color: var(--ix-text); }
-.ix-group li:hover::before { background: var(--ix-orange); }
-
-@media (max-width: 1100px) {
-  .ix-features { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; }
-  .ix-features > .ix-lines .ix-dv, .ix-features > .ix-lines .ix-dh, .ix-features > .ix-lines .ix-m { display: none; }
-  .ix-features > .ix-cell { border-bottom: 1px dashed var(--ix-dash); }
-  .ix-features > .ix-cell:nth-of-type(even) { border-left: 1px dashed var(--ix-dash); }
-}
 @media (max-width: 900px) {
-  .ix-features { grid-template-columns: minmax(0, 1fr); }
-  .ix-features > .ix-cell:nth-of-type(even) { border-left: 0; }
-  .ix-features > .ix-cell:last-of-type { border-bottom: 0; }
-  .ix-group { padding: 28px; }
-  .ix-group-n { top: 32px; right: 28px; }
+  .ft-box { grid-template-columns: minmax(0, 1fr); }
+  .ft-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  .ft-tabs::-webkit-scrollbar { display: none; }
+  .ft-tab { width: auto; flex: none; height: 44px; padding: 0 16px; gap: 10px; border-radius: 999px; font-size: 14.5px; }
+  .ft-tab svg { display: none; }
+  .ft-panel { min-height: 0; }
+  .ft-body { padding: 26px 22px 18px; gap: 28px; }
+  .ft-sheet { grid-template-columns: minmax(0, 1fr); }
+  .ft-sheet li { min-height: 50px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ix-group::before { transition: none; }
+  .ft-body { animation: none !important; }
 }

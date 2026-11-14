@@ -1,46 +1,70 @@
 /*
- * The tools an agent can use: 24 apps in an 8 × 3 grid between the rails, divided by dashed lines. Each mark is the company's
- * own, in its own colours, on a white app-icon tile. A tile lights up now and then (an orange ring); hovering lifts it. A line
- * of orange dots runs along the head, and the tiles arrive one after another as the panel scrolls into view.
+ * Agents that use your tools (Integrations.tsx): three cards in the bento's materials (platform.css), one matte object each with
+ * the words beneath, then one quiet line of the apps it works with. Grey; orange marks only what is happening.
  */
-
-.int-panel { background: #121316; }
-.int-head { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 24px 32px 20px; }
-.int-head h3 { margin: 0; font-size: 20px; font-weight: 500; letter-spacing: -0.02em; color: var(--ix-text); }
-.int-count { font: 500 12px/1 var(--ix-mono); color: var(--ix-orange); }
-.int-head p { flex-basis: 100%; margin: 4px 0 0; max-width: 62ch; font-size: 15px; line-height: 1.55; color: var(--ix-muted); }
-/* dots run along the foot of the head, left to right */
-.int-flow { position: absolute; right: 0; bottom: -1px; left: 0; height: 3px; pointer-events: none; background-image: radial-gradient(circle, var(--ix-orange) 1px, transparent 1.5px); background-size: 14px 3px; animation: int-run 1.8s linear infinite; -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); opacity: 0.55; }
-@keyframes int-run { to { background-position: 14px 0; } }
-
-/* the grid: dashed lines between cells, none on its outer edges (the negative margins push them out of the clip) */
-.int-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); margin: 0; padding: 0; overflow: hidden; list-style: none; border-top: 1px dashed var(--ix-dash); }
-.int-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-width: 0; height: 148px; margin: 0 -1px -1px 0; padding: 14px 8px; border-right: 1px dashed var(--ix-dash); border-bottom: 1px dashed var(--ix-dash); transition: background-color 0.3s ease; }
-.int-tile { position: relative; display: grid; place-items: center; width: 58px; height: 58px; border-radius: 16px; background: #fcf8f5; box-shadow: 0 0 0 0 rgba(255, 106, 0, 0); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease; }
-.int-tile img, .int-tile svg { display: block; width: 30px; height: 30px; }
-.int-name { max-width: 100%; overflow: hidden; font: 11.5px/1.3 var(--ix-mono); color: var(--ix-faint); text-align: center; text-overflow: ellipsis; white-space: nowrap; transition: color 0.3s ease; }
-.int-cell:hover, .int-cell.lit { background-color: rgba(255, 106, 0, 0.05); }
-.int-cell:hover .int-tile, .int-cell.lit .int-tile { box-shadow: 0 0 0 3px #121316, 0 0 0 4.5px var(--ix-orange); }
-.int-cell:hover .int-tile { transform: translateY(-5px); }
-.int-cell:hover .int-name, .int-cell.lit .int-name { color: rgba(252, 248, 245, 0.85); }
-
-/* the tiles arrive one after another as the panel scrolls into view */
-@keyframes int-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-.motion-enabled .int-cell { opacity: 0; }
-.motion-enabled .int-panel.is-visible .int-cell { animation: int-in 0.7s var(--d, 0s) cubic-bezier(0.22, 1, 0.36, 1) both; }
-
-@media (max-width: 1100px) {
-  .int-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .int-cell { height: 132px; }
+.ag {
+  --ag-card: radial-gradient(90% 70% at 100% 0%, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 60%), linear-gradient(180deg, #1d1d21 0%, #18181b 100%);
+  --ag-face: linear-gradient(180deg, #2a2a2f 0%, #202024 100%);
+  --ag-edge: rgba(255, 255, 255, 0.07);
+  --ag-lit: inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  --ag-shade: 0 14px 28px -10px rgba(0, 0, 0, 0.6);
+  --ag-groove: 0 0 0 7px #19191c, 0 0 0 8px rgba(255, 255, 255, 0.045);
+  --ag-ink: rgba(255, 255, 255, 0.45);
 }
-@media (max-width: 680px) {
-  .int-head { padding: 20px 20px 18px; }
-  .int-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .int-cell { height: 120px; gap: 10px; }
-  .int-tile { width: 52px; height: 52px; border-radius: 14px; }
+
+.ag-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0 var(--ix-gutter); }
+.ag-card { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 320px; padding: 30px; overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.065); border-radius: 16px; background: var(--ag-card); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05); }
+.ag-card h3 { position: relative; z-index: 2; margin: 0; color: #f4f4f5; font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em; }
+.ag-card p { position: relative; z-index: 2; max-width: 38ch; margin: 10px 0 0; color: #8b8b94; font-size: 14.5px; line-height: 1.6; }
+.ag-art { position: absolute; left: 0; right: 0; top: 0; bottom: 110px; }
+
+/* the materials */
+.ag-tile, .ag-confirm, .ag-key, .ag-row b { display: grid; place-items: center; border: 1px solid var(--ag-edge); background: var(--ag-face); box-shadow: var(--ag-lit), var(--ag-shade); color: var(--ag-ink); }
+
+/* connect: an app and Pawabase, joined by a line with its own key on it */
+.ag-connect { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 0; padding: 0 30px; }
+.ag-tile { width: 64px; height: 64px; flex: none; border-radius: 16px; box-shadow: var(--ag-lit), var(--ag-shade), var(--ag-groove); }
+.ag-tile.core i { width: 28px; height: 28px; background: rgba(255, 255, 255, 0.5); -webkit-mask: url("/brand/mark.svg") center / contain no-repeat; mask: url("/brand/mark.svg") center / contain no-repeat; }
+.ag-wire { position: relative; flex: 0 1 140px; min-width: 60px; height: 1px; margin: 0 14px; background: rgba(255, 255, 255, 0.1); }
+.ag-key { position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; transform: translate(-50%, -50%); border-radius: 50%; color: #ff8a4a; }
+.motion-enabled .ag-key { animation: ag-slide 4.5s ease-in-out infinite; }
+@keyframes ag-slide { 0%, 100% { left: 18%; } 50% { left: 82%; } }
+
+/* use: tool rows, one active at a time */
+.ag-use { position: absolute; left: 50%; top: 50%; display: grid; gap: 8px; width: min(260px, 78%); padding: 14px; transform: translate(-50%, -50%);
+  border: 1px solid var(--ag-edge); border-radius: 14px; background: linear-gradient(180deg, #1f1f23, #1a1a1d); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); }
+.ag-row { display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 10px 0 6px; border: 1px solid transparent; border-radius: 9px; }
+.ag-row b { width: 24px; height: 24px; flex: none; border-radius: 7px; box-shadow: var(--ag-lit); }
+.ag-row i { display: block; flex: 1; height: 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.09); }
+.ag-row em { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, 0.18); }
+.ag-row.b i { flex: 0.7; } .ag-row.c i { flex: 0.85; }
+.motion-enabled .ag-row { animation: ag-row 6s ease-in-out infinite; }
+.motion-enabled .ag-row.b { animation-delay: 2s; }
+.motion-enabled .ag-row.c { animation-delay: 4s; }
+@keyframes ag-row { 0%, 30%, 100% { border-color: transparent; background: transparent; } 4%, 26% { border-color: rgba(255, 106, 0, 0.35); background: rgba(255, 255, 255, 0.025); } }
+.motion-enabled .ag-row em { animation: ag-dot 6s ease-in-out infinite; animation-delay: inherit; }
+.motion-enabled .ag-row.b em { animation-delay: 2s; }
+.motion-enabled .ag-row.c em { animation-delay: 4s; }
+@keyframes ag-dot { 0%, 30%, 100% { background: rgba(255, 255, 255, 0.18); } 4%, 26% { background: #ff6a00; } }
+
+/* approve: the confirm button in its groove, a ring waiting round it */
+.ag-approve { position: absolute; inset: 0; }
+.ag-confirm { position: absolute; left: 50%; top: 50%; width: 92px; height: 92px; transform: translate(-50%, -50%); border-radius: 50%; box-shadow: var(--ag-lit), var(--ag-shade), var(--ag-groove); }
+.ag-ring { position: absolute; left: 50%; top: 50%; width: 140px; height: 140px; transform: translate(-50%, -50%); border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(255, 106, 0, 0.7) 0deg, rgba(255, 106, 0, 0) 110deg, rgba(255, 255, 255, 0.05) 110deg 360deg);
+  -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px)); mask: radial-gradient(closest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px)); }
+.motion-enabled .ag-ring { animation: ag-wait 5s linear infinite; }
+@keyframes ag-wait { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+/* one quiet line of what it works with */
+.ag-works { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 28px var(--ix-gutter) 0; color: rgba(252, 248, 245, 0.5); font-size: 14.5px; }
+.ag-works span { display: inline-flex; gap: 12px; color: rgba(252, 248, 245, 0.55); }
+
+@media (max-width: 1000px) {
+  .ag-cards { grid-template-columns: minmax(0, 1fr); }
+  .ag-card { min-height: 300px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .int-flow { animation: none; }
-  .motion-enabled .int-cell { opacity: 1; }
-  .motion-enabled .int-panel.is-visible .int-cell { animation: none; }
+  .ag-key, .ag-row, .ag-row em, .ag-ring { animation: none !important; }
 }

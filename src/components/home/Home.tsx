@@ -2,12 +2,11 @@ import type { CSSProperties, ReactNode } from "react";
 
 import { Icon, type IconName } from "@/components/Icon";
 import { CurrencyPicker } from "@/components/pricing/CurrencyPicker";
-import { SiteNav } from "@/components/site/SiteNav";
 import { usePlans } from "@/hooks/usePlans";
 import { useCurrency } from "@/lib/currency";
 
 import "./home.css";
-import { DOCS, SIGN_UP } from "@/lib/links";
+import { SIGN_UP } from "@/lib/links";
 
 
 /* ── the frame: rules that bleed past the page, crosses where they meet the rails ──────────────────────────────────── */
@@ -61,11 +60,14 @@ export function Arrow() {
   );
 }
 
-/** A section's opening: the heading on the left, any actions on the right. */
-export function SectionHead({ title, id, children }: { title: string; id: string; children?: ReactNode }) {
+/** A section's opening: the heading and a line under it on the left; any actions on the right. */
+export function SectionHead({ title, id, lead, children }: { title: string; id: string; lead?: ReactNode; children?: ReactNode }) {
   return (
     <header className="ix-head" data-reveal="up">
-      <h2 id={id}>{title}</h2>
+      <div className="ix-head-copy">
+        <h2 id={id}>{title}</h2>
+        {lead && <p className="ix-lead">{lead}</p>}
+      </div>
       {children && <div className="ix-head-actions">{children}</div>}
     </header>
   );
@@ -96,25 +98,6 @@ export function Sky({ seed = 11 }: { seed?: number }) {
   );
 }
 
-export function Hero() {
-  return (
-    <section className="ix-hero" aria-labelledby="hero-title" data-plain="">
-      <Sky />
-      <SiteNav />
-
-      <div className="ix-hero-copy">
-        <h1 id="hero-title" data-reveal="up">
-          Data, auth, agents and APIs.
-          <br />
-          One system, every team.
-        </h1>
-        <p data-reveal="up">APIs, auth and storage for your apps, with the flows and agents behind them.</p>
-        <a href={SIGN_UP} className="ix-btn primary" data-reveal="up">Start building <Arrow /></a>
-      </div>
-    </section>
-  );
-}
-
 /* ── statement ─────────────────────────────────────────────────────────────────────────────────────────────────────── */
 
 /** A word in the statement, set in a chip with its icon. */
@@ -127,46 +110,15 @@ function Word({ icon, children }: { icon: IconName; children: ReactNode }) {
   );
 }
 
-/** What's in the system, running along the statement's horizon. */
-const PARTS: [IconName, string][] = [
-  ["database", "Tables"],
-  ["code", "REST APIs"],
-  ["policies", "Policies"],
-  ["automation", "Flows"],
-  ["sparkle", "Agents"],
-  ["users", "Users and teams"],
-  ["storage", "Storage"],
-  ["image", "Image transforms"],
-  ["mail", "Mail"],
-  ["realtime", "Realtime"],
-  ["webhooks", "Webhooks"],
-  ["scheduling", "Schedules"],
-  ["queues", "Background jobs"],
-  ["search", "Vector search"],
-  ["apiSecurity", "API keys"],
-  ["policies", "Rate limits"],
-  ["activity", "Logs and traces"],
-];
-
 export function Statement() {
   return (
-    <section className="ix-section" aria-labelledby="statement-title" data-plain="">
-      <Rule />
+    <section className="ix-section ix-statement-band" aria-labelledby="statement-title" data-plain="">
       <div className="ix-statement" data-reveal="up">
-        {/* a sun of lit dots rising from the horizon below, in a faint field of ivory ones */}
-        <span className="ix-sunrise" aria-hidden="true"><i className="field" /><i className="sun" /></span>
+        <span className="ix-glow" aria-hidden="true" />
         <h2 id="statement-title">
           Pawabase gives your apps <Word icon="code">APIs</Word> <Word icon="users">auth</Word> <Word icon="storage">storage</Word> and{" "}
           <Word icon="sparkle">agents</Word> in one system every team can use.
         </h2>
-        <a href={DOCS} className="ix-btn caps">Read the docs <Arrow /></a>
-      </div>
-      <div className="ix-marquee" aria-label="What's in Pawabase">
-        <ul className="ix-marquee-track">
-          {[...PARTS, ...PARTS].map(([icon, label], i) => (
-            <li key={i} aria-hidden={i >= PARTS.length}><Icon name={icon} size={15} variant="Linear" />{label}</li>
-          ))}
-        </ul>
       </div>
     </section>
   );
@@ -183,21 +135,19 @@ export function Pricing({ title = "Start free", compare = "/pricing" }: { title?
   const { show } = useCurrency();
   const cuts = plans.slice(1).map((_, i) => (i + 1) / plans.length);
   return (
-    <section id="pricing" className="ix-section" aria-labelledby="pricing-title" data-plain="">
-      <Rule />
-      <SectionHead id="pricing-title" title={title}>
+    <section id="pricing" className="ix-section ix-band" aria-labelledby="pricing-title" data-plain="">
+      <SectionHead id="pricing-title" title={title} lead="Start on the free plan and move up as the system grows.">
         <div className="ix-pricing-tools"><CurrencyPicker /><a href={compare} className="ix-link">Compare every limit</a></div>
       </SectionHead>
       <div className="ix-panel ix-plans" style={{ "--plans": plans.length } as CSSProperties} data-reveal="up">
-        <Rule />
-        <Lines v={cuts.map((x) => [x, 0, 1] as V)} marks={cuts.flatMap((x) => [[x, 0, "sq"], [x, 1, "sq"]] as M[])} />
+        <Lines v={cuts.map((x) => [x, 0, 1] as V)} />
         {plans.map((plan) => (
           <article key={plan.name} className={`ix-cell ix-plan ${plan.featured ? "featured" : ""}`}>
             <div className="ix-plan-name"><h3>{plan.name}</h3>{plan.featured && <span className="ix-caps">Popular</span>}</div>
             <p>{plan.description}</p>
             <div className="ix-price"><b>{show(Number(plan.price))}</b><span>/ month</span></div>
             <ul>{plan.features.map((f) => <li key={f}>{f}</li>)}</ul>
-            <a href={SIGN_UP} className={`ix-btn ${plan.featured ? "primary" : ""}`}>Get started</a>
+            <a href={SIGN_UP} className={`btn btn-block ${plan.featured ? "btn-light" : ""}`}>Get started</a>
           </article>
         ))}
       </div>

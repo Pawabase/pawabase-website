@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./components/site/button.css";
 @font-face { font-family: "Plus Jakarta Sans"; src: url("/brand/PlusJakartaSans-Variable.ttf") format("truetype"); font-weight: 200 800; font-style: normal; font-display: swap; }
 
 @theme {
@@ -235,22 +236,6 @@
   --color-black: #111214;
 }
 
-/* Buttons, copied from the Pawabase dashboard.
- * btn-clay is its flat teal primary; btn-clay-dark is its dark, glossy secondary key. */
-.btn-clay,
-.btn-clay-dark {
-  font-weight: 600;
-  border-radius: 8px;
-  box-shadow: none;
-  background-image: none;
-  transition: background-color 0.15s, border-color 0.15s;
-}
-.btn-clay { background-color: #FF6A00; border: 1px solid #FF6A00; color: #ffffff; }
-.btn-clay:hover { background-color: #ff7d1f; border-color: #ff7d1f; }
-.btn-clay:active { background-color: #F65A00; border-color: #F65A00; }
-.btn-clay-dark { background-color: #17181b; border: 1px solid #2e3035; color: #f3f0eb; }
-.btn-clay-dark:hover { background-color: #1d1e22; border-color: #43454c; }
-
 /* ── hero: an orange panel with an LED dot matrix, and the Orange Planet rising through it like a sun ─────────────
    Everything is the brand's own: orange #FF6A00 and deep orange #F65A00 for the panel and its matrix, sunlight #FFD27A
    and ivory for the light. The light is drawn by dots getting brighter, not by a blur. */
@@ -289,11 +274,6 @@
 .hero-sun-planet.upper { background-image: radial-gradient(circle, #FFD27A 1.55px, transparent 1.75px); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M43.54554 201.56252A112 112 0 1 1 237.58751 104.87909C157.87944 101.37044 84.49478 152.70781 43.54554 201.56252Z' fill='black'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M43.54554 201.56252A112 112 0 1 1 237.58751 104.87909C157.87944 101.37044 84.49478 152.70781 43.54554 201.56252Z' fill='black'/%3E%3C/svg%3E"); }
 .hero-sun-planet.lower { background-image: radial-gradient(circle, #FCF8F5 1.6px, transparent 1.8px); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M239.68196 119.56555A112 112 0 0 1 85.38303 231.57507C107.48096 166.78947 160.36086 120.94921 239.68196 119.56555Z' fill='black'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 16 224 224'%3E%3Cpath d='M239.68196 119.56555A112 112 0 0 1 85.38303 231.57507C107.48096 166.78947 160.36086 120.94921 239.68196 119.56555Z' fill='black'/%3E%3C/svg%3E"); }
 .hero-sun-copy { z-index: 2; }
-.hero-sun-cta {
-  display: inline-flex; align-items: center; height: 50px; padding: 0 26px; border-radius: 999px;
-  background: #ffffff; color: #111214; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; transition: background 0.15s;
-}
-.hero-sun-cta:hover { background: #FCF8F5; }
 .hero-sun-link {
   display: inline-flex; align-items: center; gap: 6px; height: 50px; padding: 0 22px; border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.55); color: #ffffff; font-size: 15px; font-weight: 550; transition: border-color 0.15s, background 0.15s;

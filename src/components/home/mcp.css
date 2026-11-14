@@ -1,25 +1,23 @@
 /*
- * Pawabase over MCP: the connect strip, then three bento tiles on the dotted ground.
+ * Pawabase over MCP: the connect bar (a framed pill), then three free cards. See home.css.
  */
 
 /* ── how to connect ── */
-.mc-connect { display: flex; align-items: center; justify-content: space-between; gap: 18px 32px; min-height: 74px; padding: 14px 18px 14px 26px; background: #141518; }
+.mc-connect { display: flex; align-items: center; justify-content: space-between; gap: 18px 32px; min-height: 76px; margin-bottom: 14px; padding: 14px 14px 14px 26px; border-radius: 999px; }
 .mc-clients { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; }
 .mc-over { font-size: 14px; font-weight: 500; color: var(--ix-text); }
 .mc-client { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: rgba(252, 248, 245, 0.62); }
 .mc-client.dim { color: var(--ix-faint); }
-.mc-command { display: flex; align-items: center; gap: 14px; min-width: 0; height: 42px; padding: 0 8px 0 14px; border: 1px solid rgba(252, 248, 245, 0.1); border-radius: 8px; background: #0f1012; color: rgba(252, 248, 245, 0.72); font: inherit; cursor: pointer; transition: border-color 0.2s ease; }
+.mc-command { display: flex; align-items: center; gap: 14px; min-width: 0; height: 46px; padding: 0 8px 0 18px; border: 1px solid rgba(252, 248, 245, 0.1); border-radius: 999px; background: #070708; color: rgba(252, 248, 245, 0.72); font: inherit; cursor: pointer; transition: border-color 0.2s ease; }
 .mc-command:hover { border-color: rgba(255, 106, 0, 0.5); }
 .mc-command:focus-visible { outline: 2px solid var(--ix-orange); outline-offset: 2px; }
 .mc-command code { min-width: 0; max-width: 54ch; overflow: hidden; font: 12.5px var(--ix-mono); text-overflow: ellipsis; white-space: nowrap; }
 .mc-command code i { font-style: normal; color: var(--ix-orange); }
-.mc-command > span { display: grid; flex: none; place-items: center; min-width: 48px; height: 26px; border-radius: 5px; background: rgba(252, 248, 245, 0.07); font-size: 12px; color: var(--ix-text); }
+.mc-command > span { display: grid; flex: none; place-items: center; min-width: 58px; height: 32px; border-radius: 999px; background: rgba(252, 248, 245, 0.08); font-size: 12px; color: var(--ix-text); }
 
 /* ── the tiles, on the dotted ground ── */
-.mc-tiles { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.mc-tile { min-height: 340px; padding: 26px 30px 30px; border-radius: 12px; }
-.mc-tile.first { border-left: 0; border-radius: 0 12px 12px 0; }
-.mc-tile.last { border-right: 0; border-radius: 12px 0 0 12px; }
+.mc-tiles { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.mc-tile { min-height: 340px; padding: 26px 30px 30px; }
 .mc-tile .cf-copy { padding-top: 24px; }
 
 /* the call that stops and asks */
@@ -28,11 +26,11 @@
 .mc-ask-call { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 52px; padding: 0 16px; border-radius: 8px; background: #23170f; font: 13px var(--ix-mono); white-space: nowrap; animation: cf-in 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 .mc-ask-call span { overflow: hidden; color: rgba(255, 106, 0, 0.72); text-overflow: ellipsis; }
 .mc-ask-call b { font-weight: 400; color: var(--ix-orange); }
-.mc-ask-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 52px; padding: 0 8px 0 16px; border: 1px dashed rgba(252, 248, 245, 0.14); border-radius: 8px; }
+.mc-ask-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 52px; padding: 0 8px 0 16px; border: 1px solid rgba(252, 248, 245, 0.1); border-radius: 10px; }
 .mc-state { display: inline-flex; align-items: center; gap: 11px; font-size: 13.5px; color: rgba(252, 248, 245, 0.62); }
 .mc-state.done { color: var(--ix-orange); }
 .mc-yes { display: grid; place-items: center; min-width: 58px; height: 34px; border: 1px solid rgba(252, 248, 245, 0.16); border-radius: 6px; font-size: 13px; color: var(--ix-text); transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, opacity 0.2s ease; }
-.mc-yes.pressed { border-color: var(--ix-orange); background: var(--ix-orange); color: #ffffff; transform: scale(0.96); }
+.mc-yes.pressed { border-color: var(--ix-orange); background: var(--ix-sunlit); color: #ffffff; transform: scale(0.96); }
 .mc-yes.gone { opacity: 0; }
 
 /* the record */
@@ -53,12 +51,12 @@
 .mc-menu li.on i { color: var(--ix-orange); }
 
 @media (max-width: 1160px) {
-  .mc-connect { flex-direction: column; align-items: stretch; }
+  .mc-connect { flex-direction: column; align-items: stretch; border-radius: var(--ix-radius); }
   .mc-command code { max-width: none; }
 }
 @media (max-width: 1100px) {
   .mc-tiles { grid-template-columns: 1fr; }
-  .mc-tile, .mc-tile.first, .mc-tile.last { min-height: 0; border-left: 0; border-right: 0; border-radius: 0; }
+  .mc-tile { min-height: 0; }
 }
 @media (max-width: 760px) {
   .mc-connect { padding: 16px 20px; }

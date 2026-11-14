@@ -67,7 +67,7 @@ export function CloudSection() {
           <Checks items={CLOUD} />
           <a
             href={SIGN_UP}
-            className="btn-clay mt-auto inline-flex h-[46px] w-fit items-center justify-center gap-2 px-[22px] text-[14px] no-underline"
+            className="btn btn-light btn-lg mt-auto w-fit"
           >
             Create a project
             <Icon name="arrowRight" size={16} />

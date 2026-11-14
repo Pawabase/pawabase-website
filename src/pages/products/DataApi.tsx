@@ -1,100 +1,140 @@
-import { SiteNav } from "@/components/site/SiteNav";
-import { Band, HeroActions, ProductFrame, useTicker } from "@/components/product/ProductFrame";
+import { useState } from "react";
+
+import { SectionHead } from "@/components/home/Home";
+import { ProductFrame } from "@/components/product/ProductFrame";
+import { EndpointArt } from "@/components/product/objects";
+import { ProductHero } from "@/components/product/sections";
+
 import "./dataapi.css";
 
-/* The URL is the hero: a real request builds itself in huge type, one parameter at a time. Then the five endpoints as five columns, the same query in every client, and the parameters as tiles. */
+/*
+ * Data API, told through a request. The hero is a request and its answer. Then: a query you build by clicking, the address and the
+ * answer changing as you do; the five endpoints of a table as five plates with their own switches; the same call in three languages;
+ * and v1 and v2 served side by side. Nothing here appears on another product page.
+ */
 
-const PARAMS: [string, string][] = [
-  ["filter[status]=eq.paid", "Only paid orders"],
-  ["expand=customer", "With their customer"],
-  ["sort=-created_at", "Newest first"],
-  ["select=id,total", "Just these fields"],
-  ["page=2&per_page=50", "Fifty at a time"],
+type Part = { key: string; label: string; query: string };
+const PARTS: Part[] = [
+  { key: "status", label: "Only paid", query: "filter[status]=eq.paid" },
+  { key: "sort", label: "Biggest first", query: "sort=-total" },
+  { key: "expand", label: "With the customer", query: "expand=customer" },
+  { key: "page", label: "Page 2", query: "page=2" },
 ];
-const ENDPOINTS = ["List", "Get", "Create", "Update", "Delete"];
-const CLIENTS: [string, string][] = [
+const ORDERS: { id: string; total: number; status: string; who: string }[] = [
+  { id: "1042", total: 128, status: "paid", who: "Ada" },
+  { id: "1043", total: 64.5, status: "shipped", who: "Grace" },
+  { id: "1044", total: 212, status: "pending", who: "Alan" },
+  { id: "1045", total: 310, status: "paid", who: "Radia" },
+  { id: "1046", total: 39.99, status: "paid", who: "Katherine" },
+];
+
+function Builder() {
+  const [on, setOn] = useState<string[]>(["status"]);
+  const toggle = (key: string) => setOn((o) => (o.includes(key) ? o.filter((k) => k !== key) : [...o, key]));
+  const has = (k: string) => on.includes(k);
+  let rows = ORDERS.filter((o) => !has("status") || o.status === "paid");
+  if (has("sort")) rows = [...rows].sort((a, b) => b.total - a.total);
+  if (has("page")) rows = rows.slice(2);
+  const query = PARTS.filter((p) => has(p.key)).map((p) => p.query).join("&");
+  return (
+    <section className="ix-section" aria-labelledby="ap-build-title" data-plain="">
+      <SectionHead id="ap-build-title" title="Say what you want in the address" lead="Filters, order, related records and pages are plain words in the URL. Click a few and watch the request and its answer change." />
+      <div className="ap-build" data-reveal="up">
+        <div className="ap-parts" role="group" aria-label="Parts of the request">
+          {PARTS.map((p) => <button key={p.key} type="button" aria-pressed={has(p.key)} onClick={() => toggle(p.key)}>{p.label}</button>)}
+        </div>
+        <div className="ap-url"><b>GET</b><code>/rest/v1/orders{query ? `?${query}` : ""}</code></div>
+        <div className="ap-answer" aria-live="polite">
+          <span className="ap-status">200 · {rows.length} {rows.length === 1 ? "row" : "rows"}</span>
+          <pre>{rows.length === 0 ? "[]" : `[\n${rows.map((r) => `  { "id": "${r.id}", "total": ${r.total.toFixed(2)}, "status": "${r.status}"${has("expand") ? `,\n    "customer": { "name": "${r.who}" }` : ""} }`).join(",\n")}\n]`}</pre>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const DOORS: [string, string, string][] = [
+  ["GET", "List", "/orders"],
+  ["GET", "Read", "/orders/{id}"],
+  ["POST", "Create", "/orders"],
+  ["PATCH", "Update", "/orders/{id}"],
+  ["DELETE", "Delete", "/orders/{id}"],
+];
+
+function Doors() {
+  const [open, setOpen] = useState([true, true, true, true, false]);
+  return (
+    <section className="ix-section ix-band" aria-labelledby="ap-doors-title" data-plain="">
+      <SectionHead id="ap-doors-title" title="Five endpoints, each with its own switch" lead="Every table gets list, read, create, update and delete. Turn off the ones a table should not offer, and the gateway refuses them." />
+      <div className="ap-doors" data-reveal="up">
+        {DOORS.map(([method, name, path], i) => (
+          <button key={name} type="button" className={`ap-door ${open[i] ? "" : "shut"}`} aria-pressed={open[i]} onClick={() => setOpen(open.map((v, j) => (j === i ? !v : v)))}>
+            <span className="ap-method">{method}</span>
+            <b>{name}</b>
+            <code>{path}</code>
+            <span className="ap-toggle" aria-hidden="true"><i /></span>
+            <small>{open[i] ? "Answering" : "Refused: switched off"}</small>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const SNIPPETS: [string, string][] = [
   ["TypeScript", `const orders = await pb.from("orders")\n  .eq("status", "paid")\n  .all();`],
   ["Python", `orders = (pb.from_("orders")\n    .eq("status", "paid")\n    .all())`],
   ["HTTP", `curl -G "$URL/rest/v1/orders" \\\n  -d "filter[status]=eq.paid" \\\n  -H "apikey: $KEY"`],
 ];
-const TILES: [string, string, string][] = [
-  ["filter[ ]", "Filters and sorting", "Narrow and order results with readable parameters."],
-  ["expand=", "Relations in one call", "Bring related records along instead of making extra requests."],
-  ["search=", "Full-text search", "Search across the text fields you choose."],
-  ["page=", "Pages", "Move through large tables without loading everything."],
-  ["/openapi", "Documented as you build", "An OpenAPI document and an explorer that always match your tables."],
-  ["/rest/v2", "Versions side by side", "Serve the next version of your API beside the current one."],
-];
 
-function Request() {
-  const tick = useTicker(1700, PARAMS.length);
-  const shown = tick % (PARAMS.length + 2);
+function Languages() {
   return (
-    <div className="ap-request" aria-hidden="true">
-      <p className="ap-line first"><b>GET</b> /rest/v1/orders{shown === 0 && <i className="ap-caret" />}</p>
-      {PARAMS.map(([param, said], i) => (
-        <p key={param} className={`ap-line ${i < shown ? "on" : ""} ${i === shown - 1 ? "new" : ""}`}>
-          <span>{i === 0 ? "?" : "&"}{param}{i === shown - 1 && <i className="ap-caret" />}</span>
-          <small>{said}</small>
-        </p>
-      ))}
-    </div>
+    <section className="ix-section" aria-labelledby="ap-langs-title" data-plain="">
+      <SectionHead id="ap-langs-title" title="Three ways to ask for the same rows" lead="The SDKs read like a sentence. Plain HTTP works from anything else. All three get the same answer, through the same rules." />
+      <div className="ap-langs" data-reveal="up">
+        {SNIPPETS.map(([name, code], i) => (
+          <figure key={name} className="ap-lang" style={{ ["--i" as string]: i }}>
+            <figcaption>{name}</figcaption>
+            <pre><code>{code}</code></pre>
+          </figure>
+        ))}
+      </div>
+    </section>
   );
 }
 
-function Endpoints() {
-  const off = useTicker(2600) % ENDPOINTS.length;
+function Versions() {
   return (
-    <div className="ap-verbs" aria-hidden="true">
-      {ENDPOINTS.map((verb, i) => (
-        <div key={verb} className={`ap-verb ${i === off ? "off" : ""}`}>
-          <span className="ap-switch"><i /></span>
-          <b>{verb}</b>
-        </div>
-      ))}
-    </div>
+    <section className="ix-section ix-band" aria-labelledby="ap-versions-title" data-plain="">
+      <SectionHead id="ap-versions-title" title="The next API, beside the one you have" lead="Serve v2 next to v1 on the same tables. Apps already in people's hands keep working while new ones move on." />
+      <div className="ap-versions" data-reveal="up" aria-hidden="true">
+        <div className="ap-track"><code>/rest/v1</code><span className="ap-lane"><i /><i /><i /></span><span className="ap-who">The app already installed</span></div>
+        <div className="ap-track next"><code>/rest/v2</code><span className="ap-lane"><i /><i /><i /></span><span className="ap-who">The app you are shipping</span></div>
+        <div className="ap-tables"><span>orders</span><span>customers</span><span>products</span></div>
+      </div>
+    </section>
   );
 }
 
 export default function DataApiPage() {
   return (
-    <ProductFrame name="Data API" description="A REST API for every table: filters, sorting, relations, search, pages, OpenAPI docs and side-by-side versions.">
-      <section className="ix-hero ap-hero" aria-labelledby="product-title" data-plain="">
-        <SiteNav />
-        <div className="ap-top">
-          <h1 id="product-title" data-reveal="up">An API for every table.</h1>
-          <p data-reveal="up">Create a table and call it straight away.</p>
-        </div>
-        <Request />
-        <HeroActions className="ap-actions" />
-      </section>
-
-      <Band label="Five endpoints" className="ap-five">
-        <div className="ap-five-copy">
-          <h2>Five endpoints per table.</h2>
-          <p>Switch each one on or off. Every request is checked against your access rules, on the server, so it is safe to call from the browser.</p>
-        </div>
-        <Endpoints />
-      </Band>
-
-      <Band label="Call it from anywhere" className="ap-clients">
-        {CLIENTS.map(([name, code]) => (
-          <article key={name}>
-            <h3>{name}</h3>
-            <pre><code>{code}</code></pre>
-          </article>
-        ))}
-      </Band>
-
-      <Band label="Everything in the Data API" className="ap-tiles">
-        {TILES.map(([param, title, line]) => (
-          <article key={title}>
-            <span className="ap-param" aria-hidden="true">{param}</span>
-            <h3>{title}</h3>
-            <p>{line}</p>
-          </article>
-        ))}
-      </Band>
+    <ProductFrame
+      name="Data API"
+      description="A REST API for every table: filters, sorting, relations, search, pages, OpenAPI docs and side-by-side versions."
+      hero={
+        <ProductHero
+          title="An API for every table."
+          quiet="Create it, call it."
+          lead="Every table answers on a REST API the moment it exists, documented in OpenAPI, with your access rules checked on every request."
+          art={<EndpointArt path="/rest/v1/orders?status=paid" />}
+          notes={["No server code", "Safe from the browser", "OpenAPI included"]}
+        />
+      }
+    >
+      <Builder />
+      <Doors />
+      <Languages />
+      <Versions />
     </ProductFrame>
   );
 }

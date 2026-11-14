@@ -1,0 +1,57 @@
+/*
+ * The footer (landing/Footer.tsx), laid out like Resend's: the nav bar again, a huge faint wordmark sliced by a hairline with a
+ * soft light beneath, then a side column beside the link columns. Unlayered, so it wins over the Tailwind utilities on the
+ * shared link component.
+ */
+.sf { position: relative; isolation: isolate; width: min(100% - 32px, 1280px); margin: clamp(48px, 6vw, 96px) auto 0; color: #fcf8f5; }
+
+/* the bar */
+.sf-bar { display: flex; align-items: center; gap: 24px; height: 64px; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+.sf-logo { display: flex; flex: none; }
+.sf-logo img { display: block; width: 120px; height: auto; }
+.sf-bar-links { display: flex; gap: 4px; margin: 0 auto; }
+.sf-bar-links a { padding: 8px 12px; border-radius: 9px; color: rgba(252, 248, 245, 0.62); font-size: 14.5px; font-weight: 500; text-decoration: none; transition: color 0.15s ease, background-color 0.15s ease; }
+.sf-bar-links a:hover { color: #fcf8f5; background: rgba(255, 255, 255, 0.04); }
+.sf-bar-actions { display: flex; align-items: center; gap: 4px; }
+
+/* the wordmark, sliced by the line, with light under it */
+.sf-mark { position: relative; height: clamp(70px, 11.5vw, 160px); overflow: hidden; border-bottom: 1px solid rgba(255, 255, 255, 0.09); }
+.sf-mark span { position: absolute; left: 50%; top: 6%; transform: translateX(-50%); color: #121215; font-size: clamp(90px, 18.6vw, 262px); font-weight: 600; line-height: 1; letter-spacing: -0.06em; white-space: nowrap; user-select: none;
+  background: linear-gradient(180deg, #1e1e22 0%, #131316 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.sf-mark::after { content: ""; position: absolute; left: 15%; right: 15%; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent); }
+.sf-main { position: relative; display: grid; grid-template-columns: minmax(240px, 0.8fr) minmax(0, 2fr); gap: 56px; padding: clamp(64px, 7vw, 104px) 0 48px; }
+/* the light falling from the line */
+.sf-main::before { content: ""; position: absolute; left: 15%; right: 15%; top: 0; z-index: -1; height: 140px; pointer-events: none;
+  background: radial-gradient(60% 100% at 50% 0%, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 100%); }
+
+/* the side column */
+.sf-tag { margin: 0; color: #f4f4f5; font-size: 15px; font-weight: 550; }
+.sf-line { margin: 6px 0 0; color: rgba(252, 248, 245, 0.5); font-size: 13.5px; line-height: 1.5; }
+.sf-side form { margin-top: 18px; }
+.sf-side form > div { height: 44px; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; background: rgba(255, 255, 255, 0.03); }
+.sf-side form > div:focus-within { border-color: rgba(255, 255, 255, 0.16); background: rgba(255, 255, 255, 0.05); }
+.sf-side form input { font-size: 14px; }
+.sf-socials { display: flex; gap: 10px; margin: 6px 0 0; padding: 0; list-style: none; }
+.sf-socials a { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 50%;
+  background: linear-gradient(180deg, #232327 0%, #1a1a1d 100%); color: rgba(255, 255, 255, 0.62);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 4px 10px -4px rgba(0, 0, 0, 0.6); transition: color 0.15s ease, border-color 0.15s ease; }
+.sf-socials a:hover { color: #fcf8f5; border-color: rgba(255, 255, 255, 0.14); }
+
+/* the link columns */
+.sf-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+.sf-col h2 { margin: 0 0 22px; color: #f4f4f5; font-size: 14.5px; font-weight: 550; letter-spacing: -0.005em; }
+.sf-col ul { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.sf .sf-link { color: rgba(252, 248, 245, 0.52); font-size: 14.5px; line-height: 1.4; transition: color 0.15s ease; }
+.sf .sf-link:hover { color: #fcf8f5; }
+
+.sf-base { margin: 0; padding: 22px 0 40px; border-top: 1px solid rgba(255, 255, 255, 0.06); color: rgba(252, 248, 245, 0.36); font-size: 13px; }
+
+@media (max-width: 1000px) {
+  .sf-bar-links { display: none; }
+  .sf-bar-actions { margin-left: auto; }
+  .sf-main { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+}
+@media (max-width: 640px) {
+  .sf-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }
+  .sf-bar-actions .btn-ghost { display: none; }
+}

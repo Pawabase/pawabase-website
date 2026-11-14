@@ -1,79 +1,72 @@
-import { useEffect, useState } from "react";
+import { SiGithub, SiLinear, SiNotion, SiShopify, SiStripe } from "@icons-pack/react-simple-icons";
 
-import { Arrow, Rule, SectionHead } from "./Home";
+import { Icon } from "@/components/Icon";
+
+import { Arrow, SectionHead } from "./Home";
 import "./integrations.css";
 import { DOCS } from "@/lib/links";
 
 /*
- * The tools an agent can use: the 24 apps Studio's agent builder offers, each with its real mark in the company's own colours
- * (public/integrations, bundled so the page makes no third-party image requests) on a white app-icon tile. DeepWiki and Context7
- * have no openly licensed mark, so they get a plain icon, as in Studio. A tile lights up now and then, one at a time; hovering
- * one lifts it. A line of orange dots runs along the head.
+ * Agents that use your tools: three cards in the bento's manner (one matte object each, the words beneath), telling the whole
+ * story in order: connect an app once with its own key; agents use it as a tool; anything permanent waits for a person. Under
+ * them, one quiet line of the apps it works with. No orbits, no sparkles, no wall of logos.
  */
 
-type Item = { name: string; logo: string } | { name: string; icon: "book" | "code" };
-
-const APPS: Item[] = [
-  { name: "Notion", logo: "notion" }, { name: "Linear", logo: "linear" }, { name: "Jira & Confluence", logo: "atlassian" }, { name: "monday.com", logo: "monday" },
-  { name: "Airtable", logo: "airtable" }, { name: "Zapier", logo: "zapier" }, { name: "GitHub", logo: "github" }, { name: "Sentry", logo: "sentry" },
-  { name: "Supabase", logo: "supabase" }, { name: "Neon", logo: "neon" }, { name: "Postman", logo: "postman" }, { name: "Cloudflare", logo: "cloudflare" },
-  { name: "DeepWiki", icon: "book" }, { name: "Context7", icon: "code" }, { name: "Stripe", logo: "stripe" }, { name: "Shopify", logo: "shopify" },
-  { name: "Intercom", logo: "intercom" }, { name: "PostHog", logo: "posthog" }, { name: "Tavily", logo: "tavily" }, { name: "Exa", logo: "exa" },
-  { name: "Firecrawl", logo: "firecrawl" }, { name: "Apify", logo: "apify" }, { name: "Hugging Face", logo: "huggingface" }, { name: "Any MCP server", logo: "mcp" },
-];
-const COLUMNS = 8;
-
-function Glyph({ icon }: { icon: "book" | "code" }) {
+function Connect() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#121316" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      {icon === "book" ? <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5zM4 5.5v16M8.5 8h7" /> : <path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14" />}
-    </svg>
+    <div className="ag-connect">
+      <span className="ag-tile app"><SiGithub size={26} color="currentColor" /></span>
+      <span className="ag-wire"><i className="ag-key"><Icon name="apiSecurity" size={13} variant="Linear" /></i></span>
+      <span className="ag-tile core"><i /></span>
+    </div>
   );
 }
 
-function Cell({ item, index, lit }: { item: Item; index: number; lit: boolean }) {
+function Use() {
+  const rows: [typeof SiNotion, string][] = [[SiNotion, "a"], [SiLinear, "b"], [SiStripe, "c"]];
   return (
-    <li className={`int-cell${lit ? " lit" : ""}`} style={{ ["--d" as string]: `${((index % COLUMNS) * 0.05 + Math.floor(index / COLUMNS) * 0.08).toFixed(3)}s` }}>
-      <span className="int-tile">
-        {"logo" in item ? <img src={`/integrations/${item.logo}.svg`} alt="" width="30" height="30" loading="lazy" decoding="async" /> : <Glyph icon={item.icon} />}
-      </span>
-      <span className="int-name">{item.name}</span>
-    </li>
+    <div className="ag-use">
+      {rows.map(([Mark, k]) => (
+        <span key={k} className={`ag-row ${k}`}><b><Mark size={14} color="currentColor" /></b><i /><em /></span>
+      ))}
+    </div>
+  );
+}
+
+function Approve() {
+  return (
+    <div className="ag-approve">
+      <span className="ag-ring" />
+      <span className="ag-confirm"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg></span>
+    </div>
   );
 }
 
 export function Integrations() {
-  const [lit, setLit] = useState<number | null>(null);
-
-  // now and then a tile lights up
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => setLit((on) => {
-      let next = Math.floor(Math.random() * APPS.length);
-      if (next === on) next = (next + 1) % APPS.length;
-      return next;
-    }), 1300);
-    return () => window.clearInterval(timer);
-  }, []);
-
   return (
-    <section className="ix-section" aria-labelledby="integrations-title" data-plain="">
-      <Rule />
-      <SectionHead id="integrations-title" title="Agents that use your tools">
-        <a href={DOCS} className="ix-btn caps">Read the docs <Arrow /></a>
+    <section className="ix-section ix-band ag" aria-labelledby="integrations-title" data-plain="">
+      <SectionHead id="integrations-title" title="Agents that use your tools"
+        lead="Connect the apps your team already works in. Agents use them as tools, and anything permanent waits for you.">
+        <a href={DOCS} className="btn">Read the docs <Arrow /></a>
       </SectionHead>
-      <div className="ix-panel int-panel" data-reveal="up">
-        <Rule />
-        <header className="int-head">
-          <h3>Agent apps</h3>
-          <span className="int-count">{APPS.length}</span>
-          <p>Connect an app once, with its own key, and any agent can search, read and write in it.</p>
-          <span className="int-flow" aria-hidden="true" />
-        </header>
-        <ul className="int-grid" aria-label="Apps an agent can use">
-          {APPS.map((item, i) => <Cell key={item.name} item={item} index={i} lit={lit === i} />)}
-        </ul>
+
+      <div className="ag-cards" data-reveal="up">
+        <article className="ag-card"><div className="ag-art" aria-hidden="true"><Connect /></div>
+          <h3>Connect once</h3><p>Each app gets its own key, and every agent in the project can use it.</p></article>
+        <article className="ag-card"><div className="ag-art" aria-hidden="true"><Use /></div>
+          <h3>Agents use it</h3><p>Agents search, read and write in your apps as part of their work.</p></article>
+        <article className="ag-card"><div className="ag-art" aria-hidden="true"><Approve /></div>
+          <h3>You approve what matters</h3><p>Refunds, deletions and messages wait for a person to say yes.</p></article>
       </div>
+
+      <p className="ag-works">
+        Works with
+        <span aria-hidden="true">
+          <SiGithub size={16} color="currentColor" /><SiNotion size={16} color="currentColor" /><SiLinear size={16} color="currentColor" />
+          <SiStripe size={16} color="currentColor" /><SiShopify size={16} color="currentColor" />
+        </span>
+        GitHub, Notion, Linear, Stripe, Shopify and any MCP server.
+      </p>
     </section>
   );
 }

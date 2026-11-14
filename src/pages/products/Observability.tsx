@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { SiteNav } from "@/components/site/SiteNav";
-import { Band, HeroActions, ProductFrame } from "@/components/product/ProductFrame";
+import { Band, HeroActions, ProductFrame, Questions, Steps } from "@/components/product/ProductFrame";
 import "./observability.css";
 
 /* An instrument panel: the hero is one long chart under a row of readings, with a crosshair that follows you. Then a trace, a threshold being crossed, and ninety days of a status page. All numbers here are examples, and say so. */
@@ -117,7 +117,7 @@ export default function ObservabilityPage() {
         </ol>
       </Band>
 
-      <Band label="Alarms" className="ob-alarms">
+      <Band label="Alarms" className="ob-alarms" band>
         <Threshold />
         <div>
           <h2>Hear about it before your users tell you.</h2>
@@ -136,9 +136,21 @@ export default function ObservabilityPage() {
         <p className="ob-status-note"><span className="ob-flag">!</span> One slow day, 12 minutes. Everything else ran normally.</p>
       </Band>
 
-      <Band label="Everything in Observability" className="ob-also">
+      <Band label="Everything in Observability" className="ob-also" title="Everything in Observability" lead="Built in, for every environment, with nothing to install." band>
         {ALSO.map(([title, line]) => <article key={title}><h3>{title}</h3><p>{line}</p></article>)}
       </Band>
+
+      <Steps lead="Nothing to install and nothing to wire up." steps={[
+        ["It records on its own", "Every request, flow run and job is logged and timed from the first call."],
+        ["Look closer", "Open a request to follow it step by step, and find what was slow or failed."],
+        ["Get told", "Set alarms on the limits that matter, and show your users a status page."],
+      ]} />
+
+      <Questions band items={[
+        ["Do I need an agent or a library?", "No. Requests, flow runs and jobs are recorded as they happen."],
+        ["Can my users see when something is wrong?", "Yes. Publish a status page with ninety days of history, one bar a day."],
+        ["Can I see who changed something?", "Yes. The audit log keeps who changed what, and when."],
+      ]} />
     </ProductFrame>
   );
 }

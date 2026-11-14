@@ -80,7 +80,7 @@ export function Stack() {
     <section className="ix-section" aria-labelledby="stack-title" data-plain="">
       <Rule />
       <SectionHead id="stack-title" title="Works with what you already use">
-        <a href={DOCS} className="ix-btn caps">Read the docs <Arrow /></a>
+        <a href={DOCS} className="btn">Read the docs <Arrow /></a>
       </SectionHead>
       <div className="ix-panel lg-panel" data-reveal="up">
         <Rule />

@@ -1,4 +1,4 @@
-import { Band, HeroActions, ProductFrame, useTicker } from "@/components/product/ProductFrame";
+import { Band, HeroActions, ProductFrame, Questions, Spec, Steps, useTicker } from "@/components/product/ProductFrame";
 import { SiteNav } from "@/components/site/SiteNav";
 import "./mail.css";
 
@@ -79,7 +79,7 @@ export default function MailPage() {
         </div>
       </Band>
 
-      <Band label="A visual editor" className="ml-editor">
+      <Band label="A visual editor" className="ml-editor" band>
         <div>
           <h2>Design emails without hand-writing HTML.</h2>
           <p>Build from blocks, in your brand, with a live preview. Fill templates with names, totals and links, and send them from any flow.</p>
@@ -96,6 +96,27 @@ export default function MailPage() {
         </div>
         <Delivery />
       </Band>
+
+      <Steps band lead="From a template to an email in someone's inbox." steps={[
+        ["Design a template", "Build it from blocks in your brand, with a live preview."],
+        ["Fill it in", "Names, totals and links come from the flow or request that sends it."],
+        ["Send and track", "Send from any flow, see how each message went, and send again in one click."],
+      ]} />
+
+      <Spec title="Everything in Mail" icon="mail" items={[
+        ["Sign-in emails", "Codes, links, resets and invitations, ready to use."],
+        ["A visual editor", "Blocks, conditions and repeats, no hand-written HTML."],
+        ["Templates with values", "Fill names, totals and links when you send."],
+        ["Sends from flows", "Any flow can send an email as a step."],
+        ["A delivery log", "What was sent, what failed, and why."],
+        ["Your own SMTP", "Send through the service you already use."],
+      ]} />
+
+      <Questions items={[
+        ["Do I need my own email provider?", "Not to start: sign-in emails are sent for you. Connect the SMTP service you already use for everything else."],
+        ["Can I send an email from a flow?", "Yes. Sending an email is a step in any flow, filled with the values the flow has."],
+        ["What happens when a message fails?", "It shows in the delivery log with the reason, and you can send it again in one click."],
+      ]} />
     </ProductFrame>
   );
 }

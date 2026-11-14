@@ -1,0 +1,87 @@
+/*
+ * The site's one button, built the way Clerk builds theirs: a solid face, a hairline ring of its own colour, a 1px light along
+ * the top edge, a short drop shadow, and a gloss (a white-to-clear gradient in ::before) that brightens on hover and dims on
+ * press. Three faces: dark (the default), light (the main action), ghost (text only). Three sizes. In the components layer, so a
+ * Tailwind utility on the same element still wins.
+ *
+ *   <a class="btn">            dark key
+ *   <a class="btn btn-light">  the main action
+ *   <a class="btn btn-ghost">  quiet
+ *   btn-sm · btn-lg · btn-block
+ */
+@layer components {
+  .btn {
+    --btn-face: #26262b;
+    --btn-ink: #f4f4f5;
+    --btn-ring: rgba(255, 255, 255, 0.09);
+    --btn-lit: rgba(255, 255, 255, 0.1);
+    --btn-floor: rgba(0, 0, 0, 0);
+    --btn-gloss: rgba(255, 255, 255, 0.13);
+    --btn-drop: 0 1px 2px rgba(0, 0, 0, 0.45), 0 6px 14px -6px rgba(0, 0, 0, 0.6);
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 10px;
+    background: var(--btn-face);
+    color: var(--btn-ink);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 550;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 0 0 1px var(--btn-ring), inset 0 1px 0 var(--btn-lit), inset 0 -1px 0 var(--btn-floor), var(--btn-drop);
+    transition: transform 0.3s cubic-bezier(0.4, 0.36, 0, 1), box-shadow 0.3s cubic-bezier(0.4, 0.36, 0, 1), background-color 0.3s ease;
+  }
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(180deg, var(--btn-gloss), rgba(255, 255, 255, 0) 100%);
+    opacity: 0.55;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.4, 0.36, 0, 1);
+  }
+  .btn:hover::before { opacity: 1; }
+  .btn:active { transform: translateY(1px); }
+  .btn:active::before { opacity: 0.25; }
+  .btn:focus-visible { outline: 2px solid #ff6a00; outline-offset: 2px; }
+  .btn svg { flex: none; }
+  /* a trailing arrow nudges forward on hover */
+  .btn svg:last-child:not(:first-child) { margin-right: -2px; transition: transform 0.3s cubic-bezier(0.4, 0.36, 0, 1); }
+  .btn:hover svg:last-child:not(:first-child) { transform: translateX(2px); }
+
+  .btn-light {
+    --btn-face: #f4f2ef;
+    --btn-ink: #111214;
+    --btn-ring: rgba(255, 255, 255, 0.55);
+    --btn-lit: #ffffff;
+    --btn-floor: rgba(0, 0, 0, 0.14);
+    --btn-gloss: rgba(255, 255, 255, 0.95);
+    --btn-drop: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 20px -8px rgba(0, 0, 0, 0.7);
+    font-weight: 600;
+  }
+  .btn-light:hover { --btn-face: #ffffff; }
+
+  .btn-ghost { --btn-face: transparent; --btn-ring: transparent; --btn-lit: transparent; --btn-drop: 0 0 0 0 transparent; --btn-gloss: rgba(255, 255, 255, 0); color: rgba(252, 248, 245, 0.78); }
+  .btn-ghost:hover { --btn-face: rgba(255, 255, 255, 0.05); color: #fcf8f5; }
+
+  .btn-sm { height: 34px; padding: 0 13px; border-radius: 9px; font-size: 13.5px; }
+  .btn-lg { height: 48px; padding: 0 22px; border-radius: 12px; font-size: 15.5px; }
+  .btn-block { width: 100%; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .btn::before, .btn svg { transition: none !important; }
+  }
+}

@@ -137,13 +137,13 @@ export function CookieConsent() {
       <div className="ck-actions">
         {open ? (
           <>
-            <button type="button" className="ck-btn ck-primary" onClick={() => decide({ analytics, preferences })}>Save choices</button>
-            <button type="button" className="ck-btn" onClick={() => decide({ analytics: true, preferences: true })}>Accept all</button>
+            <button type="button" className="btn btn-light btn-sm" onClick={() => decide({ analytics, preferences })}>Save choices</button>
+            <button type="button" className="btn btn-sm" onClick={() => decide({ analytics: true, preferences: true })}>Accept all</button>
           </>
         ) : (
           <>
-            <button type="button" className="ck-btn ck-primary" onClick={() => decide({ analytics: true, preferences: true })}>Accept all</button>
-            <button type="button" className="ck-btn" onClick={() => decide({ analytics: false, preferences: false })}>Necessary only</button>
+            <button type="button" className="btn btn-light btn-sm" onClick={() => decide({ analytics: true, preferences: true })}>Accept all</button>
+            <button type="button" className="btn btn-sm" onClick={() => decide({ analytics: false, preferences: false })}>Necessary only</button>
             <button type="button" className="ck-link" onClick={() => setMode("details")}>Customize</button>
           </>
         )}

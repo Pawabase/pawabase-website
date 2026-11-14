@@ -44,14 +44,9 @@
 .ck-row input:focus-visible + .ck-switch { outline: 2px solid #ff6a00; outline-offset: 3px; }
 
 .ck-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
-.ck-btn { height: 38px; padding: 0 16px; border: 1px solid rgba(252, 248, 245, 0.2); border-radius: 10px; background: transparent; color: #fcf8f5; font-family: inherit; font-size: 13.5px; font-weight: 600; line-height: 1; cursor: pointer; transition: background-color 0.15s, border-color 0.15s, transform 0.15s; }
-.ck-btn:hover { border-color: rgba(252, 248, 245, 0.42); background: rgba(252, 248, 245, 0.06); }
-.ck-btn:active { transform: translateY(1px); }
-.ck-primary { border-color: #ff6a00; background: #ff6a00; color: #fff; }
-.ck-primary:hover { border-color: #ff7d20; background: #ff7d20; }
 .ck-link { margin-left: auto; padding: 8px 4px; border: 0; background: transparent; color: rgba(252, 248, 245, 0.62); font-family: inherit; font-size: 13px; font-weight: 600; line-height: 1; text-decoration: underline; text-decoration-color: rgba(252, 248, 245, 0.3); text-underline-offset: 4px; cursor: pointer; transition: color 0.15s; }
 .ck-link:hover { color: #fcf8f5; }
-.ck-btn:focus-visible, .ck-link:focus-visible { outline: 2px solid #ff6a00; outline-offset: 3px; }
+.ck-link:focus-visible { outline: 2px solid #ff6a00; outline-offset: 3px; }
 
 @keyframes ck-in { from { opacity: 0; transform: translateY(28px) scale(0.97); } }
 @keyframes ck-out { to { opacity: 0; transform: translateY(26px) scale(0.98); } }

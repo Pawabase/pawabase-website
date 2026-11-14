@@ -1,119 +1,103 @@
+import { useState } from "react";
+
 import { Icon } from "@/components/Icon";
-import { Sky } from "@/components/home/Home";
-import { SiteNav } from "@/components/site/SiteNav";
-import { Band, HeroActions, ProductFrame, useTicker } from "@/components/product/ProductFrame";
+import { SectionHead } from "@/components/home/Home";
+import { ProductFrame, useTicker } from "@/components/product/ProductFrame";
+import { StackArt } from "@/components/product/objects";
+import { ProductHero } from "@/components/product/sections";
+
 import "./queues.css";
 
-/* Work moving: jobs cross a four-column board in the hero, a retry waits a little longer each time, a split-flap board shows what runs next, and a failed job comes back. */
+/*
+ * Queues, told through one job that will not give up. The hero is a stack of jobs. Then: retries as a track whose gaps grow, a job
+ * hopping along it; a departures board of what runs next; and a failed job you can run again. Nothing here appears on another
+ * product page.
+ */
 
-const STAGES = ["Waiting", "Active", "Completed", "Failed"];
-const JOBS: { name: string; fails?: boolean }[] = [
-  { name: "Send receipt" }, { name: "Resize image" }, { name: "Sync customer", fails: true }, { name: "Build report" },
-  { name: "Send welcome email" }, { name: "Clean up files" }, { name: "Call the shipping API" },
-];
-const BOARD: [string, string, string][] = [
-  ["09:00", "WEEKLY DIGEST", "MONDAYS"],
-  ["12:00", "SYNC CUSTOMERS", "EVERY HOUR"],
-  ["00:00", "NIGHTLY REPORT", "EVERY NIGHT"],
-];
-const COLS = 15;
 const WAITS = [1, 2, 4, 8];
 
-/** Where a job is at this moment: it waits its turn, runs, then finishes or fails, and rests there for a while. */
-function stageOf(tick: number, i: number, fails?: boolean) {
-  const at = (tick + i * 3) % 12;
-  if (at < 3) return 0;
-  if (at < 5) return 1;
-  return fails ? 3 : 2;
-}
-
-function Jobs() {
-  const tick = useTicker(1200);
+function Backoff() {
+  const at = useTicker(1200, WAITS.length + 1) % (WAITS.length + 2);
   return (
-    <div className="qu-board" aria-hidden="true">
-      {STAGES.map((stage, s) => {
-        const here = JOBS.map((job, i) => ({ job, i })).filter(({ job, i }) => stageOf(tick, i, job.fails) === s);
-        return (
-          <div key={stage} className={`qu-col s${s}`}>
-            <header><b>{stage}</b><small>{here.length}</small></header>
-            {here.map(({ job }) => <div key={job.name} className="qu-job">{s === 1 && <i className="qu-spin" />}{job.name}</div>)}
-          </div>
-        );
-      })}
-    </div>
+    <section className="ix-section" aria-labelledby="qu-backoff-title" data-plain="">
+      <SectionHead id="qu-backoff-title" title="It tries again, and waits a little longer each time" lead="When a job fails, it waits before trying again, longer after each failure, so a struggling service gets room to recover. Retries survive restarts." />
+      <div className="qu-track" data-reveal="up" aria-hidden="true">
+        <span className={`qu-stop ${at >= 0 ? "past" : ""}`}><i />Try 1</span>
+        {WAITS.map((wait, i) => (
+          <span key={wait} className="qu-leg" style={{ flexGrow: wait }}>
+            <span className="qu-gap"><em>waits {wait}×</em></span>
+            <span className={`qu-stop ${at > i ? "past" : ""} ${i === WAITS.length - 1 ? "end" : ""}`}><i />{i === WAITS.length - 1 ? "Done" : `Try ${i + 2}`}</span>
+          </span>
+        ))}
+      </div>
+    </section>
   );
 }
 
+const BOARD: [string, string, string][] = [
+  ["09:00", "WEEKLY DIGEST", "MONDAYS"],
+  ["12:00", "SYNC CUSTOMERS", "HOURLY"],
+  ["00:00", "NIGHTLY REPORT", "NIGHTLY"],
+  ["03:30", "CLEAN UP FILES", "DAILY"],
+];
+
 function Flap({ text, width }: { text: string; width: number }) {
+  return <span className="qu-flaps">{text.padEnd(width).split("").map((ch, i) => <i key={i}>{ch}</i>)}</span>;
+}
+
+function Board() {
   return (
-    <span className="qu-flaps">
-      {text.padEnd(width).slice(0, width).split("").map((char, i) => <i key={i} style={{ animationDelay: `${i * 40}ms` }}>{char === " " ? " " : char}</i>)}
-    </span>
+    <section className="ix-section ix-band" aria-labelledby="qu-board-title" data-plain="">
+      <SectionHead id="qu-board-title" title="Next departures" lead="Run work every hour, every night, or on any timetable you write. Schedules live with your project, not in a crontab on some server." />
+      <div className="qu-board" data-reveal="up" aria-hidden="true">
+        <div className="qu-board-head"><span>Time</span><span>Job</span><span>Repeats</span></div>
+        {BOARD.map(([time, job, repeat]) => (
+          <div key={job} className="qu-board-row"><Flap text={time} width={5} /><Flap text={job} width={14} /><em>{repeat}</em></div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Again() {
+  const [fixed, setFixed] = useState(false);
+  return (
+    <section className="ix-section" aria-labelledby="qu-again-title" data-plain="">
+      <SectionHead id="qu-again-title" title="Nothing fails quietly" lead="A job that runs out of tries is kept with the reason it failed. Fix the cause, then run it again, one job or all of them." />
+      <div className="qu-again" data-reveal="up">
+        <div className={`qu-job ${fixed ? "fixed" : ""}`}>
+          <header><span className="qu-icon"><Icon name="queues" size={18} variant="Linear" /></span><b>Sync customer</b><em>{fixed ? "Completed" : "Failed after 4 tries"}</em></header>
+          <p>{fixed ? "Ran again and finished in 1.2 s." : "The CRM didn't answer in time."}</p>
+          <button type="button" className="btn btn-light btn-sm" onClick={() => setFixed(!fixed)}>{fixed ? "Show the failure again" : "Run again"}</button>
+        </div>
+        <ul className="qu-why">
+          <li><b>The reason, in words</b><span>What went wrong on the last try.</span></li>
+          <li><b>Every try</b><span>When each one ran and how it ended.</span></li>
+          <li><b>Run all failed</b><span>Once a service is back, send every failed job again.</span></li>
+        </ul>
+      </div>
+    </section>
   );
 }
 
 export default function QueuesPage() {
-  const again = useTicker(1800) % 4;
   return (
-    <ProductFrame name="Queues" description="Background jobs with durable retries, schedules, and failed jobs you can see and run again.">
-      <section className="ix-hero qu-hero" aria-labelledby="product-title" data-plain="">
-        <Sky seed={57} />
-        <SiteNav />
-        <div className="qu-intro">
-          <h1 id="product-title" data-reveal="up">Work that doesn't make people wait.</h1>
-          <div data-reveal="up">
-            <p>Move slow work into the background, retry what fails, and run jobs on a schedule.</p>
-            <HeroActions />
-          </div>
-        </div>
-        <Jobs />
-      </section>
-
-      <Band label="Retries built in" className="qu-retry">
-        <div className="qu-retry-copy">
-          <h2>Tried again, waiting a little longer each time.</h2>
-          <p>Retries survive restarts, so no work is lost.</p>
-        </div>
-        <div className="qu-track" aria-hidden="true">
-          <span className="qu-try first"><i /><b>Try 1</b></span>
-          {WAITS.map((wait, i) => (
-            <span key={wait} className="qu-stretch" style={{ flexGrow: wait }}>
-              <span className={`qu-try ${i === WAITS.length - 1 ? "last" : ""}`}><i /><b>{i === WAITS.length - 1 ? "Done" : `Try ${i + 2}`}</b></span>
-            </span>
-          ))}
-        </div>
-      </Band>
-
-      <Band label="Schedules" className="qu-depart">
-        <div className="qu-depart-head">
-          <h2>Next up.</h2>
-          <p>Run work every hour, every night or on any timetable.</p>
-        </div>
-        <div className="qu-rows" aria-hidden="true">
-          {BOARD.map(([time, job, repeat]) => (
-            <div key={job} className="qu-row">
-              <Flap text={time} width={5} />
-              <Flap text={job} width={COLS} />
-              <em>{repeat}</em>
-            </div>
-          ))}
-        </div>
-      </Band>
-
-      <Band label="Failed jobs" className="qu-failed">
-        <div className={`qu-card ${again >= 2 ? "mended" : ""}`} aria-hidden="true">
-          <header>
-            <b>Sync customer</b>
-            <em>{again >= 2 ? "Completed" : "Failed"}</em>
-          </header>
-          <p>{again >= 2 ? "Ran again and finished." : "The service didn't answer in time."}</p>
-          <span className={`qu-again ${again === 1 ? "press" : ""}`}><Icon name="refresh" size={15} variant="Linear" />Run again</span>
-        </div>
-        <div>
-          <h2>Nothing fails quietly.</h2>
-          <p>Failed jobs are kept with their reason, ready to run again. Start jobs from any flow, or react to what happens in your system.</p>
-        </div>
-      </Band>
+    <ProductFrame
+      name="Queues"
+      description="Background jobs with durable retries, schedules, and failed jobs you can see and run again."
+      hero={
+        <ProductHero
+          title="Work that doesn't"
+          quiet="make people wait."
+          lead="Move slow work into the background, retry what fails, and run jobs on a schedule."
+          art={<StackArt />}
+          notes={["Retries that survive restarts", "Schedules", "Run again in one click"]}
+        />
+      }
+    >
+      <Backoff />
+      <Board />
+      <Again />
     </ProductFrame>
   );
 }

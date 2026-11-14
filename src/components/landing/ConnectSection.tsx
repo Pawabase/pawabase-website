@@ -259,7 +259,7 @@ export function ConnectSection() {
               href={DOCS}
               target="_blank"
               rel="noreferrer"
-              className="btn-clay mt-9 inline-flex h-[46px] w-fit items-center justify-center gap-2 px-[22px] text-[14px] no-underline"
+              className="btn btn-light btn-lg mt-9 w-fit"
             >
               Read the docs
               <Icon name="arrowRight" size={16} />

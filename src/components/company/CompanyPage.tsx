@@ -88,7 +88,7 @@ export function CompanyCta({ title, description, href, label }: { title: string;
           <p style={{ margin: "14px 0 0", maxWidth: "52ch", fontSize: 17, lineHeight: 1.6, color: "var(--ix-muted)" }}>{description}</p>
         </div>
         <div className="ix-closing-actions">
-          <a href={href} className="ix-btn primary">
+          <a href={href} className="btn btn-light btn-lg">
             {label} <Icon name="arrowRight" size={16} />
           </a>
         </div>

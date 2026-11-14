@@ -1,68 +1,12 @@
 /*
- * "Developers build it. Everyone runs it." and the closing band. Same palette and frame as home.css: ink, ivory, orange, amber; dashed inside,
- * solid outside.
+ * The closing: one centred line in silver, a muted second line, two buttons. No frame, no glow; the footer follows.
  */
+.ix-closing { display: flex; flex-direction: column; align-items: center; padding: clamp(72px, 8vw, 120px) var(--ix-gutter) clamp(24px, 3vw, 40px); text-align: center; }
+.ix-closing h2 { margin: 0; font-size: clamp(36px, 5vw, 68px); font-weight: 500; line-height: 1.06; letter-spacing: -0.04em;
+  background: var(--ix-silver, linear-gradient(180deg, #ffffff 8%, #d8d6d3 58%, #8e8b87 100%)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ix-closing h2 span { color: rgba(252, 248, 245, 0.4); -webkit-text-fill-color: rgba(252, 248, 245, 0.4); }
+.ix-closing-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 40px; }
 
-/* ── one message: a large tile for the words, a tile for each kind of user, on the dotted ground (the bento's system) ── */
-.ev-panel { padding: clamp(24px, 3vw, 36px) 0; background-color: #111214; background-image: radial-gradient(circle, rgba(252, 248, 245, 0.07) 1px, transparent 1.25px); background-size: 14px 14px; }
-.ev-grid { position: relative; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 7fr); grid-template-rows: repeat(3, minmax(124px, auto)); gap: 10px; }
-.ev-corner { position: absolute; z-index: 3; width: 8px; height: 8px; border: 1px solid var(--ix-line-2); background: #111214; transform: translate(-50%, -50%); }
-.ev-corner.tl { left: 0; top: 0; }
-.ev-corner.tr { left: 100%; top: 0; }
-.ev-corner.bl { left: 0; top: 100%; }
-.ev-corner.br { left: 100%; top: 100%; }
-
-.ev-tile { position: relative; overflow: hidden; border: 1px solid rgba(252, 248, 245, 0.08); background: #18191c; transition: border-color 0.25s ease, background-color 0.25s ease; }
-/* the message: square on the left rail, rounded toward the gap */
-.ev-lead { grid-row: 1 / span 3; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding: 40px 40px 36px; border-left: 0; border-radius: 0 12px 12px 0; }
-/* a faint field of dots in its lower right corner */
-.ev-lead::after { content: ""; position: absolute; right: 0; bottom: 0; width: 70%; height: 70%; pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255, 106, 0, 0.35) 1.1px, transparent 1.35px); background-size: 14px 14px;
-  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 0%, transparent 70%); mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 0%, transparent 70%); }
-.ev-lead h2 { position: relative; z-index: 1; margin: 0; font-size: clamp(34px, 3.9vw, 56px); font-weight: 500; line-height: 1.04; letter-spacing: -0.038em; color: var(--ix-text); }
-.ev-lead h2 span { display: block; }
-.ev-lead h2 .hot { color: var(--ix-orange); }
-.ev-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
-
-/* a kind of user: square on the right rail, rounded toward the gap; its verb set huge and outlined at the far edge */
-.ev-who { display: flex; align-items: center; gap: 20px; padding: 26px 32px; border-right: 0; border-radius: 12px 0 0 12px; }
-.ev-who:hover { border-color: rgba(255, 106, 0, 0.4); background: #1b1a1a; }
-.ev-icon { position: relative; z-index: 1; display: grid; flex: none; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--ix-orange); color: #ffffff; }
-.ev-text { position: relative; z-index: 1; min-width: 0; }
-.ev-text h3 { margin: 0; font-size: 18px; font-weight: 500; letter-spacing: -0.015em; color: var(--ix-text); }
-.ev-text p { margin: 5px 0 0; font-size: 14.5px; line-height: 1.45; color: var(--ix-muted); }
-.ev-verb { position: absolute; right: -6px; top: 50%; transform: translateY(-50%); font-size: clamp(72px, 8vw, 116px); font-weight: 600; line-height: 1; letter-spacing: -0.05em; text-transform: uppercase; white-space: nowrap;
-  color: transparent; -webkit-text-stroke: 1px rgba(252, 248, 245, 0.2);
-  background: linear-gradient(100deg, transparent 42%, rgba(255, 106, 0, 0.55) 50%, transparent 58%) 0 0 / 260% 100% no-repeat; -webkit-background-clip: text; background-clip: text;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 35%); mask-image: linear-gradient(90deg, transparent, #000 35%);
-  animation: ev-glint 7s ease-in-out infinite; animation-delay: calc(var(--i) * 1.2s); transition: -webkit-text-stroke-color 0.25s ease; }
-.ev-who:hover .ev-verb { -webkit-text-stroke-color: rgba(255, 106, 0, 0.55); }
-@keyframes ev-glint { 0% { background-position: 110% 0; } 45%, 100% { background-position: -10% 0; } }
-
-/* ── closing band: the hero's sky, between the dashed rails ── */
-.ix-closing-band { isolation: isolate; }
-.ix-closing-sky { position: absolute; inset: 0 var(--ix-gutter); z-index: -1; overflow: hidden; background: radial-gradient(120% 90% at 50% 100%, #1b1c20 0%, var(--ix-shell) 70%); }
-.ix-closing-sky .ix-clouds { -webkit-mask-image: linear-gradient(to top, #000 0%, #000 40%, transparent 100%); mask-image: linear-gradient(to top, #000 0%, #000 40%, transparent 100%); }
-.ix-closing { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; padding: clamp(96px, 10vw, 140px) calc(var(--ix-gutter) + 40px) clamp(64px, 7vw, 96px); }
-.ix-closing h2 { margin: 0; font-size: clamp(32px, 3.8vw, 52px); font-weight: 500; line-height: 1.06; letter-spacing: -0.035em; color: var(--ix-text); }
-.ix-closing-actions { display: flex; flex: none; gap: 12px; }
-
-@media (max-width: 900px) {
-  /* the message on top, the three tiles under it, all running rail to rail */
-  .ev-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
-  .ev-lead { grid-row: auto; min-height: 280px; border-right: 0; border-radius: 0; }
-  .ev-who { border-left: 0; border-radius: 0; }
-}
 @media (max-width: 600px) {
-  .ev-lead { padding: 30px 24px; }
-  .ev-who { padding: 22px 24px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ev-verb { animation: none; }
-}
-@media (max-width: 900px) {
-  .ix-closing { flex-direction: column; align-items: flex-start; padding: 80px 28px 56px; }
-}
-@media (max-width: 600px) {
-  .ix-closing-actions { flex-wrap: wrap; }
+  .ix-closing-actions .btn { flex: 1; }
 }

@@ -1,98 +1,75 @@
-import { Icon } from "@/components/Icon";
-import { SiteNav } from "@/components/site/SiteNav";
-import { Band, HeroActions, ProductFrame, useTicker } from "@/components/product/ProductFrame";
-import "./webhooks.css";
+import { ProductFrame, Questions } from "@/components/product/ProductFrame";
+import { ChipsArt, GlyphArt, RelayArt, RingArt, RowsArt, TimelineArt } from "@/components/product/objects";
+import { Bento, Compare, Pipeline, ProductHero, Tour } from "@/components/product/sections";
 
-/* Two directions: the hero is cut down the middle, IN on one side and OUT on the other, with events crossing it. Then a delivery that keeps trying, a seal, and who hears about what. */
-
-const INBOUND = ["payment succeeded", "new push", "form submitted", "order shipped", "message received"];
-const OUTBOUND = ["orders.created", "orders.updated", "user.created", "orders.deleted", "invoices.created"];
-const ATTEMPTS: [string, string][] = [["First try", "No answer"], ["Second try", "Server error"], ["Third try", "Delivered"]];
-const ROUTES: [string, string][] = [["orders.created", "Your warehouse"], ["user.created", "Your CRM"], ["orders.updated", "Your analytics"], ["orders.deleted", "Your warehouse"]];
-const SENDERS = ["Payments", "Source control", "Forms", "Shipping"];
-
-function Lane({ words, side }: { words: string[]; side: "in" | "out" }) {
-  return (
-    <div className={`wh-lane ${side}`} aria-hidden="true">
-      <div>{[...words, ...words, ...words].map((word, i) => <span key={i}>{word}</span>)}</div>
-    </div>
-  );
-}
-
-function Attempts() {
-  const reached = useTicker(1500, ATTEMPTS.length) % (ATTEMPTS.length + 2);
-  return (
-    <ol className="wh-attempts" aria-hidden="true">
-      {ATTEMPTS.map(([name, result], i) => (
-        <li key={name} className={`${i < reached ? "seen" : ""} ${i === ATTEMPTS.length - 1 ? "ok" : ""}`}>
-          <b>{name}</b>
-          <span>{i < reached ? result : "Waiting"}</span>
-        </li>
-      ))}
-    </ol>
-  );
-}
+/* Webhooks: a signed event on a wire as the hero; in and out side by side; the path of an outgoing event; a tour of routing,
+   retries and signatures; inbound as a bento; questions. */
 
 export default function WebhooksPage() {
-  const lit = useTicker(1400) % ROUTES.length;
   return (
-    <ProductFrame name="Webhooks" description="Inbound webhooks that start flows, and signed, retried outbound events with a history of every delivery.">
-      <section className="ix-hero wh-hero" aria-labelledby="product-title" data-plain="">
-        <SiteNav />
-        <div className="wh-copy">
-          <h1 id="product-title" data-reveal="up">Talk to other services, both ways.</h1>
-          <HeroActions />
-        </div>
-        <div className="wh-split">
-          <div className="wh-side in">
-            <b aria-hidden="true">IN</b>
-            <p>Receive webhooks that start flows.</p>
-            <Lane words={INBOUND} side="in" />
-            <Lane words={[...INBOUND].reverse()} side="in" />
-          </div>
-          <div className="wh-side out">
-            <b aria-hidden="true">OUT</b>
-            <p>Send signed events to the services you use.</p>
-            <Lane words={OUTBOUND} side="out" />
-            <Lane words={[...OUTBOUND].reverse()} side="out" />
-          </div>
-        </div>
-      </section>
+    <ProductFrame
+      name="Webhooks"
+      description="Inbound webhooks that start flows, and signed, retried outbound events with a history of every delivery."
+      hero={
+        <ProductHero
+          title="Talk to other services,"
+          quiet="both ways."
+          lead="Receive webhooks that start flows, and send signed events to the services you use."
+          art={<RelayArt />}
+          notes={["Signed", "Retried", "Every delivery kept"]}
+        />
+      }
+    >
+      <Compare
+        title="In and out"
+        lead="One place for both directions."
+        sides={[
+          { icon: "add", title: "Inbound", line: "Receive webhooks that start flows.", rows: [["A URL", "For each service that calls you"], ["Checked", "It really came from who it says"], ["Then", "A flow starts"]] },
+          { icon: "send", title: "Outbound", line: "Send signed events to the services you use.", rows: [["Events", "The ones you choose"], ["Signed", "Receivers can confirm it is you"], ["Retried", "Until it is delivered"]], lit: true },
+        ]}
+      />
 
-      <Band label="Retries and signatures" className="wh-trust">
-        <div className="wh-keep">
-          <h2>A delivery that fails is tried again.</h2>
-          <Attempts />
-        </div>
-        <div className="wh-seal-wrap">
-          <div className="wh-seal" aria-hidden="true">
-            <svg className="wh-ring" viewBox="0 0 200 200"><defs><path id="wh-ring" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" /></defs><text><textPath href="#wh-ring">SIGNED BY PAWABASE · SIGNED BY PAWABASE · SIGNED ·</textPath></text></svg>
-            <Icon name="policies" size={44} variant="Linear" />
-          </div>
-          <h3>Every delivery is signed.</h3>
-          <p>Receivers can confirm it really came from you.</p>
-        </div>
-      </Band>
+      <Pipeline
+        band
+        title="The path of an outgoing event"
+        lead="Signed, sent, and tried again if it fails."
+        stages={[
+          { icon: "events", label: "Something happens", line: "An order is created, a user signs up." },
+          { icon: "filter", label: "Routed", line: "Each event goes where you chose." },
+          { icon: "verified", label: "Signed", line: "Receivers can confirm it came from you." },
+          { icon: "send", label: "Delivered", line: "Or tried again, waiting a little longer." },
+        ]}
+      />
 
-      <Band label="Event subscriptions" className="wh-routes">
-        <h2>Choose which events go where.</h2>
-        <ul>
-          {ROUTES.map(([event, target], i) => (
-            <li key={event} className={i === lit ? "lit" : ""}><code>{event}</code><i /><span>{target}</span></li>
-          ))}
-        </ul>
-        <p>See every delivery, and how the receiver answered.</p>
-      </Band>
+      <Tour
+        title="A closer look"
+        lead="Routing, retries and proof of origin."
+        stops={[
+          { label: "Routing", title: "Choose which events go where", line: "Send each event to the services that need it.", points: ["orders.created to your warehouse", "user.created to your CRM", "orders.updated to your analytics"], art: <ChipsArt words={["orders.created", "orders.updated", "user.created", "invoices.created", "orders.deleted"]} /> },
+          { label: "Retries", title: "A delivery that fails is tried again", line: "No answer or a server error, and the delivery waits and tries again.", points: ["First try: no answer", "Second try: server error", "Third try: delivered"], art: <TimelineArt items={["third try: delivered", "second try: server error", "first try: no answer"]} /> },
+          { label: "Signatures", title: "Every delivery is signed", line: "Receivers can confirm it really came from you.", points: ["A signature on every delivery", "A secret per endpoint", "Easy to check on the other side"], art: <RingArt icon="verified" /> },
+          { label: "History", title: "See every delivery", line: "What was sent, and how the receiver answered.", points: ["Every attempt", "The receiver's answer", "Send again in one click"], art: <RowsArt icons={["send", "send", "send"]} /> },
+        ]}
+      />
 
-      <Band label="Receive them too" className="wh-inbound">
-        <div>
-          <h2>A URL for each service that needs to reach you.</h2>
-          <p>Make sure a webhook really came from who it says, then start a flow when it calls.</p>
-        </div>
-        <ul>
-          {SENDERS.map((sender) => <li key={sender}><span>{sender}</span><em>Verified</em><b><Icon name="automation" size={15} variant="Linear" />Starts a flow</b></li>)}
-        </ul>
-      </Band>
+      <Bento
+        band
+        title="Receive them too"
+        lead="A URL for each service that needs to reach you."
+        tiles={[
+          { title: "Payments", line: "A payment succeeded? Start the flow that ships the order.", art: <GlyphArt icon="key" /> },
+          { title: "Source control", line: "A new push can run whatever should follow it.", art: <GlyphArt icon="code" /> },
+          { title: "Forms and shipping", line: "Make sure a webhook really came from who it says, then start a flow when it calls.", art: <RelayArt />, size: "wide" },
+        ]}
+      />
+
+      <Questions
+        items={[
+          ["How does a receiver know an event came from me?", "Every delivery is signed. The receiver checks the signature with the endpoint's secret."],
+          ["What if the other service is down?", "The delivery is tried again, waiting a little longer each time, and every attempt is kept."],
+          ["Can an incoming webhook start a flow?", "Yes. Each service gets its own URL, the webhook is checked, and then the flow you chose starts."],
+        ]}
+      />
     </ProductFrame>
   );
 }

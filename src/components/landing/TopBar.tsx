@@ -577,7 +577,7 @@ export function TopBar() {
             href={SIGN_UP}
             target="_blank"
             rel="noreferrer"
-            className="hidden h-10 shrink-0 items-center justify-center gap-1.5 rounded-lg px-4 text-[15px] font-bold tracking-[-0.02em] no-underline min-[900px]:inline-flex btn-clay"
+            className="btn btn-light btn-sm hidden min-[900px]:inline-flex"
           >
             Start building
             <Icon name="arrowRight" size={15} />
@@ -679,7 +679,7 @@ export function TopBar() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={closeAll}
-                className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-lg text-[15px] font-bold tracking-[-0.02em] no-underline btn-clay"
+                className="btn btn-light btn-block mt-3"
               >
                 Start building
                 <Icon name="arrowRight" size={15} />

@@ -1,9 +1,15 @@
+import { useRef, useState, type KeyboardEvent } from "react";
+
 import { Icon, type IconName } from "@/components/Icon";
 
-import { Lines, Rule, SectionHead } from "./Home";
+import { SectionHead } from "./Home";
 import "./features.css";
 
-/* Everything in the system, grouped: six cells in a 3 × 2 grid divided by dashed lines. */
+/*
+ * Everything in the system, as an index: the six groups down the left as tabs, the chosen one open on the right in a card made
+ * of the bento's materials (its icon a matte tile in a groove, its parts as a two-column sheet with hairlines). One group at a
+ * time, so the section reads in a glance instead of as a wall of 36 lines. Arrow keys move between the tabs.
+ */
 
 const GROUPS: { icon: IconName; title: string; items: string[] }[] = [
   {
@@ -39,29 +45,62 @@ const GROUPS: { icon: IconName; title: string; items: string[] }[] = [
 ];
 
 export function Features() {
+  const [open, setOpen] = useState(0);
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const group = GROUPS[open];
+
+  function onKey(event: KeyboardEvent<HTMLDivElement>) {
+    const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[event.key];
+    if (!step) return;
+    event.preventDefault();
+    const next = (open + step + GROUPS.length) % GROUPS.length;
+    setOpen(next);
+    tabs.current[next]?.focus();
+  }
+
   return (
-    <section id="features" className="ix-section" aria-labelledby="features-title" data-plain="">
-      <Rule />
-      <SectionHead id="features-title" title="Everything a system needs" />
-      <div className="ix-panel ix-features" data-reveal="up">
-        <Rule />
-        <Lines
-          v={[[1 / 3, 0, 1], [2 / 3, 0, 1]]}
-          h={[[0.5, 0, 1]]}
-          marks={[[1 / 3, 0.5], [2 / 3, 0.5], [1 / 3, 0, "sq"], [2 / 3, 0, "sq"], [1 / 3, 1, "sq"], [2 / 3, 1, "sq"], [0, 0.5, "sq"], [1, 0.5, "sq"]]}
-        />
-        {GROUPS.map((group, i) => (
-          <article key={group.title} className="ix-cell ix-group">
-            <span className="ix-group-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-            <div className="ix-group-head">
-              <span className="ix-group-icon"><Icon name={group.icon} size={18} variant="Linear" /></span>
+    <section id="features" className="ix-section ft" aria-labelledby="features-title" data-plain="">
+      <SectionHead id="features-title" title="Everything a system needs"
+        lead="Data, identity, security, automation, files and operations, built to work together." />
+
+      <div className="ft-box" data-reveal="up">
+        <div className="ft-tabs" role="tablist" aria-label="Parts of Pawabase" aria-orientation="vertical" onKeyDown={onKey}>
+          {GROUPS.map((g, i) => (
+            <button
+              key={g.title}
+              ref={(el) => { tabs.current[i] = el; }}
+              type="button"
+              role="tab"
+              id={`ft-tab-${i}`}
+              aria-selected={i === open}
+              aria-controls="ft-panel"
+              tabIndex={i === open ? 0 : -1}
+              className="ft-tab"
+              onClick={() => setOpen(i)}
+            >
+              <span className="ft-n">{String(i + 1).padStart(2, "0")}</span>
+              <span className="ft-name">{g.title}</span>
+              <Icon name={g.icon} size={17} variant="Linear" />
+            </button>
+          ))}
+        </div>
+
+        <div className="ft-panel" role="tabpanel" id="ft-panel" aria-labelledby={`ft-tab-${open}`}>
+          <div key={open} className="ft-body">
+            <div className="ft-head">
+              <span className="ft-tile"><Icon name={group.icon} size={26} variant="Linear" /></span>
               <h3>{group.title}</h3>
             </div>
-            <ul>
-              {group.items.map((item) => <li key={item}>{item}</li>)}
+            <ul className="ft-sheet">
+              {group.items.map((item) => (
+                <li key={item}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+                  {item}
+                </li>
+              ))}
             </ul>
-          </article>
-        ))}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,0 +1,37 @@
+/*
+ * The home page's opening (Hero.tsx), after Neon's: black; a field of thin bars, each finely striped like halftone, shimmering
+ * across the top and fading away from the words; the headline low on the left; a white pill and an outline pill; a rule; a quiet
+ * row of the stack. Almost no colour: grey, and a few warm bars.
+ */
+.hx { --hx-surface: #141417; --hx-step: 44px; --hx-inset: max(12px, calc(50vw - 640px));
+  position: relative; z-index: 8; isolation: isolate; margin-bottom: calc(var(--hx-step) + clamp(24px, 4vw, 56px)); background: var(--hx-surface); color: #fcf8f5; }
+/* the hand-over (Clerk's): below the hero, its middle steps down by a tab with 45° shoulders */
+.hx::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: var(--hx-step); background: var(--hx-surface); pointer-events: none;
+  clip-path: polygon(var(--hx-inset) 0, calc(100% - var(--hx-inset)) 0, calc(100% - var(--hx-inset) - var(--hx-step)) 100%, calc(var(--hx-inset) + var(--hx-step)) 100%); }
+
+/* the news line */
+.hx-news { display: flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 20px; border-bottom: 1px solid rgba(252, 248, 245, 0.08);
+  color: rgba(252, 248, 245, 0.72); font-size: 13.5px; text-align: center; transition: color 0.2s ease; }
+.hx-news span { color: rgba(252, 248, 245, 0.5); transition: transform 0.2s ease; }
+.hx-news:hover { color: #fcf8f5; }
+.hx-news:hover span { transform: translateX(2px); }
+
+/* the stage: the field across the top, the words low on the left */
+.hx-stage { position: relative; display: flex; align-items: flex-end; width: min(100% - 32px, 1320px); min-height: min(620px, calc(100svh - 150px)); margin: 0 auto; padding: 0 var(--ix-gutter, 32px) clamp(48px, 6vw, 80px); }
+.hx-field { position: absolute; inset: 0 0 18% 0; z-index: -1; overflow: hidden; pointer-events: none;
+  -webkit-mask-image: radial-gradient(85% 90% at 70% 30%, #000 30%, transparent 78%); mask-image: radial-gradient(85% 90% at 70% 30%, #000 30%, transparent 78%); }
+.hx-field i { position: absolute; display: block; background: repeating-linear-gradient(180deg, rgba(220, 220, 225, 0.9) 0 2px, transparent 2px 4px); }
+.hx-field i.warm { background: repeating-linear-gradient(180deg, rgba(255, 128, 60, 0.95) 0 2px, transparent 2px 4px); }
+.motion-enabled .hx-field i { animation-name: hx-shimmer; animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-direction: alternate; }
+@keyframes hx-shimmer { 0% { transform: scaleY(1); filter: brightness(1); } 50% { transform: scaleY(0.82) translateY(6%); filter: brightness(1.35); } 100% { transform: scaleY(1.06); filter: brightness(0.8); } }
+
+.hx-copy { position: relative; }
+.hx h1 { margin: 0; color: #fcf8f5; font-size: clamp(40px, 5.2vw, 76px); font-weight: 500; line-height: 1.06; letter-spacing: -0.04em; }
+.hx h1 span { display: block; color: rgba(252, 248, 245, 0.42); }
+.hx-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+
+@media (max-width: 900px) {
+  .hx-stage { min-height: 500px; padding-bottom: 40px; }
+  .hx { --hx-step: 28px; }
+}
+@media (prefers-reduced-motion: reduce) { .hx-field i { animation: none !important; } }

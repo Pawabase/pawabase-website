@@ -1,0 +1,199 @@
+/*
+ * The platform bento (Platform.tsx), in the manner of Clerk's: cards a step lighter than the band they sit on, lit softly from a
+ * corner; in each, one matte object lit from above, set in a groove or on a tray, with soft dark shading under it; thin lines
+ * that run off the card's edges; soft light from above where it helps. Grey throughout; orange is a rare small accent.
+ */
+.pf {
+  --pf-card: radial-gradient(90% 70% at 100% 0%, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 60%), linear-gradient(180deg, #1d1d21 0%, #18181b 100%);
+  --pf-edge: rgba(255, 255, 255, 0.065);
+  --pf-line: rgba(255, 255, 255, 0.06);
+  /* an object: matte, a touch lighter on top, its top edge catching the light, soft dark shading under it */
+  --po-face: linear-gradient(180deg, #2a2a2f 0%, #202024 100%);
+  --po-edge: rgba(255, 255, 255, 0.07);
+  --po-lit: inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  --po-shade: 0 14px 28px -10px rgba(0, 0, 0, 0.6);
+  /* the groove an object sits in: a ring the colour of the card, then a faint lip */
+  --po-groove: 0 0 0 7px #19191c, 0 0 0 8px rgba(255, 255, 255, 0.045);
+  /* a well: below the surface, shaded inside, its bottom lip lit */
+  --po-well: #121215;
+  --po-well-shade: inset 0 2px 5px rgba(0, 0, 0, 0.65), 0 1px 0 rgba(255, 255, 255, 0.045);
+  --po-ink: rgba(255, 255, 255, 0.42);
+}
+
+/* ── the opening: the words on the left, the link on the right ── */
+.pf-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 64px; padding: clamp(64px, 7vw, 104px) var(--ix-gutter) clamp(36px, 4vw, 52px); }
+.pf-label { margin: 0 0 14px; color: #ff8a4a; font-size: 14.5px; font-weight: 500; }
+.pf-head h2 { margin: 0; max-width: 18ch; font-size: clamp(32px, 4vw, 54px); font-weight: 600; line-height: 1.08; letter-spacing: -0.035em;
+  background: var(--ix-silver); -webkit-background-clip: text; background-clip: text; color: transparent; text-wrap: balance; }
+.pf-lead { max-width: 56ch; margin: 18px 0 0; color: rgba(252, 248, 245, 0.5); font-size: clamp(15.5px, 1.25vw, 17.5px); line-height: 1.6; }
+.pf-lead b { color: rgba(252, 248, 245, 0.88); font-weight: 500; }
+.pf-explore { display: inline-flex; align-items: center; gap: 8px; color: var(--ix-text); font-size: 15px; font-weight: 550; white-space: nowrap; }
+.pf-explore svg { transition: transform 0.2s ease; }
+.pf-explore:hover svg { transform: translateX(3px); }
+
+/* ── the grid: three staggered columns, then a row ── */
+.pf-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0 var(--ix-gutter); }
+.pf-col { display: grid; gap: 10px; grid-template-rows: 280px 560px; }
+.pf-col:nth-child(2) { grid-template-rows: 560px 280px; }
+.pf-grid > .pf-card { height: 280px; }
+.pf-card.span2 { grid-column: span 2; }
+
+/* ── a card ── */
+.pf-card { position: relative; isolation: isolate; display: flex; flex-direction: column; min-width: 0; padding: 30px 30px 32px; overflow: hidden;
+  border: 1px solid var(--pf-edge); border-radius: 16px; background: var(--pf-card); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05); }
+.pf-card.text-bottom { justify-content: flex-end; }
+.pf-copy { position: relative; z-index: 2; max-width: 42ch; }
+.pf-copy h3 { margin: 0; color: #f4f4f5; font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em; }
+.pf-copy p { margin: 10px 0 0; color: #8b8b94; font-size: 14.5px; line-height: 1.6; }
+.pf-art { position: absolute; z-index: 1; left: 0; right: 0; pointer-events: none; }
+.text-bottom .pf-art { top: 0; bottom: 110px; }
+.text-top .pf-art { top: 150px; bottom: 0; }
+.pf-card.side { flex-direction: row; align-items: flex-end; }
+.pf-card.side .pf-copy { width: 36%; max-width: 340px; }
+.pf-card.side .pf-art { top: 0; bottom: 0; left: 38%; right: 0; }
+
+/* ── the materials ── */
+.po-button, .po-dot, .po-core, .po-card, .po-photo, .po-apps b, .po-eye {
+  display: grid; place-items: center; border: 1px solid var(--po-edge); background: var(--po-face); box-shadow: var(--po-lit), var(--po-shade); color: var(--po-ink); }
+.po-wires { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.po-wires path { fill: none; stroke: var(--pf-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.po-horizon { position: absolute; left: -35%; right: -35%; top: 52%; height: 140%; border-top: 1px solid rgba(255, 255, 255, 0.07); border-radius: 50%;
+  background: radial-gradient(50% 30% at 50% 0%, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 100%); }
+
+/* tables: a grid of recessed cells, one lit */
+.po-cells { position: absolute; left: 50%; top: 40px; display: grid; grid-template-columns: repeat(5, 30px); gap: 9px; transform: translateX(-50%); }
+.po-cells i { height: 30px; border-radius: 7px; background: var(--po-well); box-shadow: var(--po-well-shade); }
+.po-cells i.on { background: var(--po-face); box-shadow: var(--po-lit), var(--po-shade), 0 0 0 1px rgba(255, 106, 0, 0.45); }
+
+/* policies: the shield button in its groove on a line, nodes further down */
+.po-shield { position: absolute; inset: 0; }
+.po-line { position: absolute; left: 50%; top: -150px; bottom: 0; width: 1px; background: var(--pf-line); }
+.po-shield .po-button { position: absolute; left: 50%; top: 22%; width: 100px; height: 100px; transform: translate(-50%, -50%); border-radius: 50%;
+  box-shadow: var(--po-lit), var(--po-shade), var(--po-groove); }
+.po-shield::before { content: ""; position: absolute; left: 50%; top: 22%; width: 320px; height: 240px; transform: translate(-50%, -50%); border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0)); }
+.po-node { position: absolute; left: 50%; width: 14px; height: 14px; transform: translate(-50%, -50%); border: 1px solid var(--po-edge); border-radius: 50%; background: #202024; }
+.po-node::after { content: ""; position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; transform: translate(-50%, -50%); border-radius: 50%; background: rgba(255, 255, 255, 0.35); }
+.po-node.n1 { top: 54%; } .po-node.n2 { top: 70%; } .po-node.n3 { top: 86%; }
+.po-node.n3::after { background: var(--ix-orange); }
+
+/* sign-in: a portrait card on a horizon, its organization's badge on its corner */
+.po-portrait { position: absolute; inset: 0; overflow: hidden; }
+.po-portrait .po-card { position: absolute; left: 50%; top: 18%; width: 112px; height: 136px; overflow: visible; transform: translateX(-50%); border-radius: 14px;
+  box-shadow: var(--po-lit), var(--po-shade), var(--po-groove); place-items: end center; }
+.po-card > svg { width: 72px; height: 88px; color: rgba(255, 255, 255, 0.16); }
+.po-badge { position: absolute; right: -14px; bottom: -14px; display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid rgba(255, 106, 0, 0.5); border-radius: 50%;
+  background: var(--po-face); box-shadow: var(--po-lit), 0 0 0 5px #19191c; color: #ff8a4a; }
+.po-bars { position: absolute; left: 50%; top: calc(18% + 172px); display: grid; justify-items: center; gap: 8px; transform: translateX(-50%); }
+.po-bars i { width: 96px; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.09); }
+.po-bars i + i { width: 140px; background: rgba(255, 255, 255, 0.05); }
+
+/* flows: a hub with lines out to its nodes */
+.po-hub { position: absolute; inset: 0; }
+.po-dot { position: absolute; width: 44px; height: 44px; transform: translate(-50%, -50%); border-radius: 50%; }
+.po-dot.small { width: 36px; height: 36px; }
+.po-hub .po-core { position: absolute; left: 50%; top: 46%; width: 64px; height: 64px; transform: translate(-50%, -50%); border-radius: 15px; box-shadow: var(--po-lit), var(--po-shade), var(--po-groove); }
+
+/* realtime: the top of a phone, its apps, one with something new */
+.po-phone { position: absolute; left: 50%; top: 20px; width: 270px; height: 240px; transform: translateX(-50%); border: 2px solid #2c2c31; border-bottom: 0; border-radius: 40px 40px 0 0;
+  background: linear-gradient(180deg, #1f1f23, #19191c); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 82%); mask-image: linear-gradient(180deg, #000 45%, transparent 82%); }
+.po-lock { position: absolute; left: 50%; top: 16px; display: grid; place-items: center; width: 24px; height: 24px; transform: translateX(-50%); border-radius: 50%; background: #2a2a2f; color: var(--po-ink); }
+.po-apps { display: flex; justify-content: center; gap: 14px; padding-top: 60px; }
+.po-apps b { position: relative; width: 48px; height: 48px; border-radius: 13px; }
+.po-apps em { position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--ix-orange); box-shadow: 0 0 0 3px #1e1e22; }
+
+/* storage: a picture, and the smaller copy made from it, on a horizon */
+.po-picture { position: absolute; inset: 0; overflow: hidden; }
+.po-photo { position: absolute; overflow: hidden; border-radius: 12px; }
+.po-photo svg { display: block; width: 100%; height: 100%; }
+.po-photo path { fill: rgba(255, 255, 255, 0.05); stroke: rgba(255, 255, 255, 0.12); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.po-photo circle { fill: rgba(255, 255, 255, 0.06); stroke: rgba(255, 255, 255, 0.16); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.po-photo.big { left: 50%; top: 14%; width: 196px; height: 144px; transform: translateX(-50%); box-shadow: var(--po-lit), var(--po-shade), var(--po-groove); }
+.po-photo.small { left: calc(50% + 52px); top: calc(14% + 112px); width: 78px; height: 78px; box-shadow: var(--po-lit), var(--po-shade), 0 0 0 6px #19191c; }
+.po-photo.small circle { stroke: var(--ix-orange); }
+
+/* mail: an envelope button on its tray */
+.po-mail { position: absolute; inset: 0; }
+.po-tray { position: absolute; left: 13%; right: 13%; top: 40%; height: 76px; border: 1px solid var(--po-edge); border-radius: 22px 22px 8px 8px;
+  background: linear-gradient(180deg, #232327 0%, #1c1c20 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); }
+.po-tray i { position: absolute; left: 16%; right: 16%; bottom: 14px; height: 18px; border-radius: 7px; background: var(--po-well); box-shadow: var(--po-well-shade); }
+.po-mail .po-button { position: absolute; left: 50%; top: 36%; width: 72px; height: 72px; transform: translate(-50%, -50%); border-radius: 50%; box-shadow: var(--po-lit), var(--po-shade), var(--po-groove); }
+
+/* agents: a spotlight from above, the agent at its centre, tools on the arcs */
+.po-spot { position: absolute; inset: 0; overflow: hidden; }
+.po-beam { position: absolute; left: 50%; top: -40%; width: 90%; height: 110%; transform: translateX(-50%); background: radial-gradient(42% 50% at 50% 40%, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 100%); }
+.po-arc { position: absolute; left: 50%; top: 22%; border: 1px dashed rgba(255, 255, 255, 0.08); border-radius: 50%; transform: translate(-50%, -50%); }
+.po-arc.a1 { width: 170px; height: 120px; }
+.po-arc.a2 { width: 330px; height: 230px; }
+.po-arc.a3 { width: 500px; height: 350px; border-color: rgba(255, 255, 255, 0.05); }
+.po-eye { position: absolute; left: 50%; top: 22%; width: 34px; height: 34px; transform: translate(-50%, -50%); border-radius: 50%; color: #ff8a4a; box-shadow: var(--po-lit), 0 0 0 6px rgba(255, 255, 255, 0.04); }
+.po-star { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); }
+.po-spot .po-dot { color: rgba(255, 255, 255, 0.5); }
+
+/* ── motion: slow and quiet, one thing at a time in each card ── */
+.motion-enabled .po-cells i { animation: po-cell 9s ease-in-out infinite; animation-delay: calc(var(--i) * 0.6s); }
+@keyframes po-cell {
+  0%, 9%, 100% { background: var(--po-well); box-shadow: var(--po-well-shade); }
+  3%, 6% { background: var(--po-face); box-shadow: var(--po-lit), var(--po-shade), 0 0 0 1px rgba(255, 106, 0, 0.5); } }
+
+.po-shield .po-button::after { content: ""; position: absolute; inset: -8px; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 50%; opacity: 0; }
+.motion-enabled .po-shield .po-button::after { animation: po-ring 4.5s ease-out infinite; }
+@keyframes po-ring { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0; transform: scale(1.7); } }
+.motion-enabled .po-node::after { animation: po-node 4.5s ease-in-out infinite; }
+.motion-enabled .po-node.n2::after { animation-delay: 0.5s; }
+.motion-enabled .po-node.n3::after { animation-delay: 1s; }
+@keyframes po-node { 0%, 30%, 100% { opacity: 0.4; } 10%, 20% { opacity: 1; } }
+
+.motion-enabled .po-badge { animation: po-badge 6s ease-in-out infinite; }
+@keyframes po-badge { 0%, 100% { transform: scale(1); } 8% { transform: scale(1.12); } 14% { transform: scale(1); } }
+.motion-enabled .po-bars i { animation: po-bar 3.2s ease-in-out infinite alternate; }
+.motion-enabled .po-bars i + i { animation-delay: 0.8s; }
+@keyframes po-bar { to { opacity: 0.45; } }
+
+.po-run { stroke: var(--ix-orange) !important; stroke-width: 1.5 !important; stroke-dasharray: 6 100; stroke-dashoffset: 6; opacity: 0; }
+.motion-enabled .po-run { animation: po-run 3.6s ease-in infinite; }
+.motion-enabled .po-run.late { animation-delay: 1.8s; }
+@keyframes po-run { 0% { stroke-dashoffset: 6; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { stroke-dashoffset: -100; opacity: 0; } }
+
+.motion-enabled .po-apps em { animation: po-pop 5s ease-in-out infinite; }
+@keyframes po-pop { 0%, 100% { transform: scale(1); } 6% { transform: scale(1.5); } 12% { transform: scale(1); } }
+
+.motion-enabled .po-photo.small { animation: po-copy 7s ease-in-out infinite; }
+@keyframes po-copy { 0%, 12% { opacity: 0; transform: translate(-24px, -24px) scale(1.6); } 30%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: none; } }
+
+.motion-enabled .po-mail .po-button { animation: po-breathe 5s ease-in-out infinite; }
+@keyframes po-breathe { 50% { transform: translate(-50%, calc(-50% - 4px)); } }
+
+.motion-enabled .po-beam { animation: po-sway 9s ease-in-out infinite alternate; transform-origin: 50% 0; }
+@keyframes po-sway { from { transform: translateX(-50%) rotate(-6deg); } to { transform: translateX(-50%) rotate(6deg); } }
+.motion-enabled .po-star { animation: po-twinkle 3s ease-in-out infinite; }
+.motion-enabled .po-star:nth-of-type(2n) { animation-delay: 1s; }
+.motion-enabled .po-star:nth-of-type(3n) { animation-delay: 2s; }
+@keyframes po-twinkle { 50% { opacity: 0.2; } }
+.motion-enabled .po-eye { animation: po-glow 4s ease-in-out infinite; }
+@keyframes po-glow { 50% { box-shadow: var(--po-lit), 0 0 0 6px rgba(255, 255, 255, 0.04), 0 0 22px rgba(255, 106, 0, 0.35); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .po-cells i, .po-button::after, .po-node::after, .po-badge, .po-bars i, .po-run, .po-apps em, .po-photo.small, .po-mail .po-button, .po-beam, .po-star, .po-eye { animation: none !important; }
+}
+
+/* ── smaller screens: two columns, then one; the staggered columns open into the grid ── */
+@media (max-width: 1080px) {
+  .pf-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pf-col { display: contents; }
+  .pf-card, .pf-grid > .pf-card { height: auto; min-height: 280px; }
+  .pf-card.tall { min-height: 500px; }
+  .pf-card.span2 { grid-column: span 2; }
+  .pf-card.side { min-height: 320px; }
+}
+@media (max-width: 760px) {
+  .pf-head { padding: 64px var(--ix-gutter) 28px; }
+  .pf-grid { grid-template-columns: minmax(0, 1fr); }
+  .pf-card.span2 { grid-column: auto; }
+  .pf-card.side { flex-direction: column; justify-content: flex-end; min-height: 440px; }
+  .pf-card.side .pf-copy { width: auto; max-width: none; }
+  .pf-card.side .pf-art { left: 0; bottom: 140px; }
+  .po-cells { grid-template-columns: repeat(5, 26px); gap: 7px; }
+  .po-cells i { height: 26px; }
+}

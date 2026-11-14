@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef } from "react";
 
 const PRIMARY_BUTTON_STYLES =
-  "h-[50px] cursor-pointer items-center justify-center gap-[9px] whitespace-nowrap rounded-lg px-[25px] text-[13.5px] font-bold tracking-[-0.02em] no-underline btn-clay";
+  "btn btn-light btn-lg";
 
 export function PrimaryButton({
   className = "",

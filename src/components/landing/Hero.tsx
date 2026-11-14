@@ -25,7 +25,7 @@ export function Hero() {
             Build it once in Pawabase. Your apps, your team and your AI all work from it.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <a href={SIGN_UP} className="hero-sun-cta">Get started</a>
+            <a href={SIGN_UP} className="btn btn-light btn-lg">Get started</a>
             <a href="#features" className="hero-sun-link">
               See how it works
               <Icon name="arrowRight" size={17} />
