@@ -158,8 +158,7 @@ export function Platform() {
           <p className="pf-label">Platform</p>
           <h2 id="platform-title">Every part works with every other part</h2>
           <p className="pf-lead">
-            Data, sign-in, rules, files, flows and agents <b>share one model</b>, so a rule you write once guards all of them, and{" "}
-            <b>nothing needs gluing together.</b>
+            Data, sign-in, rules, files, flows and agents <b>share one model.</b> Write a rule once and it guards all of them.
           </p>
         </div>
         <a href={DOCS} className="pf-explore">

@@ -116,8 +116,8 @@ export function Statement() {
       <div className="ix-statement" data-reveal="up">
         <span className="ix-glow" aria-hidden="true" />
         <h2 id="statement-title">
-          Pawabase gives your apps <Word icon="code">APIs</Word> <Word icon="users">auth</Word> <Word icon="storage">storage</Word> and{" "}
-          <Word icon="sparkle">agents</Word> in one system every team can use.
+          <Word icon="code">APIs</Word> <Word icon="users">auth</Word> <Word icon="storage">storage</Word> and{" "}
+          <Word icon="sparkle">agents</Word> in one backend, from a weekend project to the system a company runs on.
         </h2>
       </div>
     </section>

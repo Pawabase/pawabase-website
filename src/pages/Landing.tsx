@@ -6,6 +6,7 @@ import { Integrations } from "@/components/home/Integrations";
 import { Mcp } from "@/components/home/Mcp";
 import { Prompt } from "@/components/home/Prompt";
 import { Closing } from "@/components/home/Sections";
+import { UseCases } from "@/components/home/UseCases";
 import { Footer } from "@/components/landing/Footer";
 import { ScrollMotion } from "@/components/landing/ScrollMotion";
 import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, usePageMeta } from "@/hooks/usePageMeta";
@@ -21,6 +22,7 @@ export default function Landing() {
       <main className="ix-shell">
         <Statement />
         <Platform />
+        <UseCases />
         <Prompt />
         <Mcp />
         <Integrations />

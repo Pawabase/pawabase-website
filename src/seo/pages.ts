@@ -60,8 +60,8 @@ const legal = (slug: string, name: string, description: string, file: string): P
 export const PAGES: Page[] = [
   {
     path: "/",
-    title: "Pawabase | Build apps and APIs: data, auth, flows and agents",
-    description: "Build apps and APIs on one system: Postgres data, auth, access policies, storage, flows and agents. Every table is a REST API, shared by your apps, team and AI.",
+    title: "Pawabase | The complete backend for anything you build",
+    description: "Data, APIs, auth, access rules, storage, flows and AI agents in one backend, from a weekend project to the system a company runs on. Start free.",
     kind: "home",
     name: "Pawabase",
     source: "src/pages/Landing.tsx",

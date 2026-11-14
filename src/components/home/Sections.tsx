@@ -7,9 +7,9 @@ import { DOCS, SIGN_UP } from "@/lib/links";
 export function Closing() {
   return (
     <section className="ix-section ix-closing" aria-labelledby="closing-title" data-plain="">
-      <h2 id="closing-title" data-reveal="up">Build the whole system.<br /><span>Start free today.</span></h2>
+      <h2 id="closing-title" data-reveal="up">Build anything.<br /><span>Start free today.</span></h2>
       <div className="ix-closing-actions" data-reveal="up">
-        <a href={SIGN_UP} className="btn btn-light btn-lg">Start building <Arrow /></a>
+        <a href={SIGN_UP} className="btn btn-light btn-lg">Start free <Arrow /></a>
         <a href={DOCS} className="btn btn-lg">Read the docs</a>
       </div>
     </section>

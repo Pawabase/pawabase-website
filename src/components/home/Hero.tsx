@@ -69,11 +69,11 @@ export function Hero() {
         <Field />
         <div className="hx-copy">
           <h1 id="hero-title" data-reveal="up">
-            Data, auth, agents and APIs.
-            <span>One system, every team.</span>
+            The complete backend
+            <span>for anything you build.</span>
           </h1>
           <div className="hx-actions" data-reveal="up">
-            <a href={SIGN_UP} className="btn btn-light btn-lg">Start building</a>
+            <a href={SIGN_UP} className="btn btn-light btn-lg">Start free</a>
             <a href={DOCS} className="btn btn-lg">Read the docs</a>
           </div>
         </div>

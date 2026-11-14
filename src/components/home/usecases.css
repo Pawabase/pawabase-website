@@ -1,0 +1,128 @@
+/*
+ * What people build (UseCases.tsx): the platform bento's cards and materials (platform.css), running past in a loop. The track holds
+ * the cards twice and slides by one copy, so the loop has no seam; the edges fade out. Hover pauses it; reduced motion stops it and
+ * lets people scroll the row instead.
+ */
+.uc-marquee { margin: 0 var(--ix-gutter); overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.uc-track { display: flex; width: max-content; animation: uc-scroll 70s linear infinite; }
+.uc-marquee:hover .uc-track, .uc-marquee:focus-within .uc-track { animation-play-state: paused; }
+.uc-set { display: flex; gap: 10px; padding-right: 10px; }
+.uc-card { flex: none; transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s ease; }
+.uc-card:hover { transform: translateY(-6px); border-color: rgba(255, 255, 255, 0.12); }
+/* the object sits in the middle third, a touch larger than in the platform bento */
+.uc .uc-card .pf-art { top: 64px; bottom: 132px; }
+.uc .uc-card .pf-art > * { transform: scale(1.06); transform-origin: 50% 40%; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.uc .uc-card:hover .pf-art > * { transform: scale(1.1); }
+/* the parts it leans on: small matte chips across the top */
+.uc-parts { position: relative; z-index: 2; display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.uc-parts li { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid var(--po-edge); border-radius: 9px; background: var(--po-face);
+  box-shadow: var(--po-lit); color: var(--po-ink); transition: color 0.3s ease; }
+.uc-card:hover .uc-parts li { color: #ff8a4a; }
+/* every card's words take the same room, so the titles line up across the row */
+.uc-card .pf-copy { margin-top: auto; min-height: 104px; }
+@keyframes uc-scroll { to { transform: translateX(-50%); } }
+
+/* shared pieces: matte faces, recessed wells, soft lines */
+.uo-frame, .uo-body, .uo-tag, .uo-laptop, .uo-phone, .uo-row, .uo-bubble, .uo-mark, .uo-face, .uo-feed, .uo-print, .uo-stack i, .uo-orgs b {
+  border: 1px solid var(--po-edge); background: var(--po-face); box-shadow: var(--po-lit), var(--po-shade); color: var(--po-ink); }
+.uo-window, .uo-bag, .uo-devices, .uo-rows, .uo-chat, .uo-people, .uo-projects { position: absolute; inset: 0; }
+
+/* SaaS: an app window and the organizations signed in to it */
+.uo-frame { position: absolute; left: 50%; top: 34px; display: grid; grid-template-columns: 64px 1fr; grid-template-rows: 22px 1fr; width: min(380px, 70%); height: 150px;
+  transform: translateX(-50%); overflow: hidden; border-radius: 12px; box-shadow: var(--po-lit), var(--po-shade), var(--po-groove); }
+.uo-dots { grid-column: span 2; display: flex; align-items: center; gap: 5px; padding: 0 10px; border-bottom: 1px solid var(--po-edge); }
+.uo-dots b { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.uo-side { display: grid; align-content: start; gap: 8px; padding: 12px 10px; border-right: 1px solid var(--po-edge); }
+.uo-side b, .uo-main b { display: block; height: 8px; border-radius: 4px; background: var(--po-well); box-shadow: var(--po-well-shade); }
+.uo-side b.on { background: rgba(255, 255, 255, 0.16); box-shadow: none; }
+.uo-main { display: grid; align-content: start; gap: 10px; padding: 14px; }
+.uo-main b:first-child { width: 46%; height: 12px; }
+.uo-main b:nth-child(2) { height: 46px; border-radius: 8px; }
+.uo-orgs { position: absolute; left: calc(50% + min(190px, 35%) - 34px); top: 150px; display: flex; }
+.uo-orgs b { width: 34px; height: 34px; margin-left: -10px; border-radius: 50%; box-shadow: var(--po-lit), 0 0 0 4px #1b1b1e; }
+.uo-orgs b.on { box-shadow: var(--po-lit), 0 0 0 4px #1b1b1e, inset 0 0 0 1px rgba(255, 106, 0, 0.55); }
+
+/* stores: a bag on its tray, with a tag */
+.uo-tray { position: absolute; left: 18%; right: 18%; top: 120px; height: 44px; border: 1px solid var(--po-edge); border-radius: 50%;
+  background: radial-gradient(60% 60% at 50% 40%, #232327, #1a1a1d); }
+.uo-handle { position: absolute; left: 50%; top: 22px; width: 46px; height: 40px; transform: translateX(-50%); border: 2px solid #34343a; border-bottom: 0; border-radius: 24px 24px 0 0; }
+.uo-body { position: absolute; left: 50%; top: 50px; display: grid; place-items: center; width: 104px; height: 96px; transform: translateX(-50%); border-radius: 14px 14px 18px 18px; }
+.uo-clasp { width: 26px; height: 8px; border-radius: 4px; background: var(--po-well); box-shadow: var(--po-well-shade); }
+.uo-tag { position: absolute; left: calc(50% + 40px); top: 40px; width: 40px; height: 24px; transform: rotate(14deg); border-radius: 6px 12px 12px 6px; }
+.uo-tag i { position: absolute; left: 7px; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--ix-orange); box-shadow: 0 0 10px rgba(255, 106, 0, 0.5); }
+
+/* web and mobile: a laptop and a phone */
+.uo-laptop { position: absolute; left: calc(50% - 118px); top: 40px; width: 200px; height: 124px; border-radius: 12px 12px 4px 4px; padding: 9px; }
+.uo-laptop i, .uo-phone i { display: block; height: 100%; border-radius: 6px; background: var(--po-well); box-shadow: var(--po-well-shade); }
+.uo-base { position: absolute; left: calc(50% - 136px); top: 164px; width: 236px; height: 9px; border-radius: 0 0 10px 10px; background: linear-gradient(180deg, #2c2c31, #1f1f23); }
+.uo-phone { position: absolute; left: calc(50% + 62px); top: 70px; width: 64px; height: 118px; padding: 7px 6px; border-radius: 15px; box-shadow: var(--po-lit), var(--po-shade), 0 0 0 5px #1b1b1e; }
+.uo-phone i { border-radius: 9px; box-shadow: var(--po-well-shade), inset 0 0 0 1px rgba(255, 106, 0, 0.3); }
+
+/* internal tools: rows, one approved */
+.uo-rows { display: grid; align-content: start; gap: 9px; padding: 30px 13% 0; }
+.uo-row { display: grid; grid-template-columns: 22px 1fr 54px; align-items: center; gap: 12px; height: 40px; padding: 0 14px; border-radius: 12px; }
+.uo-row:not(.on) { opacity: 0.55; }
+.uo-box { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--po-well); box-shadow: var(--po-well-shade); color: #fff; }
+.uo-row.on .uo-box { background: var(--ix-orange); box-shadow: 0 0 12px rgba(255, 106, 0, 0.4); }
+.uo-bar { height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.1); }
+.uo-pill { height: 18px; border-radius: 9px; background: var(--po-well); box-shadow: var(--po-well-shade); }
+
+/* AI assistants: a question, an answer being written */
+.uo-bubble { position: absolute; display: grid; gap: 8px; padding: 14px 16px; border-radius: 16px; }
+.uo-bubble i { display: block; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.12); }
+.uo-bubble.me { right: 14%; top: 36px; width: 42%; border-bottom-right-radius: 5px; }
+.uo-bubble.ai { left: 14%; top: 96px; width: 56%; border-bottom-left-radius: 5px; }
+.uo-bubble.ai i:nth-child(2) { width: 70%; }
+.uo-typing { display: flex; gap: 4px; }
+.uo-typing b { width: 5px; height: 5px; border-radius: 50%; background: rgba(255, 255, 255, 0.35); animation: uo-type 1.4s ease-in-out infinite; }
+.uo-typing b:nth-child(2) { animation-delay: 0.2s; }
+.uo-typing b:nth-child(3) { animation-delay: 0.4s; }
+.uo-mark { position: absolute; left: calc(14% - 14px); top: 142px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  box-shadow: var(--po-lit), 0 0 0 4px #1b1b1e, 0 0 16px rgba(255, 106, 0, 0.25); color: #ff8a4a; }
+@keyframes uo-type { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-2px); } }
+
+/* communities: people around a feed */
+.uo-feed { position: absolute; left: 50%; top: 44px; display: grid; gap: 10px; width: 120px; height: 140px; padding: 14px 12px; transform: translateX(-50%); border-radius: 14px;
+  box-shadow: var(--po-lit), var(--po-shade), var(--po-groove); }
+.uo-feed i { display: block; border-radius: 8px; background: var(--po-well); box-shadow: var(--po-well-shade); }
+.uo-face { position: absolute; display: grid; place-items: center; width: 36px; height: 36px; transform: translate(-50%, -50%); border-radius: 50%; }
+.uo-face.on::after { content: ""; position: absolute; top: -2px; right: -2px; width: 9px; height: 9px; border-radius: 50%; background: var(--ix-orange); box-shadow: 0 0 0 3px #1b1b1e; }
+
+/* client projects: one blueprint, a project per client */
+/* in a tall card: the blueprint on top, a dashed line down, the clients' projects stacked below */
+.uo-print { position: absolute; left: 50%; top: 14px; display: grid; place-items: center; width: 64px; height: 64px; transform: translateX(-50%); border-radius: 16px;
+  box-shadow: var(--po-lit), var(--po-shade), var(--po-groove); }
+.uo-wire { position: absolute; left: 50%; top: 88px; height: 34px; border-left: 1px dashed rgba(255, 255, 255, 0.16); }
+.uo-stack { position: absolute; left: calc(50% - 50px); top: 136px; width: 112px; height: 72px; }
+.uo-stack i.on { animation: uo-land 4.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+@keyframes uo-land { 0%, 12% { transform: translateY(-16px); opacity: 0; } 30%, 100% { transform: none; opacity: 1; } }
+.uo-stack i { position: absolute; inset: 0; border-radius: 14px; }
+.uo-stack i:nth-child(1) { transform: translate(-22px, -14px); opacity: 0.45; }
+.uo-stack i:nth-child(2) { transform: translate(-11px, -7px); opacity: 0.7; }
+.uo-stack i.on { box-shadow: var(--po-lit), var(--po-shade), inset 0 0 0 1px rgba(255, 106, 0, 0.45); }
+
+/* small motions, one per object: an organization lighting up, a tag swinging, a row being approved, a new message, a project landing */
+.uo-orgs b.on { animation: uo-ring 3.2s ease-in-out infinite; }
+@keyframes uo-ring { 50% { box-shadow: var(--po-lit), 0 0 0 4px #1b1b1e, inset 0 0 0 1px rgba(255, 106, 0, 0.9), 0 0 18px rgba(255, 106, 0, 0.35); } }
+.uo-tag { animation: uo-swing 3.6s ease-in-out infinite; transform-origin: 0 50%; }
+@keyframes uo-swing { 0%, 100% { transform: rotate(14deg); } 50% { transform: rotate(4deg); } }
+.uo-row.on .uo-box { animation: uo-pop 3s ease-in-out infinite; }
+@keyframes uo-pop { 0%, 20% { transform: scale(0.6); opacity: 0.3; } 32%, 100% { transform: none; opacity: 1; } }
+.uo-face.on::after { animation: uo-blink 2.4s ease-in-out infinite; }
+@keyframes uo-blink { 50% { transform: scale(1.35); box-shadow: 0 0 0 3px #1b1b1e, 0 0 12px rgba(255, 106, 0, 0.6); } }
+
+/* tall cards; the platform bento's small-screen rules must not resize them */
+.uc .uc-card { width: 300px; height: 440px; min-height: 0; padding: 22px 26px 28px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .uo-typing b, .uo-orgs b.on, .uo-tag, .uo-row.on .uo-box, .uo-face.on::after, .uo-stack i.on { animation: none !important; }
+  .uc-marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .uc-track { animation: none; }
+  .uc-set[aria-hidden] { display: none; }
+}
+
+@media (max-width: 760px) {
+  .uc .uc-card { width: 270px; height: 420px; }
+  .uc-track { animation-duration: 55s; }
+}
