@@ -4,6 +4,7 @@ import { Hero } from "@/components/home/Hero";
 import { Pricing, Statement } from "@/components/home/Home";
 import { Integrations } from "@/components/home/Integrations";
 import { Mcp } from "@/components/home/Mcp";
+import { Prompt } from "@/components/home/Prompt";
 import { Closing } from "@/components/home/Sections";
 import { Footer } from "@/components/landing/Footer";
 import { ScrollMotion } from "@/components/landing/ScrollMotion";
@@ -20,6 +21,7 @@ export default function Landing() {
       <main className="ix-shell">
         <Statement />
         <Platform />
+        <Prompt />
         <Mcp />
         <Integrations />
         <Features />

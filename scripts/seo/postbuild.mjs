@@ -199,6 +199,7 @@ ${PLANS.map((p) => `- ${p.name}: ${naira(p.price)} per month. ${p.description}`)
 
 ## Documentation
 
+- [SKILL.md](${SITE_URL}/SKILL.md): the complete guide for AI coding agents adding Pawabase to a project, with every client, rule and docs link.
 - [Documentation](${SITE.docs}): guides, the API reference and a quickstart.
 - [Pawabase Cloud](${SITE.dashboard}/signup): create a project.
 - [GitHub](https://github.com/Pawabase): open source repositories.
@@ -261,8 +262,14 @@ write(
 
 /llms-full.txt
   Content-Type: text/plain; charset=utf-8
+
+/SKILL.md
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
 `,
 );
+
+if (!existsSync(`${DIST}/SKILL.md`)) problems.push("/SKILL.md: missing; build it from the pawabase-skill repository (scripts/build_bundle.py)");
 
 rmSync(`${DIST}/.vite`, { recursive: true, force: true });
 

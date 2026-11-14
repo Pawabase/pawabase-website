@@ -1,0 +1,58 @@
+/*
+ * One prompt: the composer that holds it, beside the file it points the agent at. See Prompt.tsx and home.css.
+ */
+
+.pr-panel { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 14px; padding: 14px; }
+
+/* ── the composer ── */
+.pr-composer { display: flex; flex-direction: column; gap: 22px; min-height: 330px; padding: 22px 22px 18px 26px; border: 1px solid var(--ix-line); border-radius: 14px; background: var(--ix-deep); box-shadow: inset 0 1px 0 rgba(252, 248, 245, 0.05); }
+.pr-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-size: 13px; color: rgba(252, 248, 245, 0.55); }
+.pr-tools .dim { color: var(--ix-faint); }
+.pr-text { flex: 1; margin: 0; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.55; letter-spacing: -0.005em; color: var(--ix-text); }
+.pr-text a { color: var(--ix-orange); text-decoration: underline; text-decoration-color: rgba(255, 106, 0, 0.35); text-underline-offset: 4px; }
+.pr-text a:hover { text-decoration-color: var(--ix-orange); }
+.pr-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; border-top: 1px dashed var(--ix-line-2); }
+.pr-chip { display: inline-flex; align-items: center; gap: 9px; font: 12px var(--ix-mono); color: var(--ix-muted); }
+.pr-chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--ix-orange); box-shadow: 0 0 10px rgba(255, 106, 0, 0.7); }
+.pr-copy { display: inline-flex; flex: none; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--ix-sunlit); font: 600 13.5px/1 inherit; font-family: inherit; color: #1a0d04; cursor: pointer; transition: transform 0.2s ease, filter 0.2s ease; }
+.pr-copy:hover { filter: brightness(1.06); }
+.pr-copy:active { transform: scale(0.97); }
+.pr-copy:focus-visible { outline: 2px solid var(--ix-orange); outline-offset: 3px; }
+.pr-copy.done { background: rgba(252, 248, 245, 0.92); }
+
+/* ── the file ── */
+.pr-file { position: relative; display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--ix-line); border-radius: 14px; background: #08080a; color: inherit; text-decoration: none; transition: border-color 0.2s ease; }
+.pr-file:hover { border-color: rgba(255, 106, 0, 0.45); }
+.pr-file:focus-visible { outline: 2px solid var(--ix-orange); outline-offset: 2px; }
+.pr-file-bar { display: flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border-bottom: 1px solid var(--ix-line); background: rgba(252, 248, 245, 0.025); }
+.pr-file-bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(252, 248, 245, 0.14); }
+.pr-file-bar b { margin-left: 10px; overflow: hidden; font: 400 12px var(--ix-mono); color: var(--ix-muted); text-overflow: ellipsis; white-space: nowrap; }
+.pr-file-head { display: grid; gap: 3px; padding: 16px 18px 12px; border-bottom: 1px dashed var(--ix-line); }
+.pr-file-head code { overflow: hidden; font: 12px/1.5 var(--ix-mono); color: rgba(252, 248, 245, 0.5); text-overflow: ellipsis; white-space: nowrap; }
+.pr-file-head em { font-style: normal; color: #ff8a4a; }
+.pr-file-body { position: relative; flex: 1; min-height: 190px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 18%, #000 70%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 18%, #000 70%, transparent 100%); }
+.pr-file-roll { position: absolute; inset: 0 0 auto; display: grid; gap: 2px; padding: 8px 10px; animation: pr-roll 40s linear infinite; }
+.pr-file:hover .pr-file-roll { animation-play-state: paused; }
+.pr-line { display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 10px; border-radius: 6px; font-size: 13.5px; color: rgba(252, 248, 245, 0.72); white-space: nowrap; }
+.pr-line i { font: normal 12px var(--ix-mono); color: rgba(255, 106, 0, 0.6); }
+.pr-line:nth-child(4n + 2) { background: rgba(252, 248, 245, 0.035); }
+
+@keyframes pr-roll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+@media (max-width: 1000px) {
+  .pr-panel { grid-template-columns: 1fr; }
+  .pr-composer { min-height: 0; }
+  .pr-file-body { min-height: 160px; }
+}
+@media (max-width: 560px) {
+  .pr-panel { padding: 10px; }
+  .pr-composer { padding: 18px 16px 14px; }
+  .pr-foot { flex-direction: column; align-items: stretch; }
+  .pr-copy { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pr-file-roll { animation: none; }
+}
