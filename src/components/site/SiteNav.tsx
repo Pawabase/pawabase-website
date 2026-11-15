@@ -166,8 +166,32 @@ function Panel({ menu }: { menu: Menu }) {
 export function SiteNav() {
   const [open, setOpen] = useState<string | null>(null);
   const [mobile, setMobile] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [stuck, setStuck] = useState(false);
   const nav = useRef<HTMLElement>(null);
+  const slot = useRef<HTMLDivElement>(null);
   const hover = useRef(0);
+
+  // The bar keeps its place in the page until it would scroll away, then it stays fixed at the top. From the first scroll it turns
+  // compact and darker. The slot holds its space, so nothing in the page moves when it switches.
+  useEffect(() => {
+    let frame = 0;
+    const read = () => {
+      frame = 0;
+      setScrolled(window.scrollY > 8);
+      const top = slot.current?.getBoundingClientRect().top ?? 0;
+      setStuck(top + 14 < 8);
+    };
+    const queue = () => { if (!frame) frame = requestAnimationFrame(read); };
+    read();
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    return () => {
+      window.removeEventListener("scroll", queue);
+      window.removeEventListener("resize", queue);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
 
   useEffect(() => {
     const away = (e: MouseEvent) => {
@@ -196,7 +220,8 @@ export function SiteNav() {
   };
 
   return (
-    <nav ref={nav} className="sn" aria-label="Main" onMouseLeave={() => later(() => setOpen(null), 180)} onMouseEnter={() => window.clearTimeout(hover.current)}>
+    <div ref={slot} className="sn-slot">
+    <nav ref={nav} className={`sn${scrolled ? " scrolled" : ""}${stuck ? " stuck" : ""}`} aria-label="Main" onMouseLeave={() => later(() => setOpen(null), 180)} onMouseEnter={() => window.clearTimeout(hover.current)}>
       <a href="/" className="sn-logo" aria-label="Pawabase home">
         <img src="/brand/horizontal-dark.svg" width={124} height={30} alt="Pawabase" />
       </a>
@@ -240,5 +265,6 @@ export function SiteNav() {
         </div>
       )}
     </nav>
+    </div>
   );
 }

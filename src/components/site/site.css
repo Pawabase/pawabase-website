@@ -5,10 +5,20 @@
  * the shared .btn (button.css).
  */
 
-.sn { position: relative; z-index: 40; display: flex; align-items: center; width: min(100% - 32px, 1280px); height: 56px; margin: 14px auto 0; padding: 0 8px 0 16px;
+.sn-slot { box-sizing: border-box; height: 70px; padding-top: 14px; } /* the bar's 14px of air above it and its 56px: the space is the slot's, so it stays when the bar goes fixed */
+.sn { position: relative; z-index: 40; display: flex; align-items: center; width: min(100% - 32px, 1280px); height: 56px; margin: 0 auto; padding: 0 8px 0 16px;
   border: 1px solid rgba(255, 255, 255, 0.075); border-radius: 14px;
   background: linear-gradient(180deg, rgba(34, 34, 39, 0.78), rgba(24, 24, 28, 0.78)); -webkit-backdrop-filter: blur(16px) saturate(1.3); backdrop-filter: blur(16px) saturate(1.3);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 32px -14px rgba(0, 0, 0, 0.7); }
+.sn { transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+/* from the first scroll: a little smaller, darker, more glass */
+.sn.scrolled { width: min(100% - 32px, 1140px); height: 48px; border-color: rgba(255, 255, 255, 0.11);
+  background: linear-gradient(180deg, rgba(26, 26, 30, 0.86), rgba(18, 18, 21, 0.86)); -webkit-backdrop-filter: blur(20px) saturate(1.5); backdrop-filter: blur(20px) saturate(1.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 18px 40px -16px rgba(0, 0, 0, 0.85); }
+.sn.scrolled .sn-logo img { width: 112px; }
+.sn-logo img { transition: width 0.3s ease; }
+/* and it stays where it is when the page would take it away */
+.sn.stuck { position: fixed; top: 8px; left: 50%; margin: 0; transform: translateX(-50%); }
 .sn-logo { display: flex; flex: none; }
 .sn-logo img { display: block; width: 124px; height: auto; }
 .sn-divider { flex: none; width: 1px; height: 20px; margin: 0 12px; background: rgba(255, 255, 255, 0.1); }
