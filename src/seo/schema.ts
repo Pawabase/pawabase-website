@@ -83,8 +83,11 @@ export const faq = (): Node => ({
   })),
 });
 
+const BLOG_ID = `${SITE.url}/blog#blog`;
+
 export const breadcrumbs = (page: Page): Node => {
   const trail: { name: string; url: string }[] = [{ name: "Pawabase", url: canonical(PAGES[0]!) }];
+  if ((page.kind === "post" || page.kind === "blog") && page.path !== "/blog") trail.push({ name: "Blog", url: absolute("/blog") });
   if (page.path !== "/") trail.push({ name: page.name, url: canonical(page) });
   return {
     "@type": "BreadcrumbList",
@@ -92,8 +95,44 @@ export const breadcrumbs = (page: Page): Node => {
   };
 };
 
+/** A blog post as an article: who wrote it and when, how long it is, what it's about, and where it sits. */
+export const blogPosting = (page: Page): Node => {
+  const a = page.article!;
+  return {
+    "@type": "BlogPosting",
+    "@id": `${canonical(page)}#article`,
+    headline: page.name,
+    description: page.description,
+    url: canonical(page),
+    mainEntityOfPage: { "@id": `${canonical(page)}#webpage` },
+    datePublished: `${a.published}T00:00:00Z`,
+    dateModified: `${a.modified}T00:00:00Z`,
+    author: a.authors.map((name) => ({ "@type": "Organization", name, url: SITE.url })),
+    publisher: { "@id": ORG_ID },
+    image: { "@type": "ImageObject", url: ogImage(page), width: 1200, height: 630 },
+    wordCount: a.words,
+    timeRequired: `PT${a.minutes}M`,
+    keywords: a.tags.join(", "),
+    ...(a.section ? { articleSection: a.section } : {}),
+    inLanguage: SITE.language,
+    isPartOf: { "@id": BLOG_ID },
+  };
+};
+
+/** The blog itself, with the posts it holds. */
+export const blogNode = (): Node => ({
+  "@type": "Blog",
+  "@id": BLOG_ID,
+  name: "Pawabase Blog",
+  url: absolute("/blog"),
+  description: "Product updates, engineering notes and guides from the people building Pawabase.",
+  publisher: { "@id": ORG_ID },
+  inLanguage: SITE.language,
+  blogPost: PAGES.filter((p) => p.kind === "post").map((p) => ({ "@id": `${canonical(p)}#article` })),
+});
+
 export const webPage = (page: Page): Node => ({
-  "@type": page.kind === "company" && page.path === "/company" ? "AboutPage" : page.path === "/company/contact" ? "ContactPage" : "WebPage",
+  "@type": page.kind === "blog" ? "CollectionPage" : page.kind === "company" && page.path === "/company" ? "AboutPage" : page.path === "/company/contact" ? "ContactPage" : "WebPage",
   "@id": `${canonical(page)}#webpage`,
   url: canonical(page),
   name: page.title,
@@ -111,6 +150,8 @@ export function graphFor(page: Page): Node {
   if (page.kind === "home") nodes.push(organization(), website(), software(), faq());
   else if (page.kind === "pricing") nodes.push(organization(), software());
   else nodes.push({ "@id": ORG_ID, "@type": "Organization", name: SITE.name, url: SITE.url });
+  if (page.kind === "post") nodes.push(blogPosting(page));
+  if (page.kind === "blog") nodes.push(blogNode());
   nodes.push(webPage(page));
   return { "@context": "https://schema.org", "@graph": nodes };
 }

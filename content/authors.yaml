@@ -1,0 +1,10 @@
+# Who writes on the blog. A post names its authors by these ids (authors: [team]).
+team:
+  name: The Pawabase team
+  role: Building Pawabase
+  avatar: /icon-512.png
+  bio: We build Pawabase, the complete backend for anything you build. We write about what we ship and how it works.
+  links:
+    x: https://x.com/getpawabase
+    github: https://github.com/Pawabase
+    linkedin: https://www.linkedin.com/company/pawabase/

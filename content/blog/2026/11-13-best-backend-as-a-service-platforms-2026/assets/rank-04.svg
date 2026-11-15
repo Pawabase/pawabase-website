@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520">
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1" fill="#fff" fill-opacity=".05"/></pattern>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1"><stop offset=".08" stop-color="#ffffff"/><stop offset=".6" stop-color="#d8d6d3"/><stop offset="1" stop-color="#8e8b87"/></linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffbf9a"/><stop offset=".45" stop-color="#ff8a4a"/><stop offset="1" stop-color="#ff6a00"/></linearGradient>
+  </defs>
+  <rect width="1600" height="520" fill="#0b0b0d"/>
+  <rect width="1600" height="520" fill="url(#dots)"/>
+  
+  <text x="90" y="380" font-family="Plus Jakarta Sans" font-weight="800" font-size="330" fill="none" stroke="rgba(252,248,245,.16)" stroke-width="2.5" letter-spacing="-16">04</text>
+  <rect x="560" y="130" width="260" height="260" rx="42" fill="#121214" stroke="rgba(252,248,245,.12)"/><path transform="translate(625 195) scale(5.416666666666667)" d="M15.09 18.916c3.488-.387 6.776-2.246 8.586-5.348-.857 7.673-9.247 12.522-16.095 9.545a3.47 3.47 0 0 1-1.547-1.314c-1.539-2.417-2.044-5.492-1.318-8.282 2.077 3.584 6.3 5.78 10.374 5.399m-10.501-7.65c-1.414 3.266-1.475 7.092.258 10.24-6.1-4.59-6.033-14.41-.074-18.953a3.44 3.44 0 0 1 1.893-.707c2.825-.15 5.695.942 7.708 2.977-4.09.04-8.073 2.66-9.785 6.442m11.757-5.437C14.283 2.951 11.053.992 7.515.933c6.84-3.105 15.253 1.929 16.17 9.37a3.6 3.6 0 0 1-.334 2.02c-1.278 2.594-3.647 4.607-6.416 5.352 2.029-3.763 1.778-8.36-.589-11.847" fill="#EE342F"/>
+  <text x="880" y="228" font-family="Plus Jakarta Sans" font-weight="700" font-size="20" fill="rgba(252,248,245,0.38)" text-anchor="start" letter-spacing="3">#4 OF 10</text>
+  <text x="876" y="312" font-family="Plus Jakarta Sans" font-weight="700" font-size="84" fill="#fcf8f5" text-anchor="start" letter-spacing="-3">Convex</text>
+  <text x="880" y="370" font-family="Plus Jakarta Sans" font-weight="500" font-size="26" fill="rgba(252,248,245,0.6)" text-anchor="start" letter-spacing="0">Best for: Reactive apps written in TypeScript</text>
+</svg>

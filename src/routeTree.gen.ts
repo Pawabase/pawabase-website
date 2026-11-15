@@ -10,8 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BlogRouteImport } from './routes/blog'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as CompanyIndexRouteImport } from './routes/company/index'
 import { Route as CompanyCareersRouteImport } from './routes/company/careers'
 import { Route as CompanyContactRouteImport } from './routes/company/contact'
@@ -34,20 +35,27 @@ import { Route as ProductsRealtimeRouteImport } from './routes/products/realtime
 import { Route as ProductsReleasesRouteImport } from './routes/products/releases'
 import { Route as ProductsStorageRouteImport } from './routes/products/storage'
 import { Route as ProductsWebhooksRouteImport } from './routes/products/webhooks'
+import { Route as BlogPagePageRouteImport } from './routes/blog/page.$page'
+import { Route as BlogTagTagRouteImport } from './routes/blog/tag.$tag'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompanyIndexRoute = CompanyIndexRouteImport.update({
@@ -160,11 +168,21 @@ const ProductsWebhooksRoute = ProductsWebhooksRouteImport.update({
   path: '/products/webhooks',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogPagePageRoute = BlogPagePageRouteImport.update({
+  id: '/blog/page/$page',
+  path: '/blog/page/$page',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogTagTagRoute = BlogTagTagRouteImport.update({
+  id: '/blog/tag/$tag',
+  path: '/blog/tag/$tag',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
   '/pricing': typeof PricingRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
   '/legal/acceptable-use': typeof LegalAcceptableUseRoute
@@ -186,12 +204,15 @@ export interface FileRoutesByFullPath {
   '/products/releases': typeof ProductsReleasesRoute
   '/products/storage': typeof ProductsStorageRoute
   '/products/webhooks': typeof ProductsWebhooksRoute
+  '/blog/': typeof BlogIndexRoute
   '/company/': typeof CompanyIndexRoute
+  '/blog/page/$page': typeof BlogPagePageRoute
+  '/blog/tag/$tag': typeof BlogTagTagRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
   '/pricing': typeof PricingRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
   '/legal/acceptable-use': typeof LegalAcceptableUseRoute
@@ -213,13 +234,16 @@ export interface FileRoutesByTo {
   '/products/releases': typeof ProductsReleasesRoute
   '/products/storage': typeof ProductsStorageRoute
   '/products/webhooks': typeof ProductsWebhooksRoute
+  '/blog': typeof BlogIndexRoute
   '/company': typeof CompanyIndexRoute
+  '/blog/page/$page': typeof BlogPagePageRoute
+  '/blog/tag/$tag': typeof BlogTagTagRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
   '/pricing': typeof PricingRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
   '/legal/acceptable-use': typeof LegalAcceptableUseRoute
@@ -241,14 +265,17 @@ export interface FileRoutesById {
   '/products/releases': typeof ProductsReleasesRoute
   '/products/storage': typeof ProductsStorageRoute
   '/products/webhooks': typeof ProductsWebhooksRoute
+  '/blog/': typeof BlogIndexRoute
   '/company/': typeof CompanyIndexRoute
+  '/blog/page/$page': typeof BlogPagePageRoute
+  '/blog/tag/$tag': typeof BlogTagTagRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/blog'
     | '/pricing'
+    | '/blog/$slug'
     | '/company/careers'
     | '/company/contact'
     | '/legal/acceptable-use'
@@ -270,12 +297,15 @@ export interface FileRouteTypes {
     | '/products/releases'
     | '/products/storage'
     | '/products/webhooks'
+    | '/blog/'
     | '/company/'
+    | '/blog/page/$page'
+    | '/blog/tag/$tag'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/blog'
     | '/pricing'
+    | '/blog/$slug'
     | '/company/careers'
     | '/company/contact'
     | '/legal/acceptable-use'
@@ -297,12 +327,15 @@ export interface FileRouteTypes {
     | '/products/releases'
     | '/products/storage'
     | '/products/webhooks'
+    | '/blog'
     | '/company'
+    | '/blog/page/$page'
+    | '/blog/tag/$tag'
   id:
     | '__root__'
     | '/'
-    | '/blog'
     | '/pricing'
+    | '/blog/$slug'
     | '/company/careers'
     | '/company/contact'
     | '/legal/acceptable-use'
@@ -324,13 +357,16 @@ export interface FileRouteTypes {
     | '/products/releases'
     | '/products/storage'
     | '/products/webhooks'
+    | '/blog/'
     | '/company/'
+    | '/blog/page/$page'
+    | '/blog/tag/$tag'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BlogRoute: typeof BlogRoute
   PricingRoute: typeof PricingRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   CompanyCareersRoute: typeof CompanyCareersRoute
   CompanyContactRoute: typeof CompanyContactRoute
   LegalAcceptableUseRoute: typeof LegalAcceptableUseRoute
@@ -352,7 +388,10 @@ export interface RootRouteChildren {
   ProductsReleasesRoute: typeof ProductsReleasesRoute
   ProductsStorageRoute: typeof ProductsStorageRoute
   ProductsWebhooksRoute: typeof ProductsWebhooksRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   CompanyIndexRoute: typeof CompanyIndexRoute
+  BlogPagePageRoute: typeof BlogPagePageRoute
+  BlogTagTagRoute: typeof BlogTagTagRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -364,18 +403,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/company/': {
@@ -532,13 +578,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsWebhooksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/page/$page': {
+      id: '/blog/page/$page'
+      path: '/blog/page/$page'
+      fullPath: '/blog/page/$page'
+      preLoaderRoute: typeof BlogPagePageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/tag/$tag': {
+      id: '/blog/tag/$tag'
+      path: '/blog/tag/$tag'
+      fullPath: '/blog/tag/$tag'
+      preLoaderRoute: typeof BlogTagTagRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BlogRoute: BlogRoute,
   PricingRoute: PricingRoute,
+  BlogSlugRoute: BlogSlugRoute,
   CompanyCareersRoute: CompanyCareersRoute,
   CompanyContactRoute: CompanyContactRoute,
   LegalAcceptableUseRoute: LegalAcceptableUseRoute,
@@ -560,7 +620,10 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsReleasesRoute: ProductsReleasesRoute,
   ProductsStorageRoute: ProductsStorageRoute,
   ProductsWebhooksRoute: ProductsWebhooksRoute,
+  BlogIndexRoute: BlogIndexRoute,
   CompanyIndexRoute: CompanyIndexRoute,
+  BlogPagePageRoute: BlogPagePageRoute,
+  BlogTagTagRoute: BlogTagTagRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520">
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1" fill="#fff" fill-opacity=".05"/></pattern>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1"><stop offset=".08" stop-color="#ffffff"/><stop offset=".6" stop-color="#d8d6d3"/><stop offset="1" stop-color="#8e8b87"/></linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffbf9a"/><stop offset=".45" stop-color="#ff8a4a"/><stop offset="1" stop-color="#ff6a00"/></linearGradient>
+  </defs>
+  <rect width="1600" height="520" fill="#0b0b0d"/>
+  <rect width="1600" height="520" fill="url(#dots)"/>
+  
+  <text x="90" y="380" font-family="Plus Jakarta Sans" font-weight="800" font-size="330" fill="none" stroke="rgba(252,248,245,.16)" stroke-width="2.5" letter-spacing="-16">05</text>
+  <rect x="560" y="130" width="260" height="260" rx="42" fill="#121214" stroke="rgba(252,248,245,.12)"/><path transform="translate(625 195) scale(5.416666666666667)" d="M24 17.291v5.29H10.557A10.58 10.58 0 0 1 0 12.715v-1.43c.048-.735.174-1.463.374-2.171C1.63 4.673 5.713 1.419 10.557 1.419c4.844 0 8.927 3.254 10.183 7.695h-5.749a5.283 5.283 0 0 0-4.434-2.404 5.282 5.282 0 0 0-4.434 2.404A5.23 5.23 0 0 0 5.267 12a5.27 5.27 0 0 0 1.66 3.848 5.27 5.27 0 0 0 3.63 1.443H24Zm0-6.734v5.291h-9.813A5.276 5.276 0 0 0 15.848 12c0-.5-.07-.984-.199-1.443H24Z" fill="#FD366E"/>
+  <text x="880" y="228" font-family="Plus Jakarta Sans" font-weight="700" font-size="20" fill="rgba(252,248,245,0.38)" text-anchor="start" letter-spacing="3">#5 OF 10</text>
+  <text x="876" y="312" font-family="Plus Jakarta Sans" font-weight="700" font-size="84" fill="#fcf8f5" text-anchor="start" letter-spacing="-3">Appwrite</text>
+  <text x="880" y="370" font-family="Plus Jakarta Sans" font-weight="500" font-size="26" fill="rgba(252,248,245,0.6)" text-anchor="start" letter-spacing="0">Best for: An open-source backend you self-host</text>
+</svg>

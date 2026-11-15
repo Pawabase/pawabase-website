@@ -1,3 +1,4 @@
+import blog from "../content/blog.json" with { type: "json" };
 import { absolute } from "./site.ts";
 
 /**
@@ -14,7 +15,7 @@ export type Page = {
   title: string;
   /** The search result snippet and the text under a shared link. */
   description: string;
-  kind: "home" | "product" | "pricing" | "company" | "legal";
+  kind: "home" | "product" | "pricing" | "company" | "legal" | "blog" | "post";
   /** The page's own name: breadcrumbs and link text. */
   name: string;
   /** The file that holds the page, for the sitemap's last-modified date. */
@@ -25,7 +26,84 @@ export type Page = {
   noindex?: boolean;
   /** For the product index in llms.txt and the breadcrumb trail. */
   group?: string;
+  /** The route file, when the address isn't the file's own path (/blog/$slug serves every post). */
+  route?: string;
+  /** More build chunks the page needs at once (a post's own MDX module), preloaded with it. */
+  chunks?: string[];
+  /** Its own share image instead of the site's. */
+  image?: string;
+  /** When it last changed, for the sitemap; otherwise the source file's last commit. */
+  modified?: string;
+  /** A blog post: what search engines and link previews read as an article. */
+  article?: { published: string; modified: string; authors: string[]; tags: string[]; section?: string; words: number; minutes: number; slug: string };
 };
+
+// ── the blog's pages, from src/content/blog.json (scripts/blog/collect.mjs) ──
+
+type BlogPost = (typeof blog.posts)[number];
+const BLOG_TITLE = "Pawabase Blog | Product updates and engineering notes";
+const BLOG_DESCRIPTION = "Product updates, engineering notes and guides from the people building Pawabase, the complete backend for anything you build.";
+const blogPages = Math.max(1, Math.ceil(Math.max(0, blog.posts.length - 1) / blog.perPage));
+
+/** A post's title in results: with the site's name when it still fits, without it when it would be cut. */
+const postTitle = (title: string) => (`${title} | Pawabase`.length <= 62 ? `${title} | Pawabase` : title);
+
+const blogIndexPages: Page[] = Array.from({ length: blogPages }, (_, i) => {
+  const n = i + 1;
+  return {
+    path: n === 1 ? "/blog" : `/blog/page/${n}`,
+    title: n === 1 ? BLOG_TITLE : `Pawabase Blog, page ${n} | Updates and engineering notes`,
+    description: n === 1 ? BLOG_DESCRIPTION : `${BLOG_DESCRIPTION.replace(/\.$/, "")}. Page ${n} of ${blogPages}.`,
+    kind: "blog",
+    name: n === 1 ? "Blog" : `Blog, page ${n}`,
+    source: "src/pages/blog/BlogList.tsx",
+    route: n === 1 ? "src/routes/blog/index.tsx" : "src/routes/blog/page.$page.tsx",
+    priority: n === 1 ? 0.7 : 0.4,
+    changefreq: "weekly",
+    // nothing to show until the first post is published
+    noindex: blog.posts.length === 0,
+    modified: blog.posts[0]?.updated ?? blog.posts[0]?.date,
+  };
+});
+
+const blogTagPages: Page[] = blog.tags.map((t) => ({
+  path: `/blog/tag/${t.slug}`,
+  title: `${t.name} posts | Pawabase Blog`,
+  description: `Everything the Pawabase team has written about ${t.name}: product updates, engineering notes and guides, newest first.`,
+  kind: "blog",
+  name: t.name,
+  source: "src/pages/blog/BlogList.tsx",
+  route: "src/routes/blog/tag.$tag.tsx",
+  priority: 0.3,
+  changefreq: "weekly",
+  // a topic with a single post is thin: reachable, not in results
+  noindex: t.count < 2,
+}));
+
+const postPage = (post: BlogPost): Page => ({
+  path: `/blog/${post.slug}`,
+  title: postTitle(post.title),
+  description: post.description,
+  kind: "post",
+  name: post.title,
+  source: post.source,
+  route: "src/routes/blog/$slug.tsx",
+  chunks: [post.source],
+  priority: 0.6,
+  changefreq: "monthly",
+  image: `/blog/${post.slug}/og.png`,
+  modified: post.updated ?? post.date,
+  article: {
+    published: post.date,
+    modified: post.updated ?? post.date,
+    authors: post.authors.map((id) => (blog.authors as Record<string, { name: string }>)[id]?.name ?? id),
+    tags: post.tags,
+    section: post.category ?? undefined,
+    words: post.words,
+    minutes: post.readingTime,
+    slug: post.slug,
+  },
+});
 
 const product = (
   slug: string,
@@ -126,18 +204,9 @@ export const PAGES: Page[] = [
     priority: 0.4,
     changefreq: "yearly",
   },
-  {
-    path: "/blog",
-    title: "Pawabase Blog | Product updates and engineering notes",
-    description: "Product updates and engineering notes from the people building Pawabase.",
-    kind: "company",
-    name: "Blog",
-    source: "src/pages/company/Blog.tsx",
-    priority: 0.4,
-    changefreq: "weekly",
-    // Until the first story is published there is nothing here worth a place in search results.
-    noindex: true,
-  },
+  ...blogIndexPages,
+  ...blog.posts.map(postPage),
+  ...blogTagPages,
 
   legal("privacy", "Privacy Policy", "How Pawabase collects, uses, and protects your personal information when you use our website, products, and services.", "Privacy"),
   legal("terms", "Terms of Service", "The terms and conditions governing your use of Pawabase's website, products, and services.", "Terms"),
@@ -152,7 +221,7 @@ export const pageAt = (path: string): Page | undefined => {
   return PAGES.find((p) => p.path === clean);
 };
 
-/** Every page shares one image, made by scripts/seo/og.mjs. */
-export const ogImagePath = (_page?: Page) => "/og.png";
+/** Every page shares one image, made by scripts/seo/og.mjs, except a blog post, which gets its own card (scripts/blog/og.mjs). */
+export const ogImagePath = (page?: Page) => page?.image ?? "/og.png";
 export const ogImage = (page: Page) => absolute(ogImagePath(page));
 export const canonical = (page: Page) => absolute(page.path === "/" ? "/" : page.path);

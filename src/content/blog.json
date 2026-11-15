@@ -1,0 +1,182 @@
+{
+  "posts": [
+    {
+      "slug": "introducing-pawabase",
+      "id": "2026/11-15-introducing-pawabase",
+      "title": "Introducing Pawabase: the complete backend for anything you build",
+      "description": "Data, APIs, auth, access rules, storage, realtime, flows and AI agents in one system. From a weekend project to the backend a company runs on.",
+      "date": "2026-11-15",
+      "updated": null,
+      "authors": [
+        "team"
+      ],
+      "tags": [
+        "Announcement",
+        "Product",
+        "Backend"
+      ],
+      "category": "Announcement",
+      "cover": "./assets/cover.png",
+      "coverAlt": "Pawabase announcement art, a halftone planet rising under columns of light",
+      "featured": true,
+      "draft": false,
+      "words": 2025,
+      "readingTime": 9,
+      "source": "content/blog/2026/11-15-introducing-pawabase/index.mdx",
+      "related": [
+        "best-backend-as-a-service-platforms-2026",
+        "build-a-saas-backend-in-an-afternoon",
+        "pawabase-vs-supabase"
+      ]
+    },
+    {
+      "slug": "best-backend-as-a-service-platforms-2026",
+      "id": "2026/11-13-best-backend-as-a-service-platforms-2026",
+      "title": "The 10 best backend-as-a-service platforms of 2026",
+      "description": "We ranked the leading BaaS platforms of 2026 on completeness, access control, automation, AI readiness and operations. Here is who wins, and why.",
+      "date": "2026-11-13",
+      "updated": null,
+      "authors": [
+        "team"
+      ],
+      "tags": [
+        "Comparison",
+        "Backend",
+        "BaaS"
+      ],
+      "category": "Comparison",
+      "cover": "./assets/cover.png",
+      "coverAlt": "The logos of the ten ranked backend platforms in rank order, with Pawabase first",
+      "featured": false,
+      "draft": false,
+      "words": 3088,
+      "readingTime": 14,
+      "source": "content/blog/2026/11-13-best-backend-as-a-service-platforms-2026/index.mdx",
+      "related": [
+        "introducing-pawabase",
+        "pawabase-vs-supabase",
+        "build-a-saas-backend-in-an-afternoon"
+      ]
+    },
+    {
+      "slug": "pawabase-vs-supabase",
+      "id": "2026/11-11-pawabase-vs-supabase",
+      "title": "Pawabase vs Supabase: which backend should you build on in 2026?",
+      "description": "Both run on Postgres. Supabase hands you primitives to assemble; Pawabase hands you the whole system. A side-by-side look at what that means for your product.",
+      "date": "2026-11-11",
+      "updated": null,
+      "authors": [
+        "team"
+      ],
+      "tags": [
+        "Comparison",
+        "Supabase",
+        "Postgres"
+      ],
+      "category": "Comparison",
+      "cover": "./assets/cover.png",
+      "coverAlt": "The Pawabase mark and the Supabase logo side by side, with \"vs\" between them",
+      "featured": false,
+      "draft": false,
+      "words": 2318,
+      "readingTime": 11,
+      "source": "content/blog/2026/11-11-pawabase-vs-supabase/index.mdx",
+      "related": [
+        "best-backend-as-a-service-platforms-2026",
+        "build-a-saas-backend-in-an-afternoon",
+        "introducing-pawabase"
+      ]
+    },
+    {
+      "slug": "build-a-saas-backend-in-an-afternoon",
+      "id": "2026/11-09-build-a-saas-backend-in-an-afternoon",
+      "title": "How to build a SaaS backend in one afternoon with Pawabase",
+      "description": "Tables, access rules, sign-in, organizations, email and background jobs, then production. A step-by-step guide to a complete SaaS backend on Pawabase.",
+      "date": "2026-11-09",
+      "updated": null,
+      "authors": [
+        "team"
+      ],
+      "tags": [
+        "Guide",
+        "SaaS",
+        "Backend"
+      ],
+      "category": "Guide",
+      "cover": "./assets/cover.png",
+      "coverAlt": "Columns of light beside the title \"A SaaS backend in one afternoon\"",
+      "featured": false,
+      "draft": false,
+      "words": 1546,
+      "readingTime": 7,
+      "source": "content/blog/2026/11-09-build-a-saas-backend-in-an-afternoon/index.mdx",
+      "related": [
+        "best-backend-as-a-service-platforms-2026",
+        "introducing-pawabase",
+        "pawabase-vs-supabase"
+      ]
+    }
+  ],
+  "authors": {
+    "team": {
+      "id": "team",
+      "name": "The Pawabase team",
+      "role": "Building Pawabase",
+      "avatar": "/icon-512.png",
+      "bio": "We build Pawabase, the complete backend for anything you build. We write about what we ship and how it works.",
+      "links": {
+        "x": "https://x.com/getpawabase",
+        "github": "https://github.com/Pawabase",
+        "linkedin": "https://www.linkedin.com/company/pawabase/"
+      }
+    }
+  },
+  "tags": [
+    {
+      "slug": "backend",
+      "name": "Backend",
+      "count": 3
+    },
+    {
+      "slug": "comparison",
+      "name": "Comparison",
+      "count": 2
+    },
+    {
+      "slug": "announcement",
+      "name": "Announcement",
+      "count": 1
+    },
+    {
+      "slug": "baas",
+      "name": "BaaS",
+      "count": 1
+    },
+    {
+      "slug": "guide",
+      "name": "Guide",
+      "count": 1
+    },
+    {
+      "slug": "postgres",
+      "name": "Postgres",
+      "count": 1
+    },
+    {
+      "slug": "product",
+      "name": "Product",
+      "count": 1
+    },
+    {
+      "slug": "saas",
+      "name": "SaaS",
+      "count": 1
+    },
+    {
+      "slug": "supabase",
+      "name": "Supabase",
+      "count": 1
+    }
+  ],
+  "perPage": 9
+}

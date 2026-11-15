@@ -22,7 +22,7 @@
 
     "baseUrl": ".",
     "paths": { "@/*": ["./src/*"] },
-    "types": ["vite/client"]
+    "types": ["vite/client", "mdx"]
   },
   "include": ["src", "vite.config.ts"]
 }

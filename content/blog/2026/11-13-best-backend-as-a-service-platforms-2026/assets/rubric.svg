@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="820" viewBox="0 0 1600 820">
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1" fill="#fff" fill-opacity=".05"/></pattern>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1"><stop offset=".08" stop-color="#ffffff"/><stop offset=".6" stop-color="#d8d6d3"/><stop offset="1" stop-color="#8e8b87"/></linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffbf9a"/><stop offset=".45" stop-color="#ff8a4a"/><stop offset="1" stop-color="#ff6a00"/></linearGradient>
+  </defs>
+  <rect width="1600" height="820" fill="#0b0b0d"/>
+  <rect width="1600" height="820" fill="url(#dots)"/>
+  <text x="120" y="92" font-family="Plus Jakarta Sans" font-weight="700" font-size="16" fill="#ff6a00" text-anchor="start" letter-spacing="3">HOW WE SCORED</text>
+  <text x="120" y="134" font-family="Plus Jakarta Sans" font-weight="500" font-size="24" fill="rgba(252,248,245,0.6)" text-anchor="start" letter-spacing="0">Seven criteria, weighted by what decides whether a backend carries a product past launch.</text>
+  <text x="120" y="226" font-family="Plus Jakarta Sans" font-weight="500" font-size="26" fill="#fcf8f5" text-anchor="start" letter-spacing="0">Completeness out of the box</text>
+    <rect x="760" y="200" width="620" height="36" rx="18" fill="rgba(252,248,245,.05)"/>
+    <rect x="760" y="200" width="620" height="36" rx="18" fill="url(#sun)"/>
+    <text x="1400" y="227" font-family="JetBrains Mono, Menlo, monospace" font-weight="700" font-size="22" fill="#fcf8f5" text-anchor="start" letter-spacing="0">25%</text>
+  <text x="120" y="306" font-family="Plus Jakarta Sans" font-weight="500" font-size="26" fill="#fcf8f5" text-anchor="start" letter-spacing="0">Access control model</text>
+    <rect x="760" y="280" width="620" height="36" rx="18" fill="rgba(252,248,245,.05)"/>
+    <rect x="760" y="280" width="372" height="36" rx="18" fill="url(#sun)"/>
+    <text x="1400" y="307" font-family="JetBrains Mono, Menlo, monospace" font-weight="700" font-size="22" fill="#fcf8f5" text-anchor="start" letter-spacing="0">15%</text>
+  <text x="120" y="386" font-family="Plus Jakarta Sans" font-weight="500" font-size="26" fill="#fcf8f5" text-anchor="start" letter-spacing="0">Developer experience</text>
+    <rect x="760" y="360" width="620" height="36" rx="18" fill="rgba(252,248,245,.05)"/>
+    <rect x="760" y="360" width="372" height="36" rx="18" fill="url(#sun)"/>
+    <text x="1400" y="387" font-family="JetBrains Mono, Menlo, monospace" font-weight="700" font-size="22" fill="#fcf8f5" text-anchor="start" letter-spacing="0">15%</text>
+  <text x="120" y="466" font-family="Plus Jakarta Sans" font-weight="500" font-size="26" fill="#fcf8f5" text-anchor="start" letter-spacing="0">Automation: jobs, flows, email</text>
+    <rect x="760" y="440" width="620" height="36" rx="18" fill="rgba(252,248,245,.05)"/>
+    <rect x="760" y="440" width="372" height="36" rx="18" fill="url(#sun)"/>
+    <text x="1400" y="467" font-family="JetBrains Mono, Menlo, monospace" font-weight="700" font-size="22" fill="#fcf8f5" text-anchor="start" letter-spacing="0">15%</text>
+  <text x="120" y="546" font-family="Plus Jakarta Sans" font-weight="500" font-size="26" fill="#fcf8f5" text-anchor="start" letter-spacing="0">AI readiness</text>
+    <rect x="760" y="520" width="620" height="36" rx="18" fill="rgba(252,248,245,.05)"/>
+    <rect x="760" y="520" width="248" height="36" rx="18" fill="url(#sun)"/>
+    <text x="1400" y="547" font-family="JetBrains Mono, Menlo, monospace" font-weight="700" font-size="22" fill="#fcf8f5" text-anchor="start" letter-spacing="0">10%</text>
+  <text x="120" y="626" font-family="Plus Jakarta Sans" font-weight="500" font-size="26" fill="#fcf8f5" text-anchor="start" letter-spacing="0">Operations: environments, logs, backups</text>
+    <rect x="760" y="600" width="620" height="36" rx="18" fill="rgba(252,248,245,.05)"/>
+    <rect x="760" y="600" width="248" height="36" rx="18" fill="url(#sun)"/>
+    <text x="1400" y="627" font-family="JetBrains Mono, Menlo, monospace" font-weight="700" font-size="22" fill="#fcf8f5" text-anchor="start" letter-spacing="0">10%</text>
+  <text x="120" y="706" font-family="Plus Jakarta Sans" font-weight="500" font-size="26" fill="#fcf8f5" text-anchor="start" letter-spacing="0">Price and lock-in</text>
+    <rect x="760" y="680" width="620" height="36" rx="18" fill="rgba(252,248,245,.05)"/>
+    <rect x="760" y="680" width="248" height="36" rx="18" fill="url(#sun)"/>
+    <text x="1400" y="707" font-family="JetBrains Mono, Menlo, monospace" font-weight="700" font-size="22" fill="#fcf8f5" text-anchor="start" letter-spacing="0">10%</text>
+</svg>

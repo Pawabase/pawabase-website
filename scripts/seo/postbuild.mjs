@@ -18,6 +18,9 @@ import { canonical, ogImage, ogImagePath, PAGES } from "../../src/seo/pages.ts";
 import { absolute, SITE, SITE_URL } from "../../src/seo/site.ts";
 import { esc, ROOT } from "./lib.mjs";
 import { buildSkill } from "../skill/bundle.mjs";
+import blog from "../../src/content/blog.json" with { type: "json" };
+import { cardPng } from "../blog/og.mjs";
+import { articleHtml, jsonFeed, rss } from "../blog/feeds.mjs";
 
 /** A plan's price as the pricing page writes it: ₦6,500 a month (Free for zero). Plans are priced in naira. */
 const naira = (price) => (Number(price) ? `₦${Number(price).toLocaleString("en-NG")}` : "Free");
@@ -38,16 +41,17 @@ const { render } = await import(pathToFileURL(`${ROOT}/dist-ssr/entry-server.js`
 
 const manifest = JSON.parse(readFileSync(`${DIST}/.vite/manifest.json`, "utf8"));
 
-/** The route file that holds a page, as the build manifest names it. */
-const routeKey = (path) => {
+/** The route file that holds a page, as the build manifest names it. A page served by a route with a parameter names it (``route``). */
+const routeKey = (page) => {
+  const path = page.path;
   const base = path === "/" ? "src/routes/index.tsx" : `src/routes${path}.tsx`;
   const nested = `src/routes${path}/index.tsx`;
-  return [base, nested].map((k) => `${k}?tsr-split=component`).find((k) => manifest[k]);
+  return [...(page.route ? [page.route] : []), base, nested].map((k) => `${k}?tsr-split=component`).find((k) => manifest[k]);
 };
 
 /** Every script and stylesheet a page needs beyond the entry's own, found by following its imports. */
 function assetsFor(page) {
-  const start = routeKey(page.path);
+  const start = routeKey(page);
   const scripts = new Set();
   const styles = new Set();
   const seen = new Set(["index.html"]);
@@ -61,6 +65,8 @@ function assetsFor(page) {
   };
   if (start) visit(start);
   else warnings.push(`${page.path}: no route chunk in the build manifest, so its styles load with the script`);
+  // a post's own module (its MDX) loads with the page: preload it rather than wait for the route to ask
+  for (const chunk of page.chunks ?? []) visit(chunk);
   const own = new Set([manifest["index.html"].file, ...(manifest["index.html"].css ?? [])]);
   return [
     ...[...styles].filter((f) => !own.has(f)).map((f) => `<link rel="stylesheet" crossorigin href="/${f}">`),
@@ -98,6 +104,14 @@ const modified = (file) => {
   }
 };
 
+// ── the blog's share cards, one per post ──────────────────────────────────
+
+for (const post of blog.posts) {
+  write(`${DIST}/blog/${post.slug}/og.png`, cardPng(post, post.authors.map((a) => blog.authors[a]?.name ?? a)));
+}
+/** Each post's article as rendered, for the feeds. */
+const articles = {};
+
 for (const page of PAGES) {
   let body;
   try {
@@ -111,7 +125,11 @@ for (const page of PAGES) {
     .replace(/<!-- seo-head:[\s\S]*?-->/, `${headHtml(page)}\n    ${assetsFor(page)}`)
     .replace("<!--app-->", body);
   write(page.path === "/" ? `${DIST}/index.html` : `${DIST}${page.path}/index.html`, html);
-  lastModified[page.path] = modified(page.source) ?? new Date().toISOString();
+  lastModified[page.path] = page.modified ?? modified(page.source) ?? new Date().toISOString();
+  if (page.article) {
+    articles[page.article.slug] = articleHtml(body, SITE_URL);
+    if (!articles[page.article.slug]) fail(page, "the article did not render (no <article class=\"bp-article\">)");
+  }
 
   // ── checks ────────────────────────────────────────────────────────────
   const h1 = (body.match(/<h1[\s>]/g) ?? []).length;
@@ -120,7 +138,7 @@ for (const page of PAGES) {
   if (bare) fail(page, `${bare} image(s) without alt text`);
   if (page.title.length > 65) fail(page, `title is ${page.title.length} characters (most results cut at about 60)`);
   if (page.description.length < 70 || page.description.length > 165) fail(page, `description is ${page.description.length} characters (want 70 to 165)`);
-  if (!existsSync(`${ROOT}/public${ogImagePath(page)}`)) fail(page, "share image is missing (node scripts/seo/og.mjs)");
+  if (!existsSync(`${ROOT}/public${ogImagePath(page)}`) && !existsSync(`${DIST}${ogImagePath(page)}`)) fail(page, "share image is missing (node scripts/seo/og.mjs)");
   for (const m of html.matchAll(/<script data-seo type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     try {
       JSON.parse(m[1].replace(/\\u003c/g, "<"));
@@ -208,12 +226,18 @@ ${PLANS.map((p) => `- ${p.name}: ${naira(p.price)} per month. ${p.description}`)
 ## Company
 
 ${byKind("company").filter((p) => !p.noindex).map(link).join("\n")}
-
+${byKind("post").length ? `\n## Blog\n\n${byKind("post").map((p) => `- [${p.name}](${canonical(p)}) (${p.article.published}): ${p.description}`).join("\n")}\n\nFeeds: ${absolute("/blog/rss.xml")} (RSS), ${absolute("/blog/feed.json")} (JSON Feed).\n` : ""}
 ## Optional
 
 ${byKind("legal").map(link).join("\n")}
 `;
 write(`${DIST}/llms.txt`, llms);
+
+// ── the blog's feeds ──────────────────────────────────────────────────────
+
+const feed = { posts: blog.posts, authors: blog.authors, site: SITE_URL, html: articles, title: "Pawabase Blog", description: "Product updates, engineering notes and guides from the people building Pawabase." };
+write(`${DIST}/blog/rss.xml`, rss(feed));
+write(`${DIST}/blog/feed.json`, jsonFeed(feed));
 
 const planTable = `| | ${PLANS.map((p) => p.name).join(" | ")} |
 | --- | ${PLANS.map(() => "---").join(" | ")} |

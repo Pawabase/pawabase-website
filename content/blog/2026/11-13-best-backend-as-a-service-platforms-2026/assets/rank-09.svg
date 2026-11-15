@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520">
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1" fill="#fff" fill-opacity=".05"/></pattern>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1"><stop offset=".08" stop-color="#ffffff"/><stop offset=".6" stop-color="#d8d6d3"/><stop offset="1" stop-color="#8e8b87"/></linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffbf9a"/><stop offset=".45" stop-color="#ff8a4a"/><stop offset="1" stop-color="#ff6a00"/></linearGradient>
+  </defs>
+  <rect width="1600" height="520" fill="#0b0b0d"/>
+  <rect width="1600" height="520" fill="url(#dots)"/>
+  
+  <text x="90" y="380" font-family="Plus Jakarta Sans" font-weight="800" font-size="330" fill="none" stroke="rgba(252,248,245,.16)" stroke-width="2.5" letter-spacing="-16">09</text>
+  <rect x="560" y="130" width="260" height="260" rx="42" fill="#121214" stroke="rgba(252,248,245,.12)"/><text x="690" y="275.6" font-family="Plus Jakarta Sans" font-weight="700" font-size="42" fill="#fcf8f5" text-anchor="middle" letter-spacing="0">Xano</text>
+  <text x="880" y="228" font-family="Plus Jakarta Sans" font-weight="700" font-size="20" fill="rgba(252,248,245,0.38)" text-anchor="start" letter-spacing="3">#9 OF 10</text>
+  <text x="876" y="312" font-family="Plus Jakarta Sans" font-weight="700" font-size="84" fill="#fcf8f5" text-anchor="start" letter-spacing="-3">Xano</text>
+  <text x="880" y="370" font-family="Plus Jakarta Sans" font-weight="500" font-size="26" fill="rgba(252,248,245,0.6)" text-anchor="start" letter-spacing="0">Best for: No-code builders who need a backend</text>
+</svg>
