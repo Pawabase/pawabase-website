@@ -93,7 +93,6 @@ const MENUS: Menu[] = [
         title: "Company",
         items: [
           { label: "About", href: "/company", line: "Why we're building Pawabase", icon: "sparkle" },
-          { label: "Blog", href: "/blog", line: "Product and engineering notes", icon: "document" },
         ],
       },
       {
@@ -238,6 +237,7 @@ export function SiteNav() {
           </li>
         ))}
         <li><a href="/pricing" className="sn-trigger" onMouseEnter={() => later(() => setOpen(null), 90)}>Pricing</a></li>
+        <li><a href="/blog" className="sn-trigger" onMouseEnter={() => later(() => setOpen(null), 90)}>Blog</a></li>
       </ul>
 
       <div className="sn-actions">
@@ -259,6 +259,7 @@ export function SiteNav() {
           ))}
           <div className="sn-mobile-actions">
             <a href="/pricing" className="btn">Pricing</a>
+            <a href="/blog" className="btn">Blog</a>
             <a href={SIGN_IN} className="btn">Sign in</a>
             <a href={SIGN_UP} className="btn btn-light">Get started</a>
           </div>

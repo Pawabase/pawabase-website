@@ -1,6 +1,35 @@
 {
   "posts": [
     {
+      "slug": "call-ai-models-without-exposing-your-keys",
+      "id": "2026/11-16-call-ai-models-without-exposing-your-keys",
+      "title": "Call any AI model from your app without exposing your keys",
+      "description": "The Pawabase AI gateway gives your app one address for every model. Provider keys stay on the server, and your access rules decide who may call each one.",
+      "date": "2026-11-16",
+      "updated": null,
+      "authors": [
+        "team"
+      ],
+      "tags": [
+        "AI",
+        "Product",
+        "Security"
+      ],
+      "category": "AI",
+      "cover": "./assets/cover.png",
+      "coverAlt": "Logos of AI providers drawing into the Pawabase gateway, beside the title \"Call any AI model without exposing your keys\"",
+      "featured": false,
+      "draft": false,
+      "words": 2178,
+      "readingTime": 10,
+      "source": "content/blog/2026/11-16-call-ai-models-without-exposing-your-keys/index.mdx",
+      "related": [
+        "introducing-pawabase",
+        "best-backend-as-a-service-platforms-2026",
+        "pawabase-vs-supabase"
+      ]
+    },
+    {
       "slug": "introducing-pawabase",
       "id": "2026/11-15-introducing-pawabase",
       "title": "Introducing Pawabase: the complete backend for anything you build",
@@ -24,9 +53,9 @@
       "readingTime": 9,
       "source": "content/blog/2026/11-15-introducing-pawabase/index.mdx",
       "related": [
+        "call-ai-models-without-exposing-your-keys",
         "best-backend-as-a-service-platforms-2026",
-        "build-a-saas-backend-in-an-afternoon",
-        "pawabase-vs-supabase"
+        "build-a-saas-backend-in-an-afternoon"
       ]
     },
     {
@@ -143,6 +172,16 @@
       "count": 2
     },
     {
+      "slug": "product",
+      "name": "Product",
+      "count": 2
+    },
+    {
+      "slug": "ai",
+      "name": "AI",
+      "count": 1
+    },
+    {
       "slug": "announcement",
       "name": "Announcement",
       "count": 1
@@ -163,13 +202,13 @@
       "count": 1
     },
     {
-      "slug": "product",
-      "name": "Product",
+      "slug": "saas",
+      "name": "SaaS",
       "count": 1
     },
     {
-      "slug": "saas",
-      "name": "SaaS",
+      "slug": "security",
+      "name": "Security",
       "count": 1
     },
     {

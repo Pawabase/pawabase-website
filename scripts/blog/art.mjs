@@ -123,7 +123,10 @@ function mark(name, x, y, size, color) {
   const src = readFileSync(new URL(`Si${name}.mjs`, ICONS), "utf8");
   const d = src.match(/\bd: "([^"]+)"/)[1];
   const brand = src.match(/defaultColor = "([^"]+)"/)[1];
-  return `<path transform="translate(${x} ${y}) scale(${size / 24})" d="${d}" fill="${color ?? brand}"/>`;
+  // a brand whose own colour is near-black (Anthropic, X…) would vanish on the dark ground: draw it in ivory
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(brand.slice(i, i + 2), 16) / 255);
+  const dark = 0.2126 * r + 0.7152 * g + 0.0722 * b < 0.25;
+  return `<path transform="translate(${x} ${y}) scale(${size / 24})" d="${d}" fill="${color ?? (dark ? IVORY : brand)}"/>`;
 }
 
 /** Pawabase's own mark (public/brand/mark.svg), at ``size`` px. Its gradients get an id of their own each time. */
@@ -403,9 +406,68 @@ function oneRule() {
   ${body}`);
 }
 
+/** The AI providers a Pawabase environment can connect, for the gateway post. */
+const PROVIDERS = [["OpenAI", null], ["Anthropic", "Anthropic"], ["Gemini", "Googlegemini"], ["Mistral", "Mistralai"], ["Groq", null], ["xAI", null]];
+
+/** The gateway post's cover: the title, and the providers' tiles drawing into the Pawabase gateway. */
+function gatewayCover() {
+  const W = 1600;
+  const H = 900;
+  const x = 150;
+  const tiles = PROVIDERS.map((p, i) => {
+    const ty = 168 + i * 96;
+    const wire = `<path d="M 1062 ${ty + 40} C 1180 ${ty + 40}, 1200 450, 1300 450" fill="none" stroke="rgba(255,106,0,.45)" stroke-dasharray="4 7" stroke-width="2"/>`;
+    return wire + logoTile(980, ty, 82, 82, p, { label: false });
+  }).join("");
+  return frame(W, H, `${halftoneSphere(1395, 450, 170, { pitch: 11, seed: 14, warm: 0.78 })}
+  ${tiles}
+  <rect x="1300" y="370" width="160" height="160" rx="36" fill="${INK}" stroke="rgba(255,106,0,.65)"/>
+  ${pawabaseMark(1330, 400, 100)}
+  ${rails(W, H)}
+  <circle cx="${x + 6}" cy="172" r="6" fill="${ORANGE}"/>
+  ${t(x + 24, 180, "INTRODUCING", { size: 20, weight: 700, fill: ORANGE, spacing: 3 })}
+  <text x="${x}" y="292" font-family="${FAMILY}" font-weight="700" font-size="80" fill="url(#silver)" letter-spacing="-3">Call any AI model</text>
+  <text x="${x}" y="376" font-family="${FAMILY}" font-weight="700" font-size="80" fill="url(#silver)" letter-spacing="-3">without exposing</text>
+  <text x="${x}" y="460" font-family="${FAMILY}" font-weight="700" font-size="80" fill="url(#silver)" letter-spacing="-3">your keys</text>
+  ${t(x, 530, "One address for every model. Keys on the server,", { size: 27, fill: MUTED })}
+  ${t(x, 570, "your rules on every call.", { size: 27, fill: MUTED })}
+  ${t(x, H - 110, "PAWABASE BLOG", { size: 17, weight: 700, fill: FAINT, spacing: 3 })}`);
+}
+
+/** Keys in the browser, or keys behind the gateway. */
+function keysDiagram() {
+  const W = 1600;
+  const H = 860;
+  const box = (x, y, w, h, title, sub, hot = false) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="18" fill="${hot ? "rgba(255,106,0,.1)" : "#121214"}" stroke="${hot ? "rgba(255,106,0,.6)" : "rgba(252,248,245,.14)"}"/>
+    ${t(x + 24, y + 42, title, { size: 23, weight: 700 })}${sub ? t(x + 24, y + 74, sub, { size: 17, fill: MUTED }) : ""}`;
+  const arrow = (x1, x2, y, label) => `<line x1="${x1}" y1="${y}" x2="${x2 - 10}" y2="${y}" stroke="rgba(252,248,245,.35)" stroke-width="2" stroke-dasharray="5 7"/><path d="M ${x2 - 12} ${y - 7} L ${x2} ${y} L ${x2 - 12} ${y + 7}" fill="none" stroke="rgba(252,248,245,.5)" stroke-width="2"/>${label ? t((x1 + x2) / 2, y - 16, label, { size: 16, fill: FAINT, anchor: "middle", mono: true }) : ""}`;
+  return frame(W, H, `${t(100, 92, "WITHOUT A GATEWAY", { size: 16, weight: 700, fill: FAINT, spacing: 3 })}
+  ${t(100, 130, "The provider's key ships inside your app, to every visitor.", { size: 23, fill: MUTED })}
+  ${box(100, 180, 360, 110, "Your app", "in the browser or on a phone")}
+  ${arrow(460, 1120, 235, "sk-…  (your key, readable by anyone)")}
+  ${box(1120, 180, 380, 110, "AI provider", "bills you for every call")}
+  <line x1="100" y1="370" x2="1500" y2="370" stroke="${LINE}"/>
+  ${t(100, 440, "WITH THE PAWABASE AI GATEWAY", { size: 16, weight: 700, fill: ORANGE, spacing: 3 })}
+  ${t(100, 478, "Your app holds a publishable key. The provider's key never leaves the server.", { size: 23, fill: MUTED })}
+  ${box(100, 540, 300, 110, "Your app", "publishable key only")}
+  ${arrow(400, 560, 595, "")}
+  <rect x="560" y="520" width="480" height="270" rx="22" fill="rgba(255,106,0,.08)" stroke="rgba(255,106,0,.6)"/>
+  ${pawabaseMark(588, 548, 44)}${t(646, 580, "AI gateway", { size: 26, weight: 700 })}
+  ${t(590, 640, "●  Provider keys stay here", { size: 19, fill: IVORY })}
+  ${t(590, 682, "●  Your policy decides who may call", { size: 19, fill: IVORY })}
+  ${t(590, 724, "●  Every call is recorded", { size: 19, fill: IVORY })}
+  ${t(590, 766, "●  Swap providers without a deploy", { size: 19, fill: IVORY })}
+  ${arrow(1040, 1180, 655, "")}
+  ${PROVIDERS.map((p, i) => logoTile(1190 + (i % 3) * 104, 560 + Math.floor(i / 3) * 104, 90, 90, p, { label: false })).join("")}`);
+}
+
 // ── the posts' pictures ───────────────────────────────────────────────────
 
 const POSTS = {
+  "2026/11-16-call-ai-models-without-exposing-your-keys": {
+    cover: gatewayCover(),
+    keys: keysDiagram(),
+  },
   "2026/11-15-introducing-pawabase": {
     cover: cover({ kicker: "Announcing", title: "Introducing Pawabase", line: "The complete backend for anything you build, from a weekend project to the system a company runs on.", art: `${bars(820, 120, 700, 640, { seed: 9 })}${halftoneSphere(1250, 1040, 560, { pitch: 14, light: [0.15, -1], warm: 0.92 })}` }),
     "one-system": oneSystem(),
