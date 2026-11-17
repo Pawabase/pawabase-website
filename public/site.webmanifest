@@ -1,7 +1,7 @@
 {
   "name": "Pawabase",
   "short_name": "Pawabase",
-  "description": "Pawabase is a developer platform for building complete systems: data, access policies, auth, storage, flows and agents in one place that your apps, your team and your AI share.",
+  "description": "Pawabase is a developer platform for building apps and APIs as one system: Postgres data with a REST API for every table, auth, access policies, storage, flows and agents, shared by your apps, your team and your AI.",
   "id": "/",
   "start_url": "/",
   "scope": "/",

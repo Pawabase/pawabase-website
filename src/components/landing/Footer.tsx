@@ -52,7 +52,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="sf-mark" aria-hidden="true"><span>Pawabase</span></div>
+      <div className="sf-mark" aria-hidden="true"><span>pawabase</span></div>
 
       <div className="sf-main">
         <div className="sf-side">
