@@ -79,8 +79,8 @@ function Pipes() {
       <div className={`rt-pipes ${pick}`} data-reveal="up" aria-hidden="true">
         <div className="rt-end"><b>Pawabase</b><small>channels · presence · history</small></div>
         <div className="rt-line">
-          <span className="down"><i /><i /><i /></span>
-          <span className="up"><i /><i /></span>
+          <span className="down"><em>to your app</em><i /><i /><i /></span>
+          <span className="up"><em>back to Pawabase</em><i /><i /></span>
         </div>
         <div className="rt-end"><b>Your app</b><small>{pick === "ws" ? "listens and publishes" : "listens"}</small></div>
       </div>

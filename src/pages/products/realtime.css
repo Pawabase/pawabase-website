@@ -40,22 +40,28 @@
 .rt-pick { display: inline-flex; padding: 4px; border-radius: 12px; background: var(--po-well); box-shadow: var(--po-well-shade); }
 .rt-pick button { height: 36px; padding: 0 16px; border: 0; border-radius: 9px; background: none; color: var(--pd-muted); font: inherit; font-size: 14px; cursor: pointer; }
 .rt-pick button[aria-checked="true"] { background: var(--po-face); box-shadow: var(--po-lit); color: var(--pd-text); }
-.rt-pipes { display: grid; grid-template-columns: 220px minmax(0, 1fr) 220px; align-items: center; gap: 20px; padding: 56px 40px; }
-.rt-end { display: grid; justify-items: center; gap: 6px; padding: 26px 18px; border: 1px solid var(--po-edge); border-radius: 18px; background: var(--po-face); box-shadow: var(--po-lit), var(--po-shade); text-align: center; }
+.rt-pipes { display: grid; grid-template-columns: 220px minmax(0, 1fr) 220px; align-items: center; gap: 0; padding: 48px 40px; }
+.rt-end { position: relative; z-index: 1; display: grid; justify-items: center; gap: 6px; padding: 26px 18px; border: 1px solid var(--po-edge); border-radius: 18px; background: var(--po-face); box-shadow: var(--po-lit), var(--po-shade); text-align: center; }
 .rt-end b { color: var(--pd-text); font-size: 16px; }
 .rt-end small { color: var(--pd-muted); font-size: 12.5px; }
-.rt-line { position: relative; display: grid; gap: 22px; }
-.rt-line span { position: relative; height: 1px; background: rgba(255, 255, 255, 0.14); transition: opacity 0.3s ease; }
+/* two lanes running flush from one box's edge to the other's, centred on the boxes */
+.rt-line { position: relative; display: grid; gap: 34px; padding: 0; }
+.rt-line span { position: relative; display: block; height: 1px; background: rgba(255, 255, 255, 0.16); transition: opacity 0.3s ease; }
+.rt-line em { position: absolute; left: 50%; transform: translateX(-50%); color: var(--pd-muted); font: normal 11px var(--ix-mono); letter-spacing: 0.04em; white-space: nowrap; }
+.rt-line .down em { bottom: 10px; }
+.rt-line .up em { top: 10px; }
 .rt-line i { position: absolute; top: -3px; width: 7px; height: 7px; border-radius: 50%; }
-.rt-line .down i { background: #ff6a00; }
-.rt-line .up i { background: rgba(252, 248, 245, 0.8); }
+.rt-line .down i { background: #ff6a00; box-shadow: 0 0 10px rgba(255, 106, 0, 0.55); }
+.rt-line .up i { background: rgba(252, 248, 245, 0.85); }
 .motion-enabled .rt-line .down i { animation: rt-right 2.4s linear infinite; }
 .motion-enabled .rt-line .up i { animation: rt-left 2.4s linear infinite; }
-.rt-line i:nth-child(2) { animation-delay: -0.8s !important; }
-.rt-line i:nth-child(3) { animation-delay: -1.6s !important; }
-@keyframes rt-right { from { left: 0; } to { left: 100%; } }
-@keyframes rt-left { from { left: 100%; } to { left: 0; } }
-.rt-pipes.sse .rt-line .up { opacity: 0.08; }
+.rt-line i:nth-of-type(2) { animation-delay: -0.8s !important; }
+.rt-line i:nth-of-type(3) { animation-delay: -1.6s !important; }
+@keyframes rt-right { from { left: 0; } to { left: calc(100% - 7px); } }
+@keyframes rt-left { from { left: calc(100% - 7px); } to { left: 0; } }
+@keyframes rt-downv { from { top: 0; } to { top: calc(100% - 7px); } }
+@keyframes rt-upv { from { top: calc(100% - 7px); } to { top: 0; } }
+.rt-pipes.sse .rt-line .up { opacity: 0.12; }
 .rt-pipes.sse .rt-line .up i { display: none; }
 
 @media (max-width: 1000px) {
@@ -64,4 +70,13 @@
   .rt-room { grid-template-columns: minmax(0, 1fr); padding: 24px; }
   .rt-people { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .rt-pipes { grid-template-columns: minmax(0, 1fr); padding: 26px; }
+  /* stacked: the lanes turn vertical and join the two boxes */
+  .rt-line { grid-template-columns: 1px 1px; justify-content: center; gap: 56px; height: 110px; }
+  .rt-line span { width: 1px; height: 100%; }
+  .rt-line em { left: auto; transform: none; top: 50% !important; bottom: auto !important; translate: 0 -50%; }
+  .rt-line .down em { right: 14px; }
+  .rt-line .up em { left: 14px; }
+  .rt-line i { top: 0; left: -3px; }
+  .motion-enabled .rt-line .down i { animation-name: rt-downv; }
+  .motion-enabled .rt-line .up i { animation-name: rt-upv; }
 }
