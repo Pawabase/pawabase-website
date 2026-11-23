@@ -408,5 +408,96 @@
    "free": 200000,
    "gauge": false
   }
- ]
+ ],
+ "servers": [
+  {
+   "code": "nano",
+   "name": "Nano",
+   "vcpus": 1,
+   "memory_gb": 2,
+   "hour": 3700,
+   "month": 2701000
+  },
+  {
+   "code": "micro",
+   "name": "Micro",
+   "vcpus": 2,
+   "memory_gb": 2,
+   "hour": 4600,
+   "month": 3358000
+  },
+  {
+   "code": "small",
+   "name": "Small",
+   "vcpus": 2,
+   "memory_gb": 4,
+   "hour": 6400,
+   "month": 4672000
+  },
+  {
+   "code": "standard",
+   "name": "Standard",
+   "vcpus": 4,
+   "memory_gb": 4,
+   "hour": 8200,
+   "month": 5986000
+  },
+  {
+   "code": "medium",
+   "name": "Medium",
+   "vcpus": 2,
+   "memory_gb": 8,
+   "hour": 10000,
+   "month": 7300000
+  },
+  {
+   "code": "large",
+   "name": "Large",
+   "vcpus": 4,
+   "memory_gb": 8,
+   "hour": 11800,
+   "month": 8614000
+  },
+  {
+   "code": "xlarge",
+   "name": "XLarge",
+   "vcpus": 4,
+   "memory_gb": 16,
+   "hour": 19000,
+   "month": 13870000
+  },
+  {
+   "code": "2xlarge",
+   "name": "2XLarge",
+   "vcpus": 8,
+   "memory_gb": 16,
+   "hour": 22600,
+   "month": 16498000
+  },
+  {
+   "code": "3xlarge",
+   "name": "3XLarge",
+   "vcpus": 8,
+   "memory_gb": 24,
+   "hour": 29800,
+   "month": 21754000
+  },
+  {
+   "code": "4xlarge",
+   "name": "4XLarge",
+   "vcpus": 8,
+   "memory_gb": 32,
+   "hour": 37000,
+   "month": 27010000
+  },
+  {
+   "code": "5xlarge",
+   "name": "5XLarge",
+   "vcpus": 16,
+   "memory_gb": 64,
+   "hour": 73000,
+   "month": 53290000
+  }
+ ],
+ "hours_per_month": 730
 }

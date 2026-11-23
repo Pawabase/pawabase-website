@@ -1,0 +1,113 @@
+/* Pricing (pages/Pricing.tsx): its own hero, the plans, Enterprise, credits, the comparison and questions. */
+
+.pr-mono { font: 11.5px var(--ix-mono); letter-spacing: 0.04em; color: var(--ix-faint); text-transform: uppercase; }
+
+/* ── hero: the copy on the left, a plan's credit paying for a server on the right ── */
+.pr-hero { position: relative; display: flex; flex-direction: column; overflow: hidden;
+  background:
+    radial-gradient(60% 70% at 78% 40%, rgba(255, 106, 0, 0.13), transparent 70%),
+    linear-gradient(180deg, rgba(252, 248, 245, 0.025), transparent 60%); }
+.pr-hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 56px; align-items: center;
+  padding: clamp(64px, 8vw, 112px) var(--ix-gutter) clamp(72px, 8vw, 120px); }
+.pr-hero-copy h1 { margin: 0; font-size: clamp(40px, 5vw, 68px); font-weight: 500; line-height: 1.04; letter-spacing: -0.045em; color: var(--ix-text); text-wrap: balance; }
+.pr-hero-copy h1 span { display: block; }
+.pr-hero-copy h1 .hot { color: var(--ix-orange); }
+.pr-hero-copy p { margin: 24px 0 0; max-width: 46ch; font-size: 17px; line-height: 1.6; color: var(--ix-muted); }
+.pr-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 34px; }
+
+.pr-credit { position: relative; margin: 0; display: grid; place-items: center; min-height: 380px; }
+.pr-credit-dots { position: absolute; inset: 0; border-radius: 24px;
+  background-image: radial-gradient(rgba(255, 106, 0, 0.55) 1.2px, transparent 1.6px); background-size: 14px 14px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 25%, transparent 100%); mask-image: radial-gradient(closest-side, #000 25%, transparent 100%); opacity: 0.55; }
+.pr-credit-card { position: relative; width: min(420px, 100%); padding: 26px 26px 22px; border: 1px solid var(--ix-line-2); border-radius: 18px;
+  background: linear-gradient(180deg, rgba(252, 248, 245, 0.05), rgba(252, 248, 245, 0) 45%), var(--ix-raised);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(252, 248, 245, 0.07); }
+.pr-credit-top { display: flex; align-items: center; justify-content: space-between; }
+.pr-chip { padding: 4px 10px; border: 1px solid rgba(255, 106, 0, 0.4); border-radius: 999px; font-size: 12.5px; color: var(--ix-orange); background: rgba(255, 106, 0, 0.08); }
+.pr-credit-amount { display: block; margin-top: 22px; font-size: 42px; font-weight: 600; line-height: 1; letter-spacing: -0.04em; color: var(--ix-text); }
+.pr-credit-label { display: block; margin-top: 6px; font-size: 14px; color: var(--ix-muted); }
+.pr-meter { position: relative; height: 10px; margin: 22px 0 20px; border-radius: 999px; background: rgba(252, 248, 245, 0.07); overflow: hidden; }
+.pr-meter span { position: absolute; inset: 0 auto 0 0; width: var(--used); border-radius: inherit; background: linear-gradient(90deg, #ff8a3d, var(--ix-orange)); box-shadow: 0 0 18px rgba(255, 106, 0, 0.6);
+  animation: pr-fill 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.3s; }
+@keyframes pr-fill { from { width: 0; } }
+.pr-credit-row { display: flex; align-items: center; gap: 14px; padding: 14px; border: 1px solid var(--ix-line); border-radius: 12px; background: var(--ix-deep); }
+.pr-server { display: grid; gap: 4px; width: 38px; padding: 7px; border: 1px solid var(--ix-line-2); border-radius: 8px; }
+.pr-server i { display: block; height: 4px; border-radius: 2px; background: rgba(252, 248, 245, 0.22); }
+.pr-server i:first-child { background: var(--ix-orange); }
+.pr-credit-what { display: flex; flex: 1; flex-direction: column; gap: 2px; min-width: 0; }
+.pr-credit-what b { font-size: 14px; font-weight: 500; color: var(--ix-text); }
+.pr-credit-what small { font-size: 12.5px; color: var(--ix-faint); }
+.pr-covered { padding: 4px 9px; border-radius: 6px; font-size: 12px; color: #7ddc9a; background: rgba(125, 220, 154, 0.1); }
+
+/* ── sections ── */
+.pr-sec .ix-head { padding-top: clamp(72px, 8vw, 120px); }
+
+/* the plans reuse the home page's panel; here it sits on the page, not in a band */
+.pr-plans { margin-bottom: 0; }
+.pr-enterprise { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr) auto; gap: 24px 40px; align-items: center; margin: 14px var(--ix-gutter) 0;
+  padding: 24px 28px; border: 1px solid var(--ix-line); border-radius: var(--ix-radius); background: var(--ix-card); }
+.pr-enterprise h3 { margin: 0; font-size: 19px; font-weight: 500; letter-spacing: -0.02em; color: var(--ix-text); }
+.pr-enterprise p { margin: 6px 0 0; font-size: 14px; color: var(--ix-muted); }
+.pr-enterprise ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.pr-enterprise li { padding: 6px 11px; border: 1px solid var(--ix-line); border-radius: 999px; font-size: 12.5px; color: var(--ix-muted); }
+
+/* how credits work */
+.pr-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 0 var(--ix-gutter); padding: 0; list-style: none; }
+.pr-steps li { display: flex; flex-direction: column; padding: 26px; border: 1px solid var(--ix-line); border-radius: var(--ix-radius);
+  background: linear-gradient(180deg, rgba(252, 248, 245, 0.03), rgba(252, 248, 245, 0) 40%), var(--ix-card); }
+.pr-step-art { display: grid; place-items: center; height: 120px; margin-bottom: 22px; border: 1px solid var(--ix-line); border-radius: 12px; background: var(--ix-deep); }
+.pr-step-art svg { width: 160px; height: 72px; overflow: visible; }
+.pr-step-n { color: var(--ix-orange); }
+.pr-steps h3 { margin: 10px 0 0; font-size: 18px; font-weight: 500; letter-spacing: -0.02em; color: var(--ix-text); }
+.pr-steps p { margin: 10px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ix-muted); }
+.pr-art-frame { fill: none; stroke: var(--ix-line-2); }
+.pr-art-fill { fill: rgba(252, 248, 245, 0.16); }
+.pr-art-hot { fill: var(--ix-orange); }
+.pr-art-line { fill: none; stroke: var(--ix-orange); stroke-width: 2.5; stroke-linecap: round; }
+.pr-art-cap { stroke: rgba(252, 248, 245, 0.4); stroke-width: 1.5; stroke-dasharray: 5 5; }
+.pr-art-dot { fill: var(--ix-orange); filter: drop-shadow(0 0 6px var(--ix-orange)); }
+
+/* the comparison: one table, groups as rows, the head stays in view under the navigation */
+.pr-compare { margin: 0 var(--ix-gutter); border: 1px solid var(--ix-line); border-radius: var(--ix-radius); background: var(--ix-card); }
+.pr-compare table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; text-align: left; }
+.pr-compare th, .pr-compare td { padding: 13px 18px; font-size: 14px; vertical-align: top; border-top: 1px solid var(--ix-line); }
+.pr-compare thead th { position: sticky; top: 72px; z-index: 2; border-top: 0; padding-top: 18px; padding-bottom: 16px; background: rgba(13, 13, 15, 0.96); backdrop-filter: blur(8px);
+  box-shadow: inset 0 -1px 0 var(--ix-line-2); font-weight: 400; }
+.pr-compare thead th:first-child { width: 28%; vertical-align: bottom; border-top-left-radius: var(--ix-radius); }
+.pr-compare thead th:last-child { border-top-right-radius: var(--ix-radius); }
+.pr-compare thead b { display: block; font-size: 15px; font-weight: 500; color: var(--ix-text); }
+.pr-compare thead small { display: block; margin-top: 4px; font: 12px var(--ix-mono); color: var(--ix-faint); }
+.pr-compare thead .featured b { color: var(--ix-orange); }
+.pr-compare tbody th { font-weight: 400; color: var(--ix-text); }
+.pr-compare tbody th small { display: block; margin-top: 3px; font-size: 12px; color: var(--ix-faint); }
+.pr-compare td { color: var(--ix-muted); font-variant-numeric: tabular-nums; }
+.pr-compare td.featured { color: var(--ix-text); background: rgba(255, 106, 0, 0.035); box-shadow: inset 1px 0 0 rgba(255, 106, 0, 0.18), inset -1px 0 0 rgba(255, 106, 0, 0.18); }
+.pr-compare .pr-group th { padding: 22px 18px 10px; border-top: 1px solid var(--ix-line-2); font: 11.5px var(--ix-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ix-orange); background: transparent; }
+.pr-compare tbody tr:first-child th { border-top: 0; }
+.pr-yes { color: var(--ix-orange); font-weight: 600; }
+.pr-no { color: var(--ix-faint); }
+
+/* questions */
+.pr-questions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0 var(--ix-gutter); }
+.pr-questions details { padding: 20px 22px; border: 1px solid var(--ix-line); border-radius: 12px; background: var(--ix-card); }
+.pr-questions summary { cursor: pointer; list-style: none; font-size: 15.5px; font-weight: 500; color: var(--ix-text); }
+.pr-questions summary::-webkit-details-marker { display: none; }
+.pr-questions summary::after { content: "+"; float: right; color: var(--ix-orange); font-weight: 400; }
+.pr-questions details[open] summary::after { content: "–"; }
+.pr-questions p { margin: 12px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ix-muted); }
+
+@media (prefers-reduced-motion: reduce) { .pr-meter span { animation: none; } }
+
+@media (max-width: 1100px) {
+  .pr-compare { overflow-x: auto; }
+  .pr-compare table { min-width: 900px; }
+  .pr-compare thead th { position: static; }
+  .pr-compare tbody th, .pr-compare thead th:first-child { position: sticky; left: 0; z-index: 1; background: var(--ix-card); }
+  .pr-enterprise { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  .pr-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .pr-credit { min-height: 320px; }
+  .pr-steps, .pr-questions { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) { .pr-credit-amount { font-size: 34px; } }

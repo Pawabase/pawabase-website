@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { PLANS, PRICING_METRICS, fromCatalog, type Catalog, type Plan, type PricingMetric } from "@/components/pricing/plans";
+import { ENTERPRISE, PLANS, PRICING_METRICS, fromCatalog, type Catalog, type Enterprise, type Plan, type PricingMetric } from "@/components/pricing/plans";
 
 /** Where Pawabase Cloud's backend answers. Unset: the bundled copy of its price list (components/pricing/catalog.json). */
 const CLOUD_URL = (import.meta.env.VITE_CLOUD_URL as string | undefined)?.replace(/\/$/, "");
@@ -20,7 +20,7 @@ function loadCatalog(): Promise<Catalog | null> {
 
 /** The plans from Pawabase Cloud; the bundled copy until they arrive, or if they cannot. */
 export function usePlans() {
-  const [state, setState] = useState<{ plans: Plan[]; metrics: PricingMetric[]; live: boolean }>({ plans: PLANS, metrics: PRICING_METRICS, live: false });
+  const [state, setState] = useState<{ plans: Plan[]; metrics: PricingMetric[]; enterprise: Enterprise; live: boolean }>({ plans: PLANS, metrics: PRICING_METRICS, enterprise: ENTERPRISE, live: false });
   useEffect(() => {
     if (!CLOUD_URL) return;
     let alive = true;
