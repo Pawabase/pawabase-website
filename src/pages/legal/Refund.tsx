@@ -4,7 +4,7 @@ export default function RefundPage() {
   return (
     <LegalShell
       title="Refund Policy"
-      description="Our policy regarding refunds for Pawabase plans and credits."
+      description="How refunds work for Pawabase plans and the credits you buy: monthly plans through Paystack, and unused credits."
       lastUpdated="November 23, 2026"
       activeHref="/legal/refund"
     >

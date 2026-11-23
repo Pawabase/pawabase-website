@@ -211,7 +211,7 @@ export const PAGES: Page[] = [
   legal("privacy", "Privacy Policy", "How Pawabase collects, uses, and protects your personal information when you use our website, products, and services.", "Privacy"),
   legal("terms", "Terms of Service", "The terms and conditions governing your use of Pawabase's website, products, and services.", "Terms"),
   legal("cookies", "Cookie Policy", "How Pawabase uses cookies and similar tracking technologies on our website.", "Cookies"),
-  legal("refund", "Refund Policy", "Our policy regarding refunds for Pawabase plans and credits.", "Refund"),
+  legal("refund", "Refund Policy", "How refunds work for Pawabase plans and the credits you buy: monthly plans through Paystack, and unused credits.", "Refund"),
   legal("dpa", "Data Processing Addendum", "Terms governing the processing of personal data in accordance with applicable data protection laws, including GDPR.", "Dpa"),
   legal("acceptable-use", "Acceptable Use Policy", "Guidelines for appropriate and safe use of Pawabase's services and platform.", "AcceptableUse"),
 ];
