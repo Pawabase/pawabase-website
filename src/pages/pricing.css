@@ -2,42 +2,13 @@
 
 .pr-mono { font: 11.5px var(--ix-mono); letter-spacing: 0.04em; color: var(--ix-faint); text-transform: uppercase; }
 
-/* ── hero: the copy on the left, a plan's credit paying for a server on the right ── */
-.pr-hero { position: relative; display: flex; flex-direction: column; overflow: hidden;
-  background:
-    radial-gradient(60% 70% at 78% 40%, rgba(255, 106, 0, 0.13), transparent 70%),
-    linear-gradient(180deg, rgba(252, 248, 245, 0.025), transparent 60%); }
-.pr-hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 56px; align-items: center;
-  padding: clamp(64px, 8vw, 112px) var(--ix-gutter) clamp(72px, 8vw, 120px); }
-.pr-hero-copy h1 { margin: 0; font-size: clamp(40px, 5vw, 68px); font-weight: 500; line-height: 1.04; letter-spacing: -0.045em; color: var(--ix-text); text-wrap: balance; }
-.pr-hero-copy h1 span { display: block; }
-.pr-hero-copy h1 .hot { color: var(--ix-orange); }
-.pr-hero-copy p { margin: 24px 0 0; max-width: 46ch; font-size: 17px; line-height: 1.6; color: var(--ix-muted); }
-.pr-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 34px; }
-
-.pr-credit { position: relative; margin: 0; display: grid; place-items: center; min-height: 380px; }
-.pr-credit-dots { position: absolute; inset: 0; border-radius: 24px;
-  background-image: radial-gradient(rgba(255, 106, 0, 0.55) 1.2px, transparent 1.6px); background-size: 14px 14px;
-  -webkit-mask-image: radial-gradient(closest-side, #000 25%, transparent 100%); mask-image: radial-gradient(closest-side, #000 25%, transparent 100%); opacity: 0.55; }
-.pr-credit-card { position: relative; width: min(420px, 100%); padding: 26px 26px 22px; border: 1px solid var(--ix-line-2); border-radius: 18px;
-  background: linear-gradient(180deg, rgba(252, 248, 245, 0.05), rgba(252, 248, 245, 0) 45%), var(--ix-raised);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(252, 248, 245, 0.07); }
-.pr-credit-top { display: flex; align-items: center; justify-content: space-between; }
-.pr-chip { padding: 4px 10px; border: 1px solid rgba(255, 106, 0, 0.4); border-radius: 999px; font-size: 12.5px; color: var(--ix-orange); background: rgba(255, 106, 0, 0.08); }
-.pr-credit-amount { display: block; margin-top: 22px; font-size: 42px; font-weight: 600; line-height: 1; letter-spacing: -0.04em; color: var(--ix-text); }
-.pr-credit-label { display: block; margin-top: 6px; font-size: 14px; color: var(--ix-muted); }
-.pr-meter { position: relative; height: 10px; margin: 22px 0 20px; border-radius: 999px; background: rgba(252, 248, 245, 0.07); overflow: hidden; }
-.pr-meter span { position: absolute; inset: 0 auto 0 0; width: var(--used); border-radius: inherit; background: linear-gradient(90deg, #ff8a3d, var(--ix-orange)); box-shadow: 0 0 18px rgba(255, 106, 0, 0.6);
-  animation: pr-fill 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.3s; }
-@keyframes pr-fill { from { width: 0; } }
-.pr-credit-row { display: flex; align-items: center; gap: 14px; padding: 14px; border: 1px solid var(--ix-line); border-radius: 12px; background: var(--ix-deep); }
-.pr-server { display: grid; gap: 4px; width: 38px; padding: 7px; border: 1px solid var(--ix-line-2); border-radius: 8px; }
-.pr-server i { display: block; height: 4px; border-radius: 2px; background: rgba(252, 248, 245, 0.22); }
-.pr-server i:first-child { background: var(--ix-orange); }
-.pr-credit-what { display: flex; flex: 1; flex-direction: column; gap: 2px; min-width: 0; }
-.pr-credit-what b { font-size: 14px; font-weight: 500; color: var(--ix-text); }
-.pr-credit-what small { font-size: 12.5px; color: var(--ix-faint); }
-.pr-covered { padding: 4px 9px; border-radius: 6px; font-size: 12px; color: #7ddc9a; background: rgba(125, 220, 154, 0.1); }
+/* ── hero: a short headline, then the plans ── */
+.pr-hero { position: relative; padding-bottom: clamp(24px, 3vw, 40px);
+  background: radial-gradient(50% 40% at 50% 0%, rgba(255, 106, 0, 0.1), transparent 75%); }
+.pr-hero-copy { display: flex; flex-direction: column; align-items: center; padding: clamp(56px, 7vw, 96px) 24px clamp(40px, 4.5vw, 56px); text-align: center; }
+.pr-hero-copy h1 { margin: 0; max-width: 16ch; font-size: clamp(38px, 4.6vw, 62px); font-weight: 500; line-height: 1.05; letter-spacing: -0.045em; color: var(--ix-text); text-wrap: balance; }
+.pr-hero-copy p { margin: 18px 0 0; max-width: 56ch; font-size: 17px; line-height: 1.6; color: var(--ix-muted); text-wrap: balance; }
+.pr-hero-tools { display: flex; align-items: center; gap: 14px; margin-top: 28px; font-size: 13px; color: var(--ix-faint); }
 
 /* ── sections ── */
 .pr-sec .ix-head { padding-top: clamp(72px, 8vw, 120px); }
@@ -106,8 +77,6 @@
   .pr-enterprise { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 900px) {
-  .pr-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
-  .pr-credit { min-height: 320px; }
   .pr-steps, .pr-questions { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 640px) { .pr-credit-amount { font-size: 34px; } }
+

@@ -103,11 +103,3 @@ export const PLANS: Plan[] = bundled.plans;
 export const PRICING_METRICS: PricingMetric[] = bundled.metrics;
 export const ENTERPRISE: Enterprise = bundled.enterprise;
 
-/** The hero's example: the smallest paid plan's credit against the smallest database server's month, in naira. */
-export const CREDIT_EXAMPLE = (() => {
-  const unit = CATALOG.minor_unit || 100;
-  const plan = CATALOG.plans.find((p) => p.compute_credit > 0 && !p.contact);
-  const server = CATALOG.servers?.[0];
-  if (!plan || !server) return null;
-  return { plan: plan.label, credit: plan.compute_credit / unit, server: `${server.vcpus} vCPU · ${server.memory_gb} GB`, month: server.month / unit };
-})();

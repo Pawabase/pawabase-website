@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 
-import { Rule } from "@/components/home/Home";
-import { PageHero, SitePage } from "@/components/site/SitePage";
+import { SitePage } from "@/components/site/SitePage";
+import { SiteNav } from "@/components/site/SiteNav";
 import { Link } from "@tanstack/react-router";
 
-/* The legal pages in the home page's system: the sky hero, then one panel with the documents on the left and the reader. */
+/* The legal pages as plain documents: the navigation, a quiet title, then the documents on the left (kept in view) and the text. */
 
 export const LEGAL_LINKS = [
   { label: "Privacy Policy", href: "/legal/privacy" },
@@ -30,11 +30,17 @@ export function LegalShell({
 }) {
   return (
     <SitePage title={title} description={description} closing={false}>
-      <PageHero title={title} line={description} note={lastUpdated ? `Last updated ${lastUpdated}` : undefined} compact />
+      <header className="sp-legal-head" aria-labelledby="page-title">
+        <SiteNav />
+        <div className="sp-legal-title">
+          <span className="sp-legal-kicker">Legal</span>
+          <h1 id="page-title">{title}</h1>
+          <p>{description}</p>
+          {lastUpdated && <span className="sp-legal-date">Last updated {lastUpdated}</span>}
+        </div>
+      </header>
       <section className="ix-section" aria-label={title} data-plain="">
-        <Rule />
-        <div className="ix-panel sp-legal">
-          <Rule />
+        <div className="sp-legal">
           <aside className="sp-legal-side">
             <nav className="sp-legal-nav" aria-label="Legal documents">
               {LEGAL_LINKS.map((link) => (

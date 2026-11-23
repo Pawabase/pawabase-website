@@ -2,7 +2,6 @@ import { Fragment, type CSSProperties } from "react";
 
 import { Arrow, Lines, SectionHead } from "@/components/home/Home";
 import { CurrencyPicker } from "@/components/pricing/CurrencyPicker";
-import { CREDIT_EXAMPLE } from "@/components/pricing/plans";
 import { SitePage } from "@/components/site/SitePage";
 import { SiteNav } from "@/components/site/SiteNav";
 import { usePlans } from "@/hooks/usePlans";
@@ -11,74 +10,29 @@ import { SIGN_UP } from "@/lib/links";
 import "./pricing.css";
 
 /*
- * Pricing, its own page: a hero with one picture (a plan's compute credit paying for a database server), the plans in one panel,
- * Enterprise under them, how credits work in three pictures, every limit in a grouped table whose head stays in view, and questions.
+ * Pricing, its own page: a short headline with the plans right under it and Enterprise below them, how credits work in three
+ * pictures, every limit in a grouped table whose head stays in view, and questions.
  * Numbers come from Cloud's price list (usePlans, with the bundled copy in components/pricing/catalog.json).
  */
 
 const SALES = "hello@pawabase.com";
 
-function CreditPicture() {
-  const { show } = useCurrency();
-  if (!CREDIT_EXAMPLE) return null;
-  const used = Math.min(100, Math.round((CREDIT_EXAMPLE.month / CREDIT_EXAMPLE.credit) * 100));
-  return (
-    <figure className="pr-credit" data-reveal="up" aria-label={`${CREDIT_EXAMPLE.plan}'s compute credit covers a ${CREDIT_EXAMPLE.server} database server`}>
-      <div className="pr-credit-dots" aria-hidden="true" />
-      <div className="pr-credit-card">
-        <div className="pr-credit-top">
-          <span className="pr-chip">{CREDIT_EXAMPLE.plan} plan</span>
-          <span className="pr-mono">this month</span>
-        </div>
-        <b className="pr-credit-amount">{show(CREDIT_EXAMPLE.credit)}</b>
-        <span className="pr-credit-label">compute credit</span>
-        <div className="pr-meter" style={{ "--used": `${used}%` } as CSSProperties}>
-          <span />
-        </div>
-        <div className="pr-credit-row">
-          <span className="pr-server" aria-hidden="true"><i /><i /><i /></span>
-          <span className="pr-credit-what">
-            <b>Database server</b>
-            <small>{CREDIT_EXAMPLE.server} · {show(CREDIT_EXAMPLE.month)} a month</small>
-          </span>
-          <span className="pr-covered">Covered</span>
-        </div>
-      </div>
-    </figure>
-  );
-}
-
+/** The opening: a short headline, the currency, then the plans themselves, with Enterprise under them. */
 function Hero() {
-  return (
-    <section className="pr-hero" aria-labelledby="page-title" data-plain="">
-      <SiteNav />
-      <div className="pr-hero-grid">
-        <div className="pr-hero-copy">
-          <h1 id="page-title" data-reveal="up">
-            <span>Start free.</span>
-            <span className="hot">Pay for the room you need.</span>
-          </h1>
-          <p data-reveal="up">Every plan has the whole system. Paid plans add room, history and compute credit for database servers of your own.</p>
-          <div className="pr-hero-actions" data-reveal="up">
-            <a href={SIGN_UP} className="btn btn-light btn-lg">Start building <Arrow /></a>
-            <a href="#compare" className="ix-link">Compare plans</a>
-          </div>
-        </div>
-        <CreditPicture />
-      </div>
-    </section>
-  );
-}
-
-function Plans() {
   const { plans, enterprise } = usePlans();
   const { show } = useCurrency();
   const cuts = plans.slice(1).map((_, i) => (i + 1) / plans.length);
   return (
-    <section className="ix-section pr-sec" aria-labelledby="plans-title" data-plain="">
-      <SectionHead id="plans-title" title="Plans" lead="Billed monthly in naira through Paystack. Move up, down or back to Free whenever you like.">
-        <CurrencyPicker />
-      </SectionHead>
+    <section className="pr-hero" aria-labelledby="page-title" data-plain="">
+      <SiteNav />
+      <div className="pr-hero-copy">
+        <h1 id="page-title" data-reveal="up">Start free. Grow on a plan that fits.</h1>
+        <p data-reveal="up">Every plan has the whole system. Paid plans add room, longer history and compute credit for database servers of your own.</p>
+        <div className="pr-hero-tools" data-reveal="up">
+          <CurrencyPicker />
+          <span>Billed monthly in naira</span>
+        </div>
+      </div>
       <div className="ix-panel ix-plans pr-plans" style={{ "--plans": plans.length } as CSSProperties} data-reveal="up">
         <Lines v={cuts.map((x) => [x, 0, 1] as [number, number, number])} />
         {plans.map((plan) => (
@@ -237,7 +191,6 @@ export default function PricingPage() {
   return (
     <SitePage title="Pricing" description="Pawabase Cloud pricing: start free, then plans with compute credit, more room and longer history. Billed monthly in naira.">
       <Hero />
-      <Plans />
       <Credits />
       <Compare />
       <Questions />
