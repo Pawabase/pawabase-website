@@ -1,0 +1,412 @@
+{
+ "currency": "NGN",
+ "minor_unit": 100,
+ "plans": [
+  {
+   "key": "free",
+   "label": "Free",
+   "description": "For learning Pawabase and side projects.",
+   "monthly": 0,
+   "compute_credit": 0,
+   "included": {
+    "requests": 100000,
+    "bandwidth": 5,
+    "database": 0.5,
+    "files": 1,
+    "users": 50000,
+    "emails": 100,
+    "flow_runs": 1000,
+    "realtime_messages": 200000
+   },
+   "projects": 2,
+   "perks": [
+    "Community support",
+    "1 backup kept",
+    "Request logs for 1 day"
+   ],
+   "traffic": [
+    60,
+    50,
+    25
+   ],
+   "own_emails": 3000,
+   "history": "free",
+   "backups": 1,
+   "environments": 3,
+   "contact": false,
+   "support": "Community",
+   "assurances": [
+    "spend_controls"
+   ],
+   "retention": {
+    "request_retention_days": 1,
+    "firewall_event_retention_days": 1,
+    "audit_retention_days": 7,
+    "login_event_retention_days": 7,
+    "flow_run_retention_days": 1,
+    "event_log_retention_days": 1,
+    "webhook_delivery_retention_days": 3,
+    "job_run_retention_days": 1,
+    "mail_log_retention_days": 3,
+    "alarm_event_retention_days": 7
+   }
+  },
+  {
+   "key": "starter",
+   "label": "Starter",
+   "description": "For a first app in production.",
+   "monthly": 3200000,
+   "compute_credit": 2800000,
+   "included": {
+    "requests": 2000000,
+    "bandwidth": 100,
+    "database": 4,
+    "files": 25,
+    "users": 75000,
+    "emails": 1000,
+    "flow_runs": 25000,
+    "realtime_messages": 3000000
+   },
+   "projects": 10,
+   "perks": [
+    "\u20a628,000 of compute credit every month",
+    "Email support, replies within 2 business days",
+    "3 backups kept",
+    "Spend cap, limits and alerts"
+   ],
+   "traffic": [
+    300,
+    500,
+    250
+   ],
+   "own_emails": 25000,
+   "history": "starter",
+   "backups": 3,
+   "environments": 5,
+   "contact": false,
+   "support": "Email, within 2 business days",
+   "assurances": [
+    "spend_controls"
+   ],
+   "retention": {
+    "request_retention_days": 3,
+    "firewall_event_retention_days": 3,
+    "audit_retention_days": 30,
+    "login_event_retention_days": 30,
+    "flow_run_retention_days": 7,
+    "event_log_retention_days": 7,
+    "webhook_delivery_retention_days": 7,
+    "job_run_retention_days": 7,
+    "mail_log_retention_days": 14,
+    "alarm_event_retention_days": 30
+   }
+  },
+  {
+   "key": "pro",
+   "label": "Pro",
+   "description": "For apps in production.",
+   "monthly": 6000000,
+   "compute_credit": 5000000,
+   "included": {
+    "requests": 5000000,
+    "bandwidth": 250,
+    "database": 8,
+    "files": 100,
+    "users": 100000,
+    "emails": 5000,
+    "flow_runs": 100000,
+    "realtime_messages": 5000000
+   },
+   "projects": 100,
+   "perks": [
+    "\u20a650,000 of compute credit every month",
+    "Email support, replies within 1 business day",
+    "7 backups kept",
+    "Spend cap, limits and alerts"
+   ],
+   "traffic": [
+    1000,
+    2000,
+    1000
+   ],
+   "own_emails": 100000,
+   "history": "pro",
+   "backups": 7,
+   "environments": 50,
+   "contact": false,
+   "support": "Email, within 1 business day",
+   "assurances": [
+    "spend_controls"
+   ],
+   "retention": {
+    "request_retention_days": 7,
+    "firewall_event_retention_days": 7,
+    "audit_retention_days": 90,
+    "login_event_retention_days": 90,
+    "flow_run_retention_days": 14,
+    "event_log_retention_days": 14,
+    "webhook_delivery_retention_days": 14,
+    "job_run_retention_days": 14,
+    "mail_log_retention_days": 30,
+    "alarm_event_retention_days": 90
+   }
+  },
+  {
+   "key": "team",
+   "label": "Team",
+   "description": "For teams running several products.",
+   "monthly": 15000000,
+   "compute_credit": 10000000,
+   "included": {
+    "requests": 25000000,
+    "bandwidth": 1000,
+    "database": 50,
+    "files": 250,
+    "users": 250000,
+    "emails": 20000,
+    "flow_runs": 500000,
+    "realtime_messages": 25000000
+   },
+   "projects": 100,
+   "perks": [
+    "Priority support, 4-hour replies",
+    "Shared Slack or WhatsApp channel",
+    "Onboarding session with an engineer",
+    "14 backups kept",
+    "Longer history: 30-day request logs, 1-year audit log"
+   ],
+   "traffic": [
+    3000,
+    10000,
+    5000
+   ],
+   "own_emails": 500000,
+   "history": "team",
+   "backups": 14,
+   "environments": 50,
+   "contact": false,
+   "support": "Priority, within 4 hours",
+   "assurances": [
+    "spend_controls",
+    "shared_channel",
+    "onboarding",
+    "long_history"
+   ],
+   "retention": {
+    "request_retention_days": 30,
+    "firewall_event_retention_days": 30,
+    "audit_retention_days": 365,
+    "login_event_retention_days": 180,
+    "flow_run_retention_days": 30,
+    "event_log_retention_days": 30,
+    "webhook_delivery_retention_days": 30,
+    "job_run_retention_days": 30,
+    "mail_log_retention_days": 90,
+    "alarm_event_retention_days": 180
+   }
+  },
+  {
+   "key": "scale",
+   "label": "Scale",
+   "description": "For high volume and large databases.",
+   "monthly": 45000000,
+   "compute_credit": 30000000,
+   "included": {
+    "requests": 100000000,
+    "bandwidth": 5000,
+    "database": 200,
+    "files": 1000,
+    "users": 1000000,
+    "emails": 100000,
+    "flow_runs": 2000000,
+    "realtime_messages": 100000000
+   },
+   "projects": 100,
+   "perks": [
+    "Everything in Team",
+    "A named engineer and a quarterly architecture review",
+    "Compliance: DPA and NDPA paperwork",
+    "99.9% uptime SLA",
+    "Migration help from your current backend",
+    "30 backups kept"
+   ],
+   "traffic": [
+    10000,
+    50000,
+    25000
+   ],
+   "own_emails": 2000000,
+   "history": "scale",
+   "backups": 30,
+   "environments": 50,
+   "contact": false,
+   "support": "Priority, within 4 hours",
+   "assurances": [
+    "spend_controls",
+    "shared_channel",
+    "onboarding",
+    "long_history",
+    "named_engineer",
+    "migration",
+    "compliance",
+    "sla"
+   ],
+   "retention": {
+    "request_retention_days": 90,
+    "firewall_event_retention_days": 90,
+    "audit_retention_days": 730,
+    "login_event_retention_days": 365,
+    "flow_run_retention_days": 90,
+    "event_log_retention_days": 90,
+    "webhook_delivery_retention_days": 90,
+    "job_run_retention_days": 90,
+    "mail_log_retention_days": 365,
+    "alarm_event_retention_days": 365
+   }
+  },
+  {
+   "key": "enterprise",
+   "label": "Enterprise",
+   "description": "For large organizations and regulated industries.",
+   "monthly": 0,
+   "compute_credit": 0,
+   "included": {
+    "requests": 100000000,
+    "bandwidth": 5000,
+    "database": 200,
+    "files": 1000,
+    "users": 1000000,
+    "emails": 200000,
+    "flow_runs": 2000000,
+    "realtime_messages": 100000000
+   },
+   "projects": 100,
+   "perks": [
+    "Custom amounts and compute credit",
+    "A contract, invoices and bank transfer",
+    "Custom SLA and security review",
+    "Volume pricing on servers",
+    "Everything in Scale"
+   ],
+   "traffic": [
+    10000,
+    50000,
+    25000
+   ],
+   "own_emails": 2000000,
+   "history": "scale",
+   "backups": 30,
+   "environments": 50,
+   "contact": true,
+   "support": "Dedicated team",
+   "assurances": [
+    "spend_controls",
+    "shared_channel",
+    "onboarding",
+    "long_history",
+    "named_engineer",
+    "migration",
+    "compliance",
+    "sla",
+    "contract"
+   ],
+   "retention": {
+    "request_retention_days": 90,
+    "firewall_event_retention_days": 90,
+    "audit_retention_days": 730,
+    "login_event_retention_days": 365,
+    "flow_run_retention_days": 90,
+    "event_log_retention_days": 90,
+    "webhook_delivery_retention_days": 90,
+    "job_run_retention_days": 90,
+    "mail_log_retention_days": 365,
+    "alarm_event_retention_days": 365
+   }
+  }
+ ],
+ "assurances": {
+  "spend_controls": "Spend cap, limits and alerts",
+  "shared_channel": "Shared Slack or WhatsApp channel",
+  "onboarding": "Onboarding session with an engineer",
+  "long_history": "Long history: 30\u201390 day request logs, 1\u20132 year audit log",
+  "named_engineer": "A named engineer and quarterly architecture review",
+  "migration": "Migration help from your current backend",
+  "compliance": "Compliance paperwork: DPA and NDPA",
+  "sla": "99.9% uptime SLA",
+  "contract": "Contract, invoices and bank transfer"
+ },
+ "meters": [
+  {
+   "key": "requests",
+   "label": "API requests",
+   "unit": "requests",
+   "per": 1000000,
+   "price": 150000,
+   "free": 100000,
+   "gauge": false
+  },
+  {
+   "key": "bandwidth",
+   "label": "Bandwidth",
+   "unit": "GB",
+   "per": 1,
+   "price": 15000,
+   "free": 5,
+   "gauge": false
+  },
+  {
+   "key": "database",
+   "label": "Database (shared)",
+   "unit": "GB-month",
+   "per": 1,
+   "price": 30000,
+   "free": 0.5,
+   "gauge": true
+  },
+  {
+   "key": "files",
+   "label": "File storage",
+   "unit": "GB-month",
+   "per": 1,
+   "price": 15000,
+   "free": 1,
+   "gauge": true
+  },
+  {
+   "key": "users",
+   "label": "Monthly active users",
+   "unit": "users",
+   "per": 1,
+   "price": 200,
+   "free": 50000,
+   "gauge": false
+  },
+  {
+   "key": "emails",
+   "label": "Emails through Pawabase mail",
+   "unit": "emails",
+   "per": 1,
+   "price": 100,
+   "free": 100,
+   "gauge": false
+  },
+  {
+   "key": "flow_runs",
+   "label": "Flow runs",
+   "unit": "runs",
+   "per": 1000,
+   "price": 30000,
+   "free": 1000,
+   "gauge": false
+  },
+  {
+   "key": "realtime_messages",
+   "label": "Realtime messages",
+   "unit": "messages",
+   "per": 1000000,
+   "price": 400000,
+   "free": 200000,
+   "gauge": false
+  }
+ ]
+}

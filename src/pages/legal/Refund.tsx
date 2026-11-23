@@ -4,14 +4,14 @@ export default function RefundPage() {
   return (
     <LegalShell
       title="Refund Policy"
-      description="Our policy regarding refunds for Pawabase paid services and subscriptions."
-      lastUpdated="October 24, 2025"
+      description="Our policy regarding refunds for Pawabase plans and credits."
+      lastUpdated="November 23, 2026"
       activeHref="/legal/refund"
     >
       <section>
         <h2>1. General Policy</h2>
         <p>
-          At Pawabase, we want you to be satisfied with our services. This Refund Policy outlines the circumstances under which we may issue refunds for paid subscriptions and services.
+          At Pawabase, we want you to be satisfied with our services. This Refund Policy outlines the circumstances under which we may issue refunds for paid plans and credits.
         </p>
         <p>
           All fees are charged in accordance with our pricing as displayed at the time of purchase.
@@ -19,27 +19,23 @@ export default function RefundPage() {
       </section>
 
       <section>
-        <h2>2. Subscription Refunds</h2>
-        <h3>Free Trial</h3>
+        <h2>2. Plans</h2>
         <p>
-          If we offer a free trial, you will not be charged until the trial period ends. You can cancel your subscription before the trial ends to avoid charges.
+          Paid plans are billed monthly in Nigerian naira through Paystack, and renew each month until you move to the Free plan. We do not
+          offer refunds for partial months. When you move to Free, your plan stays until the end of the month you paid for.
         </p>
-
-        <h3>Monthly Subscriptions</h3>
         <p>
-          For monthly subscriptions, we do not offer refunds for partial months of service. If you cancel your subscription, you will continue to have access to paid features until the end of your current billing period.
-        </p>
-
-        <h3>Annual Subscriptions</h3>
-        <p>
-          For annual subscriptions, we may offer a prorated refund within the first 30 days of your subscription if you are not satisfied with our services. After 30 days, annual subscriptions are non-refundable.
+          The compute credit that comes with a plan is part of that plan. Credit left unused at the end of a month is not refunded or paid
+          out.
         </p>
       </section>
 
       <section>
-        <h2>3. One-Time Purchases</h2>
+        <h2>3. Credits You Buy</h2>
         <p>
-          For any one-time purchases (such as credits or add-ons), refunds may be considered on a case-by-case basis within 14 days of purchase, subject to our review.
+          Credits you buy are added to your organization and do not expire. Credits that have not been used may be refunded on a
+          case-by-case basis within 14 days of purchase, subject to our review. Credits already used for servers, storage or usage are not
+          refundable.
         </p>
       </section>
 
@@ -58,7 +54,7 @@ export default function RefundPage() {
         <p>To request a refund, please contact our support team with the following information:</p>
         <ul>
           <li>Your account email address</li>
-          <li>Subscription or transaction details</li>
+          <li>The organization, and the payment reference from Paystack</li>
           <li>Reason for the refund request</li>
           <li>Any relevant documentation or screenshots</li>
         </ul>

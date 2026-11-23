@@ -1,3 +1,5 @@
+import catalog from "./catalog.json" with { type: "json" };
+
 export type Plan = {
   name: string;
   price: string;
@@ -12,88 +14,82 @@ export type PricingMetric = {
   values: string[];
 };
 
-/** `price` is naira a month, the same numbers as the Cloud's bundled plans (pawabase-cloud/backend/pawacloud/seed.py): change one, change both. */
-export const PLANS: Plan[] = [
-  {
-    name: "Free",
-    price: "0",
-    description: "For prototypes, experiments, and learning the platform.",
-    features: ["1 project", "250 MB PostgreSQL", "1,000 monthly active users", "7-day trial of every feature"],
-  },
-  {
-    name: "Starter",
-    price: "7500",
-    description: "For a small app with room to find its footing.",
-    features: ["1 project", "1 GB PostgreSQL", "5,000 monthly active users", "Community support"],
-  },
-  {
-    name: "Pro",
-    price: "29000",
-    description: "For products becoming part of people's daily work.",
-    featured: true,
-    features: ["3 projects", "5 GB PostgreSQL", "25,000 monthly active users", "Community support"],
-  },
-  {
-    name: "Business",
-    price: "119000",
-    description: "For teams running production systems at a larger scale.",
-    features: ["10 projects", "25 GB PostgreSQL", "100,000 monthly active users", "Priority email support"],
-  },
-  {
-    name: "Scale",
-    price: "449000",
-    description: "For high-volume products with serious operational needs.",
-    features: ["25 projects", "100 GB PostgreSQL", "500,000 monthly active users", "Full support, with a named engineer"],
-  },
+/** Pawabase Cloud's price list, as `prices.public` answers it (pawabase-cloud/backend/pawacloud/pricing.py `catalog()`). The website reads
+ *  it live from Cloud (hooks/usePlans.ts); catalog.json is a copy of it for when Cloud cannot be reached. Regenerate the copy when the
+ *  prices change, in pawabase-cloud/backend:
+ *    .venv/bin/python -c "import json; from pawacloud import pricing; c = pricing.catalog(); print(json.dumps({k: c[k] for k in ('currency', 'minor_unit', 'plans', 'assurances', 'meters')}, indent=1))" > ../../pawabase-website/src/components/pricing/catalog.json */
+export type CatalogPlan = {
+  key: string;
+  label: string;
+  description: string;
+  monthly: number;
+  compute_credit: number;
+  projects: number;
+  environments: number;
+  backups: number;
+  support: string;
+  contact: boolean;
+  own_emails: number;
+  traffic: number[];
+  assurances: string[];
+  included: Record<string, number>;
+  retention: Record<string, number>;
+};
+export type Catalog = { minor_unit: number; plans: CatalogPlan[]; assurances: Record<string, string> };
+
+const short = (n: number) => (n >= 1_000_000 ? `${+(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${+(n / 1_000).toFixed(1)}K` : `${n}`);
+const size = (gb: number) => (gb >= 1_000 ? `${gb / 1_000} TB` : gb < 1 ? `${gb * 1_000} MB` : `${gb} GB`);
+const days = (n: number) => (n >= 365 && n % 365 === 0 ? `${n / 365} ${n === 365 ? "year" : "years"}` : `${n} ${n === 1 ? "day" : "days"}`);
+const naira = (minor: number, unit: number) => `₦${Math.round(minor / unit).toLocaleString("en-NG")}`;
+
+type Row = { label: string; note?: string; value: (p: CatalogPlan, unit: number) => string };
+
+const ROWS: Row[] = [
+  { label: "Compute credit / month", note: "Pays for database servers of your own. Buy more credits any time.", value: (p, u) => (p.compute_credit ? naira(p.compute_credit, u) : "—") },
+  { label: "Projects", value: (p) => (p.projects >= 100 ? "Unlimited" : String(p.projects)) },
+  { label: "Environments / project", value: (p) => String(p.environments) },
+  { label: "API requests / month", value: (p) => short(p.included.requests) },
+  { label: "Monthly active users", value: (p) => short(p.included.users) },
+  { label: "Database", value: (p) => size(p.included.database) },
+  { label: "File storage", value: (p) => size(p.included.files) },
+  { label: "Bandwidth / month", value: (p) => size(p.included.bandwidth) },
+  { label: "Flow runs / month", value: (p) => short(p.included.flow_runs) },
+  { label: "Realtime messages / month", value: (p) => short(p.included.realtime_messages) },
+  { label: "Pawabase mail / month", note: "Sent from Pawabase's own sender, no setup.", value: (p) => short(p.included.emails) },
+  { label: "Emails through your provider / month", note: "Your own SMTP or mail service.", value: (p) => short(p.own_emails) },
+  { label: "Requests / minute", note: "Per API key or address.", value: (p) => short(p.traffic[0]) },
+  { label: "Realtime connections", note: "Open at once, per project.", value: (p) => short(p.traffic[1]) },
+  { label: "Realtime channels", value: (p) => short(p.traffic[2]) },
+  { label: "Request log history", value: (p) => days(p.retention.request_retention_days) },
+  { label: "Flow run history", value: (p) => days(p.retention.flow_run_retention_days) },
+  { label: "Audit and sign-in history", value: (p) => days(p.retention.audit_retention_days) },
+  { label: "Backups kept", value: (p) => String(p.backups) },
+  { label: "Support", value: (p) => p.support },
 ];
 
-const USAGE_METRICS: PricingMetric[] = [
-  { label: "Projects", values: ["1", "1", "3", "10", "25"] },
-  { label: "Environments / project", note: "Free runs on the project's first environment. Starter adds production; Pro and up add staging and more.", values: ["1", "2", "5", "15", "50"] },
-  { label: "PostgreSQL storage", values: ["250 MB", "1 GB", "5 GB", "25 GB", "100 GB"] },
-  { label: "Monthly active users", values: ["1,000", "5,000", "25,000", "100,000", "500,000"] },
-  { label: "API requests / month", values: ["50K", "500K", "2M", "10M", "50M"] },
-  { label: "Object storage", values: ["250 MB", "5 GB", "20 GB", "100 GB", "500 GB"] },
-  { label: "Bandwidth / month", values: ["1 GB", "10 GB", "50 GB", "250 GB", "1 TB"] },
-  { label: "Emails sent / month", note: "Through your own email provider.", values: ["500", "2,000", "10,000", "50,000", "200,000"] },
-  { label: "Pawabase mail / month", note: "Our free sender, for projects without their own provider. Counts toward the total.", values: ["30", "500", "1,000", "2,500", "5,000"] },
-  { label: "Storage buckets", values: ["3", "10", "25", "100", "500"] },
-  { label: "Scheduled tasks", values: ["1", "15", "50", "250", "1,000"] },
-  { label: "Inbound webhooks", values: ["2", "20", "100", "500", "2,000"] },
-  { label: "Outbound webhooks", values: ["2", "20", "100", "500", "2,000"] },
-  { label: "Flow runs / month", values: ["1K", "50K", "250K", "1M", "5M"] },
-  { label: "User API keys / user", values: ["5", "10", "25", "50", "100"] },
-  { label: "Realtime concurrent connections", values: ["20", "500", "2,500", "10,000", "50,000"] },
-  { label: "Realtime messages / month", values: ["50K", "2M", "10M", "50M", "250M"] },
-  { label: "Request log history", values: ["1 day", "3 days", "7 days", "30 days", "90 days"] },
-  { label: "Flow run history", values: ["1 day", "7 days", "30 days", "90 days", "180 days"] },
-  { label: "Sign-in history", values: ["3 days", "30 days", "90 days", "180 days", "365 days"] },
-  { label: "Audit log history", values: ["3 days", "30 days", "90 days", "365 days", "730 days"] },
-  { label: "Backups and restore", values: ["—", "Included", "Included", "Included", "Included"] },
-  { label: "Data export", values: ["—", "Included", "Included", "Included", "Included"] },
-  { label: "Request details and traces", note: "Every plan lists its requests; opening one shows its steps, logs, flows and events.", values: ["—", "Included", "Included", "Included", "Included"] },
-  { label: "AI gateway and agents", values: ["—", "—", "Included", "Included", "Included"] },
-  { label: "Roles, teams and bot protection", values: ["—", "—", "Included", "Included", "Included"] },
-  { label: "Machine identities", values: ["—", "—", "Included", "Included", "Included"] },
-  { label: "Promote and API versions", values: ["—", "—", "Included", "Included", "Included"] },
-  { label: "Enterprise SSO", values: ["—", "—", "—", "Included", "Included"] },
-];
+/** The cards and the comparison table, from a catalog: the plans that can be bought here (Enterprise is arranged with the team). */
+export function fromCatalog(source: Catalog): { plans: Plan[]; metrics: PricingMetric[] } {
+  const unit = source.minor_unit || 100;
+  const shown = source.plans.filter((p) => !p.contact);
+  const plans = shown.map((p) => ({
+    name: p.label,
+    price: String(p.monthly / unit),
+    description: p.description,
+    featured: p.key === "pro",
+    features: [
+      p.compute_credit ? `${naira(p.compute_credit, unit)} compute credit every month` : "The free monthly allowance, no card",
+      p.projects >= 100 ? "Unlimited projects" : `${p.projects} projects`,
+      `${short(p.included.requests)} API requests a month`,
+      p.support === "Community" ? "Community support" : `${p.support.split(",")[0]} support`,
+    ],
+  }));
+  const ticks: PricingMetric[] = Object.entries(source.assurances)
+    .filter(([key]) => key !== "long_history")
+    .map(([key, label]) => ({ label, values: shown.map((p) => (p.assurances.includes(key) ? "Included" : "—")) }));
+  const metrics = [...ROWS.map((row) => ({ label: row.label, note: row.note, values: shown.map((p) => row.value(p, unit)) })), ...ticks];
+  return { plans, metrics };
+}
 
-/** The support lines of each plan, in plan order (Free to Scale). The same words as the Cloud's bundled plans (seed.py's SUPPORT): change one, change both. */
-export const SUPPORT_HEADLINES = ["Community support", "Community support", "Community support", "Priority email support", "Full support, with a named engineer"];
-
-/** Support and compliance rows of the comparison table, one value per plan. They are the website's words, so they stay when the table is read from the Cloud. */
-export const SUPPORT_METRICS: PricingMetric[] = [
-  { label: "Support", values: ["Community", "Community", "Community", "Priority email", "Full, named engineer"] },
-  { label: "First reply", values: ["—", "—", "—", "1 business day", "4 hours"] },
-  { label: "Outage escalation", values: ["—", "—", "—", "Business hours", "Any hour"] },
-  { label: "Onboarding", values: ["Docs", "Docs", "Docs", "Guided session", "Dedicated onboarding"] },
-  { label: "Hands-on help building your product", note: "Architecture, reviews and engineering help from the team.", values: ["—", "—", "—", "—", "Included"] },
-  { label: "Private Slack channel", values: ["—", "—", "—", "—", "Included"] },
-  { label: "Data Processing Addendum", values: ["—", "—", "—", "On request", "Included"] },
-  { label: "Security and compliance reviews", note: "Help with your questionnaires and audits; Scale adds full compliance support.", values: ["—", "—", "—", "Questionnaire help", "Full support"] },
-  { label: "Custom contract and uptime SLA", values: ["—", "—", "—", "—", "Included"] },
-  { label: "Migration help", values: ["—", "—", "—", "—", "Included"] },
-];
-
-export const PRICING_METRICS: PricingMetric[] = [...USAGE_METRICS, ...SUPPORT_METRICS];
+const bundled = fromCatalog(catalog as Catalog);
+export const PLANS: Plan[] = bundled.plans;
+export const PRICING_METRICS: PricingMetric[] = bundled.metrics;

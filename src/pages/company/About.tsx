@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 
 import { ArrowLink, CompanyCta, CompanyHero, CompanySection, CompanyShell, SectionHeading } from "@/components/company/CompanyPage";
+import { OneSystem, PRINCIPLE_ART } from "@/components/company/OneSystem";
 
 const PRINCIPLES = [
   { title: "Make it visible", copy: "Clear states and useful errors beat magic that disappears when something breaks." },
@@ -33,6 +34,7 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
+        <OneSystem />
       </CompanySection>
 
       <CompanySection labelledBy="about-how">
@@ -41,6 +43,7 @@ export default function AboutPage() {
           {PRINCIPLES.map((p, i) => (
             <li key={p.title}>
               <span className="sp-n">{String(i + 1).padStart(2, "0")}</span>
+              <span className="ab-art">{PRINCIPLE_ART[i]}</span>
               <h3>{p.title}</h3>
               <p>{p.copy}</p>
             </li>
