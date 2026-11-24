@@ -3,25 +3,26 @@ import { useState } from "react";
 import { Icon } from "@/components/Icon";
 import { SitePage } from "@/components/site/SitePage";
 import { SiteNav } from "@/components/site/SiteNav";
-import { Filler, Pagination, PostCell } from "@/components/blog/parts";
+import { FeaturedPost, Pagination, PostCell } from "@/components/blog/parts";
 import { PER_PAGE, POSTS, TAGS, pageCount, postsTagged, tagNamed, type Post } from "@/lib/blog";
 
 import "@/components/blog/blog.css";
 
 /*
- * The blog's list, structured like pxxl's and drawn in Pawabase's own palette and type: no decorative hero, a left-aligned title,
- * the topics as pills, then every post as a cell of a hairline grid (picture, meta, title, three lines). "See more" adds the next
- * page's cells in place; the numbered pages under it are plain links, so each page exists for search and without JavaScript.
+ * The blog's list: a compact header (title, one line, RSS), the newest post as one wide bordered card on the first page, the topics as
+ * a quiet row of links, then the rest as bordered cards with their pictures edge to edge. "See more" adds the next page's cards in
+ * place; the numbered pages under it are plain links, so each page exists for search and without JavaScript. Nothing floats over the
+ * page: no sky, no marks.
  */
 
-function Header({ title, quiet, line }: { title: string; quiet: string; line: string }) {
+function Header({ title, line, count }: { title: string; line: string; count?: string }) {
   return (
     <header className="bp-top" data-plain="">
       <SiteNav />
       <div className="bp-intro">
         <div>
-          <h1 data-reveal="up"><span>{title}</span> <span className="bp-hot">{quiet}</span></h1>
-          <p data-reveal="up">{line}</p>
+          <h1>{title}{count && <span className="bp-count">{count}</span>}</h1>
+          <p>{line}</p>
         </div>
         <a href="/blog/rss.xml" className="sp-link bp-rss"><Icon name="send" size={14} /> RSS feed</a>
       </div>
@@ -33,11 +34,9 @@ function Topics({ active }: { active?: string }) {
   if (TAGS.length < 2) return null;
   return (
     <nav className="bp-topics" aria-label="Topics">
-      <a href="/blog" className={`btn btn-sm ${!active ? "btn-light" : "btn-ghost"}`} aria-current={!active ? "page" : undefined}>All</a>
+      <a href="/blog" aria-current={!active ? "page" : undefined}>All posts</a>
       {TAGS.map((t) => (
-        <a key={t.slug} href={`/blog/tag/${t.slug}`} className={`btn btn-sm ${active === t.slug ? "btn-light" : "btn-ghost"}`} aria-current={active === t.slug ? "page" : undefined}>
-          {t.name}
-        </a>
+        <a key={t.slug} href={`/blog/tag/${t.slug}`} aria-current={active === t.slug ? "page" : undefined}>{t.name}</a>
       ))}
     </nav>
   );
@@ -53,7 +52,6 @@ function Grid({ shown, rest }: { shown: Post[]; rest: Post[] }) {
     <>
       <ul className="bp-grid">
         {visible.map((p, i) => <PostCell key={p.slug} post={p} eager={i < 3} />)}
-        <Filler count={visible.length} />
       </ul>
       {left > 0 && (
         <div className="bp-more">
@@ -69,15 +67,18 @@ function Grid({ shown, rest }: { shown: Post[]; rest: Post[] }) {
 
 export function BlogList({ page = 1 }: { page?: number }) {
   const pages = pageCount();
-  // the list pages hold PER_PAGE + 1 posts on the first (the registry's count), PER_PAGE on the rest
+  // the list pages hold PER_PAGE + 1 posts on the first (the registry's count), PER_PAGE on the rest; the first page leads with the newest
   const start = page === 1 ? 0 : 1 + (page - 1) * PER_PAGE;
   const end = 1 + page * PER_PAGE;
+  const shown = POSTS.slice(start, end);
+  const featured = page === 1 ? shown[0] : undefined;
   return (
     <SitePage title={page > 1 ? `Blog, page ${page}` : "Blog"} description="Product updates and engineering notes from the people building Pawabase.">
-      <Header title="Notes from" quiet="the build." line={page > 1 ? `Page ${page} of ${pages}.` : "Product updates and engineering notes from the people building Pawabase."} />
-      <section className="bp-list" aria-label="Posts">
+      <Header title="Blog" line={page > 1 ? `Page ${page} of ${pages}.` : "Product updates, guides and engineering notes from the people building Pawabase."} />
+      <section className="bp-list" aria-label="Posts" data-plain="">
+        {featured && <FeaturedPost post={featured} />}
         <Topics />
-        <Grid shown={POSTS.slice(start, end)} rest={POSTS.slice(end)} key={page} />
+        <Grid shown={featured ? shown.slice(1) : shown} rest={POSTS.slice(end)} key={page} />
         <Pagination page={page} pages={pages} />
       </section>
     </SitePage>
@@ -90,8 +91,8 @@ export function BlogTag({ slug }: { slug: string }) {
   const name = tag?.name ?? slug;
   return (
     <SitePage title={`${name} posts`} description={`Pawabase posts about ${name}.`}>
-      <Header title={name} quiet={`· ${posts.length} post${posts.length === 1 ? "" : "s"}`} line={`Everything we've written about ${name}, newest first.`} />
-      <section className="bp-list" aria-label="Posts">
+      <Header title={name} count={`${posts.length} post${posts.length === 1 ? "" : "s"}`} line={`Everything we've written about ${name}, newest first.`} />
+      <section className="bp-list" aria-label="Posts" data-plain="">
         <Topics active={slug} />
         <Grid shown={posts.slice(0, PER_PAGE)} rest={posts.slice(PER_PAGE)} key={slug} />
       </section>

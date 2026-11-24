@@ -10,43 +10,71 @@ const LINK_NAMES: Record<string, string> = { x: "X", github: "GitHub", linkedin:
 
 const authorsOf = (post: Post) => post.authors.map((id) => AUTHORS[id]).filter((a): a is Author => Boolean(a));
 
-/**
- * A post in the grid: one cell of a hairline grid (cells touch, like pxxl's and the site's own cells). The picture sits rounded
- * inside the cell, then a small mono meta line, the title and three lines of its description. The whole cell is the link.
- */
-export function PostCell({ post, eager = false }: { post: Post; eager?: boolean }) {
+/** The picture at the top of a card, edge to edge; a quiet panel with the topic when a post has no cover. */
+function CardMedia({ post, eager, sizes }: { post: Post; eager: boolean; sizes: string }) {
   const cover = coverOf(post);
   return (
-    <li className="bp-cell">
-      <a href={`/blog/${post.slug}`} className="bp-cell-link">
-        <span className="bp-cell-media">
-          {cover ? (
-            <Picture image={cover.image} lqip={cover.lqip} alt={cover.alt} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 420px" eager={eager} />
-          ) : (
-            <span className="bp-cell-art" aria-hidden="true">
-              <span>{post.category ?? post.tags[0] ?? "Blog"}</span>
-            </span>
-          )}
+    <span className="bp-card-media">
+      {cover ? (
+        <Picture image={cover.image} lqip={cover.lqip} alt={cover.alt} sizes={sizes} eager={eager} />
+      ) : (
+        <span className="bp-card-art" aria-hidden="true"><span>{post.category ?? post.tags[0] ?? "Blog"}</span></span>
+      )}
+    </span>
+  );
+}
+
+/** Topic, date and reading time, in one quiet line. */
+function CardMeta({ post }: { post: Post }) {
+  return (
+    <span className="bp-card-meta">
+      {post.draft && <span className="bp-draft">Draft</span>}
+      <span className="bp-card-topic">{post.category ?? post.tags[0] ?? "Blog"}</span>
+      <span aria-hidden="true">·</span>
+      <time dateTime={post.date}>{shortDate(post.date)}</time>
+      <span aria-hidden="true">·</span>
+      <span>{post.readingTime} min read</span>
+    </span>
+  );
+}
+
+/**
+ * A post in the grid: a bordered card, its picture edge to edge at the top, then the topic, date and reading time, the title and two
+ * lines of its description. The whole card is the link.
+ */
+export function PostCell({ post, eager = false }: { post: Post; eager?: boolean }) {
+  return (
+    <li className="bp-card">
+      <a href={`/blog/${post.slug}`} className="bp-card-link">
+        <CardMedia post={post} eager={eager} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 380px" />
+        <span className="bp-card-body">
+          <CardMeta post={post} />
+          <span className="bp-card-title">{post.title}</span>
+          <span className="bp-card-text">{post.description}</span>
         </span>
-        <span className="bp-cell-meta">
-          {post.draft && <span className="bp-draft">Draft</span>}
-          <time dateTime={post.date}>{shortDate(post.date)}</time>
-          <span aria-hidden="true">·</span>
-          <span>{post.category ?? post.tags[0] ?? "Blog"}</span>
-          <span aria-hidden="true">·</span>
-          <span>{post.readingTime} min</span>
-        </span>
-        <span className="bp-cell-title">{post.title}</span>
-        <span className="bp-cell-text">{post.description}</span>
       </a>
     </li>
   );
 }
 
-/** Empty cells that finish the grid's last row, so its lines run to the edge. */
-export function Filler({ count, columns = 3 }: { count: number; columns?: number }) {
-  const missing = (columns - (count % columns)) % columns;
-  return <>{Array.from({ length: missing }, (_, i) => <li key={i} className="bp-cell bp-cell-empty" aria-hidden="true" />)}</>;
+/** The newest post, wide: its picture on the left, the topic line, a larger title, its description and who wrote it on the right. */
+export function FeaturedPost({ post }: { post: Post }) {
+  return (
+    <a href={`/blog/${post.slug}`} className="bp-featured">
+      <CardMedia post={post} eager sizes="(max-width: 900px) 100vw, 620px" />
+      <span className="bp-featured-body">
+        <CardMeta post={post} />
+        <span className="bp-featured-title">{post.title}</span>
+        <span className="bp-featured-text">{post.description}</span>
+        <span className="bp-meta">
+          <span className="bp-avatars" aria-hidden="true">
+            {authorsOf(post).map((a) => (a.avatar ? <img key={a.id} src={a.avatar} alt="" width={22} height={22} /> : <span key={a.id}>{a.name[0]}</span>))}
+          </span>
+          <span>{authorsOf(post).map((a) => a.name).join(", ")}</span>
+        </span>
+      </span>
+    </a>
+  );
 }
 
 /** Who, when and how long. */
