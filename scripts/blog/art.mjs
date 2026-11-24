@@ -42,29 +42,6 @@ const frame = (w, h, inner) => `<svg xmlns="http://www.w3.org/2000/svg" width="$
   ${inner}
 </svg>`;
 
-/** A sphere drawn in halftone: dots that grow toward the lit edge, orange where the light catches it. */
-function halftoneSphere(cx, cy, r, { pitch = 13, light = [0.75, -0.65], warm = 0.55, seed = 3 } = {}) {
-  const rand = seeded(seed);
-  const [lx, ly] = light;
-  const out = [];
-  for (let y = cy - r; y <= cy + r; y += pitch) {
-    for (let x = cx - r; x <= cx + r; x += pitch) {
-      const dx = (x - cx) / r;
-      const dy = (y - cy) / r;
-      const d = dx * dx + dy * dy;
-      if (d > 1) continue;
-      const z = Math.sqrt(1 - d);
-      const lit = Math.max(0, dx * lx + dy * ly + z * 0.25);
-      const rim = Math.pow(Math.sqrt(d), 6);
-      const size = (pitch / 2) * Math.min(1, 0.12 + lit * 0.85 + rim * 0.35) * (0.92 + rand() * 0.16);
-      if (size < 0.6) continue;
-      const hot = lit > warm || rim * lit > 0.3;
-      out.push(`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${size.toFixed(2)}" fill="${hot ? ORANGE : IVORY}" fill-opacity="${(hot ? 0.5 + lit * 0.5 : 0.1 + lit * 0.35).toFixed(2)}"/>`);
-    }
-  }
-  return out.join("");
-}
-
 /** The hero's field: thin striped bars in clusters, a few warm. */
 function bars(x0, y0, w, h, { count = 160, seed = 7, warmth = 0.12 } = {}) {
   const rand = seeded(seed);
@@ -235,9 +212,8 @@ function versusCover() {
   const W = 1600;
   const H = 900;
   const x = 150;
-  return frame(W, H, `${halftoneSphere(1090, 450, 175, { pitch: 11, seed: 5, warm: 0.75 })}
-  ${rails(W, H)}
-  <rect x="975" y="335" width="230" height="230" rx="44" fill="${INK}" stroke="rgba(255,106,0,.6)"/>
+  return frame(W, H, `${rails(W, H)}
+  <rect x="975" y="335" width="230" height="230" rx="44" fill="#121214" stroke="rgba(252,248,245,.14)"/>
   ${pawabaseMark(1010, 370, 160)}
   ${t(1312, 466, "vs", { size: 44, weight: 700, fill: MUTED, anchor: "middle" })}
   <rect x="1385" y="365" width="170" height="170" rx="34" fill="#121214" stroke="rgba(252,248,245,.14)"/>
@@ -284,8 +260,7 @@ function oneSystem() {
   return frame(W, H, `${t(80, 70, "ONE SYSTEM", { size: 16, weight: 700, fill: ORANGE, spacing: 3 })}
   ${t(80, 108, "Every part shares one database, one set of users and one set of rules.", { size: 24, fill: MUTED })}
   ${nodes.join("\n  ")}
-  ${halftoneSphere(cx, cy, 150, { pitch: 10, seed: 11 })}
-  <rect x="${cx - 128}" y="${cy - 34}" width="256" height="68" rx="34" fill="${INK}" stroke="rgba(255,106,0,.6)"/>
+  <rect x="${cx - 128}" y="${cy - 34}" width="256" height="68" rx="34" fill="#121214" stroke="rgba(255,106,0,.6)"/>
   ${t(cx, cy + 9, "Postgres + your data", { size: 22, weight: 700, anchor: "middle" })}`);
 }
 
@@ -308,8 +283,7 @@ function stitchedVsOne() {
   <line x1="800" y1="60" x2="800" y2="${H - 60}" stroke="${LINE}" stroke-dasharray="3 8"/>
   ${t(870, 80, "ONE SYSTEM", { size: 16, weight: 700, fill: ORANGE, spacing: 3 })}
   ${t(870, 118, "One project, one bill, one set of users and rules.", { size: 22, fill: MUTED })}
-  ${halftoneSphere(1185, 470, 230, { pitch: 12, seed: 4 })}
-  <rect x="1035" y="436" width="300" height="70" rx="35" fill="${INK}" stroke="rgba(255,106,0,.6)"/>
+  <rect x="1035" y="436" width="300" height="70" rx="35" fill="#121214" stroke="rgba(255,106,0,.6)"/>
   ${t(1185, 480, "Pawabase", { size: 30, weight: 700, anchor: "middle" })}`);
 }
 
@@ -419,9 +393,8 @@ function gatewayCover() {
     const wire = `<path d="M 1062 ${ty + 40} C 1180 ${ty + 40}, 1200 450, 1300 450" fill="none" stroke="rgba(255,106,0,.45)" stroke-dasharray="4 7" stroke-width="2"/>`;
     return wire + logoTile(980, ty, 82, 82, p, { label: false });
   }).join("");
-  return frame(W, H, `${halftoneSphere(1395, 450, 170, { pitch: 11, seed: 14, warm: 0.78 })}
-  ${tiles}
-  <rect x="1300" y="370" width="160" height="160" rx="36" fill="${INK}" stroke="rgba(255,106,0,.65)"/>
+  return frame(W, H, `${tiles}
+  <rect x="1300" y="370" width="160" height="160" rx="36" fill="#121214" stroke="rgba(252,248,245,.14)"/>
   ${pawabaseMark(1330, 400, 100)}
   ${rails(W, H)}
   <circle cx="${x + 6}" cy="172" r="6" fill="${ORANGE}"/>
@@ -469,7 +442,7 @@ const POSTS = {
     keys: keysDiagram(),
   },
   "2026/11-15-introducing-pawabase": {
-    cover: cover({ kicker: "Announcing", title: "Introducing Pawabase", line: "The complete backend for anything you build, from a weekend project to the system a company runs on.", art: `${bars(820, 120, 700, 640, { seed: 9 })}${halftoneSphere(1250, 1040, 560, { pitch: 14, light: [0.15, -1], warm: 0.92 })}` }),
+    cover: cover({ kicker: "Announcing", title: "Introducing Pawabase", line: "The complete backend for anything you build, from a weekend project to the system a company runs on.", art: `${bars(900, 140, 620, 600, { seed: 9 })}` }),
     "one-system": oneSystem(),
     frameworks: frameworks(),
     "stitched-vs-one": stitchedVsOne(),
