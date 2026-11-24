@@ -1,6 +1,35 @@
 {
   "posts": [
     {
+      "slug": "what-is-a-baas",
+      "id": "2026/11-24-what-is-a-baas",
+      "title": "What is a BaaS? Backend as a service, explained",
+      "description": "What a backend as a service is, what's inside one, how a request moves through it, when it's the right choice and when it isn't, and how to pick one.",
+      "date": "2026-11-24",
+      "updated": null,
+      "authors": [
+        "team"
+      ],
+      "tags": [
+        "BaaS",
+        "Backend",
+        "Guide"
+      ],
+      "category": "Guide",
+      "cover": "./assets/cover.png",
+      "coverAlt": "The title What is a BaaS? beside thin striped bars, on the Pawabase blog's dark ground",
+      "featured": false,
+      "draft": false,
+      "words": 3459,
+      "readingTime": 16,
+      "source": "content/blog/2026/11-24-what-is-a-baas/index.mdx",
+      "related": [
+        "best-backend-as-a-service-platforms-2026",
+        "build-a-saas-backend-in-an-afternoon",
+        "introducing-pawabase"
+      ]
+    },
+    {
       "slug": "call-ai-models-without-exposing-your-keys",
       "id": "2026/11-16-call-ai-models-without-exposing-your-keys",
       "title": "Call any AI model from your app without exposing your keys",
@@ -82,9 +111,9 @@
       "readingTime": 14,
       "source": "content/blog/2026/11-13-best-backend-as-a-service-platforms-2026/index.mdx",
       "related": [
+        "what-is-a-baas",
         "introducing-pawabase",
-        "pawabase-vs-supabase",
-        "build-a-saas-backend-in-an-afternoon"
+        "pawabase-vs-supabase"
       ]
     },
     {
@@ -140,9 +169,9 @@
       "readingTime": 7,
       "source": "content/blog/2026/11-09-build-a-saas-backend-in-an-afternoon/index.mdx",
       "related": [
+        "what-is-a-baas",
         "best-backend-as-a-service-platforms-2026",
-        "introducing-pawabase",
-        "pawabase-vs-supabase"
+        "introducing-pawabase"
       ]
     }
   ],
@@ -164,11 +193,21 @@
     {
       "slug": "backend",
       "name": "Backend",
-      "count": 3
+      "count": 4
+    },
+    {
+      "slug": "baas",
+      "name": "BaaS",
+      "count": 2
     },
     {
       "slug": "comparison",
       "name": "Comparison",
+      "count": 2
+    },
+    {
+      "slug": "guide",
+      "name": "Guide",
       "count": 2
     },
     {
@@ -184,16 +223,6 @@
     {
       "slug": "announcement",
       "name": "Announcement",
-      "count": 1
-    },
-    {
-      "slug": "baas",
-      "name": "BaaS",
-      "count": 1
-    },
-    {
-      "slug": "guide",
-      "name": "Guide",
       "count": 1
     },
     {
