@@ -1,0 +1,358 @@
+---
+title: "What is a BaaS? Backend as a service, explained"
+description: What a backend as a service is, what's inside one, how a request moves through it, when it's the right choice and when it isn't, and how to pick one.
+authors: [team]
+tags: [BaaS, Backend, Guide]
+category: Guide
+cover: ./assets/cover.png
+coverAlt: The title What is a BaaS? beside thin striped bars, on the Pawabase blog's dark ground
+---
+
+A **backend as a service (BaaS)** is a ready-made backend you rent instead of build. It gives your app a database with an API, user
+sign-in, access rules, file storage, realtime updates, background work and email, all run for you, and you use it from your web app,
+mobile app or server through an SDK or plain HTTP. You write the product. The provider runs the machinery underneath it.
+
+That's the one-sentence answer. The rest of this guide is the long one: what a backend actually does, what a BaaS replaces, how a
+single request travels through one, where the idea came from, what it's good and bad at, the worries people raise (lock-in, cost,
+scale, security) and how to choose one without regretting it two years later.
+
+<Callout type="tip" title="The short version">
+A BaaS turns the backend from something you build and operate into something you call. You trade some control over the server for a
+great deal of time: no auth system to write, no database to patch, no file server to secure, no job queue to babysit. It's the right
+choice for most new products, and the wrong one only when your product's core *is* unusual backend infrastructure.
+</Callout>
+
+## First, what is a backend?
+
+Every app has two halves. The **frontend** is what people see and touch: the screens of a mobile app, the pages of a web app. The
+**backend** is everything that has to happen somewhere other than the person's device, because it must be shared, trusted or
+remembered.
+
+Think of a food delivery app. The menu you scroll is the frontend. But the menu itself lives somewhere. When you place an order,
+something has to check you're signed in, confirm the restaurant is open, save the order, charge your card, tell the restaurant, send
+you a receipt, and push "your rider is two minutes away" to your phone. None of that can run only on your phone: other people need
+to see it, it must not be tampered with, and it has to still be there tomorrow. That's the backend.
+
+In practice almost every backend does the same handful of jobs:
+
+- **Store data** (users, orders, messages, products) in a database, and keep it consistent when many people write at once.
+- **Expose that data through an API**, so apps can read and change it over the internet.
+- **Know who is calling**: sign-up, sign-in, passwords, social logins, sessions, two-factor codes, password resets.
+- **Decide what each caller may do**: you may read your own orders, not someone else's; an admin may refund, a customer may not.
+- **Keep files**: profile pictures, receipts, uploads, with links that only the right people can open.
+- **Push changes live**, so a chat message or an order status appears without refreshing.
+- **Do work in the background**: send emails, resize images, retry a failed payment, run a nightly report.
+- **Talk to other systems**: receive webhooks from a payment provider, send events to a CRM, call AI models.
+- **Stay up and stay safe**: backups, monitoring, scaling under load, security patches, logs when something breaks.
+
+Building that list from scratch is a lot of work, and most of it is the same work in every product. That repetition is exactly what
+a BaaS exists to remove.
+
+## So what is a backend as a service?
+
+A backend as a service packages those common jobs into one hosted product. Instead of writing a sign-in system, you switch sign-in
+on and call it. Instead of designing an API for your orders table, the BaaS gives you one the moment the table exists. Instead of
+setting up a file server and signing download links, you upload to a bucket and get a link back.
+
+![Your apps on top (web, mobile, an AI agent, your own server) call the backend as a service in the middle: database and API, sign-in and users, access rules, file storage, realtime, logic and jobs, email, webhooks and events. Underneath, servers, scaling, backups, patches and monitoring are run for you.](./assets/baas-stack.png "Your apps call the building blocks. The provider runs everything underneath them.")
+
+Three things make something a BaaS rather than just "hosting":
+
+1. **You consume building blocks, not machines.** You never pick a server size to run your sign-in system. You call sign-in.
+2. **Your apps talk to it directly.** A web or mobile app can call a BaaS from the browser or phone, safely, because the access rules
+   run on the BaaS, not in the app. A traditional backend needs your own server in the middle for that.
+3. **Someone else operates it.** Uptime, scaling, backups and security patches are the provider's job.
+
+You still write code. You write the parts that make your product *yours*: the screens, the business rules, the workflows. What you
+stop writing is the plumbing that every product needs and no customer ever thanks you for.
+
+## Where the idea came from
+
+The term took off around 2011, when mobile apps exploded and small teams found themselves needing a backend before they had anyone to
+build one. Early services such as Parse and Firebase offered a database, user accounts and push notifications you could call
+straight from an iPhone or Android app. Parse was bought by Facebook in 2013 and shut down in 2017, which taught the industry an
+important lesson about lock-in that we'll come back to. Firebase was bought by Google in 2014 and grew into one of the best-known
+platforms in the category.
+
+The next wave, roughly from 2020, rebuilt the idea around open technology: real SQL databases (very often Postgres) instead of
+proprietary ones, open-source code you could run yourself, and standard APIs. That answered the lock-in worry and made BaaS a
+serious option for products expected to grow into businesses, not just for prototypes.
+
+The wave happening now is about **completeness**. Early platforms gave you a database and auth and left the rest (workflows, email,
+background jobs, organizations for business customers, AI) to other services you glued together. Newer platforms try to carry the
+whole backend: the things a product needs after launch, not just on day one.
+
+## What's inside a BaaS, block by block
+
+Not every platform has every block, and the depth of each varies enormously. That variation is most of what separates them. Here is
+what each block does and the questions worth asking about it.
+
+### Database and data API
+
+The heart of every BaaS. You define tables (or collections) and the platform gives you an API to create, read, update and delete
+records, usually with filtering, sorting, pagination and relations ("this order, with its items and its customer").
+
+What to look at: is it a real database you can query with SQL and export with standard tools, or a proprietary store? Can you change
+the shape of a table safely once it holds data, with a history of those changes? Can you add indexes when lists get slow?
+
+### Sign-in and users
+
+Accounts, passwords, email verification, password resets, social logins (Google, GitHub, Apple…), magic links, passkeys,
+multi-factor codes, sessions and devices. This is the block teams most underestimate: a basic sign-in form takes a day, a *secure*
+one with resets, rate limits, lockouts and session revocation takes weeks.
+
+If you sell to companies, look further: **organizations** (a customer company with many members), roles inside them, invitations,
+verified company domains, and enterprise single sign-on (SSO), because business customers ask for these early.
+
+### Access rules
+
+The block that decides whether a BaaS is safe to call from a browser. Access rules say, for every operation, who may do it: "a
+signed-in user may read orders where `user_id` is their own id", "only an admin of the organization may delete a project".
+
+What to look at: can one rule protect everything (records, files, realtime channels and custom logic), or does each have its own
+rule system? Most security incidents in young products are not clever attacks. They're two rules that disagree, or one that was
+forgotten.
+
+### File storage
+
+Buckets for uploads with size and type limits, public or private files, links that expire, and often image resizing on the fly.
+Good storage applies the same access rules as your data, so "only the owner may download their invoice" is one rule, not a second
+system.
+
+### Realtime
+
+Live updates pushed to connected apps: chat messages, notifications, a dashboard that ticks, "Ada is typing", who's online. Some
+platforms stream database changes; others give you channels you publish to. Look at how realtime respects your access rules, since a
+live feed that leaks other people's data is still a leak.
+
+### Logic: functions and workflows
+
+Not everything is "save this record". Placing an order might check stock, charge a card, notify the restaurant and email a receipt.
+BaaS platforms handle this in one of two ways:
+
+- **Functions**: code you write and deploy, which the platform runs when called or when something happens.
+- **Workflows (flows)**: steps you connect visually or declare, such as "when an order is created, charge the card, then send this
+  email", with retries, logs and history built in.
+
+Many platforms offer one or both. What matters is whether your logic can use the same data, users and rules as everything else,
+without you wiring credentials between services.
+
+### Background jobs, schedules and events
+
+Work that shouldn't make a user wait: sending a thousand emails, processing an upload, retrying a payment that failed, a report
+every night at 3 a.m. Look for queues with retries, schedules (cron), and events that other parts of the system can react to.
+
+### Email
+
+Verification emails, password resets, receipts, notifications. Some platforms only send their own auth emails and leave everything
+else to a separate email service. More complete ones let you design templates and send any message, with delivery logs.
+
+### Webhooks and integrations
+
+Your backend rarely lives alone. Payment providers, messaging services and CRMs send you webhooks ("this payment succeeded"), and you
+send events out to them. A BaaS that verifies incoming webhooks and retries outgoing ones saves a surprising amount of fragile code.
+
+### AI
+
+The newest block. Calling AI models from an app has the same problem as any secret: you can't put a provider's API key in a browser.
+Platforms now offer gateways that keep keys on the server and apply your access rules to who may call which model, plus agents,
+search by meaning (vectors), and connections for AI coding assistants through the Model Context Protocol (MCP).
+
+### Operations: the parts you notice when things go wrong
+
+A dashboard to browse data and users, request logs, error tracking, usage against your limits, backups you can restore, and
+separate environments (development, staging, production) so you never test on real customers. These don't show up in a demo, and
+they decide how your 2 a.m. incidents go.
+
+## How a request travels through a BaaS
+
+It helps to follow one request end to end. Say a customer taps **Place order** in your mobile app.
+
+<Steps>
+
+### The app calls the API
+
+The app sends the new order to the BaaS's data API, with the customer's sign-in token attached. No server of yours sits in between.
+
+```http title="What the app sends"
+POST /rest/v1/orders
+Authorization: Bearer <the customer's sign-in token>
+Content-Type: application/json
+
+{ "restaurant_id": "r_19", "items": [{ "dish_id": "d_4", "quantity": 2 }] }
+```
+
+### The BaaS checks who is calling
+
+It verifies the token: who this is, whether the session is still valid, whether they belong to an organization.
+
+### The access rules decide
+
+The rule for creating orders runs: is this a signed-in customer, and are they creating an order for themselves? If not, the request
+stops here with a clear refusal, whatever the app tried to send.
+
+### The data is validated and saved
+
+Fields are checked against the table's definition (`quantity` must be a positive number) and the order is written to the database.
+
+### Events fire
+
+Saving the order emits an event, `orders.created`. Anything listening can react, without slowing down the customer's request.
+
+### Background work runs
+
+A workflow subscribed to that event charges the card, notifies the restaurant over a webhook, and sends a receipt email, each step
+retried if it fails and logged either way.
+
+### Everyone sees it live
+
+The restaurant's dashboard, connected over realtime, shows the new order the moment it's saved.
+
+</Steps>
+
+In a traditional setup, every one of those steps is code you'd write, deploy and keep running, across several services. With a BaaS,
+most of them are configuration, and the code you do write is about your restaurant business, not about tokens and retries.
+
+## BaaS compared with the other ways to build a backend
+
+A BaaS isn't the only way to avoid building everything from scratch. Here's how it compares with the common alternatives.
+
+| Approach | You still build and run | Best for |
+| --- | --- | --- |
+| **Your own backend** | Everything | Unusual infrastructure |
+| **PaaS** | The whole backend app | Writing your own backend |
+| **Serverless functions** | Data, auth, rules, wiring | Glue and small APIs |
+| **Headless CMS** | Users, logic, transactions | Sites and catalogues |
+| **Low-code tools** | A customer-facing backend | Internal operations |
+| **BaaS** | Your product logic and screens | Most new products |
+
+"Your own backend" means a framework such as Django, Rails, Laravel or Express on cloud servers: total control, and every item on
+the list at the top of this guide to build and keep running. A PaaS (platform as a service) runs that code for you but leaves the
+backend itself to you. Serverless functions remove the servers, not the work of building auth, data and rules.
+
+These mix well. Plenty of teams use a BaaS for data, auth and storage, and still keep a small server of their own for one unusual
+job. A good BaaS makes that easy rather than all-or-nothing.
+
+## When a BaaS is the right choice
+
+- **You're building a product, not infrastructure.** Your edge is the experience, the workflow, the market, not a novel database.
+- **You're a small team.** Two engineers can't build auth, storage, realtime, jobs and email *and* the product, and keep it all safe.
+- **Speed matters.** Going from idea to something real customers use in weeks instead of months is often the whole game.
+- **You want security you didn't have to invent.** Password storage, token handling and session revocation done by people who do
+  nothing else.
+- **You have web, mobile and AI clients.** One backend all of them call directly, with the same rules, beats three API layers.
+
+## When it isn't
+
+- **Your core product is unusual backend infrastructure**: a new database, a trading engine with microsecond needs, a video
+  transcoding pipeline. You'll want to own that layer.
+- **You have strict rules about where data lives and who operates it**, and no provider meets them. Many platforms can be
+  self-hosted or run in specific regions, so check before ruling the category out.
+- **You need a feature the platform doesn't have and can't host next to it.** That's why the escape hatches below matter.
+
+## The honest worries, answered
+
+### "We'll be locked in."
+
+The fear is real. Parse's shutdown in 2017 forced thousands of apps to migrate in a hurry. The defence is to pick a platform whose
+foundations are standard: a real SQL database (Postgres is the common choice) you can connect to and export with ordinary tools,
+standard sign-in protocols (OAuth, OpenID Connect, SAML), files you can download in bulk, and ideally an open-source or
+self-hostable option. Then leaving is a project, not a rewrite.
+
+### "It won't scale."
+
+Modern platforms run on the same databases and clouds you'd use yourself, and serve products with millions of users. The scaling
+questions to ask are concrete: can I get a dedicated database when shared isn't enough, can I add indexes and read replicas, what
+are the rate limits, and what happens when I hit a plan limit: does the app slow down or stop?
+
+### "It'll get expensive."
+
+At small scale a BaaS is almost always cheaper than the engineering time it replaces. At large scale it depends on the pricing
+model, so model your own numbers: requests, database size, storage, bandwidth, emails, and what happens to the bill if you double.
+Watch for prices in a currency you don't earn in, and for limits that force a big plan jump for one small need.
+
+### "Is it secure to call from the browser?"
+
+Yes, when access rules are done properly, and that "when" is the whole point. The keys in your app are public by design. Security
+comes from rules evaluated on the server for every request. Test your rules like you test your code, and prefer platforms where one
+rule system covers data, files, realtime and logic, so there's no forgotten corner.
+
+### "What about compliance?"
+
+Ask where data is stored and processed, whether you can choose the region, what certifications the provider holds, whether you can
+export and delete a person's data on request, and whether there's a data processing agreement. These answers matter more every year,
+and especially if your customers are businesses or you operate under data protection laws.
+
+## How to choose a BaaS: a checklist
+
+Work through these with your own product in mind, not a demo app:
+
+1. **The data model.** Is it a real SQL database? Can you query it, export it and change table shapes safely with history?
+2. **Access rules.** Can one rule protect records, files, channels and logic? Can you test rules before shipping them?
+3. **Sign-in depth.** Social logins, passkeys, multi-factor, organizations and roles, invitations, enterprise SSO if you sell to
+   companies.
+4. **Logic.** Functions, workflows or both? Do they share the same data and rules, with retries and history?
+5. **Background work.** Queues, retries, schedules, events and outgoing webhooks you can inspect.
+6. **Email.** Templates and delivery for any message, not just auth emails.
+7. **AI.** A way to call models without exposing keys, rules on who may call them, and support for AI coding assistants.
+8. **Operations.** Separate environments, backups you have actually restored, request logs, usage dashboards, a status page.
+9. **The exit.** Standard database, standard protocols, bulk export, a self-hosting option.
+10. **Pricing.** Your numbers at today's size, at ten times, and what happens at each limit.
+
+If you want a ranked comparison of the main platforms on these criteria, we wrote one:
+[the 10 best backend-as-a-service platforms of 2026](/blog/best-backend-as-a-service-platforms-2026).
+
+## Where BaaS is heading
+
+Three shifts are under way. First, **completeness**: platforms are absorbing the jobs teams used to glue on from other vendors
+(workflows, email, background jobs, organizations, observability) because every extra vendor is another bill, another set of users
+and another set of rules that can disagree. Second, **AI**: both as a feature (model gateways, agents, search by meaning) and as a
+user, with AI coding assistants building and changing backends through protocols like MCP. Third, **openness**: real SQL databases,
+standard protocols and self-hosting are becoming the expectation rather than a differentiator.
+
+## Where Pawabase fits
+
+We build [Pawabase](/), so take this paragraph as our view rather than a neutral one. Pawabase is a backend platform on Postgres that
+aims to carry the whole system: a REST API for every table, sign-in with organizations, passkeys, multi-factor and enterprise SSO,
+one rule system across data, files and realtime, visual flows, schedules and webhooks, transactional email, file storage, an AI
+gateway and agents, and an MCP server for AI tools, with request logs and backups in one dashboard. If you want to see how it
+compares with the best-known open-source option, read
+[Pawabase vs Supabase](/blog/pawabase-vs-supabase); if you want to try it, you can
+[start free](https://dashboard.pawabase.com/signup).
+
+## Frequently asked questions
+
+### What does BaaS stand for?
+
+Backend as a service. It's sometimes written MBaaS (mobile backend as a service), from the era when the category served mobile apps
+first.
+
+### Is a BaaS the same as serverless?
+
+They overlap but aren't the same. "Serverless" usually means you run your own code without managing servers, typically as functions.
+A BaaS gives you ready-made backend building blocks (database, auth, storage…) so there's less code to write in the first place. Many
+BaaS platforms include serverless functions as one of their blocks.
+
+### Is Firebase a BaaS?
+
+Yes. Firebase is one of the best-known examples, and it helped define the category in the 2010s.
+
+### Do I still need a backend developer with a BaaS?
+
+You need someone who thinks carefully about data models, access rules and workflows, because those decide whether your product is
+correct and safe. What you no longer need is a team building and operating the plumbing underneath.
+
+### Can I use a BaaS with my existing server or framework?
+
+Usually, yes. Your own server can call a BaaS over HTTP like any client, typically with a secret server key. Many teams keep their
+existing framework for one specialised job and use a BaaS for the rest.
+
+### Can I move off a BaaS later?
+
+It depends on the platform. If your data lives in a standard database you can export, sign-in uses standard protocols, and files can
+be downloaded in bulk, moving is a planned project. If the data store is proprietary, it's much harder, so check before you start.
+
+### Is a BaaS only for prototypes?
+
+Not any more. Early platforms were mostly used for prototypes and small apps. Today's platforms run production products with large
+user bases, especially those built on standard databases with dedicated database options for when shared resources aren't enough.

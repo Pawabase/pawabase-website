@@ -436,7 +436,33 @@ function keysDiagram() {
 
 // ── the posts' pictures ───────────────────────────────────────────────────
 
+/** What a BaaS is: your apps on top, the building blocks you call in the middle, what is run for you underneath. */
+function baasStack() {
+  const W = 1600;
+  const H = 860;
+  const apps = [["Web app", "React, Vue, Next.js…"], ["Mobile app", "iOS, Android, Flutter"], ["AI agent", "tools over MCP or HTTP"], ["Your server", "any language"]];
+  const blocks = [
+    ["Database + API", "REST for every table"], ["Sign-in & users", "accounts, orgs, MFA"], ["Access rules", "who may do what"], ["File storage", "uploads, links"],
+    ["Realtime", "live updates"], ["Logic & jobs", "flows, schedules"], ["Email", "templates, delivery"], ["Webhooks & events", "in and out"],
+  ];
+  const appTiles = apps.map(([a, b], i) => tile(120 + i * 345, 150, 325, 96, a, b)).join("");
+  const blockTiles = blocks.map(([a, b], i) => tile(150 + (i % 4) * 335, 395 + Math.floor(i / 4) * 120, 315, 100, a, b, { hot: i === 2 })).join("");
+  const arrows = apps.map((_, i) => `<line x1="${282 + i * 345}" y1="252" x2="${282 + i * 345}" y2="322" stroke="rgba(255,106,0,.45)" stroke-dasharray="4 6" stroke-width="2"/>`).join("");
+  return frame(W, H, `${t(120, 92, "YOUR APPS", { size: 16, weight: 700, fill: FAINT, spacing: 3 })}
+  ${appTiles}${arrows}
+  <rect x="100" y="330" width="1400" height="320" rx="24" fill="none" stroke="rgba(255,106,0,.5)"/>
+  ${t(130, 372, "THE BACKEND AS A SERVICE: YOU CALL IT", { size: 16, weight: 700, fill: ORANGE, spacing: 3 })}
+  ${blockTiles}
+  <rect x="100" y="690" width="1400" height="120" rx="24" fill="#121214" stroke="rgba(252,248,245,.12)"/>
+  ${t(130, 736, "RUN FOR YOU", { size: 16, weight: 700, fill: FAINT, spacing: 3 })}
+  ${t(130, 778, "Servers, scaling, backups, security patches, monitoring and uptime: the provider's job, not yours.", { size: 24, fill: MUTED })}`);
+}
+
 const POSTS = {
+  "2026/11-24-what-is-a-baas": {
+    cover: cover({ kicker: "Guide", title: "What is a BaaS?", line: "Backend as a service, explained: what's inside, how it works, and when it's the right choice.", art: `${bars(900, 140, 620, 600, { seed: 44, warmth: 0.16 })}` }),
+    "baas-stack": baasStack(),
+  },
   "2026/11-16-call-ai-models-without-exposing-your-keys": {
     cover: gatewayCover(),
     keys: keysDiagram(),
