@@ -51,5 +51,5 @@ Keep the request id from the error and open it in Studio → Activity: the trace
 steps. Reproduce as the intended caller first; use a secret key only as a controlled comparison. For server internals, the
 runtime's `ARCHITECTURE.md`, route modules and tests are the source, not guesses about service boundaries.
 
-Docs: `environments/overview.mdx`, `environments/promote.mdx`, `tools/management-client.mdx`, `tools/admin-client.mdx`,
-`tools/iac/overview.mdx`, `activity/overview.mdx`, `backups/overview.mdx`.
+Docs: `environments/overview.mdx`, `environments/promote.mdx`, `developers/management-client.mdx`, `developers/admin-client.mdx`,
+`iac/overview.mdx`, `activity/overview.mdx`, `backups/overview.mdx`.

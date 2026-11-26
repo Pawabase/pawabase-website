@@ -1,6 +1,7 @@
 # Python client
 
-`pawabase` (verified at **0.10.0**) needs Python 3.11+ and `httpx`. `Pawabase` blocks, `AsyncPawabase` has the same methods
+`pawabase` (app client verified at **0.10.0**; later releases add `pb.bachs` in 0.11 and the separate `pawabase.cloud` for
+integrations in 0.12+, without changing what is below) needs Python 3.11+ and `httpx`. `Pawabase` blocks, `AsyncPawabase` has the same methods
 awaited. Live channels and live queries need the async client and the `realtime` extra. Check the installed version first:
 `python -c "import pawabase; print(pawabase.__version__)"`.
 

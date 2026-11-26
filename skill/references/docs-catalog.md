@@ -279,31 +279,31 @@ Generated from the docs checkout at commit `e446b6a`. Use this only to find a pa
 
 ## tools
 
-- `tools/admin-client.mdx` — Admin client
-- `tools/iac/agents.mdx` — Agents, knowledge and connections
-- `tools/iac/buckets.mdx` — Buckets
-- `tools/iac/ci-cd.mdx` — CI/CD with GitHub Actions
-- `tools/iac/commands.mdx` — Commands
-- `tools/iac/emulate.mdx` — Emulate
-- `tools/iac/events.mdx` — Events and schedules
-- `tools/iac/examples.mdx` — Examples
-- `tools/iac/fields.mdx` — Fields
-- `tools/iac/flow-blocks.mdx` — Flow blocks
-- `tools/iac/flows.mdx` — Flows
-- `tools/iac/limits.mdx` — Limits and roadmap
-- `tools/iac/mail-templates.mdx` — Mail templates
-- `tools/iac/overview.mdx` — Infrastructure as code
-- `tools/iac/plan-and-deploy.mdx` — Plan and deploy
-- `tools/iac/policies.mdx` — Policies
-- `tools/iac/project.mdx` — Project files
-- `tools/iac/quickstart.mdx` — Quickstart
-- `tools/iac/relations-and-indexes.mdx` — Relations and indexes
-- `tools/iac/roles.mdx` — Roles
-- `tools/iac/routes.mdx` — Routes
-- `tools/iac/schemas.mdx` — Schemas
-- `tools/iac/secrets-and-env.mdx` — Secrets and env
-- `tools/iac/tables.mdx` — Tables
-- `tools/iac/validate.mdx` — Validate
-- `tools/iac/webhooks.mdx` — Webhooks
-- `tools/management-client.mdx` — Management client
-- `tools/overview.mdx` — Tools
+- `developers/admin-client.mdx` — Admin client
+- `iac/agents.mdx` — Agents, knowledge and connections
+- `iac/buckets.mdx` — Buckets
+- `iac/ci-cd.mdx` — CI/CD with GitHub Actions
+- `iac/commands.mdx` — Commands
+- `iac/emulate.mdx` — Emulate
+- `iac/events.mdx` — Events and schedules
+- `iac/examples.mdx` — Examples
+- `iac/fields.mdx` — Fields
+- `iac/flow-blocks.mdx` — Flow blocks
+- `iac/flows.mdx` — Flows
+- `iac/limits.mdx` — Limits and roadmap
+- `iac/mail-templates.mdx` — Mail templates
+- `iac/overview.mdx` — Infrastructure as code
+- `iac/plan-and-deploy.mdx` — Plan and deploy
+- `iac/policies.mdx` — Policies
+- `iac/project.mdx` — Project files
+- `iac/quickstart.mdx` — Quickstart
+- `iac/relations-and-indexes.mdx` — Relations and indexes
+- `iac/roles.mdx` — Roles
+- `iac/routes.mdx` — Routes
+- `iac/schemas.mdx` — Schemas
+- `iac/secrets-and-env.mdx` — Secrets and env
+- `iac/tables.mdx` — Tables
+- `iac/validate.mdx` — Validate
+- `iac/webhooks.mdx` — Webhooks
+- `developers/management-client.mdx` — Management client
+- `developers/overview.mdx` — Tools

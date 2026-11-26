@@ -17,7 +17,7 @@ import { headHtml } from "../../src/seo/head.ts";
 import { canonical, ogImage, ogImagePath, PAGES } from "../../src/seo/pages.ts";
 import { absolute, SITE, SITE_URL } from "../../src/seo/site.ts";
 import { esc, ROOT } from "./lib.mjs";
-import { buildSkill } from "../skill/bundle.mjs";
+import { buildShortSkill, buildSkill } from "../skill/bundle.mjs";
 import blog from "../../src/content/blog.json" with { type: "json" };
 import { cardPng } from "../blog/og.mjs";
 import { articleHtml, jsonFeed, rss } from "../blog/feeds.mjs";
@@ -219,6 +219,7 @@ ${PLANS.map((p) => `- ${p.name}: ${naira(p.price)} per month. ${p.description}`)
 ## Documentation
 
 - [SKILL.md](${SITE_URL}/SKILL.md): the complete guide for AI coding agents adding Pawabase to a project, with every client, rule and docs link.
+- [skill/SKILL.md](${SITE_URL}/skill/SKILL.md): the same skill, short: the rules and a routing table, with each reference a separate file to fetch when needed.
 - [Documentation](${SITE.docs}): guides, the API reference and a quickstart.
 - [Pawabase Cloud](${SITE.dashboard}/signup): create a project.
 - [GitHub](https://github.com/Pawabase): open source repositories.
@@ -291,12 +292,17 @@ write(
 /SKILL.md
   Content-Type: text/markdown; charset=utf-8
   Access-Control-Allow-Origin: *
+
+/skill/*
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
 `,
 );
 
 // ── SKILL.md: the Pawabase skill for coding agents, built from skill/ on every build ──
 try {
   write(`${DIST}/SKILL.md`, buildSkill());
+  for (const [file, text] of Object.entries(buildShortSkill())) write(`${DIST}/skill/${file}`, text);
 } catch (error) {
   problems.push(`/SKILL.md: ${error.message}`);
 }

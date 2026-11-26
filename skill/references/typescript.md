@@ -1,6 +1,7 @@
 # TypeScript and JavaScript client
 
-`@pawabase/client` (verified at **0.8.0**) runs in browsers, React, Node, Deno, Bun and edge runtimes on standard `fetch` and
+`@pawabase/client` (app client verified at **0.8.0**; later releases add `pawabase.bachs` in 0.9 and the separate
+`@pawabase/client/cloud` for integrations in 0.10+, without changing what is below) runs in browsers, React, Node, Deno, Bun and edge runtimes on standard `fetch` and
 `WebSocket`, as ESM or CommonJS. One client shares one session across every module. Check the installed version first:
 `node -p "require('@pawabase/client/package.json').version"`.
 

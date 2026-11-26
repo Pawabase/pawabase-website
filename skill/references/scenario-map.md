@@ -74,7 +74,7 @@ Use this when a request spans several Pawabase areas or uses product language ra
 | Semantic search | `ai/vector-search.mdx` | Configure vector field/index and list policy. |
 | Agent using project data | `ai/agents/overview.mdx`, `ai/agents/approvals-and-limits.mdx` | Caller authority, approvals, and cost limits. |
 | Q&A over documents | `ai/knowledge/overview.mdx` | Ingest and search under knowledge rules. |
-| Versioned backend definitions | `tools/iac/overview.mdx` | `pawabase-iac` is a separate package from the Python client. |
+| Versioned backend definitions | `iac/overview.mdx` | `pawabase-iac` is a separate package from the Python client. |
 | Secret/key rotation | `environments/api-keys.mdx`, `secrets/overview.mdx` | Replacement and revocation order affect running clients. |
 | Backup/restore | `backups/overview.mdx`, `backups/restore.mdx` | Object bytes, raw keys and secret values are excluded. |
 | Deploy/release/rollback | `environments/promote.mdx`, `environments/api-versions.mdx` | Promote definitions; inspect compatibility and active traffic. |

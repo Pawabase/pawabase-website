@@ -12,7 +12,7 @@ import { defineConfig, type Plugin } from "vite";
 import { imagetools } from "vite-imagetools";
 
 // @ts-expect-error: a plain ES module without types
-import { buildSkill } from "./scripts/skill/bundle.mjs";
+import { buildShortSkill, buildSkill } from "./scripts/skill/bundle.mjs";
 // @ts-expect-error: a plain ES module without types
 import { CONTENT, writeIndex } from "./scripts/blog/collect.mjs";
 // @ts-expect-error: a plain ES module without types
@@ -25,6 +25,12 @@ const skillFile = (): Plugin => ({
     server.middlewares.use("/SKILL.md", (_req, res) => {
       res.setHeader("Content-Type", "text/markdown; charset=utf-8");
       res.end(buildSkill());
+    });
+    server.middlewares.use("/skill", (req, res, next) => {
+      const text = buildShortSkill()[(req.url ?? "/").replace(/^\/+/, "").split("?")[0]];
+      if (text === undefined) return next();
+      res.setHeader("Content-Type", "text/markdown; charset=utf-8");
+      res.end(text);
     });
   },
 });
